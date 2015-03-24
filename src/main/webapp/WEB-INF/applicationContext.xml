@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="1" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="gefp" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<context:annotation-config />
+
+	<tx:annotation-driven />
+
+	<context:component-scan base-package="gefp.model" />
+
+	<security:authentication-manager>
+		<!-- <security:authentication-provider user-service-ref="userService" /> -->
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				authorities-by-username-query="SELECT u.username, r.role_name from users as u, roles as r, user_roles as ur where u.username = ? and u.user_id = ur.user_id and r.id = ur.role_id;" />
+		</security:authentication-provider>
+		
+	</security:authentication-manager>
+
+	
+	<!-- authentication-success-handler-ref="authenticationSuccessHandler" -->
+	<security:http auto-config="true" use-expressions="true">
+		 <security:form-login login-page="/login.html"
+			default-target-url="/welcome.html" always-use-default-target="true"
+			authentication-failure-url="/login.html?error=true" />
+		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/advisor/**" access="hasAnyRole('ADMIN', 'ADVISOR')" />
+		<security:intercept-url pattern="/student/**" access="hasAnyRole('ADMIN', 'ADVISOR','STUDENT')" />
+		<security:intercept-url pattern="/user/profile/**" access="authenticated" />
+		<security:intercept-url pattern="/autocomplete/user**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
+		<security:intercept-url pattern="/search/users.html" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
+		<security:intercept-url pattern="plan/view/**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
+		
+		<security:access-denied-handler error-page="/403.jsp" />
+	</security:http>
+	
+	<security:global-method-security pre-post-annotations="enabled" />
+	
+</beans>

@@ -1,0 +1,14 @@
+drop table user_checkpoints;
+drop table flightplan_checkpoints;
+drop table department_flightplan;
+drop table flightplan_stages;
+drop table flightplan_runways;
+drop table checkpoints;
+drop table stages;
+drop table runways;
+drop table user_roles;
+drop table users;
+drop table departments;
+drop table flightplan;
+drop table roles;
+drop sequence hibernate_sequence;
