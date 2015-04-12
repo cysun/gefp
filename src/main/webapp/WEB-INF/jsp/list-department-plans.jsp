@@ -63,14 +63,14 @@
 										</thead>
 										<tbody>
 
-											<c:forEach items="${department.oldPlans}" var="plan">
+											<c:forEach items="${department.plans}" var="plan">
 
 												<tr>
 													<td>${plan.id}</td>
 													<td>
 														${plan.name}
 														<c:choose>
-															<c:when test="${plan.id == department.currentPlan.id}">
+															<c:when test="${plan.id == department.defaultPlan.id}">
 																<span class="label label-success">Official Plan</span>
 															</c:when>
 															<c:otherwise>

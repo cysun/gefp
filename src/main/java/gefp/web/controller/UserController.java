@@ -3,11 +3,11 @@ package gefp.web.controller;
 import gefp.model.Department;
 import gefp.model.FlightPlan;
 import gefp.model.User;
-import gefp.model.UserRoles;
+import gefp.model.Role;
 import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.FlightPlanDao;
 import gefp.model.dao.UserDao;
-import gefp.model.dao.UserRolesDao;
+import gefp.model.dao.RoleDao;
 import gefp.web.validator.UserValidator;
 
 import java.io.IOException;
@@ -40,254 +40,290 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes({ "user" })
 public class UserController {
 
-	@Autowired
-	private UserDao userDao;
+    @Autowired
+    private UserDao userDao;
 
-	@Autowired
-	private DepartmentDao deptDao;
+    @Autowired
+    private DepartmentDao deptDao;
 
-	@Autowired
-	private FlightPlanDao planDao;
-	
-	@Autowired
-	private UserRolesDao roleDao;
+    @Autowired
+    private FlightPlanDao planDao;
 
-	@Autowired
-	UserValidator userValidator;
+    @Autowired
+    private RoleDao roleDao;
 
-	@RequestMapping(value = "/admin/dashboard.html", method = RequestMethod.GET)
-	public String homepage(ModelMap models, HttpSession session) {
+    @Autowired
+    UserValidator userValidator;
 
-		models.put("users", userDao.getUsers());
-		models.put("departments", deptDao.getDepartments());
-		models.put("plans", planDao.getFlightPlans());
-		return "admin_dashboard";
-	}
+    @RequestMapping(value = "/admin/dashboard.html", method = RequestMethod.GET)
+    public String homepage( ModelMap models, HttpSession session )
+    {
 
-	@RequestMapping(value = "/advisor/dashboard.html", method = RequestMethod.GET)
-	public String advisorHome(ModelMap models, HttpSession session) {
+        models.put( "users", userDao.getUsers() );
+        models.put( "departments", deptDao.getDepartments() );
+        models.put( "plans", planDao.getFlightPlans() );
+        return "admin_dashboard";
+    }
 
-		models.put("users", userDao.getUsers());
-		models.put("departments", deptDao.getDepartments());
-		models.put("plans", planDao.getFlightPlans());
-		return "advisor_dashboard";
-	}
+    @RequestMapping(value = "/advisor/dashboard.html",
+        method = RequestMethod.GET)
+    public String advisorHome( ModelMap models, HttpSession session )
+    {
 
-	@RequestMapping(value = { "/admin/list-users.html" }, method = RequestMethod.GET)
-	public String listForAdmin(ModelMap models) {
-		models.put("users", userDao.getUsers());
-		return "list_users";
-	}
+        models.put( "users", userDao.getUsers() );
+        models.put( "departments", deptDao.getDepartments() );
+        models.put( "plans", planDao.getFlightPlans() );
+        return "advisor_dashboard";
+    }
 
-	@RequestMapping(value = { "/advisor/list-users.html" }, method = RequestMethod.GET)
-	public String listForAdvisor(ModelMap models) {
-		List<User> users = userDao.getUsers();
-		List<User> students = new ArrayList<User>();
-		
-		for(User u : users) {
-			if(u.isStudent()) 
-				students.add(u);
-		}
-		
-		models.put("users", students);
-		return "list_users";
-	}
+    @RequestMapping(value = { "/admin/list-users.html" },
+        method = RequestMethod.GET)
+    public String listForAdmin( ModelMap models )
+    {
+        models.put( "users", userDao.getUsers() );
+        return "list_users";
+    }
 
-	@RequestMapping(value = "/admin/user/add.html", method = RequestMethod.GET)
-	public String add(ModelMap models) {
-		models.put("user", new User());
-		return "add_user";
-	}
+    @RequestMapping(value = { "/advisor/list-users.html" },
+        method = RequestMethod.GET)
+    public String listForAdvisor( ModelMap models )
+    {
+        List<User> users = userDao.getUsers();
+        List<User> students = new ArrayList<User>();
 
-	@RequestMapping(value = "/admin/user/edit/{id}.html", method = RequestMethod.GET)
-	public String edit(@PathVariable Integer id, ModelMap models) {
-		models.put("user", userDao.getUser(id));
-		return "add_user";
-	}
+        for( User u : users )
+        {
+            if( u.isStudent() ) students.add( u );
+        }
 
-	@RequestMapping(value = "/admin/user/add.html", method = RequestMethod.POST)
-	public String add(@ModelAttribute User user, ModelMap models,
-			BindingResult bindingResult) {
-		user.setDepartment(deptDao.getDepartment(1));
-		user.setFlightplan(planDao.getFlightPlan(1));
-		Set<UserRoles> roles = new HashSet<UserRoles>();
-		roles.add(roleDao.getUserRoles(3));
-		user.setRoles(roles);
-		user.setEnabled(true);
-		User user2 = userDao.saveUser(user);
-		System.out.println("New user id is " + user2.getId());
-		return "redirect:/admin/list-users.html";
-	}
+        models.put( "users", students );
+        return "list_users";
+    }
 
-	@RequestMapping(value = "/admin/user/edit/{id}.html", method = RequestMethod.POST)
-	public String save(@ModelAttribute("user") User user, ModelMap models,
-			BindingResult bindingResult, SessionStatus sessionStatus) {
+    @RequestMapping(value = "/admin/user/add.html", method = RequestMethod.GET)
+    public String add( ModelMap models )
+    {
+        models.put( "user", new User() );
+        return "add_user";
+    }
 
-		userDao.saveUser(user);
-		sessionStatus.setComplete();
-		return "redirect:/admin/list-users.html";
-	}
+    @RequestMapping(value = "/admin/user/edit/{id}.html",
+        method = RequestMethod.GET)
+    public String edit( @PathVariable Long id, ModelMap models )
+    {
+        models.put( "user", userDao.getUser( id ) );
+        return "add_user";
+    }
 
-	/* Student Profile Page */
+    @RequestMapping(value = "/admin/user/add.html", method = RequestMethod.POST)
+    public String add( @ModelAttribute User user, ModelMap models,
+        BindingResult bindingResult )
+    {
+        user.setDepartment( deptDao.getDepartment( 1 ) );
+        user.setFlightPlan( planDao.getFlightPlan( 1L ) );
+        Set<Role> roles = new HashSet<Role>();
+        roles.add( roleDao.getUserRoles( 3 ) );
+        user.setRoles( roles );
+        user.setEnabled( true );
+        User user2 = userDao.saveUser( user );
+        System.out.println( "New user id is " + user2.getId() );
+        return "redirect:/admin/list-users.html";
+    }
 
-	@RequestMapping(value = "/user/profile/{id}.html", method = RequestMethod.GET)
-	public String profile(@PathVariable Integer id, ModelMap models,
-			HttpSession session) {
+    @RequestMapping(value = "/admin/user/edit/{id}.html",
+        method = RequestMethod.POST)
+    public String save( @ModelAttribute("user") User user, ModelMap models,
+        BindingResult bindingResult, SessionStatus sessionStatus )
+    {
 
-		User sessionUserObj = (User) session.getAttribute("loggedInUser");
-		User currUserObj = userDao.getUser(sessionUserObj.getId());
+        userDao.saveUser( user );
+        sessionStatus.setComplete();
+        return "redirect:/admin/list-users.html";
+    }
 
-		models.put("departments", deptDao.getDepartments());
-		models.put("user", userDao.getUser(currUserObj.getId()));
-		return "user_profile";
-	}
+    /* Student Profile Page */
 
-	/* Student Profile Page */
+    @RequestMapping(value = "/user/profile/{id}.html",
+        method = RequestMethod.GET)
+    public String profile( @PathVariable Integer id, ModelMap models,
+        HttpSession session )
+    {
 
-	@RequestMapping(value = "/user/profile/{pid}.html", method = RequestMethod.POST)
-	public String updateprofile(@PathVariable Integer pid, ModelMap models,
-			HttpSession session, HttpServletRequest request) {
+        User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
+        User currUserObj = userDao.getUser( sessionUserObj.getId() );
 
-		String numRegex = ".*[0-9].*";
-		String alphaRegex = ".*[a-zA-Z].*";
+        models.put( "departments", deptDao.getDepartments() );
+        models.put( "user", userDao.getUser( currUserObj.getId() ) );
+        return "user_profile";
+    }
 
-		String firstName = request.getParameter("firstName");
-		String middleName = request.getParameter("middleName");
-		String lastName = request.getParameter("lastName");
+    /* Student Profile Page */
 
-		// String uid = request.getParameter("uid");
-		String password = request.getParameter("password");
-		String deptIdStr = request.getParameter("departmentID");
+    @RequestMapping(value = "/user/profile/{pid}.html",
+        method = RequestMethod.POST)
+    public String updateprofile( @PathVariable Integer pid, ModelMap models,
+        HttpSession session, HttpServletRequest request )
+    {
 
-		User sessionUserObj = (User) session.getAttribute("loggedInUser");
-		User currUserObj = userDao.getUser(sessionUserObj.getId());
+        String numRegex = ".*[0-9].*";
+        String alphaRegex = ".*[a-zA-Z].*";
 
-		if (firstName == "" || firstName == null) {
-			session.setAttribute("firstName", "FirstName cannot be empty");
-			return "redirect:/user/profile/" + pid + ".html";
-		} else if (firstName == "" || firstName == null) {
-			session.setAttribute("firstName", "FirstName cannot be empty");
-			return "redirect:/user/profile/" + pid + ".html";
-		} else if (password != "" && password != null && password.length() < 4) {
-			System.out.println("pppppp");
-			session.setAttribute("passwordErr",
-					"Password should be more than 4 characters.");
-			return "redirect:/user/profile/" + pid + ".html";
-		} else if (password != ""
-				&& password != null
-				&& (!password.matches(numRegex) || !password
-						.matches(alphaRegex))) {
-			session.setAttribute("passwordErr",
-					"Password should contain both letters and numbers.");
-			return "redirect:/user/profile/" + pid + ".html";
-		} else if (deptIdStr == "") {
-			session.setAttribute("deptErr", "Please select a department.");
-			return "redirect:/user/profile/" + pid + ".html";
-		}
+        String firstName = request.getParameter( "firstName" );
+        String middleName = request.getParameter( "middleName" );
+        String lastName = request.getParameter( "lastName" );
 
-		Integer deptID = Integer.parseInt(deptIdStr);
+        // String uid = request.getParameter("uid");
+        String password = request.getParameter( "password" );
+        String deptIdStr = request.getParameter( "departmentID" );
 
-		if (password != "" && password != null) {
-			currUserObj.setPassword(password);
-		}
+        User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
+        User currUserObj = userDao.getUser( sessionUserObj.getId() );
 
-		if (deptID != currUserObj.getDepartment().getId()) {
-			Department newDept = deptDao.getDepartment(deptID);
-			currUserObj.setDepartment(newDept);
-			currUserObj.setFlightplan(newDept.getCurrentPlan());
-		}
+        if( firstName == "" || firstName == null )
+        {
+            session.setAttribute( "firstName", "FirstName cannot be empty" );
+            return "redirect:/user/profile/" + pid + ".html";
+        }
+        else if( firstName == "" || firstName == null )
+        {
+            session.setAttribute( "firstName", "FirstName cannot be empty" );
+            return "redirect:/user/profile/" + pid + ".html";
+        }
+        else if( password != "" && password != null && password.length() < 4 )
+        {
+            System.out.println( "pppppp" );
+            session.setAttribute( "passwordErr",
+                "Password should be more than 4 characters." );
+            return "redirect:/user/profile/" + pid + ".html";
+        }
+        else if( password != ""
+            && password != null
+            && (!password.matches( numRegex ) || !password.matches( alphaRegex )) )
+        {
+            session.setAttribute( "passwordErr",
+                "Password should contain both letters and numbers." );
+            return "redirect:/user/profile/" + pid + ".html";
+        }
+        else if( deptIdStr == "" )
+        {
+            session.setAttribute( "deptErr", "Please select a department." );
+            return "redirect:/user/profile/" + pid + ".html";
+        }
 
-		currUserObj.setFirstName(firstName);
-		currUserObj.setMiddleName(middleName);
-		currUserObj.setLastName(lastName);
+        Integer deptID = Integer.parseInt( deptIdStr );
 
-		userDao.saveUser(currUserObj);
-		session.setAttribute("successMsg", "Profile details updated");
-		session.setAttribute("loggedInUser", currUserObj);
-		return "redirect:/user/profile/" + pid + ".html";
-	}
+        if( password != "" && password != null )
+        {
+            currUserObj.setPassword( password );
+        }
 
-	/* Advisor Search functions */
-	@RequestMapping(value = { "/search/users.html" }, method = RequestMethod.GET)
-	public String search(ModelMap models, @RequestParam String q) {
-		models.put("users", userDao.searchUsersByPrefix(q, 10));
-		return "user_search";
-	}
+        if( deptID != currUserObj.getDepartment().getId() )
+        {
+            Department newDept = deptDao.getDepartment( deptID );
+            currUserObj.setDepartment( newDept );
+            currUserObj.setFlightPlan( newDept.getDefaultPlan() );
+        }
 
-	@RequestMapping("/advisor/view-student-plan/{id}.html")
-	public String advisorViewPlanStudent(@PathVariable Integer id,
-			ModelMap models, HttpSession session) {
+        currUserObj.setFirstName( firstName );
+        currUserObj.setMiddleName( middleName );
+        currUserObj.setLastName( lastName );
 
-		User currUserObj = userDao.getUser(id);
-		models.put("currUserObj", currUserObj);
+        userDao.saveUser( currUserObj );
+        session.setAttribute( "successMsg", "Profile details updated" );
+        session.setAttribute( "loggedInUser", currUserObj );
+        return "redirect:/user/profile/" + pid + ".html";
+    }
 
-		FlightPlan plan = null;
+    /* Advisor Search functions */
+    @RequestMapping(value = { "/search/users.html" },
+        method = RequestMethod.GET)
+    public String search( ModelMap models, @RequestParam String q )
+    {
+        models.put( "users", userDao.searchUsersByPrefix( q, 10 ) );
+        return "user_search";
+    }
 
-		if (currUserObj.getFlightplan() != null) {
-			plan = planDao.getFlightPlan(currUserObj.getFlightplan().getId());
-		}
-		models.put("plan", plan);
-		return "advisor_view_student_plan";
-	}
+    @RequestMapping("/advisor/view-student-plan/{id}.html")
+    public String advisorViewPlanStudent( @PathVariable Long id,
+        ModelMap models, HttpSession session )
+    {
 
-	@RequestMapping(value = "/autocomplete/user.html")
-	public String users(@RequestParam String term, HttpServletResponse response)
-			throws JSONException, IOException {
-		JSONArray jsonArray = new JSONArray();
-		List<User> users = userDao.searchUsersByPrefix(term, 10);
-		
-		for (User user : users) {
-			//System.out.println("username is " + user.getUsername());
+        User currUserObj = userDao.getUser( id );
+        models.put( "currUserObj", currUserObj );
 
-			if (user.isStudent()) {
-				Map<String, String> json = new HashMap<String, String>();
-				json.put("id", user.getId().toString());
-				json.put("value", user.getFirstName());
-				json.put("label", user.getFirstName() + " " + user.getLastName() + " (" + user.getCin() + ")");
-				jsonArray.put(json);
-			}
-		}
+        FlightPlan plan = null;
 
-		response.setContentType("application/json");
-		jsonArray.write(response.getWriter());
-		return null;
-	}
+        if( currUserObj.getFlightPlan() != null )
+        {
+            plan = planDao.getFlightPlan( currUserObj.getFlightPlan().getId() );
+        }
+        models.put( "plan", plan );
+        return "advisor_view_student_plan";
+    }
 
-	/*
-	 * @RequestMapping(value = "/user/profile/{pid}.html", method =
-	 * RequestMethod.POST) public String updateprofile(@PathVariable Integer
-	 * pid, ModelMap models,
-	 * 
-	 * @ModelAttribute("user") Users user, BindingResult bindingResult,
-	 * HttpSession session, SessionStatus sessionStatus, HttpServletRequest
-	 * request) {
-	 * 
-	 * String deptIdStr = request.getParameter("departmentID"); Users
-	 * sessionUserObj = (Users) session.getAttribute("loggedInUser"); Users
-	 * currUserObj = userDao.getUser(sessionUserObj.getId());
-	 * 
-	 * 
-	 * System.out.println("USER ID IS " + sessionUserObj.getId());
-	 * System.out.println("OLD PASSWORD IS " + currUserObj.getPassword());
-	 * System.out.println("NEW PASSWORD IS " + user.getPassword());
-	 * 
-	 * userValidator.validateProfileInfo( user, bindingResult ); if(
-	 * bindingResult.hasErrors() || deptIdStr == "") { if(deptIdStr == "")
-	 * models.put("deptErr", "Please select a department");
-	 * models.put("departments", deptDao.getDepartments()); return
-	 * "user_profile"; }
-	 * 
-	 * Integer deptID = Integer.parseInt(deptIdStr);
-	 * 
-	 * if(user.getPassword()=="" || user.getPassword()==null) {
-	 * System.out.println("OLD PASSWORD IS " + currUserObj.getPassword());
-	 * user.setPassword(currUserObj.getPassword()); }
-	 * 
-	 * if(deptID != user.getDepartment().getId()) { Department newDept =
-	 * deptDao.getDepartment(deptID); user.setDepartment(newDept);
-	 * user.setFlightplan(newDept.getCurrentPlan()); } userDao.saveUser(user);
-	 * sessionStatus.setComplete(); session.setAttribute("successMsg",
-	 * "Profile details updated"); return "redirect:/user/profile/"+pid+".html";
-	 * }
-	 */
+    @RequestMapping(value = "/autocomplete/user.html")
+    public String users( @RequestParam String term, HttpServletResponse response )
+        throws JSONException, IOException
+    {
+        JSONArray jsonArray = new JSONArray();
+        List<User> users = userDao.searchUsersByPrefix( term, 10 );
+
+        for( User user : users )
+        {
+            // System.out.println("username is " + user.getUsername());
+
+            if( user.isStudent() )
+            {
+                Map<String, String> json = new HashMap<String, String>();
+                json.put( "id", user.getId().toString() );
+                json.put( "value", user.getFirstName() );
+                json.put( "label",
+                    user.getFirstName() + " " + user.getLastName() + " ("
+                        + user.getCin() + ")" );
+                jsonArray.put( json );
+            }
+        }
+
+        response.setContentType( "application/json" );
+        jsonArray.write( response.getWriter() );
+        return null;
+    }
+
+    /*
+     * @RequestMapping(value = "/user/profile/{pid}.html", method =
+     * RequestMethod.POST) public String updateprofile(@PathVariable Integer
+     * pid, ModelMap models,
+     * 
+     * @ModelAttribute("user") Users user, BindingResult bindingResult,
+     * HttpSession session, SessionStatus sessionStatus, HttpServletRequest
+     * request) {
+     * 
+     * String deptIdStr = request.getParameter("departmentID"); Users
+     * sessionUserObj = (Users) session.getAttribute("loggedInUser"); Users
+     * currUserObj = userDao.getUser(sessionUserObj.getId());
+     * 
+     * 
+     * System.out.println("USER ID IS " + sessionUserObj.getId());
+     * System.out.println("OLD PASSWORD IS " + currUserObj.getPassword());
+     * System.out.println("NEW PASSWORD IS " + user.getPassword());
+     * 
+     * userValidator.validateProfileInfo( user, bindingResult ); if(
+     * bindingResult.hasErrors() || deptIdStr == "") { if(deptIdStr == "")
+     * models.put("deptErr", "Please select a department");
+     * models.put("departments", deptDao.getDepartments()); return
+     * "user_profile"; }
+     * 
+     * Integer deptID = Integer.parseInt(deptIdStr);
+     * 
+     * if(user.getPassword()=="" || user.getPassword()==null) {
+     * System.out.println("OLD PASSWORD IS " + currUserObj.getPassword());
+     * user.setPassword(currUserObj.getPassword()); }
+     * 
+     * if(deptID != user.getDepartment().getId()) { Department newDept =
+     * deptDao.getDepartment(deptID); user.setDepartment(newDept);
+     * user.setFlightplan(newDept.getCurrentPlan()); } userDao.saveUser(user);
+     * sessionStatus.setComplete(); session.setAttribute("successMsg",
+     * "Profile details updated"); return "redirect:/user/profile/"+pid+".html";
+     * }
+     */
 }

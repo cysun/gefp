@@ -1,98 +1,97 @@
 
-    create table checkpoints (
-        id int4 not null,
-        active boolean not null,
-        deleted boolean not null,
-        name varchar(255) not null,
-        order_num int4 Default 1 not null,
-        chk_type varchar(255) not null,
-        plan_id int4,
-        runway_id int4,
-        stage_id int4,
+    create table cell_checkpoints (
+        cell_id int8 not null,
+        checkpoint_id int8 not null,
+        order_num int4 not null,
+        primary key (cell_id, order_num)
+    );
+
+    create table cells (
+        id int8 not null,
+        flightPlan_id int8,
+        runway_id int8,
+        stage_id int8,
         primary key (id)
     );
 
-    create table department_flightplan (
-        dept_id int4 not null,
-        oldplan_id int4 not null
+    create table checkpoints (
+        id int8 not null,
+        name varchar(255) not null,
+        primary key (id)
+    );
+
+    create table department_plans (
+        department_id int4 not null,
+        plan_id int8 not null
     );
 
     create table departments (
-        dept_id int4 not null,
-        active boolean not null,
-        deleted boolean not null,
-        dept_name varchar(255),
-        plan_id int4,
-        primary key (dept_id)
-    );
-
-    create table flightplan (
         id int4 not null,
         active boolean not null,
         deleted boolean not null,
-        plan_name varchar(255),
-        published boolean not null,
+        name varchar(255),
+        plan_id int8,
         primary key (id)
     );
 
-    create table flightplan_checkpoints (
-        flightplan_id int4 not null,
-        checkpoint_id int4 not null,
-        order_num int4 not null,
-        primary key (flightplan_id, order_num)
-    );
-
     create table flightplan_runways (
-        flightplan_id int4 not null,
-        runway_id int4 not null,
+        flightplan_id int8 not null,
+        runway_id int8 not null,
         order_num int4 not null,
         primary key (flightplan_id, order_num)
     );
 
     create table flightplan_stages (
-        flightplan_id int4 not null,
-        stage_id int4 not null,
+        flightplan_id int8 not null,
+        stage_id int8 not null,
         order_num int4 not null,
         primary key (flightplan_id, order_num)
     );
 
+    create table flightplans (
+        id int8 not null,
+        name varchar(255),
+        published boolean not null,
+        primary key (id)
+    );
+
+    create table flightplans_cells (
+        flightplans_id int8 not null,
+        cells_id int8 not null
+    );
+
     create table roles (
         id int4 not null,
-        role_name varchar(255),
+        name varchar(255),
         primary key (id)
     );
 
     create table runways (
-        runway_id int4 not null,
-        active boolean not null,
-        deleted boolean not null,
-        runway_name varchar(255),
-        order_num int4 Default 1 not null,
-        primary key (runway_id)
+        id int8 not null,
+        name varchar(255),
+        primary key (id)
     );
 
     create table stages (
-        stage_id int4 not null,
-        active boolean not null,
-        deleted boolean not null,
-        stage_name varchar(255),
-        order_num int4 Default 1 not null,
-        primary key (stage_id)
+        id int8 not null,
+        name varchar(255),
+        primary key (id)
     );
 
     create table user_checkpoints (
-        user_id int4 not null,
-        checkpoint_id int4 not null
+        user_id int8 not null,
+        checkpoint_id int8 not null,
+        primary key (user_id, checkpoint_id)
     );
 
     create table user_roles (
-        user_id int4 not null,
+        user_id int8 not null,
         role_id int4 not null,
         primary key (user_id, role_id)
     );
 
     create table users (
-        user_id int4 not null,
+        id int8 not null,
         cin varchar(255),
         deleted boolean not null,
         email varchar(255),
@@ -102,16 +101,17 @@
         middle_name varchar(255),
         password varchar(255),
         username varchar(255),
-        dept_id int4,
-        plan_id int4,
-        primary key (user_id)
+        department_id int4,
+        plan_id int8,
+        major_id int4,
+        primary key (id)
     );
 
-    alter table department_flightplan 
-        add constraint UK_48ptmn96v9d1sa5n1ypanbtpb unique (oldplan_id);
+    alter table cell_checkpoints 
+        add constraint UK_1bq0aejed37fc3yhyfoca8qqu unique (checkpoint_id);
 
-    alter table flightplan_checkpoints 
-        add constraint UK_hig0n3hwkang0hmea9l7bbp39 unique (checkpoint_id);
+    alter table department_plans 
+        add constraint UK_huvk9td7lxurmvpn2a3bji8a3 unique (plan_id);
 
     alter table flightplan_runways 
         add constraint UK_50kuq1dpt3aqxcs4fbq3g6rub unique (runway_id);
@@ -119,51 +119,51 @@
     alter table flightplan_stages 
         add constraint UK_hns371mipbxro6xxw1v3yeosi unique (stage_id);
 
-    alter table user_roles 
-        add constraint UK_5q4rc4fh1on6567qk69uesvyf unique (role_id);
+    alter table flightplans_cells 
+        add constraint UK_aueh9sf2st922gmaww4573yco unique (cells_id);
 
     alter table users 
         add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username);
 
-    alter table checkpoints 
-        add constraint FK_fvhyj260cj6sk9e7kch3u35hn 
-        foreign key (plan_id) 
-        references flightplan;
+    alter table cell_checkpoints 
+        add constraint FK_1bq0aejed37fc3yhyfoca8qqu 
+        foreign key (checkpoint_id) 
+        references checkpoints;
 
-    alter table checkpoints 
-        add constraint FK_tm5aivoudq5tppp39yniu1yhq 
+    alter table cell_checkpoints 
+        add constraint FK_ppgeqpgh9b3dyqdofg4h00bm8 
+        foreign key (cell_id) 
+        references cells;
+
+    alter table cells 
+        add constraint FK_3eqlt264c3rc8n84quloojtyk 
+        foreign key (flightPlan_id) 
+        references flightplans;
+
+    alter table cells 
+        add constraint FK_8dw4ib1a0lhu8xdh7s4s4tha 
         foreign key (runway_id) 
         references runways;
 
-    alter table checkpoints 
-        add constraint FK_84dli9r4pm107guh9gqf8om48 
+    alter table cells 
+        add constraint FK_4l75xv25nciaskmgvbxdcd424 
         foreign key (stage_id) 
         references stages;
 
-    alter table department_flightplan 
-        add constraint FK_48ptmn96v9d1sa5n1ypanbtpb 
-        foreign key (oldplan_id) 
-        references flightplan;
+    alter table department_plans 
+        add constraint FK_huvk9td7lxurmvpn2a3bji8a3 
+        foreign key (plan_id) 
+        references flightplans;
 
-    alter table department_flightplan 
-        add constraint FK_jowu08wcma4uuhf7ohd06u2l4 
-        foreign key (dept_id) 
+    alter table department_plans 
+        add constraint FK_1ua4dr9e77minpmjjwcbhgsk6 
+        foreign key (department_id) 
         references departments;
 
     alter table departments 
         add constraint FK_teos0btacmvhp1xyob6dx4m16 
         foreign key (plan_id) 
-        references flightplan;
-
-    alter table flightplan_checkpoints 
-        add constraint FK_hig0n3hwkang0hmea9l7bbp39 
-        foreign key (checkpoint_id) 
-        references checkpoints;
-
-    alter table flightplan_checkpoints 
-        add constraint FK_g2hbto2pn1odiice7onagfifs 
-        foreign key (flightplan_id) 
-        references flightplan;
+        references flightplans;
 
     alter table flightplan_runways 
         add constraint FK_50kuq1dpt3aqxcs4fbq3g6rub 
@@ -173,7 +173,7 @@
     alter table flightplan_runways 
         add constraint FK_3gx84bsex3s6euk16si98b4bn 
         foreign key (flightplan_id) 
-        references flightplan;
+        references flightplans;
 
     alter table flightplan_stages 
         add constraint FK_hns371mipbxro6xxw1v3yeosi 
@@ -183,7 +183,17 @@
     alter table flightplan_stages 
         add constraint FK_8a20talpum1ntge7ig51igoms 
         foreign key (flightplan_id) 
-        references flightplan;
+        references flightplans;
+
+    alter table flightplans_cells 
+        add constraint FK_aueh9sf2st922gmaww4573yco 
+        foreign key (cells_id) 
+        references cells;
+
+    alter table flightplans_cells 
+        add constraint FK_c30fl82i7uq9iu7qsj64ympvt 
+        foreign key (flightplans_id) 
+        references flightplans;
 
     alter table user_checkpoints 
         add constraint FK_to4y5oilg0c79s52l5dh3u9tk 
@@ -206,13 +216,18 @@
         references users;
 
     alter table users 
-        add constraint FK_qapsr64600sbyhd05spxcakau 
-        foreign key (dept_id) 
+        add constraint FK_7phkg3qghukhuw9kj3ahkmw 
+        foreign key (department_id) 
         references departments;
 
     alter table users 
         add constraint FK_km7rd8sgwa1qls24gkxoh2b2i 
         foreign key (plan_id) 
-        references flightplan;
+        references flightplans;
+
+    alter table users 
+        add constraint FK_q37jte7r1ptl16arimkk23y1h 
+        foreign key (major_id) 
+        references departments;
 
     create sequence hibernate_sequence;

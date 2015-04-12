@@ -15,13 +15,16 @@
 <body>
 
 	<div id="wrapper">
-<div id="loader-wrapper">
-	<div id="loader"></div>
 
-	<div class="loader-section section-left"></div>
-	<div class="loader-section section-right"></div>
 
-</div>		
+	<!-- <div id="loader-wrapper">
+		<div id="loader"></div>
+	
+		<div class="loader-section section-left"></div>
+		<div class="loader-section section-right"></div>
+	
+	</div> -->		
+
 		<jsp:include page="includes/header.jsp" />
 		
 		<jsp:include page="includes/left_menu.jsp" />

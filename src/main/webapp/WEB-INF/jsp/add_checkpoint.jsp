@@ -53,26 +53,9 @@
 													<select name="runwayId" class="form-control">
 														<option value="">--Select Runway--</option>
 														<c:forEach var="runway" items="${flightplan.runways}">
-															
-															<c:choose>
-															<c:when test="${checkpoint.runway.id == runway.id}">
-																<option selected="selected" value="${runway.id}">${runway.name}</option>
-															</c:when>
-															<c:otherwise>
-																<option value="${runway.id}">${runway.name}</option>
-															</c:otherwise>
-															</c:choose>
-															
+															<option value="${runway.id}">${runway.name}</option>
 														</c:forEach>
-													</select>
-													
-													<%-- <form:select path="runway" class="form-control">
-														<form:option value="-" label="--Select Runway--" />
-														<form:options items="${flightplan.runways}" itemValue="id"
-															itemLabel="name" />
-													</form:select> --%>
-													
-													
+													</select>										
 												</div>
 											</div>
 
@@ -83,24 +66,9 @@
 													<select name="stageId" class="form-control">
 														<option value="">--Select Stage--</option>
 														<c:forEach var="stage" items="${flightplan.stages}">
-															
-															<c:choose>
-															<c:when test="${checkpoint.stage.id == stage.id}">
-																<option selected="selected" value="${stage.id}">${stage.name}</option>
-															</c:when>
-															<c:otherwise>
-																<option value="${stage.id}">${stage.name}</option>
-															</c:otherwise>
-															</c:choose>
-															
+															<option value="${stage.id}">${stage.name}</option>
 														</c:forEach>
 													</select>
-													
-													<%-- <form:select path="stage" class="form-control">
-														<form:option value="-" label="--Select Stage--" />
-														<form:options items="${flightplan.stages}" itemValue="id"
-															itemLabel="name" />
-													</form:select> --%>
 												</div>
 											</div>
 

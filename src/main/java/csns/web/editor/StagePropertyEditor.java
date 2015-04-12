@@ -1,7 +1,7 @@
 package csns.web.editor;
 
-//import gefp.model.Stages;
-//import gefp.model.dao.StagesDao;
+//import gefp.model.Stage;
+//import gefp.model.dao.StageDao;
 
 import java.beans.PropertyEditorSupport;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class StagePropertyEditor extends PropertyEditorSupport {
 
 //    @Autowired
-//    StagesDao stageDao;
+//    StageDao stageDao;
 //
 //    @Override
 //    public void setAsText( String text ) throws IllegalArgumentException
@@ -28,7 +28,7 @@ public class StagePropertyEditor extends PropertyEditorSupport {
 //    @Override
 //    public String getAsText()
 //    {
-//        Stages stage = (Stages) getValue();
+//        Stage stage = (Stage) getValue();
 //        return stage != null ? stage.getId().toString() : "";
 //    }
 

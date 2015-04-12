@@ -15,26 +15,29 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class FlightPlanDaoImpl implements FlightPlanDao {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	@Override
-	@PostAuthorize("returnObject.published == true or hasRole('ADMIN')")
-	public FlightPlan getFlightPlan(Integer id) {
-		 return entityManager.find(FlightPlan.class, id);
-	}
+    @Override
+    @PostAuthorize("returnObject.published == true or hasRole('ADMIN')")
+    public FlightPlan getFlightPlan( Long id )
+    {
+        return entityManager.find( FlightPlan.class, id );
+    }
 
-	@Override
-	public List<FlightPlan> getFlightPlans() {
-		return entityManager.createQuery("from FlightPlan order by id",
-				FlightPlan.class).getResultList();
-	}
+    @Override
+    public List<FlightPlan> getFlightPlans()
+    {
+        return entityManager.createQuery( "from FlightPlan order by id",
+            FlightPlan.class ).getResultList();
+    }
 
-	@Override
-	@Transactional
-	public FlightPlan saveFlightPlan(FlightPlan flightplan) {
+    @Override
+    @Transactional
+    public FlightPlan saveFlightPlan( FlightPlan flightplan )
+    {
 
-		return entityManager.merge(flightplan);
-	}
+        return entityManager.merge( flightplan );
+    }
 
 }

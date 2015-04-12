@@ -1,4 +1,3 @@
-
 package gefp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +21,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         throws UsernameNotFoundException, DataAccessException
     {
         User user = userDao.getUserByUsername( username );
-        
+
         if( user == null )
             throw new UsernameNotFoundException( username + " is not found." );
-        
-        // System.out.println("User Service : Username is " + user.getUsername());
+
+        // System.out.println("User Service : Username is " +
+        // user.getUsername());
         return user;
     }
 }

@@ -1,10 +1,8 @@
 package gefp.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,8 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 
@@ -29,233 +26,286 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name = "users")
 public class User implements Serializable, UserDetails {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue
-	@Column(name = "user_id")
-	private Integer id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	@OneToMany
-	@JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
-	private Set<UserRoles> roles;
+    @ManyToMany
+    @JoinTable(name = "user_roles",
+        joinColumns = { @JoinColumn(name = "user_id") },
+        inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    private Set<Role> roles;
 
-	@Column(name = "last_name", nullable = true)
-	private String lastName;
+    @Column(name = "last_name", nullable = true)
+    private String lastName;
 
-	@Column(name = "first_name", nullable = true)
-	private String firstName;
+    @Column(name = "first_name", nullable = true)
+    private String firstName;
 
-	@Column(name = "middle_name")
-	private String middleName;
-	@Column(unique = true, nullable = true)
-	private String username;
+    @Column(name = "middle_name")
+    private String middleName;
 
-	private String cin;
-	private String email;
-	private String password;
+    @Column(unique = true, nullable = true)
+    private String username;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "user_checkpoints", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "checkpoint_id") })
-	private List<CheckPoint> checkpoints = new ArrayList<CheckPoint>();
+    private String cin;
+    private String email;
+    private String password;
 
-	@OneToOne
-	@JoinColumn(name = "dept_id")
-	private Department department = new Department();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_checkpoints",
+        joinColumns = { @JoinColumn(name = "user_id") },
+        inverseJoinColumns = { @JoinColumn(name = "checkpoint_id") })
+    private Set<Checkpoint> checkpoints = new HashSet<Checkpoint>();
 
-	@OneToOne
-	@JoinColumn(name = "plan_id")
-	private FlightPlan flightplan = new FlightPlan();
+    // For Administrators
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department = new Department();
+    
+    // For Students
+    @ManyToOne
+    @JoinColumn(name = "major_id")
+    private Department major = new Department();
 
-	private boolean enabled;
-	private boolean deleted;
+    @ManyToOne
+    @JoinColumn(name = "plan_id")
+    private FlightPlan flightPlan = new FlightPlan();
 
-	public User() {
-	}
+    private boolean enabled;
 
-	public Integer getId() {
-		return id;
-	}
+    private boolean deleted;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public User()
+    {
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public Long getId()
+    {
+        return id;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setId( Long id )
+    {
+        this.id = id;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getLastName()
+    {
+        return lastName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setLastName( String lastName )
+    {
+        this.lastName = lastName;
+    }
 
-	public String getMiddleName() {
-		return middleName;
-	}
+    public String getFirstName()
+    {
+        return firstName;
+    }
 
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
+    public void setFirstName( String firstName )
+    {
+        this.firstName = firstName;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getMiddleName()
+    {
+        return middleName;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setMiddleName( String middleName )
+    {
+        this.middleName = middleName;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUsername()
+    {
+        return username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setUsername( String username )
+    {
+        this.username = username;
+    }
 
-	public boolean isDeleted() {
-		return deleted;
-	}
+    public String getPassword()
+    {
+        return password;
+    }
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
+    public void setPassword( String password )
+    {
+        this.password = password;
+    }
 
-	public Set<UserRoles> getRoles() {
-		return roles;
-	}
+    public boolean isDeleted()
+    {
+        return deleted;
+    }
 
-	public void setRoles(Set<UserRoles> roles) {
-		this.roles = roles;
-	}
+    public void setDeleted( boolean deleted )
+    {
+        this.deleted = deleted;
+    }
 
-	public Department getDepartment() {
-		return department;
-	}
+    public Set<Role> getRoles()
+    {
+        return roles;
+    }
 
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
+    public void setRoles( Set<Role> roles )
+    {
+        this.roles = roles;
+    }
 
-	public FlightPlan getFlightplan() {
-		return flightplan;
-	}
+    public Department getDepartment()
+    {
+        return department;
+    }
 
-	public void setFlightplan(FlightPlan flightplan) {
-		this.flightplan = flightplan;
-	}
+    public void setDepartment( Department department )
+    {
+        this.department = department;
+    }
+    
+    
+    public FlightPlan getFlightPlan()
+    {
+        return flightPlan;
+    }
 
-	public List<CheckPoint> getCheckpoints() {
-		return checkpoints;
-	}
+    
+    public void setFlightPlan( FlightPlan flightPlan )
+    {
+        this.flightPlan = flightPlan;
+    }
 
-	public void setCheckpoints(List<CheckPoint> checkpoints) {
-		this.checkpoints = checkpoints;
-	}
+    
+    public Set<Checkpoint> getCheckpoints()
+    {
+        return checkpoints;
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    
+    public void setCheckpoints( Set<Checkpoint> checkpoints )
+    {
+        this.checkpoints = checkpoints;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public boolean isEnabled()
+    {
+        return enabled;
+    }
 
-	public boolean isValidUser(User user) {
+    public void setEnabled( boolean enabled )
+    {
+        this.enabled = enabled;
+    }
 
-		if (user != null && this.username.equals(user.getUsername())
-				&& this.password.equals(user.getPassword()))
-			return true;
-		return false;
-	}
+    public boolean isValidUser( User user )
+    {
 
-	public String getCin() {
-		return cin;
-	}
+        if( user != null && this.username.equals( user.getUsername() )
+            && this.password.equals( user.getPassword() ) ) return true;
+        return false;
+    }
 
-	public void setCin(String cin) {
-		this.cin = cin;
-	}
+    public String getCin()
+    {
+        return cin;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setCin( String cin )
+    {
+        this.cin = cin;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail()
+    {
+        return email;
+    }
 
-	public void setUserTypesInSession(HttpSession session) {
+    public void setEmail( String email )
+    {
+        this.email = email;
+    }
 
-		for (UserRoles role : this.roles) {
-			if (role.getName().equalsIgnoreCase("ADMIN")) {
-				session.setAttribute("LoginUserRole", "Admin");
-				session.setAttribute("AdminUser", this);
-			}
-			if (role.getName().equalsIgnoreCase("Advisor")) {
-				session.setAttribute("LoginUserRole", "Advisor");
-				session.setAttribute("AdvisorUser", this);
-			}
-			if (role.getName().equalsIgnoreCase("Student")) {
-				session.setAttribute("LoginUserRole", "Student");
-				session.setAttribute("StudentUser", this);
-			}
-		}
+    public void setUserTypesInSession( HttpSession session )
+    {
 
-	}
+        for( Role role : this.roles )
+        {
+            if( role.getName().equalsIgnoreCase( "ADMIN" ) )
+            {
+                session.setAttribute( "LoginUserRole", "Admin" );
+                session.setAttribute( "AdminUser", this );
+            }
+            if( role.getName().equalsIgnoreCase( "Advisor" ) )
+            {
+                session.setAttribute( "LoginUserRole", "Advisor" );
+                session.setAttribute( "AdvisorUser", this );
+            }
+            if( role.getName().equalsIgnoreCase( "Student" ) )
+            {
+                session.setAttribute( "LoginUserRole", "Student" );
+                session.setAttribute( "StudentUser", this );
+            }
+        }
 
-	public boolean isAdmin() {
-		for (UserRoles role : roles)
-			if (role.getName().equalsIgnoreCase("ADMIN"))
-				return true;
-		return false;
-	}
+    }
 
-	public boolean isAdvisor() {
-		for (UserRoles role : roles)
-			if (role.getName().equalsIgnoreCase("ADVISOR"))
-				return true;
-		return false;
-	}
+    public boolean isAdmin()
+    {
+        for( Role role : roles )
+            if( role.getName().equalsIgnoreCase( "ADMIN" ) ) return true;
+        return false;
+    }
 
-	public boolean isStudent() {
-		for (UserRoles role : roles)
-			if (role.getName().equalsIgnoreCase("STUDENT"))
-				return true;
-		return false;
-	}
+    public boolean isAdvisor()
+    {
+        for( Role role : roles )
+            if( role.getName().equalsIgnoreCase( "ADVISOR" ) ) return true;
+        return false;
+    }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		for (UserRoles role : roles)
-			authorities.add(new SimpleGrantedAuthority(role.getName()));
-		return authorities;
-	}
+    public boolean isStudent()
+    {
+        for( Role role : roles )
+            if( role.getName().equalsIgnoreCase( "STUDENT" ) ) return true;
+        return false;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities()
+    {
+        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        for( Role role : roles )
+            authorities.add( new SimpleGrantedAuthority( role.getName() ) );
+        return authorities;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired()
+    {
+        // TODO Auto-generated method stub
+        return true;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked()
+    {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired()
+    {
+        // TODO Auto-generated method stub
+        return true;
+    }
 }

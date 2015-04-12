@@ -16,104 +16,99 @@ import javax.persistence.Table;
 import org.hibernate.annotations.IndexColumn;
 
 @Entity
-@Table(name = "flightplan")
+@Table(name = "flightplans")
 public class FlightPlan implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue
-	private int id;
-	
-	@Column(name="plan_name", nullable = true)
-	private String name;
-	
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name="flightplan_runways", joinColumns={@JoinColumn(name="flightplan_id")}
-	, inverseJoinColumns={@JoinColumn(name="runway_id")})
-	@IndexColumn(name="order_num")
-	private List<Runways> runways;
-	
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name="flightplan_stages", joinColumns={@JoinColumn(name="flightplan_id")}
-    , inverseJoinColumns={@JoinColumn(name="stage_id")})
-	@IndexColumn(name="order_num")
-	private List<Stages> stages;
-	
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name="flightplan_checkpoints", joinColumns={@JoinColumn(name="flightplan_id")}
-    , inverseJoinColumns={@JoinColumn(name="checkpoint_id")})
-	@IndexColumn(name="order_num")
-	private List<CheckPoint> checkpoints;
-	
-	private boolean published;
-	
-	private boolean active;
-	private boolean deleted;
-	
-	public FlightPlan() {}
+    private static final long serialVersionUID = 1L;
 
-	public int getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @Column(name = "name", nullable = true)
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "flightplan_runways",
+        joinColumns = { @JoinColumn(name = "flightplan_id") },
+        inverseJoinColumns = { @JoinColumn(name = "runway_id") })
+    @IndexColumn(name = "order_num")
+    private List<Runway> runways;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "flightplan_stages",
+        joinColumns = { @JoinColumn(name = "flightplan_id") },
+        inverseJoinColumns = { @JoinColumn(name = "stage_id") })
+    @IndexColumn(name = "order_num")
+    private List<Stage> stages;
 
-	public List<Runways> getRunways() {
-		return runways;
-	}
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private List<Cell> cells;
 
-	public void setRunways(List<Runways> runways) {
-		this.runways = runways;
-	}
+    private boolean published;
 
-	public List<Stages> getStages() {
-		return stages;
-	}
+    public FlightPlan()
+    {
+    }
 
-	public void setStages(List<Stages> stages) {
-		this.stages = stages;
-	}
-	
-	public List<CheckPoint> getCheckpoints() {
-		return checkpoints;
-	}
+    public Long getId()
+    {
+        return id;
+    }
 
-	public void setCheckpoints(List<CheckPoint> checkpoints) {
-		this.checkpoints = checkpoints;
-	}
+    public void setId( Long id )
+    {
+        this.id = id;
+    }
 
-	public boolean isActive() {
-		return active;
-	}
+    public String getName()
+    {
+        return name;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-	public boolean isDeleted() {
-		return deleted;
-	}
+    public List<Runway> getRunways()
+    {
+        return runways;
+    }
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
+    public void setRunways( List<Runway> runways )
+    {
+        this.runways = runways;
+    }
 
-	public boolean isPublished() {
-		return published;
-	}
+    public List<Stage> getStages()
+    {
+        return stages;
+    }
+  
+    public List<Cell> getCells()
+    {
+        return cells;
+    }
 
-	public void setPublished(boolean published) {
-		this.published = published;
-	}
+    
+    public void setCells( List<Cell> cells )
+    {
+        this.cells = cells;
+    }
+
+    public void setStages( List<Stage> stages )
+    {
+        this.stages = stages;
+    }
+
+    public boolean isPublished()
+    {
+        return published;
+    }
+
+    public void setPublished( boolean published )
+    {
+        this.published = published;
+    }
 }

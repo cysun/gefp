@@ -1,7 +1,7 @@
 package gefp.model.dao.jpa;
 
-import gefp.model.Department;
-import gefp.model.dao.DepartmentDao;
+import gefp.model.Stage;
+import gefp.model.dao.StageDao;
 
 import java.util.List;
 
@@ -13,17 +13,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class DepartmentDaoImpl implements DepartmentDao {
+public class StageDaoImpl implements StageDao {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public Department getDepartment( Integer id )
+    public Stage getStage( Long id )
     {
         try
         {
-            return entityManager.find( Department.class, id );
+            return entityManager.find( Stage.class, id );
         }
         catch( NoResultException nre )
         {
@@ -32,12 +32,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public List<Department> getDepartments()
+    public List<Stage> getStages()
     {
         try
         {
-            return entityManager.createQuery( "from Department order by id",
-                Department.class ).getResultList();
+            return entityManager.createQuery( "from Stage order by order_num",
+                Stage.class ).getResultList();
         }
         catch( NoResultException nre )
         {
@@ -47,9 +47,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     @Transactional
-    public Department saveDepartment( Department department )
+    public Stage saveStage( Stage Stage )
     {
-        return entityManager.merge( department );
+        return entityManager.merge( Stage );
     }
 
 }

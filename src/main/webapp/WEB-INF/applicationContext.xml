@@ -38,22 +38,21 @@
 	<tx:annotation-driven />
 
 	<context:component-scan base-package="gefp.model" />
+	<context:component-scan base-package="gefp.security" />
 
 	<security:authentication-manager>
-		<!-- <security:authentication-provider user-service-ref="userService" /> -->
-		<security:authentication-provider>
+		<security:authentication-provider user-service-ref="userService" />
+		<!-- <security:authentication-provider>
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
 				authorities-by-username-query="SELECT u.username, r.role_name from users as u, roles as r, user_roles as ur where u.username = ? and u.user_id = ur.user_id and r.id = ur.role_id;" />
-		</security:authentication-provider>
+		</security:authentication-provider> -->
 		
 	</security:authentication-manager>
 
-	
-	<!-- authentication-success-handler-ref="authenticationSuccessHandler" -->
 	<security:http auto-config="true" use-expressions="true">
 		 <security:form-login login-page="/login.html"
-			default-target-url="/welcome.html" always-use-default-target="true"
+			authentication-success-handler-ref="authenticationSuccessHandler"
 			authentication-failure-url="/login.html?error=true" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/advisor/**" access="hasAnyRole('ADMIN', 'ADVISOR')" />

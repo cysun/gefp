@@ -151,12 +151,13 @@
 													</th>
 													<c:forEach items="${plan.runways}" var="runway">
 														<td>
-															<ul class="checkpoint_list list">
-																<c:forEach items="${plan.checkpoints}" var="checkpoint">
-
+																<c:forEach items="${plan.cells}" var="cell">
 																	<c:if
-																		test="${checkpoint.runway.id == runway.id && checkpoint.stage.id == stage.id }">
-																		<li id="${checkpoint.id}" class="list"><c:set var="userCheckedPoint"
+																		test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
+																		<ul id="${cell.id}" class="checkpoint_list list">
+																		<c:forEach items="${cell.checkpoints}" var="checkpoint">
+																		<li id="${checkpoint.id}" class="list">
+																		<c:set var="userCheckedPoint"
 																				value="0" /> <c:forEach
 																				items="${currUserObj.checkpoints}" var="userChk">
 
@@ -182,15 +183,17 @@
 																			</c:choose> ${checkpoint.name} <br/>
 																			<security:authorize access="authenticated and hasRole('ADMIN')">
 																				<a title="Edit Checkpoint" class=""
-																					href="<c:url value="/admin/plan/edit-checkpoint.html?id=${checkpoint.id}&planId=${plan.id }" />"
+																					href="<c:url value="/admin/plan/edit-checkpoint.html?id=${checkpoint.id}&cellId=${cell.id}&planId=${plan.id}" />"
 																					class="btn btn-link"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-																				<a title="Delete Checkpoint" class="" onClick="deleteCheckpoint(${checkpoint.id},${plan.id});"
+																				<a title="Delete Checkpoint" class="" onClick="deleteCheckpoint(${checkpoint.id},${cell.id},${plan.id});"
 																					href="javascript:void(0);"
 																					class="btn btn-link"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>	
-																			</security:authorize></li>
+																			</security:authorize>
+																			</li>
+																			</c:forEach>
+																			</ul>
 																	</c:if>
 																</c:forEach>
-															</ul>
 														</td>
 													</c:forEach>
 
@@ -245,10 +248,11 @@ $( ".checkpoint_list" ).sortable({
 	cursor: "move",
 	update: function( event, ui ) {
 		var planId = $('#planId').val();
+		var cellId = $(this).attr("id");
 		var checkIds = $(this).sortable('toArray');
 		$.ajax({ url : '<c:url value="/admin/plan/reorder-checkpoints.html" />',
 			 method : 'post',
-			 data: {planId : planId, checkpointIds : checkIds},
+			 data: {planId : planId, cellId : cellId, checkpointIds : checkIds},
 			 success : function(response){
 				 customAlert(response, 'information');
 			}
@@ -276,11 +280,11 @@ $( "#sortable tbody" ).sortable({
 	}
 });
 
-function deleteCheckpoint(checkpointID, planID) {
+function deleteCheckpoint(checkpointID, cellID, planID) {
 	
 	smoke.confirm("Are you sure you want to remove this checkpoint?", function(e){
 		if (e){
-			top.location.href = '<c:url value="/admin/plan/remove-checkpoint.html?id='+checkpointID+'&planId='+planID+'" />';
+			top.location.href = '<c:url value="/admin/plan/remove-checkpoint.html?id='+checkpointID+'&cellId='+cellID+'&planId='+planID+'" />';
 		}else{
 			
 		}

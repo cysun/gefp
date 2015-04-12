@@ -1,6 +1,6 @@
 package gefp.model.dao;
 
-import gefp.model.dao.CheckPointDao;
+import gefp.model.dao.CheckpointDao;
 import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.UserDao;
 
@@ -16,7 +16,7 @@ public class CheckPointUserDaoTest extends
 		AbstractTransactionalTestNGSpringContextTests {
 
 	@Autowired
-	CheckPointDao chkDao;
+	CheckpointDao chkDao;
 
 	@Autowired
 	UserDao userDao;

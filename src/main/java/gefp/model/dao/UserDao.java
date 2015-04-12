@@ -4,23 +4,23 @@ import java.util.List;
 
 import gefp.model.User;
 
-public interface UserDao {	
+public interface UserDao {
 
-	User getUser( Integer id );
+    User getUser( Long id );
 
     List<User> getUsers();
-    
-    User validateUser(User user);
-    
-    User saveUser(User user);
 
-	User getUserByCin(String cin);
+    User validateUser( User user );
 
-	User getUserByUsername(String username);
+    User saveUser( User user );
 
-	User getUserByEmail(String email);
+    User getUserByCin( String cin );
 
-	List<User> searchUsers(String term);
+    User getUserByUsername( String username );
 
-	List<User> searchUsersByPrefix(String term, int maxResults);
+    User getUserByEmail( String email );
+
+    List<User> searchUsers( String term );
+
+    List<User> searchUsersByPrefix( String term, int maxResults );
 }

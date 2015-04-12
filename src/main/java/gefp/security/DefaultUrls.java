@@ -16,41 +16,43 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with CSNS. If not, see http://www.gnu.org/licenses/agpl.html.
  */
-package gefp.util;
+package gefp.security;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;
 
 import gefp.model.User;
-import gefp.security.SecurityUtils;
 
 @Component
 public class DefaultUrls {
 
-	public String homeUrl(HttpServletRequest request) {
-		return SecurityUtils.isAuthenticated() ? userHomeUrl(request)
-				: anonymousHomeUrl(request);
-	}
+    public String homeUrl( HttpServletRequest request )
+    {
+        return SecurityUtils.isAuthenticated() ? userHomeUrl( request )
+            : anonymousHomeUrl( request );
+    }
 
-	public String userHomeUrl(HttpServletRequest request) {
-		User user = SecurityUtils.getUser();
+    public String userHomeUrl( HttpServletRequest request )
+    {
+        User user = SecurityUtils.getUser();
 
-		String homeUrl;
-		if (user.isAdmin())
-			homeUrl = "/admin/dashboard.html";
-		else if (user.isAdvisor())
-			homeUrl = "/advisor/dashboard.html";
-		else if (user.isStudent())
-			homeUrl = "/student/view-plan/" + user.getId() + ".html";
-		else
-			homeUrl = "/";
+        String homeUrl;
+        if( user.isAdmin() )
+            homeUrl = "/admin/dashboard.html";
+        else if( user.isAdvisor() )
+            homeUrl = "/advisor/dashboard.html";
+        else if( user.isStudent() )
+            homeUrl = "/student/view-plan/" + user.getId() + ".html";
+        else
+            homeUrl = "/";
 
-		return homeUrl;
-	}
+        return homeUrl;
+    }
 
-	public String anonymousHomeUrl(HttpServletRequest request) {
-		return "/";
-	}
+    public String anonymousHomeUrl( HttpServletRequest request )
+    {
+        return "/";
+    }
 
 }

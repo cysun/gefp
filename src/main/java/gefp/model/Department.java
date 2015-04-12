@@ -17,85 +17,102 @@ import javax.persistence.Table;
 @Table(name = "departments")
 public class Department implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue
-	@Column(name = "dept_id")
-	int id;
+    @Id
+    @GeneratedValue
+    int id;
 
-	@Column(name = "dept_name")
-	String name;
+    @Column(name = "name")
+    String name;
 
-	@OneToOne
-	@JoinColumn(name = "plan_id")
-	private FlightPlan currentPlan;
+    @OneToOne
+    @JoinColumn(name = "plan_id")
+    private FlightPlan defaultPlan;
 
-	@OneToMany
-	@JoinTable(name = "department_flightplan", joinColumns = { @JoinColumn(name = "dept_id") }, inverseJoinColumns = { @JoinColumn(name = "oldplan_id") })
-	private List<FlightPlan> oldPlans;
-	
-	private boolean active;
-	
-	private boolean deleted;
-	
-	public Department() {
-	}
+    @OneToMany
+    @JoinTable(name = "department_plans",
+        joinColumns = { @JoinColumn(name = "department_id") },
+        inverseJoinColumns = { @JoinColumn(name = "plan_id") })
+    private List<FlightPlan> plans;
 
-	public Department(int dept_id, String name) {
-		super();
-		this.id = dept_id;
-		this.name = name;
-	}
+    private boolean active;
 
-	public int getId() {
-		return id;
-	}
+    private boolean deleted;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Department()
+    {
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Department( int dept_id, String name )
+    {
+        super();
+        this.id = dept_id;
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public int getId()
+    {
+        return id;
+    }
 
-	public FlightPlan getCurrentPlan() {
-		return currentPlan;
-	}
+    public void setId( int id )
+    {
+        this.id = id;
+    }
 
-	public void setCurrentPlan(FlightPlan currentPlan) {
-		this.currentPlan = currentPlan;
-	}
+    public String getName()
+    {
+        return name;
+    }
 
-	public List<FlightPlan> getOldPlans() {
-		return oldPlans;
-	}
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
-	public void setOldPlans(List<FlightPlan> oldPlans) {
-		this.oldPlans = oldPlans;
-	}
+    
+    public FlightPlan getDefaultPlan()
+    {
+        return defaultPlan;
+    }
 
-	public boolean isActive() {
-		return active;
-	}
+    
+    public void setDefaultPlan( FlightPlan defaultPlan )
+    {
+        this.defaultPlan = defaultPlan;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    
+    public List<FlightPlan> getPlans()
+    {
+        return plans;
+    }
 
-	public boolean isDeleted() {
-		return deleted;
-	}
+    
+    public void setPlans( List<FlightPlan> plans )
+    {
+        this.plans = plans;
+    }
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-	
-	
-	
+    public boolean isActive()
+    {
+        return active;
+    }
+
+    public void setActive( boolean active )
+    {
+        this.active = active;
+    }
+
+    public boolean isDeleted()
+    {
+        return deleted;
+    }
+
+    public void setDeleted( boolean deleted )
+    {
+        this.deleted = deleted;
+    }
+
 }

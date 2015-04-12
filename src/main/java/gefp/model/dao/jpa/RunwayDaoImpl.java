@@ -1,7 +1,7 @@
 package gefp.model.dao.jpa;
 
-import gefp.model.Department;
-import gefp.model.dao.DepartmentDao;
+import gefp.model.Runway;
+import gefp.model.dao.RunwayDao;
 
 import java.util.List;
 
@@ -13,17 +13,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class DepartmentDaoImpl implements DepartmentDao {
+public class RunwayDaoImpl implements RunwayDao {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public Department getDepartment( Integer id )
+    public Runway getRunway( Long id )
     {
         try
         {
-            return entityManager.find( Department.class, id );
+            return entityManager.find( Runway.class, id );
         }
         catch( NoResultException nre )
         {
@@ -32,12 +32,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public List<Department> getDepartments()
+    public List<Runway> getRunways()
     {
         try
         {
-            return entityManager.createQuery( "from Department order by id",
-                Department.class ).getResultList();
+            return entityManager.createQuery( "from Runway order by order_num",
+                Runway.class ).getResultList();
         }
         catch( NoResultException nre )
         {
@@ -47,9 +47,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     @Transactional
-    public Department saveDepartment( Department department )
+    public Runway saveRunway( Runway runway )
     {
-        return entityManager.merge( department );
+        return entityManager.merge( runway );
     }
 
 }

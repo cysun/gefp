@@ -11,28 +11,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private UserDao userDao;
+    @Autowired
+    private UserDao userDao;
 
-	@RequestMapping("/home.html")
-	public String index(ModelMap models) {
-		models.put("users", userDao.getUsers());
-		return "users";
-	}
-	
-	@RequestMapping("/403")
-	public String accessDenied(){
-		return "403";
-	}
+    @RequestMapping("/home.html")
+    public String index( ModelMap models )
+    {
+        models.put( "users", userDao.getUsers() );
+        return "users";
+    }
 
-	public void loadProperties() {
+    @RequestMapping("/403")
+    public String accessDenied()
+    {
+        return "403";
+    }
 
-		try {
-			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
-					new String[] { "config.config" });
-		} catch (Throwable e) {
-			System.out.println(e);
-		}
-		System.out.println("CRUNCHIFY_URL: ");
-	}
+    
+    public void loadProperties()
+    {
+
+        try
+        {
+            ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
+                new String[] { "config.config" } );
+            ctx.close();
+        }
+        catch( Throwable e )
+        {
+            System.out.println( e );
+        }
+        System.out.println( "CRUNCHIFY_URL: " );
+    }
 }

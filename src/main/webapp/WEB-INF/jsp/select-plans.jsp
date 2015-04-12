@@ -65,7 +65,7 @@
 												<tr>
 													<td>
 													<c:set var="planSet" value="0" />
-													<c:forEach var="tmp" items="${department.oldPlans}">
+													<c:forEach var="tmp" items="${department.plans}">
 														<c:if test="${tmp.id == plan.id }">
 															<c:set var="planSet" value="1" />
 														</c:if>

@@ -55,7 +55,7 @@
 														<c:forEach var="runway" items="${flightplan.runways}">
 															
 															<c:choose>
-															<c:when test="${checkpoint.runway.id == runway.id}">
+															<c:when test="${cell.runway.id == runway.id}">
 																<option selected="selected" value="${runway.id}">${runway.name}</option>
 															</c:when>
 															<c:otherwise>
@@ -65,13 +65,6 @@
 															
 														</c:forEach>
 													</select>
-													
-													<%-- <form:select path="runway" class="form-control">
-														<form:option value="-" label="--Select Runway--" />
-														<form:options items="${flightplan.runways}" itemValue="id"
-															itemLabel="name" />
-													</form:select> --%>
-													
 													
 												</div>
 											</div>
@@ -85,7 +78,7 @@
 														<c:forEach var="stage" items="${flightplan.stages}">
 															
 															<c:choose>
-															<c:when test="${checkpoint.stage.id == stage.id}">
+															<c:when test="${cell.stage.id == stage.id}">
 																<option selected="selected" value="${stage.id}">${stage.name}</option>
 															</c:when>
 															<c:otherwise>
@@ -95,12 +88,7 @@
 															
 														</c:forEach>
 													</select>
-													
-													<%-- <form:select path="stage" class="form-control">
-														<form:option value="-" label="--Select Stage--" />
-														<form:options items="${flightplan.stages}" itemValue="id"
-															itemLabel="name" />
-													</form:select> --%>
+
 												</div>
 											</div>
 
@@ -116,6 +104,7 @@
 											<div class="form-group">
 												<div class="col-sm-10">
 												<input type="hidden" name="chkId" value="${checkpoint.id }" />
+												<input type="hidden" name="cellId" value="${cell.id }" />
 												<input type="hidden" name="planId" value="${flightplan.id }" />
 												<input type="submit" class="pull-right btn btn-primary " value="Save" />
 													<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->

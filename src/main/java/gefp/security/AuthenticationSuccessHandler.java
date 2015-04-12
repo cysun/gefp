@@ -19,13 +19,13 @@
 package gefp.security;
 
 import gefp.model.User;
-import gefp.util.DefaultUrls;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -37,28 +37,34 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuthenticationSuccessHandler extends
-		SavedRequestAwareAuthenticationSuccessHandler {
+    SavedRequestAwareAuthenticationSuccessHandler {
 
-	@Autowired
-	DefaultUrls defaultUrls;
-	
-	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request,
-			HttpServletResponse response, Authentication authentication)
-			throws ServletException, IOException {
-		User user = (User) authentication.getPrincipal();
-		//logger.info(user.getUsername() + " signed in.");
-		
-		System.out.println("Username is " + user.getUsername());
-		
-		RequestCache requestCache = new HttpSessionRequestCache();
-		SavedRequest savedRequest = requestCache.getRequest(request, response);
-		if (savedRequest != null) {
-			super.onAuthenticationSuccess(request, response, authentication);
-			return;
-		}
+    @Autowired
+    DefaultUrls defaultUrls;
 
-		getRedirectStrategy().sendRedirect(request, response,
-				defaultUrls.userHomeUrl(request));
-	}
+    @Override
+    public void onAuthenticationSuccess( HttpServletRequest request,
+        HttpServletResponse response, Authentication authentication )
+        throws ServletException, IOException
+    {
+        HttpSession session = request.getSession();
+        User user = (User) authentication.getPrincipal();
+        // logger.info(user.getUsername() + " signed in.");
+
+        System.out.println( "Logged in Username is " + user.getUsername() );
+
+        RequestCache requestCache = new HttpSessionRequestCache();
+        SavedRequest savedRequest = requestCache.getRequest( request, response );
+        if( savedRequest != null )
+        {
+            super.onAuthenticationSuccess( request, response, authentication );
+            return;
+        }
+        
+        session.setAttribute( "loggedInUser", user );
+        user.setUserTypesInSession( session );
+
+        getRedirectStrategy().sendRedirect( request, response,
+            defaultUrls.userHomeUrl( request ) );
+    }
 }
