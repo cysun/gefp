@@ -45,7 +45,7 @@ public class User implements Serializable, UserDetails {
     private String firstName;
 
     @Column(name = "middle_name")
-    private String middleName;
+    private String middleName = "";
 
     @Column(unique = true, nullable = true)
     private String username;
@@ -173,6 +173,17 @@ public class User implements Serializable, UserDetails {
     }
     
     
+    public Department getMajor()
+    {
+        return major;
+    }
+
+    
+    public void setMajor( Department major )
+    {
+        this.major = major;
+    }
+
     public FlightPlan getFlightPlan()
     {
         return flightPlan;

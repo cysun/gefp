@@ -18,7 +18,7 @@ public class RoleDaoImpl implements RoleDao {
     private EntityManager entityManager;
 
     @Override
-    public Role getUserRoles( Integer id )
+    public Role getRole( Integer id )
     {
         try
         {
@@ -31,7 +31,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public List<Role> getUserRoles()
+    public List<Role> getRoles()
     {
         try
         {

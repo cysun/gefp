@@ -79,46 +79,21 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="pull-left">
-									<h5>${plan.name}
-									
+									<h5><span class="planTitle">${plan.name}</span>
 									<security:authorize access="hasRole('ADMIN')">
-									
 									<c:if test="${plan.published == true }">
 										<label class="label label-success">Published</label>
 									</c:if>
 									<c:if test="${plan.published == false }">
-										<label class="label label-warning">Not Published</label>
+										<a onClick="publishPlan(${plan.id})" class="pull-right btn btn-warning" href="javascript:void(0);">Publish Now</a>
 									</c:if>
-									
 									</security:authorize>
-									
 									</h5>
-									
 								</div>
-								<div class="col-xs-offset-5 ">
-								      <div id="successMessage" style="color:#090;display:none;"><h5>Orders updated successfully</h5></div>
+								<div class="pull-right">
+									<a class="btn btn-primary" href="<c:url value="/plan/edit/${plan.id}.html" />"><i class="fa fa-edit "></i> Edit Plan</a>
 								</div>
-
-								<security:authorize access="authenticated and hasRole('ADMIN')">
-									<div class="btn-group pull-right">
-										<button class="btn btn-primary">Add To Plan</button>
-										<button data-toggle="dropdown"
-											class="btn btn-primary dropdown-toggle">
-											<span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu">
-											<li><a
-												href="<c:url value="/admin/plan/add-runway.html?planId=${plan.id}"/>">Another
-													Runway</a></li>
-											<li><a
-												href="<c:url value="/admin/plan/add-stage.html?planId=${plan.id}"/>">Another
-													Stage</a></li>
-											<li><a
-												href="<c:url value="/admin/plan/add-checkpoint.html?planId=${plan.id}"/>">Another
-													Checkpoint</a></li>
-										</ul>
-									</div>
-								</security:authorize>
+								
 								<div style="clear: both;"></div>
 							</div>
 
@@ -132,23 +107,15 @@
 													<input type="hidden" id="planId" value="${plan.id}" />
 												</th>
 												<c:forEach items="${plan.runways}" var="runway">
-													<th class="accept" id="${runway.id}">${runway.name} 
-													<security:authorize access="hasRole('ADMIN')">
-														<a title="Edit Runway" href="<c:url value="/admin/plan/edit-runway.html?id=${runway.id}&planId=${plan.id}"/>"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
-													</security:authorize>
-													</th>
+													<th>${runway.name}</th>
 												</c:forEach>
 											</tr>
 										</thead>
 										<tbody>
 
 											<c:forEach items="${plan.stages}" var="stage" varStatus="counter">
-												<tr class="state-default" id="${stage.id}" order="${counter.count}">
-													<th>${stage.name} 
-													<security:authorize access="hasRole('ADMIN')">
-														<a title="Edit Stage" href="<c:url value="/admin/plan/edit-stage.html?id=${stage.id}&planId=${plan.id}"/>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-													</security:authorize>
-													</th>
+												<tr class="state-default">
+													<th>${stage.name}</th>
 													<c:forEach items="${plan.runways}" var="runway">
 														<td>
 																<c:forEach items="${plan.cells}" var="cell">
@@ -180,15 +147,7 @@
 																						value="${checkpoint.id}"
 																						class="flightplan_checkpoints" /> 
 																				</c:otherwise>
-																			</c:choose> ${checkpoint.name} <br/>
-																			<security:authorize access="authenticated and hasRole('ADMIN')">
-																				<a title="Edit Checkpoint" class=""
-																					href="<c:url value="/admin/plan/edit-checkpoint.html?id=${checkpoint.id}&cellId=${cell.id}&planId=${plan.id}" />"
-																					class="btn btn-link"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-																				<a title="Delete Checkpoint" class="" onClick="deleteCheckpoint(${checkpoint.id},${cell.id},${plan.id});"
-																					href="javascript:void(0);"
-																					class="btn btn-link"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>	
-																			</security:authorize>
+																			</c:choose> ${checkpoint.name}
 																			</li>
 																			</c:forEach>
 																			</ul>
@@ -201,12 +160,7 @@
 
 											</c:forEach>
 										</tbody>
-									</table>
-									
-									<c:if test="${plan.published == false }">
-										<a class="pull-right btn btn-warning" href="<c:url value="/admin/plan/publish.html?planId=${plan.id}" />">Publish Now</a>
-									</c:if>
-									
+									</table>	
 									
 								</div>
 							</div>
@@ -240,51 +194,13 @@
 
 	<jsp:include page="includes/footer.jsp" />
 
-<security:authorize access="hasRole('ADMIN')">
-
 <script type="text/javascript">
 
-$( ".checkpoint_list" ).sortable({
-	cursor: "move",
-	update: function( event, ui ) {
-		var planId = $('#planId').val();
-		var cellId = $(this).attr("id");
-		var checkIds = $(this).sortable('toArray');
-		$.ajax({ url : '<c:url value="/admin/plan/reorder-checkpoints.html" />',
-			 method : 'post',
-			 data: {planId : planId, cellId : cellId, checkpointIds : checkIds},
-			 success : function(response){
-				 customAlert(response, 'information');
-			}
-		});
-	}
-});	
+function publishPlan(planID) {
 	
-$( "#sortable tbody" ).sortable({
-	cursor: "move",
-	update: function( event, ui ) {
-		$.each($("#sortable .state-default"), function(i,v){
-			$(this).attr("order",++i);
-		});
-		var stageIds = $(this).sortable('toArray');
-		var stageOrders = $(this).sortable('toArray', { attribute : "order" });
-		var planId = $('#planId').val();
-		$.ajax({ url : '<c:url value="/admin/plan/reorder-stages.html" />',
-				 method : 'post',
-				 data: {planId : planId, stageIds : stageIds, stageOrders : stageOrders},
-				 success : function(response){
-					 customAlert(response, 'information');
-				}
-		});
-		//$(".save_btn").fadeIn();
-	}
-});
-
-function deleteCheckpoint(checkpointID, cellID, planID) {
-	
-	smoke.confirm("Are you sure you want to remove this checkpoint?", function(e){
+	smoke.confirm("Are you sure you want to publish this plan?", function(e){
 		if (e){
-			top.location.href = '<c:url value="/admin/plan/remove-checkpoint.html?id='+checkpointID+'&cellId='+cellID+'&planId='+planID+'" />';
+			top.location.href = '<c:url value="/admin/plan/publish.html?planId='+planID+'" />';
 		}else{
 			
 		}
@@ -293,45 +209,10 @@ function deleteCheckpoint(checkpointID, cellID, planID) {
 		cancel: "No",
 		classname: "custom-class",
 		reverseButtons: true
-	});
-	
+	});	
 }
 
-$(document).ready(function(){
-	$('#sortable').dragtable({
-		dragHandle: '.table-handle',
-		dragaccept:'.accept',
-		persistState: function(table) {
-        
-		var planId = $('#planId').val();
-        var runwayIds = [];
-		var runwayOrders = [];
-		var tot = table.el.find('th').length;
-		table.el.find('th').each(function(i,v) {
-          	//if(this.id != '') {table.sortOrder[this.id]=i;}
-          	if(this.id != '') {
-          		runwayIds.push(this.id);
-          		runwayOrders.push(i);
-          	}
-          	if(i == tot-1) {
-          		$.ajax({
-                	url: '<c:url value="/admin/plan/reorder-runways.html" />',
-                	method : 'post',
-                	data : {planId : planId, runwayIds : runwayIds, runwayOrders : runwayOrders},
-                	success : function(response) {
-                		customAlert(response, 'information');
-                	}
-                })
-          	}
-          	
-        });
-      }
-    });
-});
-
-
 </script>
-</security:authorize>
 
 </body>
 </html>

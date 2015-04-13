@@ -43,7 +43,7 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12">
-										<form:form modelAttribute="user">
+										<form:form modelAttribute="user" action="" method="post">
 											<!-- div class="form-group">
 												<label>ID</label>
 												<form:input path="id" class="form-control" />
@@ -64,16 +64,40 @@
 												<label>Email ID</label>
 												<form:input path="email" class="form-control" />
 											</div>
+											
+											<div class="form-group col-md-6">
+												<label>Roles</label>
+												<select name="roles" multiple class="form-control">
+													<option value="">--Select Roles--</option>
+													<c:forEach var="role" items="${roles}">
+														<option value="${role.id }">${role.name}</option>
+													</c:forEach>
+												</select>
+											</div>
+											
+											<div class="form-group col-md-6">
+												<label>Department</label>
+												<select name="department" class="form-control">
+													<option value="">--Select Department--</option>
+													<c:forEach var="department" items="${departments}">
+														<option value="${department.id }">${department.name}</option>
+													</c:forEach>
+												</select>
+											</div>
+											
+											<div class="clearfix"></div>
+											
 											<div class="form-group col-md-6">
 												<label>User Name</label>
 												<form:input path="username" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
 												<label>Password</label>
-												<form:input path="password" class="form-control" />
+												<form:password path="password" class="form-control" />
 											</div>
+											
 											<div class="form-group col-md-6">
-											<input type="submit" class="btn btn-default" value="Save" />
+											<input type="submit" class="btn btn-primary" value="Save" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 											</div>
 

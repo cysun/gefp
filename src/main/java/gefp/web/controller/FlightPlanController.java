@@ -2,12 +2,14 @@ package gefp.web.controller;
 
 import gefp.model.Cell;
 import gefp.model.Checkpoint;
+import gefp.model.Department;
 import gefp.model.FlightPlan;
 import gefp.model.Runway;
 import gefp.model.Stage;
 import gefp.model.User;
 import gefp.model.dao.CellDao;
 import gefp.model.dao.CheckpointDao;
+import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.FlightPlanDao;
 import gefp.model.dao.RunwayDao;
 import gefp.model.dao.StageDao;
@@ -47,11 +49,14 @@ public class FlightPlanController {
     private FlightPlanDao planDao;
 
     @Autowired
+    private DepartmentDao deptDao;
+
+    @Autowired
     private RunwayDao runwayDao;
 
     @Autowired
     private StageDao stageDao;
-    
+
     @Autowired
     private CellDao cellDao;
 
@@ -84,6 +89,23 @@ public class FlightPlanController {
         }
 
     }
+    
+    @RequestMapping("/plan/edit/{id}.html")
+    public String editplan( @PathVariable Long id, ModelMap models )
+    {
+        FlightPlan fp = planDao.getFlightPlan( id );
+
+        if( fp != null )
+        {
+            models.put( "plan", fp );
+            return "edit_plan";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+
+    }
 
     @RequestMapping("/student/view-plan/{id}.html")
     public String viewPlanStudent( @PathVariable Long id, ModelMap models,
@@ -104,18 +126,28 @@ public class FlightPlanController {
     }
 
     @RequestMapping(value = "/admin/plan/add.html", method = RequestMethod.GET)
-    public String add( ModelMap models )
+    public String add( ModelMap models, HttpServletRequest request )
     {
+        String departmentId = request.getParameter( "departmentId" );
+        if(departmentId == null || departmentId == "")
+            return "redirect:/admin/list-plans.html";
+        
         models.put( "flightplan", new FlightPlan() );
         return "add_plan";
     }
 
     @RequestMapping(value = "/admin/plan/add.html", method = RequestMethod.POST)
-    public String add( @ModelAttribute FlightPlan flightplan )
+    public String add( @ModelAttribute FlightPlan flightplan,
+        HttpServletRequest request )
     {
         System.out.println( flightplan.getName() );
-        flightplan = planDao.saveFlightPlan( flightplan );
-        return "redirect:/plan/view/" + flightplan.getId() + ".html";
+        Integer departmentId = Integer.parseInt( request.getParameter( "departmentId" ) );
+        Department department = deptDao.getDepartment( departmentId );
+        flightplan.setDepartment( department );
+        FlightPlan flightplan2 = planDao.saveFlightPlan( flightplan );
+        department.getPlans().add( flightplan2 );
+        deptDao.saveDepartment( department );
+        return "redirect:/plan/edit/" + flightplan2.getId() + ".html";
     }
 
     @RequestMapping(value = "/plan/saveStudentCheckpoint.html",
@@ -205,8 +237,8 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/admin/plan/edit-runway.html",
         method = RequestMethod.GET)
-    public String editRunway( @RequestParam Long id,
-        @RequestParam Long planId, ModelMap models )
+    public String editRunway( @RequestParam Long id, @RequestParam Long planId,
+        ModelMap models )
     {
         models.put( "flightplan", planDao.getFlightPlan( planId ) );
         models.put( "runway", runwayDao.getRunway( id ) );
@@ -216,8 +248,7 @@ public class FlightPlanController {
     @RequestMapping(value = "/admin/plan/edit-runway.html",
         method = RequestMethod.POST)
     public String editRunway( @ModelAttribute("runway") Runway runway,
-        @RequestParam Long planId, ModelMap models,
-        SessionStatus sessionStatus )
+        @RequestParam Long planId, ModelMap models, SessionStatus sessionStatus )
     {
         runwayDao.saveRunway( runway );
         sessionStatus.setComplete();
@@ -236,8 +267,7 @@ public class FlightPlanController {
     @RequestMapping(value = "/admin/plan/add-stage.html",
         method = RequestMethod.POST)
     public String addStage( @ModelAttribute("stage") Stage stage,
-        @RequestParam Long planId, ModelMap models,
-        SessionStatus sessionStatus )
+        @RequestParam Long planId, ModelMap models, SessionStatus sessionStatus )
     {
 
         FlightPlan plan = planDao.getFlightPlan( planId );
@@ -250,8 +280,8 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/admin/plan/edit-stage.html",
         method = RequestMethod.GET)
-    public String editStage( @RequestParam Long id,
-        @RequestParam Long planId, ModelMap models )
+    public String editStage( @RequestParam Long id, @RequestParam Long planId,
+        ModelMap models )
     {
         models.put( "flightplan", planDao.getFlightPlan( planId ) );
         models.put( "stage", stageDao.getStage( id ) );
@@ -261,8 +291,7 @@ public class FlightPlanController {
     @RequestMapping(value = "/admin/plan/edit-stage.html",
         method = RequestMethod.POST)
     public String editStage( @ModelAttribute("stage") Stage stage,
-        @RequestParam Long planId, ModelMap models,
-        SessionStatus sessionStatus )
+        @RequestParam Long planId, ModelMap models, SessionStatus sessionStatus )
     {
         stageDao.saveStage( stage );
         sessionStatus.setComplete();
@@ -280,7 +309,8 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/admin/plan/add-checkpoint.html",
         method = RequestMethod.POST)
-    public String addCheckpoint( @ModelAttribute("checkpoint") Checkpoint checkpoint,
+    public String addCheckpoint(
+        @ModelAttribute("checkpoint") Checkpoint checkpoint,
         HttpServletRequest request, ModelMap models )
     {
         Long planId = Long.parseLong( request.getParameter( "planId" ) );
@@ -295,34 +325,38 @@ public class FlightPlanController {
         FlightPlan plan = planDao.getFlightPlan( planId );
         List<Cell> cells = plan.getCells();
         boolean cellExists = false;
-        
-        for(Cell c : cells) {
-            if(c.getRunway().getId().equals( runwayId ) && c.getStage().getId().equals( stageId )) {
+
+        for( Cell c : cells )
+        {
+            if( c.getRunway().getId().equals( runwayId )
+                && c.getStage().getId().equals( stageId ) )
+            {
                 cellExists = true;
-                c.getCheckpoints().add(checkpoint);
+                c.getCheckpoints().add( checkpoint );
                 break;
             }
         }
-        
-        if(!cellExists) {
+
+        if( !cellExists )
+        {
             List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
-            checkpoints.add(checkpoint);
+            checkpoints.add( checkpoint );
             Cell cell = new Cell();
             cell.setFlightPlan( planDao.getFlightPlan( planId ) );
             cell.setRunway( runwayDao.getRunway( runwayId ) );
             cell.setStage( stageDao.getStage( stageId ) );
             cell.setCheckpoints( checkpoints );
-            plan.getCells().add(cell);
+            plan.getCells().add( cell );
         }
-        
+
         planDao.saveFlightPlan( plan );
         return "redirect:/plan/view/" + plan.getId() + ".html";
     }
 
     @RequestMapping(value = "/admin/plan/edit-checkpoint.html",
         method = RequestMethod.GET)
-    public String editCheckpoint( @RequestParam Long planId, @RequestParam Long cellId,
-        @RequestParam Long id, ModelMap models )
+    public String editCheckpoint( @RequestParam Long planId,
+        @RequestParam Long cellId, @RequestParam Long id, ModelMap models )
     {
         models.put( "flightplan", planDao.getFlightPlan( planId ) );
         models.put( "cell", cellDao.getCell( cellId ) );
@@ -351,34 +385,40 @@ public class FlightPlanController {
         Long cellId = Long.parseLong( request.getParameter( "cellId" ) );
         Long runwayId = Long.parseLong( request.getParameter( "runwayId" ) );
         Long stageId = Long.parseLong( request.getParameter( "stageId" ) );
-        
+
         FlightPlan plan = planDao.getFlightPlan( planId );
         List<Cell> cells = plan.getCells();
         boolean cellExists = false;
-        
-        
+
         // Remove checkpoint from previous Cell.
-        for(Cell c : cells) {
-            if(c.getId().equals( cellId )) {
-                int index = c.getCheckpoints().indexOf( checkpointDao.getCheckPoint( chkId ) );
+        for( Cell c : cells )
+        {
+            if( c.getId().equals( cellId ) )
+            {
+                int index = c.getCheckpoints().indexOf(
+                    checkpointDao.getCheckPoint( chkId ) );
                 c.getCheckpoints().remove( index );
                 break;
             }
         }
-        
 
         //
-        for(Cell c : cells) {
-            if(c.getRunway().getId().equals( runwayId ) && c.getStage().getId().equals( stageId )) {
+        for( Cell c : cells )
+        {
+            if( c.getRunway().getId().equals( runwayId )
+                && c.getStage().getId().equals( stageId ) )
+            {
                 cellExists = true;
-                int index = c.getCheckpoints().indexOf( checkpointDao.getCheckPoint( chkId ) );
+                int index = c.getCheckpoints().indexOf(
+                    checkpointDao.getCheckPoint( chkId ) );
                 c.getCheckpoints().set( index, checkpoint );
                 break;
             }
         }
-        
-        if(!cellExists) {
-            
+
+        if( !cellExists )
+        {
+
             List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
             checkpoints.add( checkpoint );
             Cell cell = new Cell();
@@ -386,9 +426,9 @@ public class FlightPlanController {
             cell.setRunway( runwayDao.getRunway( runwayId ) );
             cell.setStage( stageDao.getStage( stageId ) );
             cell.setCheckpoints( checkpoints );
-            plan.getCells().add(cell);
+            plan.getCells().add( cell );
         }
-        
+
         planDao.saveFlightPlan( plan );
         sessionStatus.setComplete();
         return "redirect:/plan/view/" + planId + ".html";
@@ -477,12 +517,12 @@ public class FlightPlanController {
             // FlightPlan plan = planDao.getFlightPlan( planId );
             Long cellId = Long.parseLong( request.getParameter( "cellId" ) );
             String[] checkpointIds = request.getParameterValues( "checkpointIds[]" );
-            Cell cell = cellDao.getCell(cellId);
+            Cell cell = cellDao.getCell( cellId );
             List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
-            
+
             for( String s : checkpointIds )
-                checkpoints.add(checkpointDao.getCheckPoint( Long.parseLong( s ) ));
-            
+                checkpoints.add( checkpointDao.getCheckPoint( Long.parseLong( s ) ) );
+
             cell.setCheckpoints( checkpoints );
             cellDao.saveCell( cell );
             out.println( "Checkpoints re-ordered successfully." );

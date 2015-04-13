@@ -3,6 +3,11 @@
     GENERAL  STYLES    
     =============================================*/
 
+.planTitle {
+	line-height:30px;
+	margin-right:10px;
+}
+
 
 #sortable thead tr th:not(:first-child){
 	cursor: move;

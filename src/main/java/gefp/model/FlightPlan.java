@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.IndexColumn;
@@ -44,7 +45,10 @@ public class FlightPlan implements Serializable {
 
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private List<Cell> cells;
-
+    
+    @OneToOne
+    Department department;
+    
     private boolean published;
 
     public FlightPlan()
@@ -100,6 +104,18 @@ public class FlightPlan implements Serializable {
     public void setStages( List<Stage> stages )
     {
         this.stages = stages;
+    }
+    
+    
+    public Department getDepartment()
+    {
+        return department;
+    }
+
+    
+    public void setDepartment( Department department )
+    {
+        this.department = department;
     }
 
     public boolean isPublished()

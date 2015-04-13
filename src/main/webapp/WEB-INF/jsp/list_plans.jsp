@@ -42,8 +42,10 @@
 								<h5>List of Flight Plans</h5>
 							</div>
 							
+							<%--
 							<a href="<c:url value="/admin/plan/add.html"/>" class="pull-right btn btn-primary">Add
 							New Plan</a>
+							 --%>
 							<div class="clearfix"></div>
 							</div>
 							<div class="panel-body">
@@ -53,6 +55,7 @@
 											<tr>
 												<th>#</th>
 												<th>Plan Name</th>
+												<th>Department</th>
 												<th>Published</th>
 												<th>Operations</th>
 											</tr>
@@ -64,6 +67,7 @@
 												<tr>
 													<td>${plan.id}</td>
 													<td>${plan.name}</td>
+													<td>${plan.department.name}</td>
 													<td>
 														<c:choose>
 															<c:when test="${plan.published == false}">

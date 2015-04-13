@@ -103,8 +103,35 @@ public class UserController {
     @RequestMapping(value = "/admin/user/add.html", method = RequestMethod.GET)
     public String add( ModelMap models )
     {
+        models.put( "departments", deptDao.getDepartments() );
+        models.put( "roles", roleDao.getRoles() );
         models.put( "user", new User() );
         return "add_user";
+    }
+
+
+    @RequestMapping(value = "/admin/user/add.html", method = RequestMethod.POST)
+    public String add( @ModelAttribute("user") User user, HttpServletRequest request, SessionStatus sessionStatus )
+    {
+        System.out.println("In Post");
+        //Need to check the following code, why add user desn't work?
+        
+        Integer deptId = Integer.parseInt( request.getParameter( "department" ) );
+        String[] roleIds = request.getParameterValues( "roles" );
+        Set<Role> roles = new HashSet<Role>();
+        
+        for( String role : roleIds )
+            roles.add( roleDao.getRole( Integer.parseInt(role) ) );   
+
+        user.setDepartment( deptDao.getDepartment( deptId ) );
+        user.setMajor( deptDao.getDepartment( deptId ) );
+        user.setFlightPlan( deptDao.getDepartment( deptId ).getDefaultPlan() );
+        user.setRoles( roles );
+        user.setEnabled( true );
+        User user2 = userDao.saveUser( user );
+        sessionStatus.setComplete();
+        System.out.println( "New user id is " + user2.getId() );
+        return "redirect:/admin/list-users.html";
     }
 
     @RequestMapping(value = "/admin/user/edit/{id}.html",
@@ -113,23 +140,8 @@ public class UserController {
     {
         models.put( "user", userDao.getUser( id ) );
         return "add_user";
-    }
-
-    @RequestMapping(value = "/admin/user/add.html", method = RequestMethod.POST)
-    public String add( @ModelAttribute User user, ModelMap models,
-        BindingResult bindingResult )
-    {
-        user.setDepartment( deptDao.getDepartment( 1 ) );
-        user.setFlightPlan( planDao.getFlightPlan( 1L ) );
-        Set<Role> roles = new HashSet<Role>();
-        roles.add( roleDao.getUserRoles( 3 ) );
-        user.setRoles( roles );
-        user.setEnabled( true );
-        User user2 = userDao.saveUser( user );
-        System.out.println( "New user id is " + user2.getId() );
-        return "redirect:/admin/list-users.html";
-    }
-
+    }    
+    
     @RequestMapping(value = "/admin/user/edit/{id}.html",
         method = RequestMethod.POST)
     public String save( @ModelAttribute("user") User user, ModelMap models,

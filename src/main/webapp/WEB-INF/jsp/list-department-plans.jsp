@@ -43,8 +43,8 @@
 								<h5>${department.name} : List of Flight Plans</h5>
 							</div>
 							<div class="pull-right">
-								<a href="<c:url value="/admin/department/select-plans.html?id=${department.id }"/>" class="btn btn-primary"><i class="fa fa-plus "></i> Add
-								More</a>
+								<a href="<c:url value="/admin/plan/add.html?departmentId=${department.id }"/>" class="btn btn-primary"><i class="fa fa-plus "></i> Add
+								Plan</a>
 							</div>
 							<div class="clearfix"></div>
 							</div>

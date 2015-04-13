@@ -37,7 +37,18 @@
 					<div class="col-md-12 col-sm-12 col-xs-12">
 
 						<div class="panel panel-default">
-							<div class="panel-heading">List of Users</div>
+							<div class="panel-heading">
+							<div class="pull-left">
+							<h5>List of Users</h5>
+							</div>
+							<security:authorize access="authenticated and hasRole('ADMIN')">
+							<div class="pull-right">
+							<a href="<c:url value="/admin/user/add.html"/>" class="btn btn-primary"><i class="fa fa-plus "></i> Add
+							New</a>
+							</div>
+							</security:authorize>
+							<div class="clearfix"></div>
+							</div>
 							<div class="panel-body">
 								<div class="table-responsive">
 									<table class="table table-striped table-bordered table-hover">
@@ -89,11 +100,6 @@
 							</div>
 
 						</div>
-						
-						<security:authorize access="authenticated and hasRole('ADMIN')">
-						<a href="<c:url value="/admin/user/add.html"/>" class="btn btn-primary">Add
-							New</a>
-						</security:authorize>
 
 					</div>
 				</div>

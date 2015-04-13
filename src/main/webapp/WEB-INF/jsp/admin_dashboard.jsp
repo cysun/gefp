@@ -36,7 +36,7 @@
 				<!-- /. ROW  -->
 				<hr />
 				<div class="row">
-					<div class="col-md-4 col-sm-6 col-xs-6">
+					<%-- <div class="col-md-4 col-sm-6 col-xs-6">
 						<div class="panel panel-back noti-box">
 							<span class="icon-box bg-color-red set-icon"> <i
 								class="fa fa-book"></i>
@@ -46,26 +46,30 @@
 								<p class="text-muted">Departments</p>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-4 col-sm-6 col-xs-6">
+					</div> --%>
+					<div class="col-md-6 col-sm-6 col-xs-6">
 						<div class="panel panel-back noti-box">
+							<a href="<c:url value="/admin/list-plans.html" />">
 							<span class="icon-box bg-color-green set-icon"> <i
 								class="fa fa-bars"></i>
 							</span>
+							</a>
 							<div class="text-box">
 								<p class="main-text">${plans.size()}</p>
-								<p class="text-muted">Flight Plans</p>
+								<p class="text-muted"><a href="<c:url value="/admin/list-plans.html" />">Flight Plans</a></p>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="col-md-6 col-sm-6 col-xs-6">
 						<div class="panel panel-back noti-box">
+							<a href="<c:url value="/admin/list-users.html" />">
 							<span class="icon-box bg-color-blue set-icon"> <i
 								class="fa fa-user"></i>
 							</span>
+							</a>
 							<div class="text-box">
 								<p class="main-text">${users.size()}</p>
-								<p class="text-muted">Users</p>
+								<p class="text-muted"><a href="<c:url value="/admin/list-users.html" />">Users</a></p>
 							</div>
 						</div>
 					</div>

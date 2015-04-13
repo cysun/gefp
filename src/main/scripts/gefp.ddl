@@ -52,6 +52,7 @@
         id int8 not null,
         name varchar(255),
         published boolean not null,
+        department_id int8,
         primary key (id)
     );
 
@@ -184,6 +185,11 @@
         add constraint FK_8a20talpum1ntge7ig51igoms 
         foreign key (flightplan_id) 
         references flightplans;
+
+    alter table flightplans 
+        add constraint FK_29kek3b2jbux5p832kvqo9be6 
+        foreign key (department_id) 
+        references departments;
 
     alter table flightplans_cells 
         add constraint FK_aueh9sf2st922gmaww4573yco 
