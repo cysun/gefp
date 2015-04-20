@@ -40,9 +40,9 @@
 	<context:component-scan base-package="gefp.model" />
 	<context:component-scan base-package="gefp.security" />
 
-	<!-- <security:authentication-manager>
+	<security:authentication-manager>
 		<security:authentication-provider user-service-ref="userService" />
-	</security:authentication-manager> -->
+	</security:authentication-manager>
 	
 	<!-- 
    For authentication:
@@ -59,7 +59,7 @@
       manager-dn: the full dn of the person that has access to an LDAP server
       manager-password: the password of the person that has access to an LDAP server
  -->
- <security:authentication-manager>
+ <!-- <security:authentication-manager>
          <security:ldap-authentication-provider 
            user-search-filter="(uid={0})"
            user-search-base="ou=users"
@@ -71,7 +71,7 @@
  </security:authentication-manager>
  
  <security:ldap-server url="ldap://ad.calstatela.edu" manager-dn="uid=hgadhia,ou=students" manager-password="CHrs@257" />
-
+ -->
 	<security:http auto-config="true" use-expressions="true">
 		 <security:form-login login-page="/login.html"
 			authentication-success-handler-ref="authenticationSuccessHandler"
