@@ -55,7 +55,7 @@ public class ActiveDirectory {
      * @param password a {@link java.lang.String} object - password to establish a LDAP connection
      * @param domainController a {@link java.lang.String} object - domain controller name for LDAP connection
      */
-    public ActiveDirectory(String username, String password, String domainController) {
+    public ActiveDirectory(String username, String password, String domainController) throws NamingException {
         properties = new Properties();        
 
         properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -67,7 +67,8 @@ public class ActiveDirectory {
         try {
 			dirContext = new InitialDirContext(properties);
 		} catch (NamingException e) {
-			System.out.println(e.getMessage());
+			throw new NamingException("Invalid Username");
+		    //System.out.println(e.getMessage());
 		}
         
         //default domain base for search
@@ -91,10 +92,7 @@ public class ActiveDirectory {
     public NamingEnumeration<SearchResult> searchUser(String searchValue, String searchBy, String searchBase) throws NamingException {
     	String filter = getFilter(searchValue, searchBy);    	
     	String base = (null == searchBase) ? domainBase : getDomainBase(searchBase); // for eg.: "DC=myjeeva,DC=com";
-		if( this.dirContext.search(base, filter, this.searchCtls) != null )
-		        return this.dirContext.search(base, filter, this.searchCtls);
-		else
-		    throw new NamingException("Invalid Username/Password");
+		return this.dirContext.search(base, filter, this.searchCtls);
     }
 
     /**
