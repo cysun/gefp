@@ -83,27 +83,26 @@ public class HomeController {
             LdapContext connection = ActiveDirectory.getConnection( username,
                 password, "AD.calstatela.edu", null );
 
-            out.println( "Successfully Authenticated" );
+            if(connection!=null)
+                out.println( "Successfully Authenticated" );
 
             /*
              * User[] users = ActiveDirectory.getUsers( connection ); for( User
              * user : users ) System.out.println( user.toString() );
              */
 
-            ADUser user = ActiveDirectory.getUser( "hgadhia", connection );
-            System.out.println( user.toString() );
+            //ADUser user = ActiveDirectory.getUser( "hgadhia", connection );
+            //System.out.println( user.toString() );
 
             connection.close();
 
         }
         catch( IOException e )
         {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch( NamingException e )
         {
-            // TODO Auto-generated catch block
             System.out.println( "Exception" );
             e.printStackTrace();
         }
