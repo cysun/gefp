@@ -83,8 +83,7 @@ public class HomeController {
             LdapContext connection = ActiveDirectory.getConnection( username,
                 password, "AD.calstatela.edu", null );
 
-            if(connection!=null)
-                out.println( "Successfully Authenticated" );
+            out.println( "Successfully Authenticated" );
 
             /*
              * User[] users = ActiveDirectory.getUsers( connection ); for( User
