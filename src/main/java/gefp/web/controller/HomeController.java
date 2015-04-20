@@ -3,11 +3,15 @@ package gefp.web.controller;
 import gefp.model.ADUser;
 import gefp.model.dao.UserDao;
 import gefp.security.ActiveDirectory;
+import gefp.security.ActiveDirectory2;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.SearchResult;
 import javax.naming.ldap.LdapContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,10 +65,78 @@ public class HomeController {
         System.out.println( "AD Login" );
         return "ADLogin";
     }
-
+    
     @RequestMapping(value = "/ActiveDirectoryLogin.html",
         method = RequestMethod.POST)
     public void activeDirectoryLoginCheck( HttpServletRequest request,
+        HttpServletResponse response )
+    {
+        
+        String username = request.getParameter( "username" );
+        String password = request.getParameter( "password" );
+        String domain = "ad.calstatela.edu";
+        String choice = "username"; // username | email
+        
+        System.out.println( "Authenticating user : " + username );
+        
+        try
+        {
+            PrintWriter out = response.getWriter();
+            out.println( "Username is " + username );
+            out.println( "Password is " + password );
+            out.println( "Domain is " + domain );
+            
+            ActiveDirectory activeDirectory = new ActiveDirectory(username, password, domain);
+            
+            //Searching
+            NamingEnumeration<SearchResult> result = activeDirectory.searchUser(username, choice, null);
+            
+            if(result.hasMore()) {
+                SearchResult rs= (SearchResult)result.next();
+                Attributes attrs = rs.getAttributes();
+                
+                String temp = attrs.get("samaccountname").toString();
+                out.println("Username : " + temp.substring(temp.indexOf(":")+1));
+                temp = attrs.get("uid").toString();
+                out.println("uid : " + temp.substring(temp.indexOf(":")+1));
+                temp = attrs.get("givenname").toString();
+                out.println("Name : " + temp.substring(temp.indexOf(":")+1));
+                temp = attrs.get("mail").toString();
+                out.println("Email ID    : " + temp.substring(temp.indexOf(":")+1));
+                temp = attrs.get("cn").toString();
+                out.println("Display Name : " + temp.substring(temp.indexOf(":")+1));
+                temp = attrs.get("distinguishedName").toString();
+                out.println("distinguishedName : " + temp.substring(temp.indexOf(":")+1)); 
+                temp = attrs.get("userPrincipalName").toString();
+                out.println("userPrincipalName : " + temp.substring(temp.indexOf(":")+1));
+                
+            } else  {
+                out.println("No result found!");
+            }
+
+            //Closing LDAP Connection
+            activeDirectory.closeLdapConnection();
+            
+        }
+        catch( NamingException e )
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch( IOException e )
+        {   
+            System.out.println( "Exception : " + e.getMessage() );
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+    /** OLD Script */
+    
+    @RequestMapping(value = "/ActiveDirectoryLoginOld.html",
+        method = RequestMethod.POST)
+    public void activeDirectoryLoginCheckActiveDirectory2( HttpServletRequest request,
         HttpServletResponse response )
     {
         
@@ -81,10 +153,7 @@ public class HomeController {
             out.println( "Password is " + password );
             out.println( "Domain is " + domain );
             
-//            LdapContext connection = ActiveDirectory.getConnection( "hgadhia",
-//                "CHrs@257", domain, null );
-            
-            LdapContext connection = ActiveDirectory.getConnection( username,
+            LdapContext connection = ActiveDirectory2.getConnection( username,
                 password, domain, null );
 
             out.println( "Successfully Authenticated" );

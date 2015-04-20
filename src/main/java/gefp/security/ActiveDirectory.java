@@ -1,218 +1,146 @@
+/**
+ * The MIT License
+ *
+ * Copyright (c) 2010-2012 www.myjeeva.com
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE. 
+ * 
+ */
 package gefp.security;
 
-
-import gefp.model.ADUser;
-
-import java.util.Hashtable;
-
+import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
-import javax.naming.directory.Attribute;
-import javax.naming.directory.Attributes;
+import javax.naming.directory.DirContext;
+import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
-import static javax.naming.directory.SearchControls.SUBTREE_SCOPE;
-
-import javax.naming.ldap.LdapContext;
-import javax.naming.ldap.InitialLdapContext;
-
-//******************************************************************************
-//**  ActiveDirectory Class
-//**  Provides static methods to authenticate users, change passwords, etc.
-//**
-//*****************************************************************************/
-
+/**
+ * Query Active Directory using Java
+ * 
+ * @filename ActiveDirectory.java
+ */
 public class ActiveDirectory {
 
-    private static String[] userAttributes = { "distinguishedName", "cn",
-        "name", "uid", "sn", "userPrincipalName" };
+    //required private variables   
+    private Properties properties;
+    private DirContext dirContext;
+    private SearchControls searchCtls;
+	private String[] returnAttributes = { "sAMAccountName", "givenName", "cn", "mail", "distinguishedName", "userPrincipalName", "uid" };
+    private String domainBase;
+    private String baseFilter = "(&((&(objectCategory=Person)(objectClass=User)))";
 
-    private ActiveDirectory()
-    {
-    }
-
-    // **************************************************************************
-    // ** getConnection
-    // *************************************************************************/
     /**
-     * Used to authenticate a user given a username/password and domain name.
-     * Provides an option to identify a specific a Active Directory server.
-     */
-
-    public static LdapContext getConnection( String username, String password,
-        String domainName, String serverName ) throws NamingException
-    {
-
-        if( domainName == null )
-        {
-            try
-            {
-                String fqdn = java.net.InetAddress.getLocalHost()
-                    .getCanonicalHostName();
-                if( fqdn.split( "\\." ).length > 1 )
-                    domainName = fqdn.substring( fqdn.indexOf( "." ) + 1 );
-            }
-            catch( java.net.UnknownHostException e )
-            {
-            }
-        }
-
-        // System.out.println("Authenticating " + username + "@" + domainName +
-        // " through " + serverName);
-
-        if( password != null )
-        {
-            password = password.trim();
-            if( password.length() == 0 ) password = null;
-        }
-
-        // bind by using the specified username/password
-        Hashtable<String, Object> props = new Hashtable<String, Object>();
-        String principalName = username + "@" + domainName;
-        props.put( Context.SECURITY_PRINCIPAL, principalName );
-        //props.put(  Context.REFERRAL, "follow" );
-        
-        if( password != null )
-            props.put( Context.SECURITY_CREDENTIALS, password );
-
-        String ldapURL = "ldap://"
-            + ((serverName == null) ? domainName : serverName + "."
-                + domainName) + '/';
-        props.put( Context.INITIAL_CONTEXT_FACTORY,
-            "com.sun.jndi.ldap.LdapCtxFactory" );
-        
-        System.out.println("ldapURL : " + ldapURL);
-        
-        props.put( Context.PROVIDER_URL, ldapURL );
-        try
-        {
-            return new InitialLdapContext( props, null );
-        }
-        catch( javax.naming.CommunicationException e )
-        {
-            throw new NamingException( "Failed to connect to " + domainName
-                + ((serverName == null) ? "" : " through " + serverName) );
-        }
-        catch( NamingException e )
-        {
-            throw new NamingException( "Failed to authenticate " + username
-                + "@" + domainName
-                + ((serverName == null) ? "" : " through " + serverName) );
-        }
-    }
-
-    // **************************************************************************
-    // ** getUser
-    // *************************************************************************/
-    /**
-     * Used to check whether a username is valid.
+     * constructor with parameter for initializing a LDAP context
      * 
-     * @param username
-     *            A username to validate (e.g. "peter", "peter@acme.com", or
-     *            "ACME\peter").
+     * @param username a {@link java.lang.String} object - username to establish a LDAP connection
+     * @param password a {@link java.lang.String} object - password to establish a LDAP connection
+     * @param domainController a {@link java.lang.String} object - domain controller name for LDAP connection
      */
-    public static ADUser getUser( String username, LdapContext context )
-    {
-        try
-        {
-            String domainName = null;
-            if( username.contains( "@" ) )
-            {
-                username = username.substring( 0, username.indexOf( "@" ) );
-                domainName = username.substring( username.indexOf( "@" ) + 1 );
-            }
-            else if( username.contains( "\\" ) )
-            {
-                username = username.substring( 0, username.indexOf( "\\" ) );
-                domainName = username.substring( username.indexOf( "\\" ) + 1 );
-            }
-            else
-            {
-                String authenticatedUser = (String) context.getEnvironment()
-                    .get( Context.SECURITY_PRINCIPAL );
-                if( authenticatedUser.contains( "@" ) )
-                {
-                    domainName = authenticatedUser.substring( authenticatedUser.indexOf( "@" ) + 1 );
-                }
-            }
+    public ActiveDirectory(String username, String password, String domainController) {
+        properties = new Properties();        
 
-            System.out.println( "Username Name is " + username );
-            System.out.println( "Domain Name is " + domainName );
-
-            if( domainName != null )
-            {
-                String principalName = username + "@" + domainName;
-                SearchControls controls = new SearchControls();
-                controls.setSearchScope( SUBTREE_SCOPE );
-                controls.setReturningAttributes( userAttributes );
-                NamingEnumeration<SearchResult> answer = context.search(
-                    toDC( domainName ), "(& (userPrincipalName="
-                        + principalName + ")(objectClass=user))", controls );
-                if( answer.hasMore() )
-                {
-                    Attributes attr = answer.next().getAttributes();
-                    Attribute user = attr.get( "userPrincipalName" );
-                    if( user != null ) return new ADUser( attr );
-                }
-            }
-        }
-        catch( NamingException e )
-        {
-            e.printStackTrace();
-        }
-        return null;
+        properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        properties.put(Context.PROVIDER_URL, "LDAP://" + domainController);
+        properties.put(Context.SECURITY_PRINCIPAL, username + "@" + domainController);
+        properties.put(Context.SECURITY_CREDENTIALS, password);
+        
+        //initializing active directory LDAP connection
+        try {
+			dirContext = new InitialDirContext(properties);
+		} catch (NamingException e) {
+			System.out.println(e.getMessage());
+		}
+        
+        //default domain base for search
+        domainBase = getDomainBase(domainController);
+        
+        //initializing search controls
+        searchCtls = new SearchControls();
+        searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+        searchCtls.setReturningAttributes(returnAttributes);
+    }
+    
+    /**
+     * search the Active directory by username/email id for given search base
+     * 
+     * @param searchValue a {@link java.lang.String} object - search value used for AD search for eg. username or email
+     * @param searchBy a {@link java.lang.String} object - scope of search by username or by email id
+     * @param searchBase a {@link java.lang.String} object - search base value for scope tree for eg. DC=myjeeva,DC=com
+     * @return search result a {@link javax.naming.NamingEnumeration} object - active directory search result
+     * @throws NamingException
+     */
+    public NamingEnumeration<SearchResult> searchUser(String searchValue, String searchBy, String searchBase) throws NamingException {
+    	String filter = getFilter(searchValue, searchBy);    	
+    	String base = (null == searchBase) ? domainBase : getDomainBase(searchBase); // for eg.: "DC=myjeeva,DC=com";
+    	
+		return this.dirContext.search(base, filter, this.searchCtls);
     }
 
-
-    // **************************************************************************
-    // ** getUsers
-    //** -- Returns a list of users in the domain.
-    // *************************************************************************/
-    public static ADUser[] getUsers( LdapContext context ) throws NamingException
-    {
-
-        java.util.ArrayList<ADUser> users = new java.util.ArrayList<ADUser>();
-        String authenticatedUser = (String) context.getEnvironment().get(
-            Context.SECURITY_PRINCIPAL );
-        if( authenticatedUser.contains( "@" ) )
-        {
-            String domainName = authenticatedUser.substring( authenticatedUser.indexOf( "@" ) + 1 );
-            SearchControls controls = new SearchControls();
-            controls.setSearchScope( SUBTREE_SCOPE );
-            controls.setReturningAttributes( userAttributes );
-            NamingEnumeration answer = context.search( toDC( domainName ),
-                "(objectClass=user)", controls );
-            try
-            {
-                while( answer.hasMore() )
-                {
-                    Attributes attr = ((SearchResult) answer.next()).getAttributes();
-                    Attribute user = attr.get( "userPrincipalName" );
-                    if( user != null )
-                    {
-                        users.add( new ADUser( attr ) );
-                    }
-                }
-            }
-            catch( Exception e )
-            {
-            }
+    /**
+     * closes the LDAP connection with Domain controller
+     */
+    public void closeLdapConnection(){
+        try {
+            if(dirContext != null)
+                dirContext.close();
         }
-        return users.toArray( new ADUser[users.size()] );
-    }
-
-    private static String toDC( String domainName )
-    {
-        StringBuilder buf = new StringBuilder();
-        for( String token : domainName.split( "\\." ) )
-        {
-            if( token.length() == 0 ) continue; // defensive check
-            if( buf.length() > 0 ) buf.append( "," );
-            buf.append( "DC=" ).append( token );
+        catch (NamingException e) {
+        	System.out.println(e.getMessage());            
         }
-        return buf.toString();
     }
+    
+    /**
+     * active directory filter string value
+     * 
+     * @param searchValue a {@link java.lang.String} object - search value of username/email id for active directory
+     * @param searchBy a {@link java.lang.String} object - scope of search by username or email id
+     * @return a {@link java.lang.String} object - filter string
+     */
+    private String getFilter(String searchValue, String searchBy) {
+    	String filter = this.baseFilter;    	
+    	if(searchBy.equals("email")) {
+    		filter += "(mail=" + searchValue + "))";
+    	} else if(searchBy.equals("username")) {
+    		filter += "(samaccountname=" + searchValue + "))";
+    	}
+		return filter;
+	}
+    
+    /**
+     * creating a domain base value from domain controller name
+     * 
+     * @param base a {@link java.lang.String} object - name of the domain controller
+     * @return a {@link java.lang.String} object - base name for eg. DC=myjeeva,DC=com
+     */
+	private static String getDomainBase(String base) {
+		char[] namePair = base.toUpperCase().toCharArray();
+		String dn = "DC=";
+		for (int i = 0; i < namePair.length; i++) {
+			if (namePair[i] == '.') {
+				dn += ",DC=" + namePair[++i];
+			} else {
+				dn += namePair[i];
+			}
+		}
+		return dn;
+	}
 }
-
