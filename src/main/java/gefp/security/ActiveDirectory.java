@@ -91,7 +91,6 @@ public class ActiveDirectory {
     public NamingEnumeration<SearchResult> searchUser(String searchValue, String searchBy, String searchBase) throws NamingException {
     	String filter = getFilter(searchValue, searchBy);    	
     	String base = (null == searchBase) ? domainBase : getDomainBase(searchBase); // for eg.: "DC=myjeeva,DC=com";
-    	
 		return this.dirContext.search(base, filter, this.searchCtls);
     }
 
