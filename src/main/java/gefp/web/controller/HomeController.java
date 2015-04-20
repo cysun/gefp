@@ -70,15 +70,17 @@ public class HomeController {
 
         String username = request.getParameter( "username" );
         String password = request.getParameter( "password" );
-
+        String domain = "AD.calstatela.edu";
+        
         try
         {
             PrintWriter out = response.getWriter();
-            out.println( "username is " + username );
-            out.println( "password is " + password );
-
+            out.println( "Username is " + username );
+            out.println( "Password is " + password );
+            out.println( "Domain is " + domain );
+            
             LdapContext connection = ActiveDirectory.getConnection( "hgadhia",
-                "CHrs@257", "AD.calstatela.edu", null );
+                "CHrs@257", domain, null );
             
 //            LdapContext connection = ActiveDirectory.getConnection( username,
 //                password, "AD.calstatela.edu", null );
