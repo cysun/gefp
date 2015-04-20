@@ -214,33 +214,5 @@ public class ActiveDirectory {
         }
         return buf.toString();
     }
-
-    public static void main( String args[] )
-    {
-        try
-        {
-            LdapContext connection = ActiveDirectory.getConnection( "hgadhia",
-                "CHrs@257", "AD.calstatela.edu", null );
-            
-            System.out.println( "Successfully Authenticated" );
-            
-            /*
-            User[] users = ActiveDirectory.getUsers( connection );
-            for( User user : users )
-                System.out.println( user.toString() );
-            */
-            
-            ADUser user = ActiveDirectory.getUser( "hgadhia", connection );
-            System.out.println( user.toString() );
-
-            connection.close();
-        }
-        catch( NamingException e )
-        {
-            // TODO Auto-generated catch block
-            System.out.println( "Exception" );
-            e.printStackTrace();
-        }
-    }
 }
 

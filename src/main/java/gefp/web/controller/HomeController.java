@@ -1,10 +1,14 @@
 package gefp.web.controller;
 
+import gefp.model.ADUser;
 import gefp.model.dao.UserDao;
+import gefp.security.ActiveDirectory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.naming.NamingException;
+import javax.naming.ldap.LdapContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,7 +38,6 @@ public class HomeController {
         return "403";
     }
 
-    
     public void loadProperties()
     {
 
@@ -50,35 +53,60 @@ public class HomeController {
         }
         System.out.println( "CRUNCHIFY_URL: " );
     }
-    
-    
+
     @RequestMapping("/ActiveDirectoryLogin.html")
-    public String activeDirectoryLogin(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("AD Login");
+    public String activeDirectoryLogin( HttpServletRequest request,
+        HttpServletResponse response )
+    {
+        System.out.println( "AD Login" );
         return "ADLogin";
     }
-    
-    @RequestMapping(value="/ActiveDirectoryLogin.html", method = RequestMethod.POST)
-    public void activeDirectoryLoginCheck( HttpServletRequest request, HttpServletResponse response ) {
-        
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        
+
+    @RequestMapping(value = "/ActiveDirectoryLogin.html",
+        method = RequestMethod.POST)
+    public void activeDirectoryLoginCheck( HttpServletRequest request,
+        HttpServletResponse response )
+    {
+
+        String username = request.getParameter( "username" );
+        String password = request.getParameter( "password" );
+
         try
         {
             PrintWriter out = response.getWriter();
-            out.println("username is " + username);
-            out.println("password is " + password);
+            out.println( "username is " + username );
+            out.println( "password is " + password );
+
+//            LdapContext connection = ActiveDirectory.getConnection( "hgadhia",
+//                "CHrs@257", "AD.calstatela.edu", null );
             
-            
+            LdapContext connection = ActiveDirectory.getConnection( username,
+                password, "AD.calstatela.edu", null );
+
+            out.println( "Successfully Authenticated" );
+
+            /*
+             * User[] users = ActiveDirectory.getUsers( connection ); for( User
+             * user : users ) System.out.println( user.toString() );
+             */
+
+            ADUser user = ActiveDirectory.getUser( "hgadhia", connection );
+            System.out.println( user.toString() );
+
+            connection.close();
+
         }
         catch( IOException e )
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        
-        
+        catch( NamingException e )
+        {
+            // TODO Auto-generated catch block
+            System.out.println( "Exception" );
+            e.printStackTrace();
+        }
+
     }
 }
