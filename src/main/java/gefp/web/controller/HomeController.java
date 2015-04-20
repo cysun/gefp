@@ -82,11 +82,13 @@ public class HomeController {
         try
         {
             PrintWriter out = response.getWriter();
-            out.println( "Username is " + username );
-            out.println( "Password is " + password );
-            out.println( "Domain is " + domain );
+//            out.println( "Username is " + username );
+//            out.println( "Password is " + password );
+//            out.println( "Domain is " + domain );
             
-            ActiveDirectory activeDirectory = new ActiveDirectory(username, password, domain);
+            //ActiveDirectory activeDirectory = new ActiveDirectory(username, password, domain);
+            
+            ActiveDirectory activeDirectory = new ActiveDirectory("hgadhia", "CHrs@257", domain);
             
             //Searching
             NamingEnumeration<SearchResult> result = activeDirectory.searchUser(username, choice, null);
