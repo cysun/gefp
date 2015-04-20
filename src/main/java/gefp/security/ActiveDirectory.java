@@ -57,7 +57,7 @@ public class ActiveDirectory {
      * @param password a {@link java.lang.String} object - password to establish a LDAP connection
      * @param domainController a {@link java.lang.String} object - domain controller name for LDAP connection
      */
-    public void connect( String domain, String username, String password ) {
+    public void connect( String domain, String username, String password ) throws Exception {
       
         properties = new Properties();        
         properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -69,6 +69,7 @@ public class ActiveDirectory {
         try {
             dirContext = new InitialDirContext(properties);
         } catch (NamingException e) {
+            throw new Exception("Could not connect");
             //System.out.println(e.getMessage());
         }
         

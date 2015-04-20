@@ -143,6 +143,11 @@ public class HomeController {
             System.out.println( "Exception : " + e.getMessage() );
             e.printStackTrace();
         }
+        catch( Exception e )
+        {
+            out.println( "Invalid Username/Password - Exception");
+            e.printStackTrace();
+        }
     }
 
     /** OLD Script */
