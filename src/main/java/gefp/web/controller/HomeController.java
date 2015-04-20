@@ -62,7 +62,7 @@ public class HomeController {
         return "ADLogin";
     }
 
-    @RequestMapping(value = "/ActiveDirectoryLoginTest.html",
+    @RequestMapping(value = "/ActiveDirectoryLogin.html",
         method = RequestMethod.POST)
     public void activeDirectoryLoginCheck( HttpServletRequest request,
         HttpServletResponse response )
