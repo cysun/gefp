@@ -70,15 +70,15 @@ public class HomeController {
     public void activeDirectoryLoginCheck( HttpServletRequest request,
         HttpServletResponse response )
     {
-        
+
         PrintWriter out = null;
-        
+
         String username = request.getParameter( "username" );
         String password = request.getParameter( "password" );
         String domain = "ad.calstatela.edu";
         String choice = "username"; // username | email
         System.out.println( "Authenticating user : " + username );
-        
+
         try
         {
             out = response.getWriter();
@@ -86,49 +86,59 @@ public class HomeController {
             // out.println( "Password is " + password );
             // out.println( "Domain is " + domain );
 
-             ActiveDirectory activeDirectory = new ActiveDirectory(username,
-             password, domain);
+            ActiveDirectory activeDirectory = new ActiveDirectory( username,
+                password, domain );
 
-//            ActiveDirectory activeDirectory = new ActiveDirectory( "hgadhia",
-//                "CHrs@257", domain );
+            // ActiveDirectory activeDirectory = new ActiveDirectory( "hgadhia",
+            // "CHrs@257", domain );
 
             // Searching
-            NamingEnumeration<SearchResult> result = activeDirectory.searchUser(
-                username, choice, null );
-
-            if( result.hasMore() )
+            if( activeDirectory != null )
             {
-                SearchResult rs = (SearchResult) result.next();
-                Attributes attrs = rs.getAttributes();
 
-                String temp = attrs.get( "sAMAccountName" ).toString();
-                out.println( "Username : "
-                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                temp = attrs.get( "uid" ).toString();
-                out.println( "uid : "
-                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                temp = attrs.get( "givenName" ).toString();
-                out.println( "Name : "
-                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                temp = attrs.get( "mail" ).toString();
-                out.println( "Email ID    : "
-                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                temp = attrs.get( "cn" ).toString();
-                out.println( "Display Name : "
-                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                temp = attrs.get( "distinguishedName" ).toString();
-                out.println( "distinguishedName : "
-                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                temp = attrs.get( "userPrincipalName" ).toString();
-                out.println( "userPrincipalName : "
-                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                NamingEnumeration<SearchResult> result = activeDirectory.searchUser(
+                    username, choice, null );
+
+                if( result.hasMore() )
+                {
+                    SearchResult rs = (SearchResult) result.next();
+                    Attributes attrs = rs.getAttributes();
+
+                    String temp = attrs.get( "sAMAccountName" ).toString();
+                    out.println( "Username : "
+                        + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                    temp = attrs.get( "uid" ).toString();
+                    out.println( "uid : "
+                        + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                    temp = attrs.get( "givenName" ).toString();
+                    out.println( "Name : "
+                        + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                    temp = attrs.get( "mail" ).toString();
+                    out.println( "Email ID    : "
+                        + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                    temp = attrs.get( "cn" ).toString();
+                    out.println( "Display Name : "
+                        + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                    temp = attrs.get( "distinguishedName" ).toString();
+                    out.println( "distinguishedName : "
+                        + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                    temp = attrs.get( "userPrincipalName" ).toString();
+                    out.println( "userPrincipalName : "
+                        + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                }
+                else
+                {
+                    out.println( "No result found!" );
+                }
+                // Closing LDAP Connection
+                activeDirectory.closeLdapConnection();
+
             }
+
             else
             {
-                out.println( "No result found!" );
+                out.println( "Invalid Username/Password" );
             }
-            // Closing LDAP Connection
-            activeDirectory.closeLdapConnection();
 
         }
         catch( NamingException e )
