@@ -62,8 +62,8 @@ public class HomeController {
         return "ADLogin";
     }
 
-    @RequestMapping(value = "/ActiveDirectoryLogin.html",
-        method = RequestMethod.POST)
+    @RequestMapping(value = "/ActiveDirectoryLoginTest.html",
+        method = RequestMethod.GET)
     public void activeDirectoryLoginCheck( HttpServletRequest request,
         HttpServletResponse response )
     {
@@ -77,11 +77,11 @@ public class HomeController {
             out.println( "username is " + username );
             out.println( "password is " + password );
 
-//            LdapContext connection = ActiveDirectory.getConnection( "hgadhia",
-//                "CHrs@257", "AD.calstatela.edu", null );
+            LdapContext connection = ActiveDirectory.getConnection( "hgadhia",
+                "CHrs@257", "AD.calstatela.edu", null );
             
-            LdapContext connection = ActiveDirectory.getConnection( username,
-                password, "AD.calstatela.edu", null );
+//            LdapContext connection = ActiveDirectory.getConnection( username,
+//                password, "AD.calstatela.edu", null );
 
             out.println( "Successfully Authenticated" );
 
@@ -92,19 +92,19 @@ public class HomeController {
 
             //ADUser user = ActiveDirectory.getUser( "hgadhia", connection );
             //System.out.println( user.toString() );
-
             connection.close();
 
-        }
-        catch( IOException e )
-        {
-            e.printStackTrace();
         }
         catch( NamingException e )
         {
             System.out.println( "Exception" );
             e.printStackTrace();
         }
+        catch( IOException e )
+        {
+            e.printStackTrace();
+        }
+        
 
     }
 }
