@@ -67,10 +67,12 @@ public class HomeController {
     public void activeDirectoryLoginCheck( HttpServletRequest request,
         HttpServletResponse response )
     {
-
+        
         String username = request.getParameter( "username" );
         String password = request.getParameter( "password" );
         String domain = "AD.calstatela.edu";
+        
+        System.out.println( "Authenticating user : " + username );
         
         try
         {
@@ -86,7 +88,9 @@ public class HomeController {
                 password, domain, null );
 
             out.println( "Successfully Authenticated" );
-
+            
+            out.close();
+            
             /*
              * User[] users = ActiveDirectory.getUsers( connection ); for( User
              * user : users ) System.out.println( user.toString() );
@@ -99,11 +103,12 @@ public class HomeController {
         }
         catch( NamingException e )
         {
-            System.out.println( "Exception" );
+            System.out.println( "Exception : " + e.getMessage() );
             e.printStackTrace();
         }
         catch( IOException e )
-        {
+        {   
+            System.out.println( "Exception : " + e.getMessage() );
             e.printStackTrace();
         }
         
