@@ -135,7 +135,7 @@ public class HomeController {
         {
             out.println( "Invalid Username/Password" );
             System.out.println( "Invalid Username/Password" + e.getMessage() );
-            e.printStackTrace();
+            // e.printStackTrace();
         }
         catch( IOException e )
         {
