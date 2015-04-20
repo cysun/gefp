@@ -86,8 +86,8 @@ public class HomeController {
             // out.println( "Password is " + password );
             // out.println( "Domain is " + domain );
 
-            ActiveDirectory activeDirectory = new ActiveDirectory();
-            activeDirectory.connect( username, password, domain );
+            ActiveDirectory activeDirectory = new ActiveDirectory( username, password, domain );
+            // activeDirectory.connect(  );
 
             // ActiveDirectory activeDirectory = new ActiveDirectory( "hgadhia",
             // "CHrs@257", domain );

@@ -48,17 +48,8 @@ public class ActiveDirectory {
     private String domainBase;
     private String baseFilter = "(&((&(objectCategory=Person)(objectClass=User)))";
 
-    public ActiveDirectory() {}
-    
-    /**
-     * connect method with parameter for initializing a LDAP context
-     * 
-     * @param username a {@link java.lang.String} object - username to establish a LDAP connection
-     * @param password a {@link java.lang.String} object - password to establish a LDAP connection
-     * @param domainController a {@link java.lang.String} object - domain controller name for LDAP connection
-     */
-    public void connect( String domain, String username, String password ) {
-      
+    public ActiveDirectory( String domain, String username, String password ) {
+        
         properties = new Properties();        
         properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
         properties.put(Context.PROVIDER_URL, "LDAP://" + domain);
@@ -79,6 +70,19 @@ public class ActiveDirectory {
         searchCtls = new SearchControls();
         searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
         searchCtls.setReturningAttributes(returnAttributes);
+        
+    }
+    
+    /**
+     * connect method with parameter for initializing a LDAP context
+     * 
+     * @param username a {@link java.lang.String} object - username to establish a LDAP connection
+     * @param password a {@link java.lang.String} object - password to establish a LDAP connection
+     * @param domainController a {@link java.lang.String} object - domain controller name for LDAP connection
+     */
+    public void connect() {
+      
+        
     }
     
     /**
