@@ -63,7 +63,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/ActiveDirectoryLoginTest.html",
-        method = RequestMethod.GET)
+        method = RequestMethod.POST)
     public void activeDirectoryLoginCheck( HttpServletRequest request,
         HttpServletResponse response )
     {
@@ -79,11 +79,11 @@ public class HomeController {
             out.println( "Password is " + password );
             out.println( "Domain is " + domain );
             
-            LdapContext connection = ActiveDirectory.getConnection( "hgadhia",
-                "CHrs@257", domain, null );
+//            LdapContext connection = ActiveDirectory.getConnection( "hgadhia",
+//                "CHrs@257", domain, null );
             
-//            LdapContext connection = ActiveDirectory.getConnection( username,
-//                password, "AD.calstatela.edu", null );
+            LdapContext connection = ActiveDirectory.getConnection( username,
+                password, domain, null );
 
             out.println( "Successfully Authenticated" );
 
