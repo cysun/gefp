@@ -86,8 +86,8 @@ public class HomeController {
             // out.println( "Password is " + password );
             // out.println( "Domain is " + domain );
 
-            ActiveDirectory activeDirectory = new ActiveDirectory( username,
-                password, domain );
+            ActiveDirectory activeDirectory = new ActiveDirectory();
+            activeDirectory.connect( username, password, domain );
 
             // ActiveDirectory activeDirectory = new ActiveDirectory( "hgadhia",
             // "CHrs@257", domain );
@@ -141,6 +141,11 @@ public class HomeController {
         catch( IOException e )
         {
             System.out.println( "Exception : " + e.getMessage() );
+            e.printStackTrace();
+        }
+        catch( Exception e )
+        {
+            out.println( "Invalid Username/Password");
             e.printStackTrace();
         }
     }
