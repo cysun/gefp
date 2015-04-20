@@ -48,41 +48,35 @@ public class ActiveDirectory {
     private String domainBase;
     private String baseFilter = "(&((&(objectCategory=Person)(objectClass=User)))";
 
-    public ActiveDirectory( String domain, String username, String password ) {
-        
-        properties = new Properties();        
-        properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        properties.put(Context.PROVIDER_URL, "LDAP://" + domain);
-        properties.put(Context.SECURITY_PRINCIPAL, username + "@" + domain);
-        properties.put(Context.SECURITY_CREDENTIALS, password);
-        
-        //initializing active directory LDAP connection
-        try {
-            dirContext = new InitialDirContext(properties);
-        } catch (NamingException e) {
-            System.out.println(e.getMessage());
-        }
-        
-        //default domain base for search
-        domainBase = getDomainBase(domain);
-        
-        //initializing search controls
-        searchCtls = new SearchControls();
-        searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-        searchCtls.setReturningAttributes(returnAttributes);
-        
-    }
-    
     /**
-     * connect method with parameter for initializing a LDAP context
+     * constructor with parameter for initializing a LDAP context
      * 
      * @param username a {@link java.lang.String} object - username to establish a LDAP connection
      * @param password a {@link java.lang.String} object - password to establish a LDAP connection
      * @param domainController a {@link java.lang.String} object - domain controller name for LDAP connection
      */
-    public void connect() {
-      
+    public ActiveDirectory(String username, String password, String domainController) {
+        properties = new Properties();        
+
+        properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        properties.put(Context.PROVIDER_URL, "LDAP://" + domainController);
+        properties.put(Context.SECURITY_PRINCIPAL, username + "@" + domainController);
+        properties.put(Context.SECURITY_CREDENTIALS, password);
         
+        //initializing active directory LDAP connection
+        try {
+			dirContext = new InitialDirContext(properties);
+		} catch (NamingException e) {
+			System.out.println(e.getMessage());
+		}
+        
+        //default domain base for search
+        domainBase = getDomainBase(domainController);
+        
+        //initializing search controls
+        searchCtls = new SearchControls();
+        searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+        searchCtls.setReturningAttributes(returnAttributes);
     }
     
     /**
@@ -97,6 +91,7 @@ public class ActiveDirectory {
     public NamingEnumeration<SearchResult> searchUser(String searchValue, String searchBy, String searchBase) throws NamingException {
     	String filter = getFilter(searchValue, searchBy);    	
     	String base = (null == searchBase) ? domainBase : getDomainBase(searchBase); // for eg.: "DC=myjeeva,DC=com";
+    	
 		return this.dirContext.search(base, filter, this.searchCtls);
     }
 
