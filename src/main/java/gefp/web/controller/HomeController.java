@@ -74,7 +74,7 @@ public class HomeController {
         PrintWriter out = null;
         
         String username = request.getParameter( "username" );
-        // String password = request.getParameter( "password" );
+        String password = request.getParameter( "password" );
         String domain = "ad.calstatela.edu";
         String choice = "username"; // username | email
         System.out.println( "Authenticating user : " + username );
@@ -86,11 +86,11 @@ public class HomeController {
             // out.println( "Password is " + password );
             // out.println( "Domain is " + domain );
 
-            // ActiveDirectory activeDirectory = new ActiveDirectory(username,
-            // password, domain);
+             ActiveDirectory activeDirectory = new ActiveDirectory(username,
+             password, domain);
 
-            ActiveDirectory activeDirectory = new ActiveDirectory( "hgadhia",
-                "CHrs@257", domain );
+//            ActiveDirectory activeDirectory = new ActiveDirectory( "hgadhia",
+//                "CHrs@257", domain );
 
             // Searching
             NamingEnumeration<SearchResult> result = activeDirectory.searchUser(
@@ -122,7 +122,6 @@ public class HomeController {
                 temp = attrs.get( "userPrincipalName" ).toString();
                 out.println( "userPrincipalName : "
                     + temp.substring( temp.indexOf( ":" ) + 1 ) );
-
             }
             else
             {
