@@ -134,7 +134,7 @@ public class HomeController {
         }
         catch( NamingException e )
         {
-            out.println( "Invalid Username/Password" );
+            out.println( "Invalid Username/Password" + e.getMessage() );
             System.out.println( "Invalid Username/Password" + e.getMessage() );
             // e.printStackTrace();
         }

@@ -67,7 +67,7 @@ public class ActiveDirectory {
         try {
 			dirContext = new InitialDirContext(properties);
 		} catch (NamingException e) {
-			throw new NamingException("Invalid Username");
+			throw new NamingException("Could not connect: " + e.getMessage());
 		    //System.out.println(e.getMessage());
 		}
         
