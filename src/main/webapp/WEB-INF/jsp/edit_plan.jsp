@@ -100,7 +100,9 @@
 								</div>
 
 								<security:authorize access="authenticated and hasRole('ADMIN')">
-									<div class="btn-group pull-right">
+									<a href="<c:url value="/plan/view/${plan.id}.html"/>" class="btn btn-warning pull-right">Back</a>
+									
+									<div class="btn-group pull-right" style="margin-right:5px;">
 										<button class="btn btn-primary">Add To Plan</button>
 										<button data-toggle="dropdown"
 											class="btn btn-primary dropdown-toggle">
@@ -118,6 +120,7 @@
 													Checkpoint</a></li>
 										</ul>
 									</div>
+									
 								</security:authorize>
 								<div style="clear: both;"></div>
 							</div>
@@ -201,7 +204,11 @@
 
 											</c:forEach>
 										</tbody>
-									</table>	
+									</table>
+									
+									<div class="pull-right">
+										
+									</div>	
 									
 								</div>
 							</div>

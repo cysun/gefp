@@ -74,10 +74,12 @@
 													<td>${user.username}</td>
 													<td>${user.firstName}</td>
 													<td>${user.lastName}</td>
-													<td><c:forEach var="role" items="${user.roles}">
+													<td>
+													
+													<c:forEach var="role" items="${user.roles}">
 														${role.name} 
 													</c:forEach></td>
-													<!-- <td>Computer Science Plan</td> -->
+													
 													<td><a
 														href="<c:url value="/student/view-plan/${user.id}.html" />"
 														class="btn btn-warning"><i class="fa fa-view "></i>

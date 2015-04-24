@@ -89,7 +89,7 @@ public class FlightPlanController {
         }
 
     }
-    
+
     @RequestMapping("/plan/edit/{id}.html")
     public String editplan( @PathVariable Long id, ModelMap models )
     {
@@ -130,9 +130,9 @@ public class FlightPlanController {
     public String add( ModelMap models, HttpServletRequest request )
     {
         String departmentId = request.getParameter( "departmentId" );
-        if(departmentId == null || departmentId == "")
+        if( departmentId == null || departmentId == "" )
             return "redirect:/admin/list-plans.html";
-        
+
         models.put( "flightplan", new FlightPlan() );
         return "add_plan";
     }
@@ -217,8 +217,10 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/admin/plan/add-runway.html",
         method = RequestMethod.GET)
-    public String addRunway( @RequestParam Long planId, ModelMap models )
+    public String addRunway( @RequestParam Long planId, ModelMap models,
+        HttpServletRequest request )
     {
+        models.put( "error", request.getParameter( "error" ) );
         models.put( "flightplan", planDao.getFlightPlan( planId ) );
         models.put( "runway", new Runway() );
         return "add_runway";
@@ -229,6 +231,8 @@ public class FlightPlanController {
     public String addRunway( @ModelAttribute Runway runway,
         @RequestParam Long planId, ModelMap models )
     {
+        if( runway.getName().isEmpty() ){ return "redirect:/admin/plan/add-runway.html?planId="
+            + planId + "&error=true"; }
         FlightPlan plan = planDao.getFlightPlan( planId );
         Runway newRunway = runwayDao.saveRunway( runway );
         plan.getRunways().add( newRunway );
@@ -251,6 +255,9 @@ public class FlightPlanController {
     public String editRunway( @ModelAttribute("runway") Runway runway,
         @RequestParam Long planId, ModelMap models, SessionStatus sessionStatus )
     {
+        if( runway.getName().isEmpty() ){ return "redirect:/admin/plan/edit-runway.html?id="
+            + runway.getId() + "&planId=" + planId + "&error=true"; }
+
         runwayDao.saveRunway( runway );
         sessionStatus.setComplete();
         return "redirect:/plan/edit/" + planId + ".html";
@@ -270,6 +277,9 @@ public class FlightPlanController {
     public String addStage( @ModelAttribute("stage") Stage stage,
         @RequestParam Long planId, ModelMap models, SessionStatus sessionStatus )
     {
+
+        if( stage.getName().isEmpty() ){ return "redirect:/admin/plan/add-stage.html?planId="
+            + planId + "&error=true"; }
 
         FlightPlan plan = planDao.getFlightPlan( planId );
         Stage newStage = stageDao.saveStage( stage );
@@ -294,6 +304,9 @@ public class FlightPlanController {
     public String editStage( @ModelAttribute("stage") Stage stage,
         @RequestParam Long planId, ModelMap models, SessionStatus sessionStatus )
     {
+        if( stage.getName().isEmpty() ){ return "redirect:/admin/plan/edit-stage.html?id="
+            + stage.getId() + "&planId=" + planId + "&error=true"; }
+
         stageDao.saveStage( stage );
         sessionStatus.setComplete();
         return "redirect:/plan/edit/" + planId + ".html";
@@ -390,34 +403,50 @@ public class FlightPlanController {
         FlightPlan plan = planDao.getFlightPlan( planId );
         List<Cell> cells = plan.getCells();
         boolean cellExists = false;
+        Long newCellId = null;
 
-        // Remove checkpoint from previous Cell.
-        for( Cell c : cells )
-        {
-            if( c.getId().equals( cellId ) )
-            {
-                int index = c.getCheckpoints().indexOf(
-                    checkpointDao.getCheckPoint( chkId ) );
-                c.getCheckpoints().remove( index );
-                break;
-            }
-        }
-
-        //
         for( Cell c : cells )
         {
             if( c.getRunway().getId().equals( runwayId )
                 && c.getStage().getId().equals( stageId ) )
             {
                 cellExists = true;
-                int index = c.getCheckpoints().indexOf(
-                    checkpointDao.getCheckPoint( chkId ) );
-                c.getCheckpoints().set( index, checkpoint );
-                break;
+                newCellId = c.getId();
             }
         }
 
-        if( !cellExists )
+        // Remove checkpoint from previous Cell.
+        if( newCellId != cellId )
+        {
+            for( Cell c : cells )
+            {
+                if( c.getId().equals( cellId ) )
+                {
+                    int index = c.getCheckpoints().indexOf(
+                        checkpointDao.getCheckPoint( chkId ) );
+                    c.getCheckpoints().remove( index );
+                    break;
+                }
+            }
+        }
+
+        // Check if cell exists
+
+        if( cellExists )
+        {
+            for( Cell c : cells )
+            {
+                if( c.getRunway().getId().equals( runwayId )
+                    && c.getStage().getId().equals( stageId ) )
+                {
+                    int index = c.getCheckpoints().indexOf(
+                        checkpointDao.getCheckPoint( chkId ) );
+                    c.getCheckpoints().set( index, checkpoint );
+                    break;
+                }
+            }
+        }
+        else
         {
 
             List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();

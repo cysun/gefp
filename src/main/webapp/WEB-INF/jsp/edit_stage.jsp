@@ -47,6 +47,9 @@
 											<div class="form-group">
 												<label>Stage Name</label>
 												<form:input path="name" class="form-control" />
+												<c:if test="${error == true }">
+												<span class="errMsg">Please enter Stage Name</span>
+												</c:if>
 											</div>
 
 											<input type="hidden" name="planId" value="${flightplan.id}" />

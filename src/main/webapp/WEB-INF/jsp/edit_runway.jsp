@@ -47,6 +47,9 @@
 											<div class="form-group">
 												<label>Runway Name:</label>
 												<form:input path="name" class="form-control" />
+												<c:if test="${error == true }">
+												<span class="errMsg">Please enter Runway Name</span>
+												</c:if>
 											</div>
 											<input type="hidden" name="planId" value="${flightplan.id}" />
 											<input type="submit" class="btn btn-primary" value="Save" />
