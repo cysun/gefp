@@ -90,7 +90,7 @@
 																View Plan(s)</a>
 														</security:authorize> <a
 														href="<c:url value="/department/list-students.html?id=${dept.id}" />"
-														class="btn btn-default"><i class="fa fa-user "></i>
+														class="btn btn-info"><i class="fa fa-user "></i>
 															View Student(s)</a> <security:authorize
 															access="authenticated and hasRole('ADMIN')">
 															<a
