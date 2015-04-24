@@ -9,11 +9,11 @@
 }
 
 
-#sortable thead tr th:not(:first-child){
+#sortable thead tr th.editable:not(:first-child){
 	cursor: move;
 }
 
-#sortable tbody tr th:first-child{
+#sortable tbody tr th.editable:first-child{
 	cursor: move;
 }
 

@@ -97,20 +97,21 @@
 												</c:forEach>
 											</tr>
 										</thead>
+										
 										<tbody>
 
-											<c:forEach items="${plan.stages}" var="stage">
-												<tr>
+											<c:forEach items="${plan.stages}" var="stage" varStatus="counter">
+												<tr class="state-default">
 													<th>${stage.name}</th>
 													<c:forEach items="${plan.runways}" var="runway">
 														<td>
-															<ul class="list">
-
-																<c:forEach items="${plan.checkpoints}" var="checkpoint">
-
+																<c:forEach items="${plan.cells}" var="cell">
 																	<c:if
-																		test="${checkpoint.runway.id == runway.id && checkpoint.stage.id == stage.id }">
-																		<li class="list"><c:set var="userCheckedPoint"
+																		test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
+																		<ul id="${cell.id}" class="checkpoint_list list">
+																		<c:forEach items="${cell.checkpoints}" var="checkpoint">
+																		<li id="${checkpoint.id}" class="list">
+																		<c:set var="userCheckedPoint"
 																				value="0" /> <c:forEach
 																				items="${currUserObj.checkpoints}" var="userChk">
 
@@ -131,13 +132,14 @@
 																					<input type="checkbox" name="checkpoints"
 																						data-userId="${currUserObj.id}"
 																						value="${checkpoint.id}"
-																						class="flightplan_checkpoints" />
+																						class="flightplan_checkpoints" /> 
 																				</c:otherwise>
 																			</c:choose> ${checkpoint.name}
 																			</li>
+																			</c:forEach>
+																			</ul>
 																	</c:if>
 																</c:forEach>
-															</ul>
 														</td>
 													</c:forEach>
 
@@ -145,6 +147,9 @@
 
 											</c:forEach>
 										</tbody>
+										
+										
+										
 									</table>
 								</div>
 							</div>

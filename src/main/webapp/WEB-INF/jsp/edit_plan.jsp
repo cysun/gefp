@@ -79,7 +79,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="pull-left">
-									<h5><span class="planTitle">${plan.name}</span>
+									<h5><span class="planTitle"><a href="<c:url value="/plan/view/${plan.id}.html"/>">${plan.name}</a></span>
 									
 									<security:authorize access="hasRole('ADMIN')">
 									
@@ -132,7 +132,7 @@
 													<input type="hidden" id="planId" value="${plan.id}" />
 												</th>
 												<c:forEach items="${plan.runways}" var="runway">
-													<th class="accept" id="${runway.id}">${runway.name} 
+													<th class="accept editable" id="${runway.id}">${runway.name} 
 													<security:authorize access="hasRole('ADMIN')">
 														<a title="Edit Runway" href="<c:url value="/admin/plan/edit-runway.html?id=${runway.id}&planId=${plan.id}"/>"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
 													</security:authorize>
@@ -144,7 +144,7 @@
 
 											<c:forEach items="${plan.stages}" var="stage" varStatus="counter">
 												<tr class="state-default" id="${stage.id}" order="${counter.count}">
-													<th>${stage.name} 
+													<th class="editable">${stage.name} 
 													<security:authorize access="hasRole('ADMIN')">
 														<a title="Edit Stage" href="<c:url value="/admin/plan/edit-stage.html?id=${stage.id}&planId=${plan.id}"/>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
 													</security:authorize>

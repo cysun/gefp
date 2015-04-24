@@ -2,6 +2,7 @@ package gefp.web.controller;
 
 import gefp.model.Department;
 import gefp.model.FlightPlan;
+import gefp.model.User;
 import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.FlightPlanDao;
 import gefp.model.dao.UserDao;
@@ -41,6 +42,24 @@ public class DepartmentController {
     {
         models.put( "departments", deptDao.getDepartments() );
         return "list_departments";
+    }
+
+    @RequestMapping(value = "/advisor/list-departments.html",
+        method = RequestMethod.GET)
+    public String listForAdvisor( ModelMap models )
+    {
+        models.put( "departments", deptDao.getDepartments() );
+        return "list_departments";
+    }
+
+    @RequestMapping(value = "/department/list-students.html",
+        method = RequestMethod.GET)
+    public String listStudents( @RequestParam Integer id, ModelMap models )
+    {
+        List<User> users = userDao.getUsersInDepartment( id );
+        models.put( "department", deptDao.getDepartment( id ) );
+        models.put( "users", users );
+        return "list_department_users";
     }
 
     @RequestMapping(value = "/admin/department/add.html",

@@ -14,7 +14,6 @@ function customAlert(text, type) {
         text        : text,
         type        : type,
         layout      : 'bottomRight',
-        closeWith: ['click'],
         animation   : {
             open  : 'animated bounceInRight',
             close : 'animated bounceOutRight',
@@ -23,6 +22,10 @@ function customAlert(text, type) {
             speed : 500
         }
     });
+	console.log(n);
+	setTimeout(function(){
+		$.noty.close(n);
+	},3000);
 }
 
 (function($) {

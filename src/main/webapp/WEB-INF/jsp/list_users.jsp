@@ -81,9 +81,9 @@
 													<td><a
 														href="<c:url value="/student/view-plan/${user.id}.html" />"
 														class="btn btn-warning"><i class="fa fa-view "></i>
-															View Plan(s)</a>
+															View Plan</a>
 															
-													<security:authorize access="authenticated and hasRole('ADMIN')">
+													<security:authorize access="authenticated and hasRole('ADMINA')">
 													<a
 														href="<c:url value="/user/edit/${user.id}.html" />"
 														class="btn btn-primary"><i class="fa fa-edit "></i>

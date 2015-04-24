@@ -70,9 +70,14 @@ public class UserController {
     public String advisorHome( ModelMap models, HttpSession session )
     {
 
-        models.put( "users", userDao.getUsers() );
+        List<User> users = userDao.getUsers();
+        List<User> students = new ArrayList<User>();
+        for( User u : users )
+        {
+            if( u.isStudent() ) students.add( u );
+        }
+        models.put( "users", students );
         models.put( "departments", deptDao.getDepartments() );
-        models.put( "plans", planDao.getFlightPlans() );
         return "advisor_dashboard";
     }
 
@@ -84,7 +89,7 @@ public class UserController {
         return "list_users";
     }
 
-    @RequestMapping(value = { "/advisor/list-users.html" },
+    @RequestMapping(value = { "/advisor/list-students.html" },
         method = RequestMethod.GET)
     public String listForAdvisor( ModelMap models )
     {
@@ -111,10 +116,23 @@ public class UserController {
 
 
     @RequestMapping(value = "/admin/user/add.html", method = RequestMethod.POST)
-    public String add( @ModelAttribute("user") User user, HttpServletRequest request, SessionStatus sessionStatus )
+    public String add( HttpServletRequest request, SessionStatus sessionStatus )
     {
+        User user = new User();
         System.out.println("In Post");
-        //Need to check the following code, why add user desn't work?
+        String firstName = request.getParameter( "firstName" );
+        String lastName = request.getParameter( "lastName" );
+        String email = request.getParameter( "email" );
+        String cin = request.getParameter( "cin" );
+        String username = request.getParameter( "username" );
+        String password = request.getParameter( "password" );
+        
+        user.setFirstName( firstName );
+        user.setLastName( lastName );
+        user.setCin( cin );
+        user.setEmail( email );
+        user.setUsername( username );
+        user.setPassword( password );
         
         Integer deptId = Integer.parseInt( request.getParameter( "department" ) );
         String[] roleIds = request.getParameterValues( "roles" );

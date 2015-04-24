@@ -15,13 +15,16 @@
 <body>
 
 	<div id="wrapper">
-<div id="loader-wrapper">
+
+
+<!-- <div id="loader-wrapper">
 	<div id="loader"></div>
 
 	<div class="loader-section section-left"></div>
 	<div class="loader-section section-right"></div>
 
-</div>		
+</div> -->		
+
 		<jsp:include page="includes/header.jsp" />
 		
 		<jsp:include page="includes/left_menu.jsp" />
@@ -35,23 +38,27 @@
 				<div class="row">
 					<div class="col-md-6 col-sm-6 col-xs-6">
 						<div class="panel panel-back noti-box">
+							<a href="<c:url value="/advisor/list-departments.html" />">
 							<span class="icon-box bg-color-red set-icon"> <i
 								class="fa fa-book"></i>
 							</span>
+							</a>
 							<div class="text-box">
 								<p class="main-text">${departments.size()}</p>
-								<p class="text-muted">Departments</p>
+								<p class="text-muted"><a href="<c:url value="/advisor/list-departments.html" />">Departments</a></p>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6 col-sm-6 col-xs-6">
 						<div class="panel panel-back noti-box">
+							<a href="<c:url value="/advisor/list-students.html" />">
 							<span class="icon-box bg-color-blue set-icon"> <i
 								class="fa fa-user"></i>
 							</span>
+							</a>
 							<div class="text-box">
 								<p class="main-text">${users.size()}</p>
-								<p class="text-muted">Students</p>
+								<p class="text-muted"><a href="<c:url value="/advisor/list-students.html" />">Students</a></p>
 							</div>
 						</div>
 					</div>

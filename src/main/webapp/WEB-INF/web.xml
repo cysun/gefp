@@ -9,14 +9,14 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
-  <error-page>
+  <!-- <error-page>
     <error-code>400</error-code>
     <location>/400</location>
   </error-page>
   <error-page>
     <error-code>403</error-code>
     <location>/403</location>
-  </error-page>
+  </error-page> -->
   <error-page>
     <error-code>404</error-code>
     <location>/WEB-INF/jsp/error_pages/404.jsp</location>

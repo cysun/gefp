@@ -4,7 +4,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html ng-app="gefpApp" xmlns="http://www.w3.org/1999/xhtml">
@@ -19,14 +20,14 @@
 
 	<div id="wrapper">
 
-<security:authorize access="hasRole('STUDENT')">
-<div id="loader-wrapper">
-	<div id="loader"></div>
+		<security:authorize access="hasRole('STUDENT')">
+			<div id="loader-wrapper">
+				<div id="loader"></div>
 
-	<div class="loader-section section-left"></div>
-	<div class="loader-section section-right"></div>
-</div>
-</security:authorize>
+				<div class="loader-section section-left"></div>
+				<div class="loader-section section-right"></div>
+			</div>
+		</security:authorize>
 		<jsp:include page="includes/header.jsp" />
 
 		<jsp:include page="includes/left_menu.jsp" />
@@ -50,13 +51,13 @@
 							<security:authorize access="hasRole('ADMIN')">
 								<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
 								<li><a href="<c:url value="/admin/list-plans.html"/>">Flight
-									Plans</a></li>
+										Plans</a></li>
 							</security:authorize>
-							
+
 							<security:authorize access="hasRole('ADVISOR')">
 								<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
 							</security:authorize>
-							
+
 							<li class="active">View Plan</li>
 						</ol>
 					</c:otherwise>
@@ -69,121 +70,140 @@
 
 				<hr />
 
-			<c:choose>
+				<c:choose>
 
-			<c:when test="${not empty plan }">
+					<c:when test="${not empty plan }">
 
-				<div class="row" ng-controller="checkpointController">
-					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="row" ng-controller="checkpointController">
+							<div class="col-md-12 col-sm-12 col-xs-12">
 
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h5><span class="planTitle">${plan.name}</span>
-									<security:authorize access="hasRole('ADMIN')">
-									<c:if test="${plan.published == true }">
-										<label class="label label-success">Published</label>
-									</c:if>
-									<c:if test="${plan.published == false }">
-										<a onClick="publishPlan(${plan.id})" class="pull-right btn btn-warning" href="javascript:void(0);">Publish Now</a>
-									</c:if>
-									</security:authorize>
-									</h5>
-								</div>
-								<div class="pull-right">
-									<a class="btn btn-primary" href="<c:url value="/plan/edit/${plan.id}.html" />"><i class="fa fa-edit "></i> Edit Plan</a>
-								</div>
-								
-								<div style="clear: both;"></div>
-							</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<div class="pull-left">
+											<h5>
+												<span class="planTitle">${plan.name}</span>
+												<security:authorize access="hasRole('ADMIN')">
+													
+													<c:if test="${student_mode != true}">
+													<c:if test="${plan.published == true }">
+														<label class="label label-success">Published</label>
+													</c:if>
+													<c:if test="${plan.published == false }">
+														<a onClick="publishPlan(${plan.id})"
+															class="pull-right btn btn-warning"
+															href="javascript:void(0);">Publish Now</a>
+													</c:if>
+													</c:if>
+												</security:authorize>
+											</h5>
+										</div>
+
+										<div class="col-xs-offset-5 ">
+											<div id="successMessage" style="color: #090; display: none;">
+												<h5>Checkpoint saved successfully</h5>
+											</div>
+										</div>
+
+										<security:authorize access="hasRole('ADMIN')">
+
+											<c:if test="${student_mode != true}">
+												<div class="pull-right">
+													<a class="btn btn-primary"
+														href="<c:url value="/plan/edit/${plan.id}.html" />"><i
+														class="fa fa-edit "></i> Edit Plan</a>
+												</div>
+											</c:if>
+										</security:authorize>
+
+										<div style="clear: both;"></div>
+									</div>
 
 
-							<div class="panel-body">
-								<div class="table-responsive">
-									<table id="sortable" class="table table-striped table-bordered sar-table">
-										<thead>
-											<tr>
-												<th>
-													<input type="hidden" id="planId" value="${plan.id}" />
-												</th>
-												<c:forEach items="${plan.runways}" var="runway">
-													<th>${runway.name}</th>
-												</c:forEach>
-											</tr>
-										</thead>
-										<tbody>
+									<div class="panel-body">
+										<div class="table-responsive">
+											<table id="sortable"
+												class="table table-striped table-bordered sar-table">
+												<thead>
+													<tr>
+														<th><input type="hidden" id="planId"
+															value="${plan.id}" /></th>
+														<c:forEach items="${plan.runways}" var="runway">
+															<th>${runway.name}</th>
+														</c:forEach>
+													</tr>
+												</thead>
+												<tbody>
 
-											<c:forEach items="${plan.stages}" var="stage" varStatus="counter">
-												<tr class="state-default">
-													<th>${stage.name}</th>
-													<c:forEach items="${plan.runways}" var="runway">
-														<td>
-																<c:forEach items="${plan.cells}" var="cell">
-																	<c:if
-																		test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
-																		<ul id="${cell.id}" class="checkpoint_list list">
-																		<c:forEach items="${cell.checkpoints}" var="checkpoint">
-																		<li id="${checkpoint.id}" class="list">
-																		<c:set var="userCheckedPoint"
-																				value="0" /> <c:forEach
-																				items="${currUserObj.checkpoints}" var="userChk">
+													<c:forEach items="${plan.stages}" var="stage"
+														varStatus="counter">
+														<tr class="state-default">
+															<th>${stage.name}</th>
+															<c:forEach items="${plan.runways}" var="runway">
+																<td><c:forEach items="${plan.cells}" var="cell">
+																		<c:if
+																			test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
+																			<ul id="${cell.id}" class="checkpoint_list list">
+																				<c:forEach items="${cell.checkpoints}"
+																					var="checkpoint">
+																					<li id="${checkpoint.id}" class="list"><c:set
+																							var="userCheckedPoint" value="0" /> <c:forEach
+																							items="${currUserObj.checkpoints}" var="userChk">
 
-																				<c:if test="${userChk.id == checkpoint.id }">
-																					<c:set var="userCheckedPoint" value="1" />
-																				</c:if>
+																							<c:if test="${userChk.id == checkpoint.id }">
+																								<c:set var="userCheckedPoint" value="1" />
+																							</c:if>
 
-																			</c:forEach> <c:choose>
+																						</c:forEach> <c:choose>
 
-																				<c:when test="${userCheckedPoint == 1}">
+																							<c:when test="${userCheckedPoint == 1}">
 
-																					<input checked type="checkbox" name="checkpoints"
-																						data-userId="${currUserObj.id}"
-																						value="${checkpoint.id}"
-																						class="flightplan_checkpoints" />
-																				</c:when>
-																				<c:otherwise>
-																					<input type="checkbox" name="checkpoints"
-																						data-userId="${currUserObj.id}"
-																						value="${checkpoint.id}"
-																						class="flightplan_checkpoints" /> 
-																				</c:otherwise>
-																			</c:choose> ${checkpoint.name}
-																			</li>
-																			</c:forEach>
+																								<input checked type="checkbox"
+																									name="checkpoints"
+																									data-userId="${currUserObj.id}"
+																									value="${checkpoint.id}"
+																									class="flightplan_checkpoints" />
+																							</c:when>
+																							<c:otherwise>
+																								<input type="checkbox" name="checkpoints"
+																									data-userId="${currUserObj.id}"
+																									value="${checkpoint.id}"
+																									class="flightplan_checkpoints" />
+																							</c:otherwise>
+																						</c:choose> ${checkpoint.name}</li>
+																				</c:forEach>
 																			</ul>
-																	</c:if>
-																</c:forEach>
-														</td>
+																		</c:if>
+																	</c:forEach></td>
+															</c:forEach>
+
+														</tr>
+
 													</c:forEach>
+												</tbody>
+											</table>
 
-												</tr>
+										</div>
+									</div>
 
-											</c:forEach>
-										</tbody>
-									</table>	
-									
+
+
 								</div>
-							</div>
-							
-							
-							
-						</div>
-						<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
+								<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
 
-					</div>
-				</div>
-				<!-- /. ROW  -->
-			
-			</c:when>
-			
-			<c:otherwise>
+							</div>
+						</div>
+						<!-- /. ROW  -->
+
+					</c:when>
+
+					<c:otherwise>
 				Plan not available
 			
 			</c:otherwise>
-			
-			</c:choose>
-			
-			
+
+				</c:choose>
+
+
 			</div>
 			<!-- /. PAGE INNER  -->
 		</div>
@@ -194,7 +214,7 @@
 
 	<jsp:include page="includes/footer.jsp" />
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 function publishPlan(planID) {
 	

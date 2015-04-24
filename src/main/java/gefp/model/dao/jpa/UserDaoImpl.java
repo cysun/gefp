@@ -42,6 +42,13 @@ public class UserDaoImpl implements UserDao {
         return entityManager.createQuery( "from User order by id", User.class )
             .getResultList();
     }
+    
+    @Override
+    public List<User> getUsersInDepartment(Integer dept_id)
+    {
+        return entityManager.createQuery( "from User where department_id = " + dept_id + " order by id", User.class )
+            .getResultList();
+    }
 
     @Override
     public User validateUser( User user )

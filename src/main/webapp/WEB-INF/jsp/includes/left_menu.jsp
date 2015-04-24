@@ -32,7 +32,9 @@
 				class="user-image img-responsive" /></li>
 			<li><a href="<c:url value="/advisor/dashboard.html" />" ><i class="fa fa-dashboard fa-3x"></i>
 					Dashboard</a></li>
-			<li><a href="<c:url value="/advisor/list-users.html" />"><i class="fa fa-user fa-3x"></i>
+			<li><a href="<c:url value="/advisor/list-departments.html" />"><i class="fa fa-book fa-3x"></i>
+					Departments</a></li>		
+			<li><a href="<c:url value="/advisor/list-students.html" />"><i class="fa fa-user fa-3x"></i>
 					Students</a></li>
 		</ul>
 

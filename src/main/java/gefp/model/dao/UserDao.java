@@ -8,8 +8,10 @@ public interface UserDao {
 
     User getUser( Long id );
 
-    List<User> getUsers();
+    List<User> getUsersInDepartment(Integer dept_id);
 
+    List<User> getUsers();
+    
     User validateUser( User user );
 
     User saveUser( User user );

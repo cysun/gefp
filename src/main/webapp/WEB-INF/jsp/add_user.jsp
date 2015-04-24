@@ -43,26 +43,22 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12">
-										<form:form modelAttribute="user" action="" method="post">
-											<!-- div class="form-group">
-												<label>ID</label>
-												<form:input path="id" class="form-control" />
-											</div -->
+										<form action="" method="post">
 											<div class="form-group col-md-6">
 												<label>First Name</label>
-												<form:input path="firstName" class="form-control" />
+												<input type="text" name="firstName" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
 												<label>Last Name</label>
-												<form:input path="lastName" class="form-control" />
+												<input type="text" name="lastName" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
 												<label>CIN</label>
-												<form:input path="cin" class="form-control" />
+												<input type="text" name="cin" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
 												<label>Email ID</label>
-												<form:input path="email" class="form-control" />
+												<input type="text" name="email" class="form-control" />
 											</div>
 											
 											<div class="form-group col-md-6">
@@ -89,11 +85,11 @@
 											
 											<div class="form-group col-md-6">
 												<label>User Name</label>
-												<form:input path="username" class="form-control" />
+												<input type="text" name="username" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
 												<label>Password</label>
-												<form:password path="password" class="form-control" />
+												<input type="password" name="password" class="form-control" />
 											</div>
 											
 											<div class="form-group col-md-6">
@@ -101,7 +97,7 @@
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 											</div>
 
-										</form:form>
+										</form>
 									</div>
 								</div>
 							</div>

@@ -3,6 +3,8 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -24,10 +26,19 @@
 		<div id="page-wrapper">
 			<div id="page-inner">
 
-				<ol class="breadcrumb">
-					<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
-					<li class="active">Departments</li>
-				</ol>
+				<security:authorize access="authenticated and hasRole('ADMIN')">
+					<ol class="breadcrumb">
+						<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
+						<li class="active">Departments</li>
+					</ol>
+				</security:authorize>
+
+				<security:authorize access="authenticated and hasRole('ADVISOR')">
+					<ol class="breadcrumb">
+						<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
+						<li class="active">Departments</li>
+					</ol>
+				</security:authorize>
 
 				<jsp:include page="includes/dashboard_title.jsp" />
 				<!-- /. ROW  -->
@@ -41,13 +52,16 @@
 								<div class="pull-left">
 									<h5>List of Departments</h5>
 								</div>
-								<div class="pull-right">
-									<a href="<c:url value="/admin/department/add.html"/>"
-								class="btn btn-primary">Add Department</a>
-								</div>
+
+								<security:authorize access="authenticated and hasRole('ADMIN')">
+									<div class="pull-right">
+										<a href="<c:url value="/admin/department/add.html"/>"
+											class="btn btn-primary">Add Department</a>
+									</div>
+								</security:authorize>
 								<div class="clearfix"></div>
 							</div>
-							
+
 							<div class="panel-body">
 								<div class="table-responsive">
 									<table class="table table-striped table-bordered">
@@ -67,13 +81,24 @@
 													<td>${dept.id}</td>
 													<td>${dept.name}</td>
 													<!-- <td>Computer Science Plan</td> -->
-													<td><a
-														href="<c:url value="/admin/department/list-plans.html?id=${dept.id}" />"
-														class="btn btn-info"><i class="fa fa-eye "></i> View
-															Plan(s)</a> <a
-														href="<c:url value="/admin/department/edit.html?id=${dept.id}" />"
-														class="btn btn-primary"><i class="fa fa-edit "></i>
-															Edit</a></td>
+
+													<td><security:authorize
+															access="authenticated and hasRole('ADMIN')">
+															<a
+																href="<c:url value="/admin/department/list-plans.html?id=${dept.id}" />"
+																class="btn btn-info"><i class="fa fa-eye "></i>
+																View Plan(s)</a>
+														</security:authorize> <a
+														href="<c:url value="/department/list-students.html?id=${dept.id}" />"
+														class="btn btn-default"><i class="fa fa-user "></i>
+															View Student(s)</a> <security:authorize
+															access="authenticated and hasRole('ADMIN')">
+															<a
+																href="<c:url value="/admin/department/edit.html?id=${dept.id}" />"
+																class="btn btn-primary"><i class="fa fa-edit "></i>
+																Edit</a>
+														</security:authorize></td>
+
 												</tr>
 
 											</c:forEach>
@@ -83,7 +108,7 @@
 							</div>
 
 						</div>
-						
+
 
 					</div>
 				</div>

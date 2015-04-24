@@ -116,11 +116,12 @@ public class FlightPlanController {
         // models.put( "sessionUserObj", sessionUserObj );
         models.put( "currUserObj", currUserObj );
         FlightPlan plan = null;
-
+        boolean student_mode = true;
         if( currUserObj.getFlightPlan() != null )
         {
             plan = planDao.getFlightPlan( currUserObj.getFlightPlan().getId() );
         }
+        models.put( "student_mode", student_mode );
         models.put( "plan", plan );
         return "view_plan";
     }
@@ -232,7 +233,7 @@ public class FlightPlanController {
         Runway newRunway = runwayDao.saveRunway( runway );
         plan.getRunways().add( newRunway );
         planDao.saveFlightPlan( plan );
-        return "redirect:/plan/view/" + plan.getId() + ".html";
+        return "redirect:/plan/edit/" + plan.getId() + ".html";
     }
 
     @RequestMapping(value = "/admin/plan/edit-runway.html",
@@ -252,7 +253,7 @@ public class FlightPlanController {
     {
         runwayDao.saveRunway( runway );
         sessionStatus.setComplete();
-        return "redirect:/plan/view/" + planId + ".html";
+        return "redirect:/plan/edit/" + planId + ".html";
     }
 
     @RequestMapping(value = "/admin/plan/add-stage.html",
@@ -275,7 +276,7 @@ public class FlightPlanController {
         plan.getStages().add( newStage );
         planDao.saveFlightPlan( plan );
         sessionStatus.setComplete();
-        return "redirect:/plan/view/" + plan.getId() + ".html";
+        return "redirect:/plan/edit/" + plan.getId() + ".html";
     }
 
     @RequestMapping(value = "/admin/plan/edit-stage.html",
@@ -295,7 +296,7 @@ public class FlightPlanController {
     {
         stageDao.saveStage( stage );
         sessionStatus.setComplete();
-        return "redirect:/plan/view/" + planId + ".html";
+        return "redirect:/plan/edit/" + planId + ".html";
     }
 
     @RequestMapping(value = "/admin/plan/add-checkpoint.html",
@@ -350,7 +351,7 @@ public class FlightPlanController {
         }
 
         planDao.saveFlightPlan( plan );
-        return "redirect:/plan/view/" + plan.getId() + ".html";
+        return "redirect:/plan/edit/" + plan.getId() + ".html";
     }
 
     @RequestMapping(value = "/admin/plan/edit-checkpoint.html",
@@ -431,7 +432,7 @@ public class FlightPlanController {
 
         planDao.saveFlightPlan( plan );
         sessionStatus.setComplete();
-        return "redirect:/plan/view/" + planId + ".html";
+        return "redirect:/plan/edit/" + planId + ".html";
     }
 
     @RequestMapping(value = "/admin/plan/remove-checkpoint.html",
@@ -442,7 +443,7 @@ public class FlightPlanController {
         Cell cell = cellDao.getCell( cellId );
         cell.getCheckpoints().remove( checkpointDao.getCheckPoint( id ) );
         cellDao.saveCell( cell );
-        return "redirect:/plan/view/" + planId + ".html";
+        return "redirect:/plan/edit/" + planId + ".html";
     }
 
     @RequestMapping(value = "/admin/plan/reorder-stages.html",

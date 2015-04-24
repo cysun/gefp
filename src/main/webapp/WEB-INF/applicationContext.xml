@@ -82,7 +82,9 @@
 		<security:intercept-url pattern="/user/profile/**" access="authenticated" />
 		<security:intercept-url pattern="/autocomplete/user**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
 		<security:intercept-url pattern="/search/users.html" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
-		<security:intercept-url pattern="plan/view/**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
+		<security:intercept-url pattern="/plan/view/**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
+		<security:intercept-url pattern="/plan/edit/**" access="authenticated and hasRole('ADMIN')" />
+		<security:intercept-url pattern="/department/list-students.html**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
 		
 		<security:access-denied-handler error-page="/403.jsp" />
 	</security:http>
