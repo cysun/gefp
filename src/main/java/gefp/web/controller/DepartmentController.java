@@ -93,7 +93,7 @@ public class DepartmentController {
         method = RequestMethod.POST)
     public String edit( @ModelAttribute("department") Department department )
     {
-        if( department.getName().isEmpty() ){ return "redirect:/admin/department/edit.html??id="+department.getId()+"&error=true"; }
+        if( department.getName().isEmpty() ){ return "redirect:/admin/department/edit.html?id="+department.getId()+"&error=true"; }
         department = deptDao.saveDepartment( department );
         return "redirect:/admin/list-departments.html";
     }
