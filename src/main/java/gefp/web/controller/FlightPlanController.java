@@ -243,8 +243,9 @@ public class FlightPlanController {
     @RequestMapping(value = "/admin/plan/edit-runway.html",
         method = RequestMethod.GET)
     public String editRunway( @RequestParam Long id, @RequestParam Long planId,
-        ModelMap models )
+        ModelMap models, HttpServletRequest request )
     {
+        models.put( "error", request.getParameter( "error" ) );
         models.put( "flightplan", planDao.getFlightPlan( planId ) );
         models.put( "runway", runwayDao.getRunway( id ) );
         return "edit_runway";
@@ -265,8 +266,9 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/admin/plan/add-stage.html",
         method = RequestMethod.GET)
-    public String addStage( @RequestParam Long planId, ModelMap models )
+    public String addStage( @RequestParam Long planId, ModelMap models, HttpServletRequest request )
     {
+        models.put( "error", request.getParameter( "error" ) );
         models.put( "flightplan", planDao.getFlightPlan( planId ) );
         models.put( "stage", new Stage() );
         return "add_stage";
@@ -292,8 +294,9 @@ public class FlightPlanController {
     @RequestMapping(value = "/admin/plan/edit-stage.html",
         method = RequestMethod.GET)
     public String editStage( @RequestParam Long id, @RequestParam Long planId,
-        ModelMap models )
+        ModelMap models, HttpServletRequest request )
     {
+        models.put( "error", request.getParameter( "error" ) );
         models.put( "flightplan", planDao.getFlightPlan( planId ) );
         models.put( "stage", stageDao.getStage( id ) );
         return "edit_stage";
