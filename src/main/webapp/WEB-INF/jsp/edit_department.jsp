@@ -38,6 +38,9 @@
 											<div class="form-group">
 												<label>Department Name</label>
 												<form:input class="form-control" path="name" />
+												<c:if test="${error == true }">
+												<span class="errMsg">Please enter Department Name</span>
+												</c:if>
 												<!-- <p class="help-block">Enter department name.</p> -->
 											</div>
 

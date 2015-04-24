@@ -49,7 +49,7 @@
 												<label>Department Name</label>
 												<form:input path="name" class="form-control" />
 												<c:if test="${error == true }">
-												<span class="errMsg">Please enter Stage Name</span>
+												<span class="errMsg">Please enter Department Name</span>
 												</c:if>
 												<!-- <p class="help-block">Enter department name.</p> -->
 											</div>
