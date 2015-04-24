@@ -64,8 +64,9 @@ public class DepartmentController {
 
     @RequestMapping(value = "/admin/department/add.html",
         method = RequestMethod.GET)
-    public String add( ModelMap models )
+    public String add( ModelMap models, HttpServletRequest request )
     {
+        models.put( "error", request.getParameter( "error" ) );
         models.put( "department", new Department() );
         return "add_department";
     }
@@ -74,14 +75,16 @@ public class DepartmentController {
         method = RequestMethod.POST)
     public String add( @ModelAttribute Department department )
     {
+        if( department.getName().isEmpty() ){ return "redirect:/admin/department/add.html?error=true"; }
         department = deptDao.saveDepartment( department );
         return "redirect:/admin/list-departments.html";
     }
 
     @RequestMapping(value = "/admin/department/edit.html",
         method = RequestMethod.GET)
-    public String edit( @RequestParam Integer id, ModelMap models )
+    public String edit( @RequestParam Integer id, ModelMap models, HttpServletRequest request )
     {
+        models.put( "error", request.getParameter( "error" ) );
         models.put( "department", deptDao.getDepartment( id ) );
         return "edit_department";
     }
@@ -90,6 +93,7 @@ public class DepartmentController {
         method = RequestMethod.POST)
     public String edit( @ModelAttribute("department") Department department )
     {
+        if( department.getName().isEmpty() ){ return "redirect:/admin/department/edit.html??id="+department.getId()+"&error=true"; }
         department = deptDao.saveDepartment( department );
         return "redirect:/admin/list-departments.html";
     }
