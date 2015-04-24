@@ -96,7 +96,7 @@
 														<c:forEach var="dept" items="${departments}">
 															
 															<!-- Do not show a department whose current plan is empty -->
-															<c:if test="${dept.currentPlan != null}">
+															<c:if test="${dept.defaultPlan != null}">
 															<c:choose>
 															<c:when test="${user.department.id == dept.id}">
 																<option selected="selected" value="${dept.id}">${dept.name}</option>
