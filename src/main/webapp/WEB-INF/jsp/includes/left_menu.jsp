@@ -50,8 +50,8 @@
 			<li class="text-center"><img
 				src="<c:url value="/assets/img/gefp_logo.png" />"
 				class="user-image img-responsive" /></li>
-			<li><a href="<c:url value="/student/view-plan/${loggedInUser.id}.html" />" ><i class="fa fa-dashboard fa-3x"></i>
-					Dashboard</a></li>
+			<li><a href="<c:url value="/student/view-plan/${loggedInUser.id}.html" />" ><i class="fa fa-table fa-3x"></i>
+					Flight Plan</a></li>
 			<li><a href="<c:url value="/user/profile/${loggedInUser.id}.html" />" ><i class="fa fa-user fa-3x"></i>
 					My Profile</a></li>
 		</ul>
