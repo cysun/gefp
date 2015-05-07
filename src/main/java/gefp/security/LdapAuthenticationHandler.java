@@ -137,7 +137,7 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
         }
         catch( Exception e )
         {
-            logger.info( "Invalid Username/Password - Exception" );
+            logger.info( "Exception : " + e.getMessage() );
             e.printStackTrace();
         }
         return auth;
