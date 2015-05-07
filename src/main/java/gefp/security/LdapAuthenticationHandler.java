@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LdapAuthenticationHandler implements AuthenticationProvider {
-    
+
     @Autowired
     private UserDao userDao;
 
@@ -66,49 +66,45 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                 {
                     user = new User();
                     Set<Role> roles = new HashSet<Role>();
-                    roles.add(roleDao.getRole( "STUDENT" ));
+                    roles.add( roleDao.getRole( "STUDENT" ) );
                     user.setUsername( username );
                     user.setPassword( password );
                     user.setFirstName( attrs.get( "givenName" ).toString() );
                     user.setEmail( attrs.get( "mail" ).toString() );
                     user.setRoles( roles );
-                    user = userDao.saveUser( user );
+                    userDao.saveUser( user );
                 }
-                
+
                 List<GrantedAuthority> grantedAuths = new ArrayList<>();
                 for( Role r : user.getRoles() )
                 {
-                    grantedAuths.add( new SimpleGrantedAuthority(
-                        r.getName() ) );
+                    grantedAuths.add( new SimpleGrantedAuthority( r.getName() ) );
                 }
-                
+
                 auth = new UsernamePasswordAuthenticationToken( username,
                     password, grantedAuths );
-                
 
-//                String temp = attrs.get( "sAMAccountName" ).toString();
-//                System.out.println( "Username : "
-//                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-//                temp = attrs.get( "uid" ).toString();
-//                System.out.println( "uid : "
-//                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-//                temp = attrs.get( "givenName" ).toString();
-//                System.out.println( "Name : "
-//                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-//                temp = attrs.get( "mail" ).toString();
-//                System.out.println( "Email ID    : "
-//                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-//                temp = attrs.get( "cn" ).toString();
-//                System.out.println( "Display Name : "
-//                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-//                temp = attrs.get( "distinguishedName" ).toString();
-//                System.out.println( "distinguishedName : "
-//                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-//                temp = attrs.get( "userPrincipalName" ).toString();
-//                System.out.println( "userPrincipalName : "
-//                    + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                
-                return auth;
+                // String temp = attrs.get( "sAMAccountName" ).toString();
+                // System.out.println( "Username : "
+                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                // temp = attrs.get( "uid" ).toString();
+                // System.out.println( "uid : "
+                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                // temp = attrs.get( "givenName" ).toString();
+                // System.out.println( "Name : "
+                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                // temp = attrs.get( "mail" ).toString();
+                // System.out.println( "Email ID    : "
+                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                // temp = attrs.get( "cn" ).toString();
+                // System.out.println( "Display Name : "
+                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                // temp = attrs.get( "distinguishedName" ).toString();
+                // System.out.println( "distinguishedName : "
+                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
+                // temp = attrs.get( "userPrincipalName" ).toString();
+                // System.out.println( "userPrincipalName : "
+                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
             }
             else
             {
@@ -133,16 +129,6 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
             System.out.println( "Invalid Username/Password - Exception" );
             e.printStackTrace();
         }
-
-        // if (name.equals("admin") && password.equals("system")) {
-        // List<GrantedAuthority> grantedAuths = new ArrayList<>();
-        // grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-        // Authentication auth = new UsernamePasswordAuthenticationToken(name,
-        // password, grantedAuths);
-        // return auth;
-        // } else {
-        // return null;
-        // }
         return auth;
     }
 
