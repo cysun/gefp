@@ -2,7 +2,6 @@ package gefp.web.controller;
 
 import gefp.model.dao.UserDao;
 import gefp.security.ActiveDirectory;
-import gefp.security.ActiveDirectory2;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +10,6 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchResult;
-import javax.naming.ldap.LdapContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -75,6 +73,7 @@ public class HomeController {
 
         String username = request.getParameter( "username" );
         String password = request.getParameter( "password" );
+        
         String domain = "ad.calstatela.edu";
         String choice = "username"; // username | email
         System.out.println( "Authenticating user : " + username );
@@ -148,56 +147,5 @@ public class HomeController {
             out.println( "Invalid Username/Password - Exception");
             e.printStackTrace();
         }
-    }
-
-    /** OLD Script */
-
-    @RequestMapping(value = "/ActiveDirectoryLoginOld.html",
-        method = RequestMethod.POST)
-    public void activeDirectoryLoginCheckActiveDirectory2(
-        HttpServletRequest request, HttpServletResponse response )
-    {
-
-        String username = request.getParameter( "username" );
-        String password = request.getParameter( "password" );
-        String domain = "AD.calstatela.edu";
-
-        System.out.println( "Authenticating user : " + username );
-
-        try
-        {
-            PrintWriter out = response.getWriter();
-            out.println( "Username is " + username );
-            out.println( "Password is " + password );
-            out.println( "Domain is " + domain );
-
-            LdapContext connection = ActiveDirectory2.getConnection( username,
-                password, domain, null );
-
-            out.println( "Successfully Authenticated" );
-
-            out.close();
-
-            /*
-             * User[] users = ActiveDirectory.getUsers( connection ); for( User
-             * user : users ) System.out.println( user.toString() );
-             */
-
-            // ADUser user = ActiveDirectory.getUser( "hgadhia", connection );
-            // System.out.println( user.toString() );
-            connection.close();
-
-        }
-        catch( NamingException e )
-        {
-            System.out.println( "Invalid Username/password" );
-            e.printStackTrace();
-        }
-        catch( IOException e )
-        {
-            System.out.println( "Exception : " + e.getMessage() );
-            e.printStackTrace();
-        }
-
     }
 }
