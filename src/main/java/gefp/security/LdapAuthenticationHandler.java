@@ -16,6 +16,10 @@ import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchResult;
 
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,9 +29,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class LdapAuthenticationHandler implements AuthenticationProvider {
-
+    
+    private static final Logger logger = LoggerFactory.getLogger( LdapAuthenticationHandler.class );
+    
     @Autowired
     private UserDao userDao;
 
