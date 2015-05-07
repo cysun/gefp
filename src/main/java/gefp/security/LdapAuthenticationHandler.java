@@ -59,7 +59,7 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
             activeDirectory.connect( domain, username, password );
 
             NamingEnumeration<SearchResult> result = activeDirectory.searchUser(
-                "csun", choice, null );
+                username, choice, null );
 
             if( result.hasMore() )
             {
