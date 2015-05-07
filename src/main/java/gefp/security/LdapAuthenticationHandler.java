@@ -16,8 +16,6 @@ import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchResult;
 
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,9 +66,11 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
 
                 // fetch the user's information.
                 User user = userDao.getUserByUsername( username );
-
+                logger.info( "username ( "+username+" ) is authenticated from AD" );
+                
                 if( user == null )
                 {
+                    logger.info( "Inside new User IF Loop" );
                     user = new User();
                     Set<Role> roles = new HashSet<Role>();
                     roles.add( roleDao.getRole( "STUDENT" ) );
