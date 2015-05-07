@@ -55,13 +55,11 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
 
         try
         {
-            logger.warn( "Authenticating:" + username );
-            
             ActiveDirectory activeDirectory = new ActiveDirectory();
             activeDirectory.connect( domain, username, password );
 
             NamingEnumeration<SearchResult> result = activeDirectory.searchUser(
-                username, choice, null );
+                "csun", choice, null );
 
             if( result.hasMore() )
             {
@@ -75,13 +73,21 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                 if( user == null )
                 {
                     logger.info( "Inside new User IF Loop" );
+                    
+                    String temp = attrs.get( "givenName" ).toString();
+                    String firstName = temp.substring( temp.indexOf( ":" ) + 1 );
+                    temp = attrs.get( "mail" ).toString();
+                    String emailId = temp.substring( temp.indexOf( ":" ) + 1 );
+                    temp = attrs.get( "distinguishedName" ).toString();
+                    String distinguishedName = temp.substring( temp.indexOf( ":" ) + 1 );
+                    
                     user = new User();
                     Set<Role> roles = new HashSet<Role>();
                     roles.add( roleDao.getRole( "STUDENT" ) );
                     user.setUsername( username );
                     user.setPassword( password );
-                    user.setFirstName( attrs.get( "givenName" ).toString() );
-                    user.setEmail( attrs.get( "mail" ).toString() );
+                    user.setFirstName( firstName );
+                    user.setEmail( emailId );
                     user.setRoles( roles );
                     user.setEnabled( true );
                     user.setDepartment( null );
