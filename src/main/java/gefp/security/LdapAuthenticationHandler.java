@@ -52,7 +52,8 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
 
         try
         {
-
+            logger.info( "Authenticating:" + username );
+            
             ActiveDirectory activeDirectory = new ActiveDirectory();
             activeDirectory.connect( domain, username, password );
 
@@ -115,25 +116,25 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
             }
             else
             {
-                System.out.println( "No result found!" );
+                logger.info( "No result found!" );
             }
             // Closing LDAP Connection
             activeDirectory.closeLdapConnection();
         }
         catch( NamingException e )
         {
-            System.out.println( "Invalid Username/Password - NamingException" );
-            System.out.println( "Invalid Username/Password" + e.getMessage() );
+            logger.info( "Invalid Username/Password - NamingException" );
+            logger.info( "Invalid Username/Password" + e.getMessage() );
             e.printStackTrace();
         }
         catch( IOException e )
         {
-            System.out.println( "Exception : " + e.getMessage() );
+            logger.info( "Exception : " + e.getMessage() );
             e.printStackTrace();
         }
         catch( Exception e )
         {
-            System.out.println( "Invalid Username/Password - Exception" );
+            logger.info( "Invalid Username/Password - Exception" );
             e.printStackTrace();
         }
         return auth;
