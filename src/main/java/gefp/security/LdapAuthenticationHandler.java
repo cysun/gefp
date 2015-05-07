@@ -84,6 +84,7 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                     user.setEmail( attrs.get( "mail" ).toString() );
                     user.setRoles( roles );
                     user = userDao.saveUser( user );
+                    logger.info( "new user id is " + user.getId() );
                 }
 
                 List<GrantedAuthority> grantedAuths = new ArrayList<>();
@@ -126,7 +127,6 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
         }
         catch( NamingException e )
         {
-            logger.info( "Invalid Username/Password - NamingException" );
             logger.info( "Invalid Username/Password" + e.getMessage() );
             e.printStackTrace();
         }
