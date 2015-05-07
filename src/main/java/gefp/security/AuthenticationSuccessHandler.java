@@ -52,8 +52,8 @@ public class AuthenticationSuccessHandler extends
         throws ServletException, IOException
     {
         HttpSession session = request.getSession();
-        //User user = (User) authentication.getPrincipal();
-        User user = userDao.getUserByUsername( authentication.getPrincipal().toString() );
+        User user = (User) authentication.getPrincipal();
+        // User user = userDao.getUserByUsername( authentication.getPrincipal().toString() );
         // logger.info(user.getUsername() + " signed in.");
 
         System.out.println( "Logged in Username is " + user.getUsername() );
