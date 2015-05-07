@@ -83,6 +83,8 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                     user.setFirstName( attrs.get( "givenName" ).toString() );
                     user.setEmail( attrs.get( "mail" ).toString() );
                     user.setRoles( roles );
+                    user.setEnabled( true );
+                    user.setDepartment( null );
                     user = userDao.saveUser( user );
                     logger.info( "new user id is " + user.getId() );
                 }

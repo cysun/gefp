@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
 import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
+// import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -142,7 +142,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @Transactional
-    @PreAuthorize("authenticated and (hasAnyRole('ADMIN','ADVISOR') or #user.username == principal.username)")
+    // @PreAuthorize("authenticated and (hasAnyRole('ADMIN','ADVISOR') or #user.username == principal.username)")
     public User saveUser( User user )
     {
         return entityManager.merge( user );
