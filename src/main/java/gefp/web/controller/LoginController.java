@@ -34,7 +34,7 @@ public class LoginController {
     @RequestMapping(value = "/login.html", method = RequestMethod.GET)
     public String login( ModelMap models, HttpServletRequest request )
     {
-        logger.info( "Login Page called" );
+        logger.debug( "Login Page called" );
         
         String errMsg = request.getParameter( "error" );
         if( errMsg != null && errMsg.equals( "true" ) )

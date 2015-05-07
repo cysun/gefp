@@ -18,7 +18,7 @@
         </layout>
     </appender>
 
-    <logger name="csns">
+    <logger name="gefp">
         <level value="${app.log.level}" />
     </logger>
 
