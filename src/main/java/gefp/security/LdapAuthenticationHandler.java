@@ -80,10 +80,15 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                     String emailId = temp.substring( temp.indexOf( ":" ) + 1 );
                     temp = attrs.get( "distinguishedName" ).toString();
                     String distinguishedName = temp.substring( temp.indexOf( ":" ) + 1 );
+                    int facultyIndex = distinguishedName.indexOf( "OU=Employees" );
                     
                     user = new User();
                     Set<Role> roles = new HashSet<Role>();
                     roles.add( roleDao.getRole( "STUDENT" ) );
+                    if(facultyIndex > 0) {
+                        roles.add( roleDao.getRole( "ADVISOR" ) );
+                    }
+                    
                     user.setUsername( username );
                     user.setPassword( password );
                     user.setFirstName( firstName );
