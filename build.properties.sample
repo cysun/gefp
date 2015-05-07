@@ -3,3 +3,13 @@ app.url=http://localhost:8080/gefp
 jdbc.url=jdbc:postgresql://localhost:5432/gefp
 jdbc.username=gefp
 jdbc.password=abcd
+
+
+app.encoding=UTF-8
+app.file.dir=D:/eclipse-luna/eclipse/Temp/files
+app.log.dir=D:/eclipse-luna/eclipse/Temp/logs
+
+## set app.log.level to debug during development and info for production.
+## app.log.request controls whether HTTP requests should be logged.
+app.log.level=debug
+app.log.request=false
