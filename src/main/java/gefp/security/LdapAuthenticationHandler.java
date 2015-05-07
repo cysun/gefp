@@ -90,7 +90,7 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                     }
                     
                     user.setUsername( username );
-                    user.setPassword( password );
+                    user.setPassword( "" );
                     user.setFirstName( firstName );
                     user.setEmail( emailId );
                     user.setRoles( roles );
