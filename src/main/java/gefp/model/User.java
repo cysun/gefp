@@ -75,7 +75,7 @@ public class User implements Serializable, UserDetails {
     private FlightPlan flightPlan = new FlightPlan();
 
     private boolean enabled;
-
+    private boolean newAccount = false;
     private boolean deleted;
 
     public User()
@@ -267,6 +267,18 @@ public class User implements Serializable, UserDetails {
             }
         }
 
+    }
+    
+    
+    public boolean isNewAccount()
+    {
+        return newAccount;
+    }
+
+    
+    public void setNewAccount( boolean newAccount )
+    {
+        this.newAccount = newAccount;
     }
 
     public boolean isAdmin()

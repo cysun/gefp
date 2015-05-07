@@ -16,6 +16,7 @@
         department_id int4,
         plan_id int8,
         major_id int4,
+        newAccount boolean default false,
         enabled boolean not null,
         deleted boolean not null,
         primary key (id)

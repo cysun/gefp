@@ -52,7 +52,7 @@
         id int8 not null,
         name varchar(255),
         published boolean not null,
-        department_id int8,
+        department_id int4,
         primary key (id)
     );
 
@@ -100,6 +100,7 @@
         first_name varchar(255),
         last_name varchar(255),
         middle_name varchar(255),
+        newAccount boolean not null,
         password varchar(255),
         username varchar(255),
         department_id int4,

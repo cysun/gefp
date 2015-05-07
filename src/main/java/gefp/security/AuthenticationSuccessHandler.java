@@ -68,10 +68,19 @@ public class AuthenticationSuccessHandler extends
             return;
         }
         
+        
         session.setAttribute( "loggedInUser", user );
         user.setUserTypesInSession( session );
-
-        getRedirectStrategy().sendRedirect( request, response,
-            defaultUrls.userHomeUrl( request ) );
+        
+        if(user.isNewAccount()) {
+            getRedirectStrategy().sendRedirect( request, response,
+                "/update-profile.html" );
+        }
+        else {
+            getRedirectStrategy().sendRedirect( request, response,
+                defaultUrls.userHomeUrl( request ) );
+        }
+        
+        
     }
 }

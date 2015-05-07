@@ -42,6 +42,11 @@ public class LoginController {
         models.put( "errorLogin", errMsg );
         return "login";
     }
+    
+    @RequestMapping(value = "/update-profile.html", method = RequestMethod.GET)
+    public String updateprofile( ModelMap models, HttpServletRequest request ) {
+        return "update_profile";
+    }
 
     @RequestMapping(value = "/logout.html", method = RequestMethod.GET)
     public String logout( ModelMap models, HttpSession session )

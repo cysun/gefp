@@ -98,6 +98,7 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                     user.setDepartment( null );
                     user.setMajor( null );
                     user.setFlightPlan( null );
+                    user.setNewAccount( true );
                     user.setDeleted( false );
                     user = userDao.saveUser( user );
                     logger.info( "new user id is " + user.getId() );
