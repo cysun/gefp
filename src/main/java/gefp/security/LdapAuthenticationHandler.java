@@ -72,7 +72,7 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                     user.setFirstName( attrs.get( "givenName" ).toString() );
                     user.setEmail( attrs.get( "mail" ).toString() );
                     user.setRoles( roles );
-                    userDao.saveUser( user );
+                    user = userDao.saveUser( user );
                 }
 
                 List<GrantedAuthority> grantedAuths = new ArrayList<>();
@@ -117,7 +117,7 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
         {
             System.out.println( "Invalid Username/Password - NamingException" );
             System.out.println( "Invalid Username/Password" + e.getMessage() );
-            // e.printStackTrace();
+            e.printStackTrace();
         }
         catch( IOException e )
         {
