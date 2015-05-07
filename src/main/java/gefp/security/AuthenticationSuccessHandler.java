@@ -19,6 +19,7 @@
 package gefp.security;
 
 import gefp.model.User;
+import gefp.model.dao.UserDao;
 
 import java.io.IOException;
 
@@ -41,6 +42,9 @@ public class AuthenticationSuccessHandler extends
 
     @Autowired
     DefaultUrls defaultUrls;
+    
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public void onAuthenticationSuccess( HttpServletRequest request,
@@ -48,7 +52,8 @@ public class AuthenticationSuccessHandler extends
         throws ServletException, IOException
     {
         HttpSession session = request.getSession();
-        User user = (User) authentication.getPrincipal();
+        //User user = (User) authentication.getPrincipal();
+        User user = userDao.getUserByUsername( authentication.getPrincipal().toString() );
         // logger.info(user.getUsername() + " signed in.");
 
         System.out.println( "Logged in Username is " + user.getUsername() );
