@@ -81,7 +81,7 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                     grantedAuths.add( new SimpleGrantedAuthority( r.getName() ) );
                 }
 
-                auth = new UsernamePasswordAuthenticationToken( username,
+                auth = new UsernamePasswordAuthenticationToken( user,
                     password, grantedAuths );
 
                 // String temp = attrs.get( "sAMAccountName" ).toString();
