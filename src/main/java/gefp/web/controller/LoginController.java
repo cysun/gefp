@@ -1,12 +1,16 @@
 package gefp.web.controller;
 
 import gefp.model.dao.UserDao;
+import gefp.security.LdapAuthenticationHandler;
 import gefp.web.validator.UserValidator;
+
 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +23,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes({ "loginuser" })
 public class LoginController {
-
+    
+    private static final Logger logger = LoggerFactory.getLogger( LdapAuthenticationHandler.class );
+    
     @Autowired
     private UserDao userDao;
 
@@ -29,6 +35,8 @@ public class LoginController {
     @RequestMapping(value = "/login.html", method = RequestMethod.GET)
     public String login( ModelMap models, HttpServletRequest request )
     {
+        logger.warn( "Login Page called" );
+        
         String errMsg = request.getParameter( "error" );
         if( errMsg != null && errMsg.equals( "true" ) )
             errMsg = "Invalid Username/Password";

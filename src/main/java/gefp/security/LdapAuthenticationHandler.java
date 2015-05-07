@@ -33,9 +33,7 @@ import org.springframework.stereotype.Component;
 public class LdapAuthenticationHandler implements AuthenticationProvider {
     
     private static final Logger logger = LoggerFactory.getLogger( LdapAuthenticationHandler.class );
-    
-
-    
+   
     @Autowired
     private UserDao userDao;
 
