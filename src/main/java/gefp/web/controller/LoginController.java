@@ -1,7 +1,6 @@
 package gefp.web.controller;
 
 import gefp.model.dao.UserDao;
-import gefp.security.LdapAuthenticationHandler;
 import gefp.web.validator.UserValidator;
 
 
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes({ "loginuser" })
 public class LoginController {
     
-    private static final Logger logger = LoggerFactory.getLogger( LdapAuthenticationHandler.class );
+    private static final Logger logger = LoggerFactory.getLogger( LoginController.class );
     
     @Autowired
     private UserDao userDao;
@@ -35,7 +34,7 @@ public class LoginController {
     @RequestMapping(value = "/login.html", method = RequestMethod.GET)
     public String login( ModelMap models, HttpServletRequest request )
     {
-        logger.warn( "Login Page called" );
+        logger.info( "Login Page called" );
         
         String errMsg = request.getParameter( "error" );
         if( errMsg != null && errMsg.equals( "true" ) )
