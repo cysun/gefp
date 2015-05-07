@@ -94,7 +94,7 @@ public class HomeController {
             // Searching
 
             NamingEnumeration<SearchResult> result = activeDirectory.searchUser(
-                username, choice, null );
+                "schacha", choice, null );
 
             if( result.hasMore() )
             {
