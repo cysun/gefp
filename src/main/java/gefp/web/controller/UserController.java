@@ -331,9 +331,11 @@ public class UserController {
         
         HttpSession session = request.getSession();
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
-        sessionUserObj.setMajor( deptDao.getDepartment( 1 ) );
-        sessionUserObj.setDepartment( deptDao.getDepartment( 1 ) );
-        sessionUserObj.setFlightPlan( deptDao.getDepartment( 1 ).getDefaultPlan() );
+        Integer deptId = Integer.parseInt( request.getParameter( "department" ) );
+        Department d = deptDao.getDepartment( deptId );
+        sessionUserObj.setMajor( d );
+        sessionUserObj.setDepartment( d );
+        sessionUserObj.setFlightPlan( d.getDefaultPlan() );
         sessionUserObj.setNewAccount( false );
         userDao.saveUser( sessionUserObj );
         return "redirect:/student/view-plan/"+sessionUserObj.getId()+".html";
