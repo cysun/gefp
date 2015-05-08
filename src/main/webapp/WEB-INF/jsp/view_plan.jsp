@@ -20,7 +20,7 @@
 
 	<div id="wrapper">
 
-		<security:authorize access="hasRole('STUDENT')">
+		<security:authorize access="hasRole('STUDENTAAA')">
 			<div id="loader-wrapper">
 				<div id="loader"></div>
 
