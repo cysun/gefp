@@ -334,6 +334,7 @@ public class UserController {
         sessionUserObj.setMajor( deptDao.getDepartment( 1 ) );
         sessionUserObj.setDepartment( deptDao.getDepartment( 1 ) );
         sessionUserObj.setFlightPlan( deptDao.getDepartment( 1 ).getDefaultPlan() );
+        sessionUserObj.setNewAccount( false );
         userDao.saveUser( sessionUserObj );
         return "redirect:/student/view-plan/3.html";
     }
