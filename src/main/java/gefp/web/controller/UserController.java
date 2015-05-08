@@ -333,9 +333,21 @@ public class UserController {
     {
 
         HttpSession session = request.getSession();
+        
+        String firstName = request.getParameter( "firstName" );
+        String middleName = request.getParameter( "middleName" );
+        String lastName = request.getParameter( "lastName" );
+        String cin = request.getParameter( "cin" );
+        String email = request.getParameter( "email" );
+        
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
         Integer deptId = Integer.parseInt( request.getParameter( "department" ) );
         Department d = deptDao.getDepartment( deptId );
+        sessionUserObj.setFirstName( firstName );
+        sessionUserObj.setMiddleName( middleName );
+        sessionUserObj.setLastName( lastName );
+        sessionUserObj.setCin( cin );
+        sessionUserObj.setEmail( email );
         sessionUserObj.setMajor( d );
         sessionUserObj.setDepartment( d );
         sessionUserObj.setFlightPlan( d.getDefaultPlan() );

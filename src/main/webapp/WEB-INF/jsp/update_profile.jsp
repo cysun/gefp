@@ -49,7 +49,7 @@
 											</div>
 											<div class="form-group col-md-6">
 												<label>Middle Name</label> <input type="text"
-													name="middleName" class="form-control" />
+													name="middleName" class="form-control" value="${user.middleName}" />
 											</div>
 											<div class="form-group col-md-6">
 												<label>Last Name</label> <input type="text" name="lastName"
