@@ -28,14 +28,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class LdapAuthenticationHandler implements AuthenticationProvider {
-    
-    private static final Logger logger = LoggerFactory.getLogger( LdapAuthenticationHandler.class );
-    
 
-    
+    private static final Logger logger = LoggerFactory.getLogger( LdapAuthenticationHandler.class );
+
     @Autowired
     private UserDao userDao;
 
@@ -55,6 +52,23 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
 
         try
         {
+
+            if( isSystemAccount( username, password ) )
+            {
+                User user = userDao.getUserByUsername( username );
+
+                List<GrantedAuthority> grantedAuths = new ArrayList<>();
+                for( Role r : user.getRoles() )
+                {
+                    grantedAuths.add( new SimpleGrantedAuthority( r.getName() ) );
+                }
+
+                auth = new UsernamePasswordAuthenticationToken( user, password,
+                    grantedAuths );
+                
+                return auth;
+            }
+
             ActiveDirectory activeDirectory = new ActiveDirectory();
             activeDirectory.connect( domain, username, password );
 
@@ -68,12 +82,13 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
 
                 // fetch the user's information.
                 User user = userDao.getUserByUsername( username );
-                logger.info( "username ( "+username+" ) is authenticated from AD" );
-                
+                logger.info( "username ( " + username
+                    + " ) is authenticated from AD" );
+
                 if( user == null )
                 {
                     logger.info( "Inside new User IF Loop" );
-                    
+
                     String temp = attrs.get( "givenName" ).toString();
                     String firstName = temp.substring( temp.indexOf( ":" ) + 1 );
                     temp = attrs.get( "mail" ).toString();
@@ -81,14 +96,15 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                     temp = attrs.get( "distinguishedName" ).toString();
                     String distinguishedName = temp.substring( temp.indexOf( ":" ) + 1 );
                     int facultyIndex = distinguishedName.indexOf( "OU=Employees" );
-                    
+
                     user = new User();
                     Set<Role> roles = new HashSet<Role>();
                     roles.add( roleDao.getRole( "STUDENT" ) );
-                    if(facultyIndex > 0) {
+                    if( facultyIndex > 0 )
+                    {
                         roles.add( roleDao.getRole( "ADVISOR" ) );
                     }
-                    
+
                     user.setUsername( username );
                     user.setPassword( "" );
                     user.setFirstName( firstName );
@@ -110,8 +126,8 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                     grantedAuths.add( new SimpleGrantedAuthority( r.getName() ) );
                 }
 
-                auth = new UsernamePasswordAuthenticationToken( user,
-                    password, grantedAuths );
+                auth = new UsernamePasswordAuthenticationToken( user, password,
+                    grantedAuths );
 
                 // String temp = attrs.get( "sAMAccountName" ).toString();
                 // System.out.println( "Username : "
@@ -165,4 +181,12 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
     {
         return authentication.equals( UsernamePasswordAuthenticationToken.class );
     }
+
+    public boolean isSystemAccount( String username, String password )
+    {
+        User u = new User( username, password );
+        if( userDao.validateUser( u ) != null ) return true;
+        return false;
+    }
+
 }
