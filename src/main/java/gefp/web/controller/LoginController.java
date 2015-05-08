@@ -3,8 +3,6 @@ package gefp.web.controller;
 import gefp.model.dao.UserDao;
 import gefp.web.validator.UserValidator;
 
-
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -22,9 +20,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes({ "loginuser" })
 public class LoginController {
-    
+
     private static final Logger logger = LoggerFactory.getLogger( LoginController.class );
-    
+
     @Autowired
     private UserDao userDao;
 
@@ -35,17 +33,12 @@ public class LoginController {
     public String login( ModelMap models, HttpServletRequest request )
     {
         logger.debug( "Login Page called" );
-        
+
         String errMsg = request.getParameter( "error" );
         if( errMsg != null && errMsg.equals( "true" ) )
             errMsg = "Invalid Username/Password";
         models.put( "errorLogin", errMsg );
         return "login";
-    }
-    
-    @RequestMapping(value = "/update-profile.html", method = RequestMethod.GET)
-    public String updateprofile( ModelMap models, HttpServletRequest request ) {
-        return "update_profile";
     }
 
     @RequestMapping(value = "/logout.html", method = RequestMethod.GET)
@@ -56,29 +49,28 @@ public class LoginController {
         return "redirect:/j_spring_security_logout";
     }
 
-    
     /* Following method is not being used */
-//    @RequestMapping(value = "/welcome.html", method = RequestMethod.GET)
-//    public String welcome( Principal principal, HttpSession session )
-//    {
-//        session.setAttribute( "principal", principal );
-//
-//        User user = userDao.getUserByUsername( principal.getName() );
-//        session.setAttribute( "loggedInUser", user );
-//        user.setUserTypesInSession( session );
-//
-//        if( user.isAdmin() )
-//        {
-//            return "redirect:/admin/dashboard.html";
-//        }
-//        else if( user.isAdvisor() )
-//        {
-//            return "redirect:/advisor/dashboard.html";
-//        }
-//        else
-//        {
-//            return "redirect:/student/view-plan/" + user.getId() + ".html";
-//        }
-//    }
+    // @RequestMapping(value = "/welcome.html", method = RequestMethod.GET)
+    // public String welcome( Principal principal, HttpSession session )
+    // {
+    // session.setAttribute( "principal", principal );
+    //
+    // User user = userDao.getUserByUsername( principal.getName() );
+    // session.setAttribute( "loggedInUser", user );
+    // user.setUserTypesInSession( session );
+    //
+    // if( user.isAdmin() )
+    // {
+    // return "redirect:/admin/dashboard.html";
+    // }
+    // else if( user.isAdvisor() )
+    // {
+    // return "redirect:/advisor/dashboard.html";
+    // }
+    // else
+    // {
+    // return "redirect:/student/view-plan/" + user.getId() + ".html";
+    // }
+    // }
 
 }

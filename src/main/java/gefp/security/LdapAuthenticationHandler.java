@@ -65,7 +65,7 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
 
                 auth = new UsernamePasswordAuthenticationToken( user, password,
                     grantedAuths );
-                
+
                 return auth;
             }
 
@@ -79,8 +79,6 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
             {
                 SearchResult rs = (SearchResult) result.next();
                 Attributes attrs = rs.getAttributes();
-
-                // fetch the user's information.
                 User user = userDao.getUserByUsername( username );
                 logger.info( "username ( " + username
                     + " ) is authenticated from AD" );
@@ -128,34 +126,11 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
 
                 auth = new UsernamePasswordAuthenticationToken( user, password,
                     grantedAuths );
-
-                // String temp = attrs.get( "sAMAccountName" ).toString();
-                // System.out.println( "Username : "
-                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                // temp = attrs.get( "uid" ).toString();
-                // System.out.println( "uid : "
-                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                // temp = attrs.get( "givenName" ).toString();
-                // System.out.println( "Name : "
-                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                // temp = attrs.get( "mail" ).toString();
-                // System.out.println( "Email ID    : "
-                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                // temp = attrs.get( "cn" ).toString();
-                // System.out.println( "Display Name : "
-                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                // temp = attrs.get( "distinguishedName" ).toString();
-                // System.out.println( "distinguishedName : "
-                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
-                // temp = attrs.get( "userPrincipalName" ).toString();
-                // System.out.println( "userPrincipalName : "
-                // + temp.substring( temp.indexOf( ":" ) + 1 ) );
             }
             else
             {
                 logger.info( "No result found!" );
             }
-            // Closing LDAP Connection
             activeDirectory.closeLdapConnection();
         }
         catch( NamingException e )

@@ -114,32 +114,31 @@ public class UserController {
         return "add_user";
     }
 
-
     @RequestMapping(value = "/admin/user/add.html", method = RequestMethod.POST)
     public String add( HttpServletRequest request, SessionStatus sessionStatus )
     {
         User user = new User();
-        System.out.println("In Post");
+        System.out.println( "In Post" );
         String firstName = request.getParameter( "firstName" );
         String lastName = request.getParameter( "lastName" );
         String email = request.getParameter( "email" );
         String cin = request.getParameter( "cin" );
         String username = request.getParameter( "username" );
         String password = request.getParameter( "password" );
-        
+
         user.setFirstName( firstName );
         user.setLastName( lastName );
         user.setCin( cin );
         user.setEmail( email );
         user.setUsername( username );
         user.setPassword( password );
-        
+
         Integer deptId = Integer.parseInt( request.getParameter( "department" ) );
         String[] roleIds = request.getParameterValues( "roles" );
         Set<Role> roles = new HashSet<Role>();
-        
+
         for( String role : roleIds )
-            roles.add( roleDao.getRole( Integer.parseInt(role) ) );   
+            roles.add( roleDao.getRole( Integer.parseInt( role ) ) );
 
         user.setDepartment( deptDao.getDepartment( deptId ) );
         user.setMajor( deptDao.getDepartment( deptId ) );
@@ -158,8 +157,8 @@ public class UserController {
     {
         models.put( "user", userDao.getUser( id ) );
         return "add_user";
-    }    
-    
+    }
+
     @RequestMapping(value = "/admin/user/edit/{id}.html",
         method = RequestMethod.POST)
     public String save( @ModelAttribute("user") User user, ModelMap models,
@@ -317,6 +316,26 @@ public class UserController {
         response.setContentType( "application/json" );
         jsonArray.write( response.getWriter() );
         return null;
+    }
+
+    @RequestMapping(value = "/update-profile.html", method = RequestMethod.GET)
+    public String updateprofile( ModelMap models, HttpServletRequest request )
+    {
+        models.put( "departments", deptDao.getDepartments() );
+        return "update_profile";
+    }
+    
+    @RequestMapping(value = "/update-profile.html", method = RequestMethod.POST)
+    public String updateprofile2( ModelMap models, HttpServletRequest request )
+    {
+        
+        HttpSession session = request.getSession();
+        User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
+        sessionUserObj.setMajor( deptDao.getDepartment( 1 ) );
+        sessionUserObj.setDepartment( deptDao.getDepartment( 1 ) );
+        sessionUserObj.setFlightPlan( deptDao.getDepartment( 1 ).getDefaultPlan() );
+        userDao.saveUser( sessionUserObj );
+        return "redirect:/student/view-plan/3.html";
     }
 
     /*
