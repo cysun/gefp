@@ -45,7 +45,7 @@
 										<form action="" method="post">
 											<div class="form-group col-md-6">
 												<label>First Name</label> <input type="text"
-													name="firstName" class="form-control" />
+													name="firstName" class="form-control" value="${user.firstName}" />
 											</div>
 											<div class="form-group col-md-6">
 												<label>Middle Name</label> <input type="text"
@@ -53,15 +53,15 @@
 											</div>
 											<div class="form-group col-md-6">
 												<label>Last Name</label> <input type="text" name="lastName"
-													class="form-control" />
+													class="form-control" value="${user.lastName}" />
 											</div>
 											<div class="form-group col-md-6">
 												<label>CIN</label> <input type="text" name="cin"
-													class="form-control" />
+													class="form-control" value="${user.cin}" />
 											</div>
 											<div class="form-group col-md-6">
 												<label>Email ID</label> <input type="text" name="email"
-													class="form-control" />
+													class="form-control" value="${user.email}" />
 											</div>
 
 											<div class="form-group col-md-6">

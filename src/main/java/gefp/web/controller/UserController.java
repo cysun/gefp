@@ -2,12 +2,12 @@ package gefp.web.controller;
 
 import gefp.model.Department;
 import gefp.model.FlightPlan;
-import gefp.model.User;
 import gefp.model.Role;
+import gefp.model.User;
 import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.FlightPlanDao;
-import gefp.model.dao.UserDao;
 import gefp.model.dao.RoleDao;
+import gefp.model.dao.UserDao;
 import gefp.web.validator.UserValidator;
 
 import java.io.IOException;
@@ -321,14 +321,17 @@ public class UserController {
     @RequestMapping(value = "/update-profile.html", method = RequestMethod.GET)
     public String updateprofile( ModelMap models, HttpServletRequest request )
     {
+        HttpSession session = request.getSession();
+        User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
+        models.put( "user", sessionUserObj );
         models.put( "departments", deptDao.getDepartments() );
         return "update_profile";
     }
-    
+
     @RequestMapping(value = "/update-profile.html", method = RequestMethod.POST)
     public String updateprofile2( ModelMap models, HttpServletRequest request )
     {
-        
+
         HttpSession session = request.getSession();
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
         Integer deptId = Integer.parseInt( request.getParameter( "department" ) );
@@ -338,7 +341,8 @@ public class UserController {
         sessionUserObj.setFlightPlan( d.getDefaultPlan() );
         sessionUserObj.setNewAccount( false );
         userDao.saveUser( sessionUserObj );
-        return "redirect:/student/view-plan/"+sessionUserObj.getId()+".html";
+        return "redirect:/student/view-plan/" + sessionUserObj.getId()
+            + ".html";
     }
 
     /*
