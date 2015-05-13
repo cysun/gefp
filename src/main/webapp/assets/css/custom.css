@@ -175,6 +175,14 @@ ul.list{
 	padding-left:0px;
 }
 
+ul li.list p {
+	float:left;
+}
+
+ul li.list {
+	clear:both;
+}
+
 #page-wrapper {
     padding: 15px 15px;
     min-height: 600px;
