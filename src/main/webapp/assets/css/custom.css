@@ -183,6 +183,10 @@ ul li.list .checkpoint_information {
 	margin-right:10px !important;
 }
 
+ul li.list .checkpoint_information ol li, ul li.list .checkpoint_information ul li {
+	clear:both;
+}
+
 ul li.list {
 	clear:both;
 }
