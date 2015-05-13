@@ -9,6 +9,10 @@
 }
 
 
+.flightplan_checkpoints {
+	margin-right: 10px !important;
+}
+
 #sortable thead tr th.editable:not(:first-child){
 	cursor: move;
 }
