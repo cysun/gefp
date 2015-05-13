@@ -126,13 +126,13 @@
 																					<input checked type="checkbox" name="checkpoints"
 																						data-userId="${currUserObj.id}"
 																						value="${checkpoint.id}"
-																						class="flightplan_checkpoints" />
+																						class="flightplan_checkpoints pull-left" />
 																				</c:when>
 																				<c:otherwise>
 																					<input type="checkbox" name="checkpoints"
 																						data-userId="${currUserObj.id}"
 																						value="${checkpoint.id}"
-																						class="flightplan_checkpoints" /> 
+																						class="flightplan_checkpoints pull-left" /> 
 																				</c:otherwise>
 																			</c:choose> ${checkpoint.name}
 																			</li>
