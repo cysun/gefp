@@ -179,6 +179,10 @@ ul li.list p {
 	float:left;
 }
 
+ul li.list .checkpoint_information {
+	margin-right:10px !important;
+}
+
 ul li.list {
 	clear:both;
 }
