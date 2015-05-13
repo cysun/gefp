@@ -30,10 +30,12 @@
 		</security:authorize>
 		<jsp:include page="includes/header.jsp" />
 
+		<%--  
 		<jsp:include page="includes/left_menu.jsp" />
-
+		--%>
+		
 		<!-- /. NAV SIDE  -->
-		<div id="page-wrapper">
+		<div id="page-wrapper-fullscreen">
 			<div id="page-inner">
 
 
