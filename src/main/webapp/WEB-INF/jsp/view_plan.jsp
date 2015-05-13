@@ -33,7 +33,7 @@
 		<%--  
 		<jsp:include page="includes/left_menu.jsp" />
 		--%>
-		
+
 		<!-- /. NAV SIDE  -->
 		<div id="page-wrapper" class="fullscreen">
 			<div id="page-inner">
@@ -85,16 +85,16 @@
 											<h5>
 												<span class="planTitle">${plan.name}</span>
 												<security:authorize access="hasRole('ADMIN')">
-													
+
 													<c:if test="${student_mode != true}">
-													<c:if test="${plan.published == true }">
-														<label class="label label-success">Published</label>
-													</c:if>
-													<c:if test="${plan.published == false }">
-														<a onClick="publishPlan(${plan.id})"
-															class="pull-right btn btn-warning"
-															href="javascript:void(0);">Publish Now</a>
-													</c:if>
+														<c:if test="${plan.published == true }">
+															<label class="label label-success">Published</label>
+														</c:if>
+														<c:if test="${plan.published == false }">
+															<a onClick="publishPlan(${plan.id})"
+																class="pull-right btn btn-warning"
+																href="javascript:void(0);">Publish Now</a>
+														</c:if>
 													</c:if>
 												</security:authorize>
 											</h5>
@@ -171,7 +171,8 @@
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
 																							</c:otherwise>
-																						</c:choose> ${checkpoint.name}</li>
+																						</c:choose> <span class="checkpoint_information pull-left">
+																							${checkpoint.name} </span></li>
 																				</c:forEach>
 																			</ul>
 																		</c:if>

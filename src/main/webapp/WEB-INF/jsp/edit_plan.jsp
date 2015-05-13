@@ -185,7 +185,10 @@
 																						value="${checkpoint.id}"
 																						class="flightplan_checkpoints pull-left" /> 
 																				</c:otherwise>
-																			</c:choose> ${checkpoint.name} <br/>
+																			</c:choose> 
+																			<span class="checkpoint_information pull-left">
+																				${checkpoint.name}
+																			</span>
 																			<security:authorize access="authenticated and hasRole('ADMIN')">
 																				<a title="Edit Checkpoint" class=""
 																					href="<c:url value="/admin/plan/edit-checkpoint.html?id=${checkpoint.id}&cellId=${cell.id}&planId=${plan.id}" />"
