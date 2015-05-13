@@ -518,7 +518,10 @@ line-height: 1.428571429;
         /*min-height: 1200px;*/
 		
     }
-	
+    
+    #page-wrapper.fullscreen {
+    	margin-left:0px !important;
+    }	
 	
     .navbar-side {
         z-index: 1;

@@ -35,7 +35,7 @@
 		--%>
 		
 		<!-- /. NAV SIDE  -->
-		<div id="page-wrapper-fullscreen">
+		<div id="page-wrapper" class="fullscreen">
 			<div id="page-inner">
 
 
