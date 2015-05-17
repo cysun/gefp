@@ -156,6 +156,7 @@
 													</th>
 													<c:forEach items="${plan.runways}" var="runway">
 														<td>
+																<a href=""><i class="fa fa-add "></i>Add</a>
 																<c:forEach items="${plan.cells}" var="cell">
 																	<c:if
 																		test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
