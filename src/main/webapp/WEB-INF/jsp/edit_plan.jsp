@@ -156,7 +156,9 @@
 													</th>
 													<c:forEach items="${plan.runways}" var="runway">
 														<td>
-																<a href="<c:url value="/plan/add-checkpoint.html?planId=${plan.id}" />" /><i class="fa fa-plus"></i>Add</a>
+																<span class="add_milestone_btn">
+																<a href="<c:url value="/plan/add-checkpoint.html?planId=${plan.id}" />" /><i class="fa fa-plus"></i></a>
+																</span>
 																<c:forEach items="${plan.cells}" var="cell">
 																	<c:if
 																		test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
