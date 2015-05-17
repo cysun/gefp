@@ -53,7 +53,14 @@
 													<select name="runwayId" class="form-control">
 														<option value="">--Select Runway--</option>
 														<c:forEach var="runway" items="${flightplan.runways}">
-															<option value="${runway.id}">${runway.name}</option>
+															<c:choose>
+															<c:when test="${runway.id == r}">
+																<option selected value="${runway.id}">${runway.name}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${runway.id}">${runway.name}</option>
+															</c:otherwise>
+															</c:choose>
 														</c:forEach>
 													</select>										
 												</div>
@@ -66,7 +73,14 @@
 													<select name="stageId" class="form-control">
 														<option value="">--Select Stage--</option>
 														<c:forEach var="stage" items="${flightplan.stages}">
-															<option value="${stage.id}">${stage.name}</option>
+															<c:choose>
+															<c:when test="${stage.id == s}">
+																<option selected value="${stage.id}">${stage.name}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${stage.id}">${stage.name}</option>
+															</c:otherwise>
+															</c:choose>
 														</c:forEach>
 													</select>
 												</div>

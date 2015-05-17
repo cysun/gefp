@@ -317,8 +317,12 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/admin/plan/add-checkpoint.html",
         method = RequestMethod.GET)
-    public String addCheckpoint( @RequestParam Long planId, ModelMap models )
+    public String addCheckpoint( @RequestParam Long planId, @RequestParam(value="r", required = false) Long r, @RequestParam(value="s", required = false) Long s, ModelMap models, HttpServletRequest request )
     {
+        if( r != null && s != null ) {
+            models.put( "r", r );
+            models.put( "s", s );
+        }
         models.put( "flightplan", planDao.getFlightPlan( planId ) );
         models.put( "checkpoint", new Checkpoint() );
         return "add_checkpoint";
