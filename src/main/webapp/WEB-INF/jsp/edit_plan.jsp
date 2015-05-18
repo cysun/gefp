@@ -317,7 +317,7 @@ function deleteRunway(runwayID, planID) {
 	
 	smoke.confirm("Are you sure you want to remove this runway?", function(e){
 		if (e) {
-			// 
+			top.location.href = '<c:url value="/admin/plan/remove-runway.html?rid='+runwayID+'&planId='+planID+'" />'; 
 		}else{
 			
 		}
@@ -333,7 +333,7 @@ function deleteStage(stageID, planID) {
 	
 	smoke.confirm("Are you sure you want to remove this stage?", function(e){
 		if (e){
-			// 
+			top.location.href = '<c:url value="/admin/plan/remove-stage.html?rid='+stageID+'&planId='+planID+'" />'; 
 		}else{
 			
 		}

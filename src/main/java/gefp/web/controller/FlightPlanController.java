@@ -266,7 +266,8 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/admin/plan/add-stage.html",
         method = RequestMethod.GET)
-    public String addStage( @RequestParam Long planId, ModelMap models, HttpServletRequest request )
+    public String addStage( @RequestParam Long planId, ModelMap models,
+        HttpServletRequest request )
     {
         models.put( "error", request.getParameter( "error" ) );
         models.put( "flightplan", planDao.getFlightPlan( planId ) );
@@ -317,9 +318,13 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/admin/plan/add-checkpoint.html",
         method = RequestMethod.GET)
-    public String addCheckpoint( @RequestParam Long planId, @RequestParam(value="r", required = false) Long r, @RequestParam(value="s", required = false) Long s, ModelMap models, HttpServletRequest request )
+    public String addCheckpoint( @RequestParam Long planId,
+        @RequestParam(value = "r", required = false) Long r,
+        @RequestParam(value = "s", required = false) Long s, ModelMap models,
+        HttpServletRequest request )
     {
-        if( r != null && s != null ) {
+        if( r != null && s != null )
+        {
             models.put( "r", r );
             models.put( "s", s );
         }
@@ -479,6 +484,25 @@ public class FlightPlanController {
         Cell cell = cellDao.getCell( cellId );
         cell.getCheckpoints().remove( checkpointDao.getCheckPoint( id ) );
         cellDao.saveCell( cell );
+        return "redirect:/plan/edit/" + planId + ".html";
+    }
+
+    @RequestMapping(value = "/admin/plan/remove-runway.html",
+        method = RequestMethod.GET)
+    public String removeRunway( @RequestParam Long rid,
+        @RequestParam Long planId )
+    {
+        FlightPlan flightplan = planDao.getFlightPlan( planId ); 
+        flightplan.getRunways().remove( runwayDao.getRunway( rid ) );
+        planDao.saveFlightPlan( flightplan );
+        return "redirect:/plan/edit/" + planId + ".html";
+    }
+
+    @RequestMapping(value = "/admin/plan/remove-stage.html",
+        method = RequestMethod.GET)
+    public String removeStage( @RequestParam Long sid, @RequestParam Long planId )
+    {
+
         return "redirect:/plan/edit/" + planId + ".html";
     }
 
