@@ -140,6 +140,9 @@
 													<th class="accept editable" id="${runway.id}">${runway.name} 
 													<security:authorize access="hasRole('ADMIN')">
 														<a title="Edit Runway" href="<c:url value="/admin/plan/edit-runway.html?id=${runway.id}&planId=${plan.id}"/>"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
+														<a title="Delete Runway" class="" onClick="deleteRunway(${runway.id},${plan.id});"
+																					href="javascript:void(0);"
+																					class="btn btn-link"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 													</security:authorize>
 													</th>
 												</c:forEach>
@@ -152,12 +155,16 @@
 													<th class="editable">${stage.name} 
 													<security:authorize access="hasRole('ADMIN')">
 														<a title="Edit Stage" href="<c:url value="/admin/plan/edit-stage.html?id=${stage.id}&planId=${plan.id}"/>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+														<a title="Delete Stage" class="" onClick="deleteStage(${stage.id},${plan.id});"
+																					href="javascript:void(0);"
+																					class="btn btn-link"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+														
 													</security:authorize>
 													</th>
 													<c:forEach items="${plan.runways}" var="runway">
 														<td>
 																<span class="add_milestone_btn">
-																<a href="<c:url value="/admin/plan/add-checkpoint.html?planId=${plan.id}&r=${runway.id}&s=${stage.id}" />" /><i class="fa fa-plus"></i></a>
+																<a title="Add Milestone" href="<c:url value="/admin/plan/add-checkpoint.html?planId=${plan.id}&r=${runway.id}&s=${stage.id}" />" /><i class="fa fa-plus"></i></a>
 																</span>
 																<c:forEach items="${plan.cells}" var="cell">
 																	<c:if
@@ -295,6 +302,38 @@ function deleteCheckpoint(checkpointID, cellID, planID) {
 	smoke.confirm("Are you sure you want to remove this checkpoint?", function(e){
 		if (e){
 			top.location.href = '<c:url value="/admin/plan/remove-checkpoint.html?id='+checkpointID+'&cellId='+cellID+'&planId='+planID+'" />';
+		}else{
+			
+		}
+	}, {
+		ok: "Yes",
+		cancel: "No",
+		classname: "custom-class",
+		reverseButtons: true
+	});	
+}
+
+function deleteRunway(runwayID, planID) {
+	
+	smoke.confirm("Are you sure you want to remove this runway?", function(e){
+		if (e) {
+			// 
+		}else{
+			
+		}
+	}, {
+		ok: "Yes",
+		cancel: "No",
+		classname: "custom-class",
+		reverseButtons: true
+	});	
+}
+
+function deleteStage(stageID, planID) {
+	
+	smoke.confirm("Are you sure you want to remove this stage?", function(e){
+		if (e){
+			// 
 		}else{
 			
 		}
