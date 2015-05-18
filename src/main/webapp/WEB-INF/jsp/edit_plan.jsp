@@ -333,7 +333,7 @@ function deleteStage(stageID, planID) {
 	
 	smoke.confirm("Are you sure you want to remove this stage?", function(e){
 		if (e){
-			top.location.href = '<c:url value="/admin/plan/remove-stage.html?rid='+stageID+'&planId='+planID+'" />'; 
+			top.location.href = '<c:url value="/admin/plan/remove-stage.html?sid='+stageID+'&planId='+planID+'" />'; 
 		}else{
 			
 		}
