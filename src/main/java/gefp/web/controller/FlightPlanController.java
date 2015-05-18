@@ -502,7 +502,9 @@ public class FlightPlanController {
         method = RequestMethod.GET)
     public String removeStage( @RequestParam Long sid, @RequestParam Long planId )
     {
-
+        FlightPlan flightplan = planDao.getFlightPlan( planId ); 
+        flightplan.getStages().remove( stageDao.getStage( sid ) );
+        planDao.saveFlightPlan( flightplan );
         return "redirect:/plan/edit/" + planId + ".html";
     }
 
