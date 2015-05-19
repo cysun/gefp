@@ -45,7 +45,7 @@
 									<div class="col-md-12">
 										<form action="" method="post">
 											<div class="form-group col-md-6">
-												<label>First Name</label>
+												<label>First Name <span class="compulsary">*</span> </label>
 												<input type="text" name="firstName" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">

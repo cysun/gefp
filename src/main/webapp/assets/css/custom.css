@@ -555,3 +555,7 @@ line-height: 1.428571429;
 .add_milestone_btn {
 	float:right;
 }
+
+.compulsary {
+	color:#F00;
+}
