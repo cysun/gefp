@@ -42,7 +42,7 @@ import org.springframework.web.bind.support.SessionStatus;
 //import gefp.web.controller.WebApplicationContext;
 
 @Controller
-@SessionAttributes({ "checkpoint", "stage", "runway" })
+@SessionAttributes({ "checkpoint", "stage", "runway", "flightplan" })
 public class FlightPlanController {
 
     @Autowired
@@ -138,7 +138,7 @@ public class FlightPlanController {
     public String clonePlan( @RequestParam Long planId, @ModelAttribute("flightplan") FlightPlan flightplan,
         HttpServletRequest request, SessionStatus sessionStatus )
     {
-        if( flightplan.getName().isEmpty() || request.getParameter( "department" ).isEmpty() ){ return "redirect:/plan/clone/"+planId+".html&error=true"; }
+        if( flightplan.getName().isEmpty() || request.getParameter( "department" ).isEmpty() ){ return "redirect:/plan/clone.html?planId="+planId+"&error=true"; }
         
         FlightPlan newPlan = planDao.getFlightPlan( planId ).clone();
         newPlan.setName( flightplan.getName() );
