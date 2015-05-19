@@ -126,12 +126,26 @@ public class FlightPlanController {
         return "view_plan";
     }
     
-    @RequestMapping("/plan/clone/{id}.html")
+    @RequestMapping(value="/plan/clone/{id}.html", method = RequestMethod.GET)
     public String clonePlan(@PathVariable Long id, ModelMap models)
     {
         models.put("flightplan", planDao.getFlightPlan( id ));
         models.put( "departments", deptDao.getDepartments() );
         return "clone_flightplan";
+    }
+    
+    @RequestMapping(value="/plan/clone/{id}.html", method = RequestMethod.POST)
+    public String clonePlan( @ModelAttribute("flightplan") FlightPlan flightplan,
+        @PathVariable Long planId, HttpServletRequest request, SessionStatus sessionStatus )
+    {
+        if( flightplan.getName().isEmpty() || request.getParameter( "department" ).isEmpty() ){ return "redirect:/plan/clone/"+planId+".html&error=true"; }
+        
+        
+        FlightPlan newPlan = planDao.getFlightPlan( planId ).clone();
+        newPlan.setName( flightplan.getName() );
+        newPlan.setDepartment( deptDao.getDepartment( Integer.parseInt(request.getParameter( "department" )) ) );
+        newPlan = planDao.saveFlightPlan( newPlan );
+        return "redirect:/plan/view/"+ newPlan.getId() +".html";
     }
     
 

@@ -67,6 +67,7 @@ public class FlightPlan implements Serializable {
         flightplan.stages = stages;
         flightplan.runways = runways;
         flightplan.cells = cells;
+        flightplan.published = false;
         return flightplan;
     }
 
