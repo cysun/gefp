@@ -101,11 +101,10 @@
 											</div>
 											
 										</form>
-										
-										<div>
+									</div>
+									<div class="pull-right">
 										<span class="compulsary">*</span> Required
 										</div>
-									</div>
 								</div>
 							</div>
 						</div>
