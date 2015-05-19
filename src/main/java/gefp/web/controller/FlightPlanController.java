@@ -144,6 +144,7 @@ public class FlightPlanController {
         newPlan.setName( flightplan.getName() );
         newPlan.setDepartment( deptDao.getDepartment( Integer.parseInt(request.getParameter( "department" )) ) );
         newPlan = planDao.saveFlightPlan( newPlan );
+        sessionStatus.setComplete();
         return "redirect:/plan/view/"+ newPlan.getId() +".html";
     }
     
