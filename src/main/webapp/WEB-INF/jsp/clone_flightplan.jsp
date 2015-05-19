@@ -40,13 +40,13 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Clone Flight Plan</div>
+							<div class="panel-heading">Clone Flight Plan : ${flightplan.name}</div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-6">
 										<form:form modelAttribute="flightplan">
 											<div class="form-group">
-												<label>Plan Title :</label>
+												<label>Plan Title <span class="compulsary">*</span></label>
 												<form:input path="name" class="form-control"
 													value="${flightplan.name}" />
 												<c:if test="${error == true }">
@@ -76,6 +76,9 @@
 											<input type="submit" class="btn btn-primary" value="Save" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 										</form:form>
+									</div>
+									<div class="pull-right" style="padding: 0 15px 0 0;">
+										<span class="compulsary">*</span> Required
 									</div>
 								</div>
 							</div>
