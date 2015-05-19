@@ -127,9 +127,9 @@ public class FlightPlanController {
     }
     
     @RequestMapping(value="/plan/clone.html", method = RequestMethod.GET)
-    public String clonePlan(@RequestParam Long id, ModelMap models)
+    public String clonePlan(@RequestParam Long planId, ModelMap models)
     {
-        models.put("flightplan", planDao.getFlightPlan( id ));
+        models.put("flightplan", planDao.getFlightPlan( planId ));
         models.put( "departments", deptDao.getDepartments() );
         return "clone_flightplan";
     }
