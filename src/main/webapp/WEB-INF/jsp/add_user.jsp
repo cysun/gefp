@@ -63,12 +63,9 @@
 											
 											<div class="form-group col-md-6">
 												<label>Roles</label>
-												<select name="roles" multiple class="form-control">
-													<option value="">--Select Roles--</option>
 													<c:forEach var="role" items="${roles}">
-														<option value="${role.id }">${role.name}</option>
+														<input type="checkbox" name="roles" value="${role.id }" /> ${role.name}
 													</c:forEach>
-												</select>
 											</div>
 											
 											<div class="form-group col-md-6">
