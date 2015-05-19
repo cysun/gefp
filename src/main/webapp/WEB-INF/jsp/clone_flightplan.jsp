@@ -54,7 +54,7 @@
 												</c:if>
 											</div>
 
-											<div class="form-group col-md-6">
+											<div class="form-group">
 												<label>Department <span class="compulsary">*</span></label>
 												<select name="department" class="form-control">
 													<option value="">--Select Department--</option>
