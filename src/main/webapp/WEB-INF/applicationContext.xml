@@ -91,7 +91,7 @@
 		<security:intercept-url pattern="/plan/view/**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
 		<security:intercept-url pattern="/plan/edit/**" access="authenticated and hasRole('ADMIN')" />
 		<security:intercept-url pattern="/department/list-students.html**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
-		
+		<security:intercept-url pattern="/plan/clone/**" access="authenticated and hasRole('ADMIN')" />
 		<security:access-denied-handler error-page="/403.jsp" />
 	</security:http>
 	
