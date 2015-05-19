@@ -99,7 +99,7 @@
 												<input type="submit" class="btn btn-primary" value="Save" />
 												<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 											</div>
-
+											<span class="compulsary">*</span> Required
 										</form>
 									</div>
 								</div>
