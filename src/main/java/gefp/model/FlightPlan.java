@@ -1,6 +1,7 @@
 package gefp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -45,14 +46,28 @@ public class FlightPlan implements Serializable {
 
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private List<Cell> cells;
-    
+
     @OneToOne
     Department department;
-    
+
     private boolean published;
 
     public FlightPlan()
     {
+        runways = new ArrayList<Runway>();
+        stages = new ArrayList<Stage>();
+        cells = new ArrayList<Cell>();
+        published = false;
+    }
+
+    public FlightPlan clone()
+    {
+        FlightPlan flightplan = new FlightPlan();
+        flightplan.name = name;
+        flightplan.stages = stages;
+        flightplan.runways = runways;
+        flightplan.cells = cells;
+        return flightplan;
     }
 
     public Long getId()
@@ -89,13 +104,12 @@ public class FlightPlan implements Serializable {
     {
         return stages;
     }
-  
+
     public List<Cell> getCells()
     {
         return cells;
     }
 
-    
     public void setCells( List<Cell> cells )
     {
         this.cells = cells;
@@ -105,14 +119,12 @@ public class FlightPlan implements Serializable {
     {
         this.stages = stages;
     }
-    
-    
+
     public Department getDepartment()
     {
         return department;
     }
 
-    
     public void setDepartment( Department department )
     {
         this.department = department;

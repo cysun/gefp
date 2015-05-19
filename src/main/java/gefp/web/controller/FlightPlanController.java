@@ -125,6 +125,15 @@ public class FlightPlanController {
         models.put( "plan", plan );
         return "view_plan";
     }
+    
+    @RequestMapping("/plan/clone/{id}.html")
+    public String clonePlan(@PathVariable Long id, ModelMap models)
+    {
+        models.put("flightplan", planDao.getFlightPlan( id ));
+        models.put( "departments", deptDao.getDepartments() );
+        return "clone_flightplan";
+    }
+    
 
     @RequestMapping(value = "/admin/plan/add.html", method = RequestMethod.GET)
     public String add( ModelMap models, HttpServletRequest request )
@@ -141,7 +150,7 @@ public class FlightPlanController {
     public String add( @ModelAttribute FlightPlan flightplan,
         HttpServletRequest request )
     {
-        System.out.println( flightplan.getName() );
+        // System.out.println( flightplan.getName() );
         Integer departmentId = Integer.parseInt( request.getParameter( "departmentId" ) );
         Department department = deptDao.getDepartment( departmentId );
         flightplan.setDepartment( department );
