@@ -64,7 +64,7 @@
 											<div class="form-group col-md-6">
 												<label>Roles</label>
 													<c:forEach var="role" items="${roles}">
-														<input type="checkbox" name="roles" value="${role.id }" /> ${role.name}
+														<input class="form-control" type="checkbox" name="roles" value="${role.id }" /> ${role.name}
 													</c:forEach>
 											</div>
 											
