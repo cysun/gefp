@@ -53,7 +53,7 @@
 												<input type="text" name="lastName" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>CIN</label>
+												<label>CIN (optional)</label>
 												<input type="text" name="cin" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
@@ -63,9 +63,11 @@
 											
 											<div class="form-group col-md-6">
 												<label>Roles</label>
-													<div class="form-control">
+													<div class="checkbox">
 													<c:forEach var="role" items="${roles}">
+														<label>
 														<input type="checkbox" name="roles" value="${role.id }" /> ${role.name}
+														</label>
 													</c:forEach>
 													</div>
 											</div>
