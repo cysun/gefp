@@ -38,15 +38,15 @@
 
 						<div class="panel panel-default">
 							<div class="panel-heading">
-							<div class="pull-left">
-								<h5>List of Flight Plans</h5>
-							</div>
-							
-							<%--
+								<div class="pull-left">
+									<h5>List of Flight Plans</h5>
+								</div>
+
+								<%--
 							<a href="<c:url value="/admin/plan/add.html"/>" class="pull-right btn btn-primary">Add
 							New Plan</a>
 							 --%>
-							<div class="clearfix"></div>
+								<div class="clearfix"></div>
 							</div>
 							<div class="panel-body">
 								<div class="table-responsive">
@@ -68,24 +68,24 @@
 													<td>${plan.id}</td>
 													<td>${plan.name}</td>
 													<td>${plan.department.name}</td>
-													<td>
-														<c:choose>
+													<td><c:choose>
 															<c:when test="${plan.published == false}">
-																<a href="<c:url value="/admin/plan/publish.html?planId=${plan.id}"/>">
-																<label class="label label-primary">Publish Now</label>
+																<a
+																	href="<c:url value="/admin/plan/publish.html?planId=${plan.id}"/>">
+																	<label class="label label-primary">Publish Now</label>
 																</a>
 															</c:when>
 															<c:otherwise>
 																<label class="label label-success">Published</label>
 															</c:otherwise>
-															
-														</c:choose>
-													</td>
+
+														</c:choose></td>
 													<td><a
 														href="<c:url value="/plan/view/${plan.id}.html" />"
 														class="btn btn-primary"><i class="fa fa-eye "></i>
-															View Plan</a> <%-- <a href="<c:url value="/plan/edit/${plan.id}.html" />" class="btn btn-primary"><i class="fa fa-edit "></i> Edit</a> --%>
-													</td>
+															View Plan</a> <a href="<c:url value="#" />"
+														class="btn btn-primary"><i class="fa fa-edit "></i>
+															Clone</a></td>
 												</tr>
 
 											</c:forEach>
@@ -95,7 +95,7 @@
 							</div>
 
 						</div>
-						
+
 
 					</div>
 				</div>

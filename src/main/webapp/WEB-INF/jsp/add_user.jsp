@@ -49,16 +49,16 @@
 												</label> <input type="text" name="firstName" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Last Name <span class="compulsary">*</span></label> <input type="text" name="lastName"
-													class="form-control" />
+												<label>Last Name <span class="compulsary">*</span></label> <input
+													type="text" name="lastName" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
 												<label>CIN (optional)</label> <input type="text" name="cin"
 													class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Email ID <span class="compulsary">*</span></label> <input type="text" name="email"
-													class="form-control" />
+												<label>Email ID <span class="compulsary">*</span></label> <input
+													type="text" name="email" class="form-control" />
 											</div>
 
 											<div class="form-group col-md-6">
@@ -66,8 +66,7 @@
 
 												<c:forEach var="role" items="${roles}">
 													<div class="checkbox">
-														<label>
-														<input type="checkbox" name="roles"
+														<label> <input type="checkbox" name="roles"
 															value="${role.id }" /> ${role.name}
 														</label>
 													</div>
@@ -75,8 +74,8 @@
 											</div>
 
 											<div class="form-group col-md-6">
-												<label>Department <span class="compulsary">*</span></label> <select name="department"
-													class="form-control">
+												<label>Department <span class="compulsary">*</span></label>
+												<select name="department" class="form-control">
 													<option value="">--Select Department--</option>
 													<c:forEach var="department" items="${departments}">
 														<option value="${department.id }">${department.name}</option>
@@ -87,24 +86,24 @@
 											<div class="clearfix"></div>
 
 											<div class="form-group col-md-6">
-												<label>User Name <span class="compulsary">*</span></label> <input type="text" name="username"
-													class="form-control" />
+												<label>User Name <span class="compulsary">*</span></label> <input
+													type="text" name="username" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Password <span class="compulsary">*</span></label> <input type="password"
-													name="password" class="form-control" />
+												<label>Password <span class="compulsary">*</span></label> <input
+													type="password" name="password" class="form-control" />
 											</div>
 
 											<div class="form-group col-md-6">
 												<input type="submit" class="btn btn-primary" value="Save" />
 												<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 											</div>
-											
+
 										</form>
 									</div>
-									<div class="pull-right" style="padding:0 15px 0 0;">
+									<div class="pull-right" style="padding: 0 15px 0 0;">
 										<span class="compulsary">*</span> Required
-										</div>
+									</div>
 								</div>
 							</div>
 						</div>
