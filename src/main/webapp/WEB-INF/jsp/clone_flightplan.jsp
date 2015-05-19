@@ -44,10 +44,10 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-6">
-										<form:form modelAttribute="flightplan">
+										<form action="" method="post">
 											<div class="form-group">
 												<label>Plan Title <span class="compulsary">*</span></label>
-												<form:input path="name" class="form-control"
+												<input type="text" name="name" class="form-control"
 													value="${flightplan.name}" />
 												<c:if test="${error == true }">
 													<span class="errMsg">Please enter Plan title</span>
@@ -74,7 +74,7 @@
 
 											<input type="submit" class="btn btn-primary" value="Save" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
-										</form:form>
+										</form>
 									</div>
 									<div class="pull-right" style="padding: 0 15px 0 0;">
 										<span class="compulsary">*</span> Required

@@ -135,13 +135,12 @@ public class FlightPlanController {
     }
     
     @RequestMapping(value="/plan/clone.html", method = RequestMethod.POST)
-    public String clonePlan( @RequestParam Long planId, @ModelAttribute("flightplan") FlightPlan flightplan,
-        HttpServletRequest request, SessionStatus sessionStatus )
+    public String clonePlan( @RequestParam Long planId, HttpServletRequest request, SessionStatus sessionStatus )
     {
-        if( flightplan.getName().isEmpty() || request.getParameter( "department" ).isEmpty() ){ return "redirect:/plan/clone.html?planId="+planId+"&error=true"; }
+        if( request.getParameter( "name" ).isEmpty() || request.getParameter( "department" ).isEmpty() ){ return "redirect:/plan/clone.html?planId="+planId+"&error=true"; }
         
         FlightPlan newPlan = planDao.getFlightPlan( planId ).clone();
-        newPlan.setName( flightplan.getName() );
+        newPlan.setName( request.getParameter( "name" ) );
         newPlan.setDepartment( deptDao.getDepartment( Integer.parseInt(request.getParameter( "department" )) ) );
         newPlan = planDao.saveFlightPlan( newPlan );
         sessionStatus.setComplete();
