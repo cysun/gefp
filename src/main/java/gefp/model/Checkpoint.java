@@ -19,14 +19,13 @@ public class Checkpoint implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private String name;    
-    
+    private String name;
 
     public Checkpoint()
     {
     }
-    
-    public Checkpoint(String name)
+
+    public Checkpoint( String name )
     {
         super();
         this.name = name;
@@ -37,6 +36,13 @@ public class Checkpoint implements Serializable {
         super();
         this.id = id;
         this.name = name;
+    }
+
+    public Checkpoint clone()
+    {
+        Checkpoint checkpoint = new Checkpoint();
+        checkpoint.name = name;
+        return checkpoint;
     }
 
     public Long getId()

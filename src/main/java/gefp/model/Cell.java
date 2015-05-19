@@ -1,6 +1,7 @@
 package gefp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,61 +18,78 @@ import org.hibernate.annotations.IndexColumn;
 
 @Entity
 @Table(name = "cells")
-public class Cell implements Serializable  {
-    
+public class Cell implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
     private Long id;
-    
+
     @OneToOne
     FlightPlan flightPlan;
-    
+
     @OneToOne
     private Runway runway;
-    
+
     @OneToOne
     private Stage stage;
-    
-    
+
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "cell_checkpoints",
         joinColumns = { @JoinColumn(name = "cell_id") },
         inverseJoinColumns = { @JoinColumn(name = "checkpoint_id") })
     @IndexColumn(name = "order_num")
     List<Checkpoint> checkpoints;
-    
+
+    public Cell()
+    {
+        super();
+        checkpoints = new ArrayList<Checkpoint>();
+    }
+
+    public Cell clone()
+    {
+        Cell cell = new Cell();
+        cell.runway = runway.clone();
+        cell.stage = stage.clone();
+        for( int i = 0; i < checkpoints.size(); i++ )
+        {
+            cell.checkpoints.add( checkpoints.get( i ).clone() );
+        }
+        return cell;
+    }
+
     public Long getId()
     {
         return id;
     }
-    
+
     public void setId( Long id )
     {
         this.id = id;
     }
-    
+
     public Runway getRunway()
     {
         return runway;
     }
-    
+
     public void setRunway( Runway runway )
     {
         this.runway = runway;
     }
-    
+
     public Stage getStage()
     {
         return stage;
     }
-    
+
     public void setStage( Stage stage )
     {
         this.stage = stage;
     }
-    
+
     public List<Checkpoint> getCheckpoints()
     {
         return checkpoints;
@@ -81,12 +99,12 @@ public class Cell implements Serializable  {
     {
         this.checkpoints = checkpoints;
     }
-    
+
     public FlightPlan getFlightPlan()
     {
         return flightPlan;
     }
-    
+
     public void setFlightPlan( FlightPlan flightPlan )
     {
         this.flightPlan = flightPlan;

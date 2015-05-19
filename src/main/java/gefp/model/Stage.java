@@ -31,7 +31,13 @@ public class Stage implements Serializable {
         this.id = id;
         this.name = name;
     }
-
+    
+    public Stage clone() {
+        Stage stage = new Stage();
+        stage.name = name;
+        return stage;
+    }
+    
     public Long getId()
     {
         return id;

@@ -31,6 +31,12 @@ public class Runway implements Serializable {
         this.id = id;
         this.name = name;
     }
+    
+    public Runway clone() {
+        Runway runway = new Runway();
+        runway.name = name;
+        return runway;
+    }
 
     public Long getId()
     {
