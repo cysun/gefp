@@ -49,7 +49,7 @@
 												</label> <input type="text" name="firstName" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Last Name</label> <input type="text" name="lastName"
+												<label>Last Name <span class="compulsary">*</span></label> <input type="text" name="lastName"
 													class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
@@ -57,16 +57,17 @@
 													class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Email ID</label> <input type="text" name="email"
+												<label>Email ID <span class="compulsary">*</span></label> <input type="text" name="email"
 													class="form-control" />
 											</div>
 
 											<div class="form-group col-md-6">
-												<label>Roles</label>
+												<label>Roles <span class="compulsary">*</span></label>
 
 												<c:forEach var="role" items="${roles}">
 													<div class="checkbox">
-														<label> <input type="checkbox" name="roles"
+														<label>
+														<input type="checkbox" name="roles"
 															value="${role.id }" /> ${role.name}
 														</label>
 													</div>
@@ -74,7 +75,7 @@
 											</div>
 
 											<div class="form-group col-md-6">
-												<label>Department</label> <select name="department"
+												<label>Department <span class="compulsary">*</span></label> <select name="department"
 													class="form-control">
 													<option value="">--Select Department--</option>
 													<c:forEach var="department" items="${departments}">
@@ -86,11 +87,11 @@
 											<div class="clearfix"></div>
 
 											<div class="form-group col-md-6">
-												<label>User Name</label> <input type="text" name="username"
+												<label>User Name <span class="compulsary">*</span></label> <input type="text" name="username"
 													class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Password</label> <input type="password"
+												<label>Password <span class="compulsary">*</span></label> <input type="password"
 													name="password" class="form-control" />
 											</div>
 
