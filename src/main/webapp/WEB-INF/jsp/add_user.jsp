@@ -102,7 +102,7 @@
 											
 										</form>
 									</div>
-									<div class="pull-right">
+									<div class="pull-right" style="padding:0 15px 0 0;">
 										<span class="compulsary">*</span> Required
 										</div>
 								</div>
