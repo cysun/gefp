@@ -2,8 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -23,13 +23,13 @@
 
 		<div id="page-wrapper">
 			<div id="page-inner">
-				
+
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/user/dashboard.html"/>">Home</a></li>
 					<li><a href="<c:url value="/user/list.html"/>">Users</a></li>
 					<li class="active">Add New User</li>
 				</ol>
-				
+
 				<jsp:include page="includes/dashboard_title.jsp" />
 				<!-- /. ROW  -->
 				<hr />
@@ -45,57 +45,58 @@
 									<div class="col-md-12">
 										<form action="" method="post">
 											<div class="form-group col-md-6">
-												<label>First Name <span class="compulsary">*</span> </label>
-												<input type="text" name="firstName" class="form-control" />
+												<label>First Name <span class="compulsary">*</span>
+												</label> <input type="text" name="firstName" class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Last Name</label>
-												<input type="text" name="lastName" class="form-control" />
+												<label>Last Name</label> <input type="text" name="lastName"
+													class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>CIN (optional)</label>
-												<input type="text" name="cin" class="form-control" />
+												<label>CIN (optional)</label> <input type="text" name="cin"
+													class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Email ID</label>
-												<input type="text" name="email" class="form-control" />
+												<label>Email ID</label> <input type="text" name="email"
+													class="form-control" />
 											</div>
-											
+
 											<div class="form-group col-md-6">
 												<label>Roles</label>
+
+												<c:forEach var="role" items="${roles}">
 													<div class="checkbox">
-													<c:forEach var="role" items="${roles}">
-														<label>
-														<input type="checkbox" name="roles" value="${role.id }" /> ${role.name}
+														<label> <input type="checkbox" name="roles"
+															value="${role.id }" /> ${role.name}
 														</label>
-													</c:forEach>
 													</div>
+												</c:forEach>
 											</div>
-											
+
 											<div class="form-group col-md-6">
-												<label>Department</label>
-												<select name="department" class="form-control">
+												<label>Department</label> <select name="department"
+													class="form-control">
 													<option value="">--Select Department--</option>
 													<c:forEach var="department" items="${departments}">
 														<option value="${department.id }">${department.name}</option>
 													</c:forEach>
 												</select>
 											</div>
-											
+
 											<div class="clearfix"></div>
-											
+
 											<div class="form-group col-md-6">
-												<label>User Name</label>
-												<input type="text" name="username" class="form-control" />
+												<label>User Name</label> <input type="text" name="username"
+													class="form-control" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Password</label>
-												<input type="password" name="password" class="form-control" />
+												<label>Password</label> <input type="password"
+													name="password" class="form-control" />
 											</div>
-											
+
 											<div class="form-group col-md-6">
-											<input type="submit" class="btn btn-primary" value="Save" />
-											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
+												<input type="submit" class="btn btn-primary" value="Save" />
+												<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 											</div>
 
 										</form>
