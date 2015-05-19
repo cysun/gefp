@@ -64,9 +64,9 @@ public class FlightPlan implements Serializable {
     {
         FlightPlan flightplan = new FlightPlan();
         flightplan.name = name;
-        flightplan.stages = stages;
-        flightplan.runways = runways;
-        flightplan.cells = cells;
+        flightplan.stages = new ArrayList<Stage>(stages);
+        flightplan.runways = new ArrayList<Runway>(runways);
+        flightplan.cells.addAll( cells );
         flightplan.published = false;
         return flightplan;
     }
