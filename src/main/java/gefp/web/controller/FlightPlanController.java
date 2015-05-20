@@ -525,7 +525,10 @@ public class FlightPlanController {
     public String removeStage( @RequestParam Long sid, @RequestParam Long planId )
     {
         FlightPlan flightplan = planDao.getFlightPlan( planId ); 
-        flightplan.getStages().remove( stageDao.getStage( sid ) );
+        
+        Stage s = stageDao.getStage( sid );
+        stageDao.removeStage( s );
+        flightplan.getStages().remove( s );
         planDao.saveFlightPlan( flightplan );
         return "redirect:/plan/edit/" + planId + ".html";
     }

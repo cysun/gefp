@@ -11,5 +11,7 @@ public interface StageDao {
     List<Stage> getStages();
 
     Stage saveStage( Stage stage );
+    
+    void removeStage(Stage stage);
 
 }

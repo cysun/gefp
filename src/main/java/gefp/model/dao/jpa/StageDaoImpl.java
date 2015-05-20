@@ -1,5 +1,7 @@
 package gefp.model.dao.jpa;
 
+import gefp.model.Cell;
+import gefp.model.Checkpoint;
 import gefp.model.Stage;
 import gefp.model.dao.StageDao;
 
@@ -50,6 +52,38 @@ public class StageDaoImpl implements StageDao {
     public Stage saveStage( Stage Stage )
     {
         return entityManager.merge( Stage );
+    }
+
+    @Override
+    @Transactional
+    public void removeStage( Stage stage )
+    {
+        // fetch all cells having this stage.
+        // delete all the checkpoints in all the cells having the stage.
+        // delete all the cells.
+        // delete the stage.
+
+        List<Cell> cells = entityManager.createQuery(
+            "from Cell where stage_id = " + stage.getId(), Cell.class )
+            .getResultList();
+
+        for( Cell c : cells )
+        {
+            List<Checkpoint> checkpoints = entityManager.createQuery(
+                "from cell_checkpoints where cell_id = " + c.getId(),
+                Checkpoint.class ).getResultList();
+
+            for( Checkpoint chk : checkpoints )
+            {
+                entityManager.remove( chk );
+            }
+
+            entityManager.remove( c );
+
+        }
+
+        entityManager.remove( stage );
+
     }
 
 }
