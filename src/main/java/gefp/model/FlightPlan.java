@@ -64,14 +64,14 @@ public class FlightPlan implements Serializable {
     {
         FlightPlan flightplan = new FlightPlan();
         flightplan.name = name;
-        for(int i=0; i < stages.size(); i++) {
-            flightplan.stages.add(stages.get( i )); 
-        }
-        
-        
-        flightplan.stages = new ArrayList<Stage>(stages);
-        flightplan.runways = new ArrayList<Runway>(runways);
-        flightplan.cells = new ArrayList<Cell>(cells);
+//        for(int i=0; i < stages.size(); i++) {
+//            flightplan.stages.add(stages.get( i )); 
+//        }
+//        
+//        
+//        flightplan.stages = new ArrayList<Stage>(stages);
+//        flightplan.runways = new ArrayList<Runway>(runways);
+//        flightplan.cells = new ArrayList<Cell>(cells);
         flightplan.published = false;
         return flightplan;
     }
