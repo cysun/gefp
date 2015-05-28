@@ -83,9 +83,15 @@
 													<td><a
 														href="<c:url value="/plan/view/${plan.id}.html" />"
 														class="btn btn-primary"><i class="fa fa-eye "></i>
-															View Plan</a> <a href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
+															View Plan</a>
+															
+															<%--
+															<a href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
 														class="btn btn-primary"><i class="fa fa-share-alt "></i>
-															Clone</a></td>
+															Clone</a>
+															 --%>
+															
+															</td>
 												</tr>
 
 											</c:forEach>
