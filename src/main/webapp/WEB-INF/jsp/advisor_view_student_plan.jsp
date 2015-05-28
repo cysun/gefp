@@ -82,6 +82,8 @@
 							<tr>
 								<th> CIN: </th>
 								<td> ${currUserObj.cin} </td>
+								<th> Major: </th>
+								<td> ${currUserObj.major.name} </td>
 							</tr>
 						</tbody>
 					</table>
