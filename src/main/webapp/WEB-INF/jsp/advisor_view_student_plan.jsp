@@ -64,20 +64,20 @@
 
 
 				<div class="row">
-				<div class="col-md-6">
-					<table class="table table-striped">
+				<div class="col-md-12">
+					<table class="table table-striped student-details">
 						<tbody>
 							<tr>
-								<th> <h5>Student Name:</h5> </th>
-								<td> <h5>${currUserObj.firstName} ${currUserObj.lastName}</h5> </td>
+								<th> Student Name: </th>
+								<td> ${currUserObj.firstName} ${currUserObj.lastName} </td>
 							</tr>
 							<tr>
-								<th> <h5>Student Username:</h5> </th>
-								<td> <h5>${currUserObj.username}</h5> </td>
+								<th> Student Username: </th>
+								<td> ${currUserObj.username} </td>
 							</tr>
 							<tr>
-								<th> <h5>CIN:</h5> </th>
-								<td> <h5>${currUserObj.cin}</h5> </td>
+								<th> CIN: </th>
+								<td> ${currUserObj.cin} </td>
 							</tr>
 						</tbody>
 					</table>
