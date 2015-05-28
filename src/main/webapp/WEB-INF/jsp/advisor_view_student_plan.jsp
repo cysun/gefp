@@ -68,12 +68,16 @@
 					<table class="table table-striped student-details">
 						<tbody>
 							<tr>
-								<th> Student Name: </th>
-								<td> ${currUserObj.firstName} ${currUserObj.lastName} </td>
+								<th> First Name: </th>
+								<td> ${currUserObj.firstName} </td>
+								<th> Last Name: </th>
+								<td> ${currUserObj.lastName} </td>
 							</tr>
 							<tr>
-								<th> Student Username: </th>
+								<th> Username: </th>
 								<td> ${currUserObj.username} </td>
+								<th> Email: </th>
+								<td> ${currUserObj.email} </td>
 							</tr>
 							<tr>
 								<th> CIN: </th>
