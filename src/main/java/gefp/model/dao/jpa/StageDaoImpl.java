@@ -71,7 +71,7 @@ public class StageDaoImpl implements StageDao {
         {
             @SuppressWarnings("unchecked")
             List<Checkpoint> checkpoints = entityManager.createNativeQuery(
-                "select * from cell_checkpoints where cell_id = " + c.getId(),
+                "SELECT * FROM cell_checkpoints WHERE cell_id = " + c.getId(),
                 Checkpoint.class ).getResultList();
 
             for( Checkpoint chk : checkpoints )

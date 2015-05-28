@@ -62,6 +62,21 @@
 
 				<hr />
 
+
+				<div>
+					<div class="">
+						<h5>Student Name : ${currUserObj.firstName}
+							${currUserObj.lastName}</h5>
+					</div>
+					<div class="">
+						<h5>Student Username : ${currUserObj.username}</h5>
+					</div>
+					<div class="">
+						<h5>CIN : ${currUserObj.cin}</h5>
+					</div>
+				</div>
+
+
 				<c:choose>
 
 					<c:when test="${not empty plan }">
@@ -71,17 +86,6 @@
 
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										<div class="">
-											<h5>Student Name : ${currUserObj.firstName}
-												${currUserObj.lastName}</h5>
-										</div>
-										<div class="">
-											<h5>Student Username : ${currUserObj.username}</h5>
-										</div>
-										<div class="">
-											<h5>CIN : ${currUserObj.cin}</h5>
-										</div>
-
 										<div class="col-xs-offset-5 ">
 											<div id="successMessage" style="color: #090; display: none;">
 												<h5>Checkpoints updated successfully</h5>
