@@ -63,17 +63,25 @@
 				<hr />
 
 
-				<div>
-					<div class="">
-						<h5>Student Name : ${currUserObj.firstName}
-							${currUserObj.lastName}</h5>
-					</div>
-					<div class="">
-						<h5>Student Username : ${currUserObj.username}</h5>
-					</div>
-					<div class="">
-						<h5>CIN : ${currUserObj.cin}</h5>
-					</div>
+				<div class="row">
+				<div class="col-md-6">
+					<table class="table table-striped table-bordered">
+						<tbody>
+							<tr>
+								<th> <h5>Student Name:</h5> </th>
+								<td> <h5>${currUserObj.firstName} ${currUserObj.lastName}</h5> </td>
+							</tr>
+							<tr>
+								<th> <h5>Student Username:</h5> </th>
+								<td> <h5>${currUserObj.username}</h5> </td>
+							</tr>
+							<tr>
+								<th> <h5>CIN:</h5> </th>
+								<td> <h5>${currUserObj.cin}</h5> </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				</div>
 
 
@@ -86,9 +94,9 @@
 
 								<div class="panel panel-default">
 									<div class="panel-heading">
-										
+
 										${currUserObj.firstName}'s Flight Plan
-										
+
 										<div class="col-xs-offset-5 ">
 											<div id="successMessage" style="color: #090; display: none;">
 												<h5>Checkpoints updated successfully</h5>
