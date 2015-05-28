@@ -63,40 +63,6 @@
 				<hr />
 
 
-				<div class="row">
-				<div class="col-md-12">
-					
-					<table class="table table-bordered table-striped student-details">
-						<thead>
-							<tr>
-								<td align="right" colspan="4"><a class="editStudentInfo" href="#"><i class="fa fa-edit "></i>Edit</a></td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th> First Name: </th>
-								<td> ${currUserObj.firstName} </td>
-								<th> Last Name: </th>
-								<td> ${currUserObj.lastName} </td>
-							</tr>
-							<tr>
-								<th> Username: </th>
-								<td> ${currUserObj.username} </td>
-								<th> Email: </th>
-								<td> ${currUserObj.email} </td>
-							</tr>
-							<tr>
-								<th> CIN: </th>
-								<td> ${currUserObj.cin} </td>
-								<th> Major: </th>
-								<td> ${currUserObj.major.name} </td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				</div>
-
-
 				<c:choose>
 
 					<c:when test="${not empty plan }">
@@ -107,7 +73,39 @@
 								<div class="panel panel-default">
 									<div class="panel-heading">
 
-										${currUserObj.firstName}'s Flight Plan
+										
+
+										<table class="table table-striped student-details">
+											<thead>
+												<tr>
+													<td align="right" colspan="4"><a
+														class="editStudentInfo" href="#"><i
+															class="fa fa-edit "></i>Edit</a></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th>First Name:</th>
+													<td>${currUserObj.firstName}</td>
+													<th>Last Name:</th>
+													<td>${currUserObj.lastName}</td>
+												</tr>
+												<tr>
+													<th>Username:</th>
+													<td>${currUserObj.username}</td>
+													<th>Email:</th>
+													<td>${currUserObj.email}</td>
+												</tr>
+												<tr>
+													<th>CIN:</th>
+													<td>${currUserObj.cin}</td>
+													<th>Major:</th>
+													<td>${currUserObj.major.name}</td>
+												</tr>
+											</tbody>
+										</table>
+
+
 
 										<div class="col-xs-offset-5 ">
 											<div id="successMessage" style="color: #090; display: none;">
@@ -121,6 +119,9 @@
 
 									<div class="panel-body">
 										<div class="table-responsive">
+											
+											${currUserObj.firstName}'s Flight Plan
+											
 											<table class="table table-striped table-bordered">
 												<thead>
 													<tr>

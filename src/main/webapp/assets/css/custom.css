@@ -563,3 +563,8 @@ line-height: 1.428571429;
 .editStudentInfo {
 	
 }
+
+.student-details tr td {
+	border-top:0px solid none !important;
+}
+
