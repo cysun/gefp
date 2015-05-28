@@ -86,6 +86,9 @@
 
 								<div class="panel panel-default">
 									<div class="panel-heading">
+										
+										${currUserObj.firstName}'s Flight Plan
+										
 										<div class="col-xs-offset-5 ">
 											<div id="successMessage" style="color: #090; display: none;">
 												<h5>Checkpoints updated successfully</h5>
