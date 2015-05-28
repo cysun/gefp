@@ -69,7 +69,7 @@
 					<table class="table table-bordered table-striped student-details">
 						<thead>
 							<tr>
-								<td align="right" colspan="4"><a class="editStudentInfo" href="#">Edit</a></td>
+								<td align="right" colspan="4"><a class="editStudentInfo" href="#"><i class="fa fa-edit "></i>Edit</a></td>
 							</tr>
 						</thead>
 						<tbody>
