@@ -65,7 +65,7 @@
 
 				<div class="row">
 				<div class="col-md-6">
-					<table class="table table-striped table-bordered">
+					<table class="table table-striped">
 						<tbody>
 							<tr>
 								<th> <h5>Student Name:</h5> </th>
