@@ -65,8 +65,13 @@
 
 				<div class="row">
 				<div class="col-md-12">
-					<a href="">Edit</a>
+					
 					<table class="table table-striped student-details">
+						<thead>
+							<tr>
+								<td align="right" colspan="2"><a class="editStudentInfo" href="#">Edit</a></td>
+							</tr>
+						</thead>
 						<tbody>
 							<tr>
 								<th> First Name: </th>
