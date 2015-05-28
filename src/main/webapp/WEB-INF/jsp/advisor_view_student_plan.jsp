@@ -65,6 +65,7 @@
 
 				<div class="row">
 				<div class="col-md-12">
+					<a href="">Edit</a>
 					<table class="table table-striped student-details">
 						<tbody>
 							<tr>
