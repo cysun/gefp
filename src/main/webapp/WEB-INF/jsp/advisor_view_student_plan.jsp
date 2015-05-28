@@ -120,7 +120,7 @@
 									<div class="panel-body">
 										<div class="table-responsive">
 											
-											${currUserObj.firstName}'s Flight Plan
+											<div class="studentPlanTitle">${currUserObj.firstName}'s Flight Plan </div>
 											
 											<table class="table table-striped table-bordered">
 												<thead>
