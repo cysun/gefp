@@ -527,7 +527,7 @@ public class FlightPlanController {
         FlightPlan flightplan = planDao.getFlightPlan( planId ); 
         
         Stage s = stageDao.getStage( sid );
-        stageDao.removeStage( s );
+        //stageDao.removeStage( s );
         flightplan.getStages().remove( s );
         planDao.saveFlightPlan( flightplan );
         return "redirect:/plan/edit/" + planId + ".html";
