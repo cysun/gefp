@@ -66,10 +66,10 @@
 				<div class="row">
 				<div class="col-md-12">
 					
-					<table class="table table-striped student-details">
+					<table class="table table-bordered table-striped student-details">
 						<thead>
 							<tr>
-								<td align="right" colspan="2"><a class="editStudentInfo" href="#">Edit</a></td>
+								<td align="right" colspan="4"><a class="editStudentInfo" href="#">Edit</a></td>
 							</tr>
 						</thead>
 						<tbody>
