@@ -50,7 +50,7 @@
 							<div class="clearfix"></div>
 							</div>
 							<div class="panel-body">
-								<div class="table-responsive__">
+								<div class="table-responsive">
 									<table id="dataTables" class="table table-striped table-bordered dataTable table-hover">
 										<thead>
 											<tr>
@@ -66,10 +66,10 @@
 										</thead>
 										<tbody>
 
-											<c:forEach items="${users}" var="user">
+											<c:forEach items="${users}" var="user" varStatus="index">
 
 												<tr>
-													<td>${user.id}</td>
+													<td>${index.count}</td>
 													<td>${user.cin}</td>
 													<td>${user.username}</td>
 													<td>${user.firstName}</td>

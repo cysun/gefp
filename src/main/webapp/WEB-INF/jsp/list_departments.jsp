@@ -64,7 +64,7 @@
 
 							<div class="panel-body">
 								<div class="table-responsive">
-									<table class="table table-striped table-bordered">
+									<table id="dataTables" class="table table-striped table-bordered dataTable table-hover">
 										<thead>
 											<tr>
 												<th>#</th>
@@ -75,10 +75,10 @@
 										</thead>
 										<tbody>
 
-											<c:forEach items="${departments}" var="dept">
+											<c:forEach items="${departments}" var="dept" varStatus="index">
 
 												<tr>
-													<td>${dept.id}</td>
+													<td>${index.count}</td>
 													<td>${dept.name}</td>
 													<!-- <td>Computer Science Plan</td> -->
 
