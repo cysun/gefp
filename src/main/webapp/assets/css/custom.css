@@ -379,6 +379,7 @@ max-width:170px;
 .navbar-cls-top .navbar-brand {
 	color: #000;
 background: #FFD400;
+padding-top:20px;
 /*width: 260px;*/
 text-align: center;
 height: 60px;
