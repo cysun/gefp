@@ -25,7 +25,12 @@ public class CheckpointInfo implements Serializable {
 
     public CheckpointInfo()
     {
-        super();
+    }
+    
+    public CheckpointInfo(Checkpoint checkpoint, String message)
+    {
+        this.checkpoint = checkpoint;
+        this.message = message;
     }
 
     public Long getId()

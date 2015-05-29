@@ -206,9 +206,7 @@ public class FlightPlanController {
             if( checked.equals( "true" ) )
             {
                 System.out.println( "Check ID " + c.getId() );
-                CheckpointInfo cinfo = new CheckpointInfo();
-                cinfo.setCheckpoint( c );
-                cinfo.setMessage( "acd" );
+                CheckpointInfo cinfo = new CheckpointInfo(c, "acd");
                 currUserObj.getCheckpoints().add( cinfo );
             }
             else
