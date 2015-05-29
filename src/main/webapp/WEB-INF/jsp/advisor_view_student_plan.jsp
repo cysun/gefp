@@ -79,7 +79,7 @@
 											<thead>
 												<tr>
 													<td align="right" colspan="4"><a
-														class="editStudentInfo" id="StartEditMode" href="#"><i
+														class="editStudentInfo" id="StartEditMode" href="javascript:void(0)"><i
 															class="fa fa-edit "></i>Edit</a></td>
 												</tr>
 											</thead>
@@ -296,7 +296,6 @@ $(document).ready(function(){
 				$("#major").text($("#majorInp option:selected").attr("data-txt"));
 				$("#student-details").show();
 				$(".edit-student-details").hide();
-				alert("Updted");
 			}
 		})
 		
