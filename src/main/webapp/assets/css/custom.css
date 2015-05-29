@@ -595,14 +595,29 @@ line-height: 1.428571429;
 
 .override.btn-danger {
 	background-color: #B6880F !important;
+	border-color: #242424;
 }
 
 .override.btn-info {
 	background-color: #8a8a8d !important;
+	border-color: #242424;
+}
+
+.override.btn-info:hover, .override.btn-info:focus, .override.btn-info:active {
+	color:#000;
+	background-color: #8a8a8d !important;
+	border-color: #242424;
 }
 
 .override.btn-primary {
 	background-color: #8a8a8d !important;
+	border-color: #242424;
+}
+
+.override.btn-primary:hover, .override.btn-primary:focus, .override.btn-primary:active {
+	color:#000;
+	background-color: #8a8a8d !important;
+	border-color: #242424;
 }
 
 .brdt10 {
