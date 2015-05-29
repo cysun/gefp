@@ -28,10 +28,13 @@ a:focus {
 }
 
 .logoIconImg {
-	width:100px;
 	float:left;
 	padding:5px;
 	margin-left:20px;
+}
+
+.logoIconImg img{
+	width:100px;
 }
 
 .flightplan_checkpoints {
