@@ -107,7 +107,7 @@
         top: 0;
         width: 51%;
         height: 100%;
-        background: #000;
+        background: #FFF;
         z-index: 1000;
     }
 
@@ -167,7 +167,7 @@ body {
 
  #wrapper {
     width: 100%;
-    background:#000;
+    background:#FFF;
 }
 
 ul.list{
@@ -473,7 +473,7 @@ font-weight: 700;
 }
 .navbar-side {
 	border:none;
-	background-color: #000;
+	background-color: #fff;
 	
 }
 .navbar-cls-top {
@@ -503,7 +503,7 @@ border-color: #000;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
-background-color: #000;
+background-color: #fff;
 }
 .nav > li > a > i {
     margin-right:10px;
