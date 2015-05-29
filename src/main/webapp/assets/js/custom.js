@@ -38,7 +38,7 @@ function customAlert(text, type) {
 
 			smoke.confirm("Do you want to add a comment?", function(e){
 				if (e){
-					top.location.href = '<c:url value="/plan/add-milestone-comment.html" />';
+					top.location.href = '/gefp/plan/add-milestone-comment.html';
 				}else{
 					$.ajax({
 						url : '/gefp/plan/saveStudentCheckpoint.html',
