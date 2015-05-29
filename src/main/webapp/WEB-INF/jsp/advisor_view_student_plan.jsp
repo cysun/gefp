@@ -285,7 +285,7 @@ $(document).ready(function(){
 		
 		$.ajax({
 			data : {userId:userId, firstName:firstName, lastName:lastName, email:email, cin:cin, major:major},
-			dataType: "json",
+			dataType: "text",
 			method : "POST",
 			url : '<c:url value="/advisor/update-student-profile.html" />',
 			success : function(data, textStatus, jqXHR ) {
