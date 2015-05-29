@@ -378,7 +378,7 @@ max-width:170px;
 
 .navbar-cls-top .navbar-brand {
 	color: #FFF;
-background: #073773;
+background: #FFD400;
 /*width: 260px;*/
 text-align: center;
 height: 60px;
@@ -477,13 +477,13 @@ font-weight: 700;
 	
 }
 .navbar-cls-top {
-	background:#073773;
+	background:#FFD400;
 	border-bottom:none;
 	
 }
 .navbar-cls-top .navbar-brand:hover {
 
-background: #073773;
+background: #FFD400;
 color:#FFF;
 
 }
@@ -493,10 +493,10 @@ border:0px solid black;
      
 }
 .navbar-header {
-    background: #073773;
+    background: #FFD400;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-background-color: #073773;
+background-color: #FFD400;
 }
 .navbar-default .navbar-toggle {
 border-color: #fff;
