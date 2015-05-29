@@ -1,6 +1,7 @@
 package gefp.model.dao.jpa;
 
 import gefp.model.Checkpoint;
+import gefp.model.CheckpointInfo;
 import gefp.model.User;
 import gefp.model.dao.CheckpointDao;
 
@@ -71,7 +72,7 @@ public class CheckpointDaoImpl implements CheckpointDao {
     }
 
     @Override
-    public Set<Checkpoint> getCheckPointsForUser( Long user_id,
+    public Set<CheckpointInfo> getCheckPointsForUser( Long user_id,
         Long plan_id )
     {
         try

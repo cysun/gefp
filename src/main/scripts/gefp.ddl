@@ -14,11 +14,16 @@
         primary key (id)
     );
 
+    create table checkpoint_info (
+        id int8 not null,
+        message varchar(255),
+        checkpoint_id int8,
+        primary key (id)
+    );
+
     create table checkpoints (
-        DTYPE varchar(31) not null,
         id int8 not null,
         name varchar(255) not null,
-        messages varchar(255),
         primary key (id)
     );
 
@@ -82,10 +87,10 @@
         primary key (id)
     );
 
-    create table user_checkpoints (
+    create table user_checkpoints_info (
         user_id int8 not null,
-        checkpoint_id int8 not null,
-        primary key (user_id, checkpoint_id)
+        checkpoint_info_id int8 not null,
+        primary key (user_id, checkpoint_info_id)
     );
 
     create table user_roles (
@@ -155,6 +160,11 @@
         foreign key (stage_id) 
         references stages;
 
+    alter table checkpoint_info 
+        add constraint FK_9yc90uxhxcs0p3y3mex1ah62b 
+        foreign key (checkpoint_id) 
+        references checkpoints;
+
     alter table department_plans 
         add constraint FK_huvk9td7lxurmvpn2a3bji8a3 
         foreign key (plan_id) 
@@ -205,13 +215,13 @@
         foreign key (flightplans_id) 
         references flightplans;
 
-    alter table user_checkpoints 
-        add constraint FK_to4y5oilg0c79s52l5dh3u9tk 
-        foreign key (checkpoint_id) 
-        references checkpoints;
+    alter table user_checkpoints_info 
+        add constraint FK_s9garnqrhi1ayd9ls9txkx20p 
+        foreign key (checkpoint_info_id) 
+        references checkpoint_info;
 
-    alter table user_checkpoints 
-        add constraint FK_t1q6bdp8kteiy9pt35cy7pug5 
+    alter table user_checkpoints_info 
+        add constraint FK_o7g61i4bgr3mnxyukfi78dsb2 
         foreign key (user_id) 
         references users;
 

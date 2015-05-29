@@ -1,5 +1,6 @@
-drop table user_checkpoints;
+drop table user_checkpoints_info;
 drop table cell_checkpoints;
+drop table checkpoint_info;
 drop table department_plans;
 drop table flightplan_runways;
 drop table flightplan_stages;

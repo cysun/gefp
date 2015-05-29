@@ -2,8 +2,8 @@ insert into roles values(1, 'ADMIN');
 insert into roles values(2, 'ADVISOR');
 insert into roles values(3, 'STUDENT');
 
-insert into flightplans values (1, 'Golden Eagle Flight Plan', 1, true);
-insert into flightplans values (2, 'Electrical Engineering Flight Plan', 2, true);
+insert into flightplans values (1, 'Golden Eagle Flight Plan','', 1, true);
+insert into flightplans values (2, 'Electrical Engineering Flight Plan','', 2, true);
 
 insert into departments values(1, 'Computer Science', 1, true, false);
 insert into departments values(2, 'Electrical Engineering', 2, true, false);

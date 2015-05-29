@@ -1,26 +1,61 @@
 package gefp.model;
 
+import java.io.Serializable;
 
-public class CheckpointInfo extends Checkpoint {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "checkpoint_info")
+public class CheckpointInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    
-    private String messages;
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToOne
+    private Checkpoint checkpoint;
+
+    private String message;
 
     public CheckpointInfo()
     {
         super();
     }
 
-    public String getMessages()
+    public Long getId()
     {
-        return messages;
+        return id;
     }
 
-    public void setMessages( String messages )
+    public void setId( Long id )
     {
-        this.messages = messages;
+        this.id = id;
+    }
+
+    public Checkpoint getCheckpoint()
+    {
+        return checkpoint;
+    }
+
+    public void setCheckpoint( Checkpoint checkpoint )
+    {
+        this.checkpoint = checkpoint;
+    }
+
+    public String getMessage()
+    {
+        return message;
+    }
+
+    public void setMessage( String message )
+    {
+        this.message = message;
     }
 
 }

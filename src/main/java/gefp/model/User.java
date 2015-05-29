@@ -57,10 +57,10 @@ public class User implements Serializable, UserDetails {
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_checkpoints",
+    @JoinTable(name = "user_checkpoints_info",
         joinColumns = { @JoinColumn(name = "user_id") },
-        inverseJoinColumns = { @JoinColumn(name = "checkpoint_id") })
-    private Set<Checkpoint> checkpoints = new HashSet<Checkpoint>();
+        inverseJoinColumns = { @JoinColumn(name = "checkpoint_info_id") })
+    private Set<CheckpointInfo> checkpointsInfo = new HashSet<CheckpointInfo>();
 
     // For Administrators
     @ManyToOne
@@ -202,14 +202,14 @@ public class User implements Serializable, UserDetails {
         this.flightPlan = flightPlan;
     }
 
-    public Set<Checkpoint> getCheckpoints()
+    public Set<CheckpointInfo> getCheckpoints()
     {
-        return checkpoints;
+        return checkpointsInfo;
     }
 
-    public void setCheckpoints( Set<Checkpoint> checkpoints )
+    public void setCheckpoints( Set<CheckpointInfo> checkpoints )
     {
-        this.checkpoints = checkpoints;
+        this.checkpointsInfo = checkpoints;
     }
 
     public boolean isEnabled()

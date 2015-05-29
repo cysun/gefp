@@ -1,6 +1,7 @@
 package gefp.model.dao;
 
 import gefp.model.Checkpoint;
+import gefp.model.CheckpointInfo;
 
 import java.util.List;
 import java.util.Set;
@@ -15,6 +16,6 @@ public interface CheckpointDao {
 
     List<Checkpoint> getCheckPointsInPlan( Long plan_id );
 
-    Set<Checkpoint> getCheckPointsForUser( Long user_id, Long plan_id );
+    Set<CheckpointInfo> getCheckPointsForUser( Long user_id, Long plan_id );
 
 }

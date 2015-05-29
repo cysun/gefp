@@ -2,6 +2,7 @@ package gefp.web.controller;
 
 import gefp.model.Cell;
 import gefp.model.Checkpoint;
+import gefp.model.CheckpointInfo;
 import gefp.model.Department;
 import gefp.model.FlightPlan;
 import gefp.model.Runway;
@@ -205,7 +206,10 @@ public class FlightPlanController {
             if( checked.equals( "true" ) )
             {
                 System.out.println( "Check ID " + c.getId() );
-                currUserObj.getCheckpoints().add( c );
+                CheckpointInfo cinfo = new CheckpointInfo();
+                cinfo.setCheckpoint( c );
+                cinfo.setMessage( "" );
+                currUserObj.getCheckpoints().add( cinfo );
             }
             else
             {
@@ -220,10 +224,10 @@ public class FlightPlanController {
                 // System.out.println("size after " +
                 // currUserObj.getCheckpoints().size());
 
-                Set<Checkpoint> newCheckpoints = new HashSet<Checkpoint>();
-                for( Checkpoint cp : currUserObj.getCheckpoints() )
+                Set<CheckpointInfo> newCheckpoints = new HashSet<CheckpointInfo>();
+                for( CheckpointInfo cp : currUserObj.getCheckpoints() )
                 {
-                    if( cp.getId() != id )
+                    if( cp.getCheckpoint().getId() != id )
                     {
                         newCheckpoints.add( cp );
                     }
