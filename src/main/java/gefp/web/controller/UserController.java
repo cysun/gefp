@@ -303,14 +303,23 @@ public class UserController {
         String email = request.getParameter( "email" );
         String cin = request.getParameter( "cin" );
         Integer majorId = Integer.parseInt( request.getParameter( "major" ) );
-
         User usr = userDao.getUser( userId );
+        
+        Integer oldMajorId = usr.getMajor().getId();
+        
         usr.setFirstName( firstName );
         usr.setLastName( lastName );
         usr.setCin( cin );
         usr.setEmail( email );
-        usr.setDepartment( deptDao.getDepartment( majorId ) );
-        usr.setMajor( deptDao.getDepartment( majorId ) );
+        
+        // Update Department and Flight Plan only if they are changed.
+        if(oldMajorId!=majorId) {
+            Department newDept = deptDao.getDepartment( majorId );
+            usr.setDepartment( newDept );
+            usr.setMajor( newDept );
+            usr.setFlightPlan( newDept.getDefaultPlan() );
+        }
+        
         userDao.saveUser( usr );
         out.print( "Saved" );
 
