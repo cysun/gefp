@@ -195,13 +195,13 @@ ul li.list {
 #page-wrapper {
     padding: 15px 15px;
     min-height: 600px;
-    background:#000;
+    background:#FFF;
    
 }
 #page-inner {
     width:100%;
     margin:10px 20px 10px 0px;
-    background-color:#000!important;
+    background-color:#FFF!important;
     padding:10px;
     /*min-height:1200px;*/
 }
