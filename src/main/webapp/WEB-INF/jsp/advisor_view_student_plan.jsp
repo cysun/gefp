@@ -288,12 +288,12 @@ $(document).ready(function(){
 			dataType: "json",
 			method : "POST",
 			url : '<c:url value="/advisor/update-student-profile.html" />',
-			success : function(resp) {
+			success : function(data, textStatus, jqXHR ) {
 				$("#firstName").text(firstName);
 				$("#lastName").text(lastName);
 				$("#email").text(email);
 				$("#cin").text(cin);
-				$("#major").text($("#majorInp:selected").attr("data-txt"));
+				$("#major").text($("#majorInp option:selected").attr("data-txt"));
 				$("#student-details").show();
 				$(".edit-student-details").hide();
 				alert("Updted");
