@@ -598,6 +598,10 @@ line-height: 1.428571429;
 	border-bottom:10px solid #000;
 }
 
+.yellowIcons {
+	color: #ffd400;
+}
+
 .footerStyle {
 	color:#000;text-align:center;line-height:30px; font-size:12px;width:100%;
 }
