@@ -77,7 +77,7 @@
 											<div class="clearfix"></div>
 
 											<div class="form-group col-md-6">
-												<input type="submit" class="btn btn-primary" value="Save" />
+												<input type="submit" class="btn override btn-primary" value="Save" />
 												<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 											</div>
 
