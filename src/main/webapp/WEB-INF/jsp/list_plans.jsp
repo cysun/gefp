@@ -66,7 +66,7 @@
 
 												<tr>
 													<td>${plan.id}</td>
-													<td>${plan.name}</td>
+													<td>${plan.name} (${plan.quarterName})</td>
 													<td>${plan.department.name}</td>
 													<td><c:choose>
 															<c:when test="${plan.published == false}">
