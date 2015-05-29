@@ -115,21 +115,21 @@
 											<tbody>
 												<tr>
 													<th>First Name:</th>
-													<td><input type="text" name="firstName" class="" value="${currUserObj.firstName}" /></td>
+													<td><input type="text" name="firstName" class="form-control" value="${currUserObj.firstName}" /></td>
 													<th>Last Name:</th>
-													<td><input type="text" name="lastName" class="" value="${currUserObj.lastName}" /></td>
+													<td><input type="text" name="lastName" class="form-control" value="${currUserObj.lastName}" /></td>
 												</tr>
 												<tr>
 													<th>Username:</th>
-													<td><input type="text" name="username" class="" value="${currUserObj.username}" /></td>
+													<td><input type="text" name="username" class="form-control" value="${currUserObj.username}" /></td>
 													<th>Email:</th>
-													<td><input type="text" name="email" class="" value="${currUserObj.email}" /></td>
+													<td><input type="text" name="email" class="form-control" value="${currUserObj.email}" /></td>
 												</tr>
 												<tr>
 													<th>CIN:</th>
-													<td><input type="text" name="cin" class="" value="${currUserObj.cin}" /></td>
+													<td><input type="text" name="cin" class="form-control" value="${currUserObj.cin}" /></td>
 													<th>Major:</th>
-													<td><input type="text" name="major" class="" value="${currUserObj.major.name}" /></td>
+													<td><input type="text" name="major" class="form-control" value="${currUserObj.major.name}" /></td>
 												</tr>
 											</tbody>
 										</table>
