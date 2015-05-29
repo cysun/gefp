@@ -65,7 +65,7 @@
 							<div class="panel-heading">
 								<div class="pull-left">
 									<h5><span class="planTitle"><a href="<c:url value="/plan/view/${plan.id}.html"/>">${plan.name}</a>
-										(${plan.quarterName})
+										(${plan.seasonName} ${plan.seasonYear})
 									</span>
 									
 									<a onClick="publishPlan(${plan.id})" class="pull-right btn btn-warning" href="javascript:void(0);">Publish Now</a>
@@ -247,7 +247,11 @@ $( ".checkpoint_list" ).sortable({
 			 method : 'post',
 			 data: {planId : planId, cellId : cellId, checkpointIds : checkIds},
 			 success : function(response){
-				 customAlert(response, 'information');
+				 // customAlert(response, 'information');
+				 $("#successMessage").show();
+         		setTimeout(function(){
+						$("#successMessage").hide();
+					},3000);
 			}
 		});
 	}
@@ -266,7 +270,11 @@ $( "#sortable tbody" ).sortable({
 				 method : 'post',
 				 data: {planId : planId, stageIds : stageIds, stageOrders : stageOrders},
 				 success : function(response){
-					 customAlert(response, 'information');
+					 // customAlert(response, 'information');
+					 $("#successMessage").show();
+             		setTimeout(function(){
+							$("#successMessage").hide();
+						},3000);
 				}
 		});
 		//$(".save_btn").fadeIn();
@@ -359,7 +367,11 @@ $(document).ready(function(){
                 	method : 'post',
                 	data : {planId : planId, runwayIds : runwayIds, runwayOrders : runwayOrders},
                 	success : function(response) {
-                		customAlert(response, 'information');
+                		//customAlert(response, 'information');
+                		$("#successMessage").show();
+                		setTimeout(function(){
+							$("#successMessage").hide();
+						},3000);
                 	}
                 })
           	}

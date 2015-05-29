@@ -58,7 +58,7 @@ function customAlert(text, type) {
 						},
 						type : 'POST',
 						success : function(response) {
-							console.log(response);
+							// console.log(response);
 							$("#successMessage").show();
 							setTimeout(function(){
 								$("#successMessage").hide();
@@ -78,7 +78,7 @@ function customAlert(text, type) {
 						},
 						type : 'POST',
 						success : function(response) {
-							console.log(response);
+							// console.log(response);
 							$("#successMessage").show();
 							setTimeout(function(){
 								$("#successMessage").hide();
