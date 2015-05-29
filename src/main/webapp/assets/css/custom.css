@@ -565,7 +565,7 @@ line-height: 1.428571429;
 }
 
 .student-details tr td, .student-details tr th  {
-	border-top:0px solid none !important;
+	border-top:0px none !important;
 }
 
 .studentPlanTitle {

@@ -25,6 +25,7 @@
     create table flightplans (
         id int8 not null,
         name varchar(255),
+        quarter_name varchar(255),
         department_id int8,
         published boolean not null,
         primary key (id)

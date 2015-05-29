@@ -29,6 +29,9 @@ public class FlightPlan implements Serializable {
 
     @Column(name = "name", nullable = true)
     private String name;
+    
+    @Column(name = "quarter_name", nullable = true)
+    private String quarterName;
 
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "flightplan_runways",

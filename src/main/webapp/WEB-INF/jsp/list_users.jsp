@@ -76,6 +76,11 @@
 													<td>${user.lastName}</td>
 													<td>
 													
+													
+													<c:set var="roleName" value=""/>
+													
+													
+													
 													<c:forEach var="role" items="${user.roles}">
 														${role.name} 
 													</c:forEach></td>

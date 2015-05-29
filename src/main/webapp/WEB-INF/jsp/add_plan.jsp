@@ -48,6 +48,10 @@
 												<label>Plan Title</label>
 												<form:input path="name" class="form-control" />
 											</div>
+											<div class="form-group">
+												<label>Quarter/Semester Title:</label>
+												<form:input path="quarterName" class="form-control" />
+											</div>
 
 											<input type="submit" class="btn btn-primary" value="Save" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->

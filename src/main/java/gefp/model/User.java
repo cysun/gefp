@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -59,7 +60,10 @@ public class User implements Serializable, UserDetails {
         joinColumns = { @JoinColumn(name = "user_id") },
         inverseJoinColumns = { @JoinColumn(name = "checkpoint_id") })
     private Set<Checkpoint> checkpoints = new HashSet<Checkpoint>();
-
+    
+    @ElementCollection
+    private Set<CheckpointInfo> checkpointInfo = new HashSet<CheckpointInfo>();
+    
     // For Administrators
     @ManyToOne
     @JoinColumn(name = "department_id")
@@ -320,21 +324,18 @@ public class User implements Serializable, UserDetails {
     @Override
     public boolean isAccountNonExpired()
     {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked()
     {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired()
     {
-        // TODO Auto-generated method stub
         return true;
     }
 }
