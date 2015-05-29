@@ -46,11 +46,11 @@
 										<form:form modelAttribute="flightplan">
 											<div class="form-group">
 												<label>Plan Title</label>
-												<form:input path="name" class="form-control" />
+												<form:input path="name" class="form-control" placeholder="Plan title here" />
 											</div>
 											<div class="form-group">
 												<label>Quarter/Semester Title:</label>
-												<form:input path="quarterName" class="form-control" />
+												<form:input path="quarterName" class="form-control" placeholder="E.g. Summer Quarter 2015"  />
 											</div>
 
 											<input type="submit" class="btn btn-primary" value="Save" />
