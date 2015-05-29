@@ -7,7 +7,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -52,7 +51,9 @@ public class User implements Serializable, UserDetails {
     private String username;
 
     private String cin;
+
     private String email;
+
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -60,15 +61,12 @@ public class User implements Serializable, UserDetails {
         joinColumns = { @JoinColumn(name = "user_id") },
         inverseJoinColumns = { @JoinColumn(name = "checkpoint_id") })
     private Set<Checkpoint> checkpoints = new HashSet<Checkpoint>();
-    
-    @ElementCollection
-    private Set<CheckpointInfo> checkpointInfo = new HashSet<CheckpointInfo>();
-    
+
     // For Administrators
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department = new Department();
-    
+
     // For Students
     @ManyToOne
     @JoinColumn(name = "major_id")
@@ -79,14 +77,16 @@ public class User implements Serializable, UserDetails {
     private FlightPlan flightPlan = new FlightPlan();
 
     private boolean enabled;
+
     private boolean newAccount = false;
+
     private boolean deleted;
 
     public User()
     {
     }
-    
-    public User(String username, String password)
+
+    public User( String username, String password )
     {
         this.username = username;
         this.password = password;
@@ -181,14 +181,12 @@ public class User implements Serializable, UserDetails {
     {
         this.department = department;
     }
-    
-    
+
     public Department getMajor()
     {
         return major;
     }
 
-    
     public void setMajor( Department major )
     {
         this.major = major;
@@ -199,19 +197,16 @@ public class User implements Serializable, UserDetails {
         return flightPlan;
     }
 
-    
     public void setFlightPlan( FlightPlan flightPlan )
     {
         this.flightPlan = flightPlan;
     }
 
-    
     public Set<Checkpoint> getCheckpoints()
     {
         return checkpoints;
     }
 
-    
     public void setCheckpoints( Set<Checkpoint> checkpoints )
     {
         this.checkpoints = checkpoints;
@@ -278,14 +273,12 @@ public class User implements Serializable, UserDetails {
         }
 
     }
-    
-    
+
     public boolean isNewAccount()
     {
         return newAccount;
     }
 
-    
     public void setNewAccount( boolean newAccount )
     {
         this.newAccount = newAccount;
