@@ -36,23 +36,33 @@ function customAlert(text, type) {
 
 		$(".flightplan_checkpoints").click(function(e) {
 
-			$.ajax({
-				url : '/gefp/plan/saveStudentCheckpoint.html',
-				data : {
-					userId : $(this).attr("data-userId"),
-					id : $(this).val(),
-					checked : this.checked
-				},
-				type : 'POST',
-				success : function(response) {
-					console.log(response);
-					$("#successMessage").show();
-					setTimeout(function(){
-						$("#successMessage").hide();
-					},3000);
+			smoke.confirm("Do you want to add a comment?", function(e){
+				if (e){
+					top.location.href = '<c:url value="/plan/add-milestone-comment.html" />';
+				}else{
+					$.ajax({
+						url : '/gefp/plan/saveStudentCheckpoint.html',
+						data : {
+							userId : $(this).attr("data-userId"),
+							id : $(this).val(),
+							checked : this.checked
+						},
+						type : 'POST',
+						success : function(response) {
+							console.log(response);
+							$("#successMessage").show();
+							setTimeout(function(){
+								$("#successMessage").hide();
+							},3000);
+						}
+					});
 				}
-			});
-
+			}, {
+				ok: "Yes",
+				cancel: "No",
+				classname: "custom-class",
+				reverseButtons: true
+			});	
 			// console.log("Checkpoint ID is : " + $(this).val() + " state is "
 			// + this.checked );
 		});

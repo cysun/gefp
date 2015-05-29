@@ -503,7 +503,7 @@ public class FlightPlanController {
         sessionStatus.setComplete();
         return "redirect:/plan/edit/" + planId + ".html";
     }
-
+    
     @RequestMapping(value = "/admin/plan/remove-checkpoint.html",
         method = RequestMethod.GET)
     public String removeCheckpoint( @RequestParam Long id,
@@ -627,4 +627,15 @@ public class FlightPlanController {
             e.printStackTrace();
         }
     }
+    
+    
+    @RequestMapping(value = "/plan/add-milestone-comment.html",
+        method = RequestMethod.GET)
+    public String addMilestoneComment( HttpServletRequest request )
+    {
+        return "add_milestone_comment";
+    }
+    
+    
+    
 }
