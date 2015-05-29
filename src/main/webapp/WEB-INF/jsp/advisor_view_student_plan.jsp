@@ -287,7 +287,7 @@ $(document).ready(function(){
 			data : {userId:userId, firstName:firstName, lastName:lastName, email:email, cin:cin, major:major},
 			dataType: "json",
 			method : "POST",
-			url : "<c:url value=\"/advisor/update-student-profile.html\" />",
+			url : '<c:url value="/advisor/update-student-profile.html" />',
 			success : function(resp) {
 				$("#firstName").text(firstName);
 				$("#lastName").text(lastName);
