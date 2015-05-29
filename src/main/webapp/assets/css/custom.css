@@ -3,6 +3,11 @@
 /*==============================================
     GENERAL  STYLES    
     =============================================*/
+a {
+  color: #838383 !important;
+  text-decoration: none;
+}
+
 
 a:hover,
 a:focus {
@@ -10,6 +15,12 @@ a:focus {
   text-decoration: underline;
 }
 
+.navtitle{
+	
+}
+.navtitle:hover{
+	color:#000 !important;
+}
 
 .planTitle {
 	line-height:30px;

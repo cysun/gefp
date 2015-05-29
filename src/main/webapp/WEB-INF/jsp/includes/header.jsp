@@ -10,7 +10,7 @@
 			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand">Golden Eagle Flight Plan</a>
+		<a class="navbar-brand navtitle">Golden Eagle Flight Plan</a>
 	</div>
 
 	<security:authorize access="authenticated">
