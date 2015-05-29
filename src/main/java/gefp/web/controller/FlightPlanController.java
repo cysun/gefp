@@ -208,7 +208,7 @@ public class FlightPlanController {
                 System.out.println( "Check ID " + c.getId() );
                 CheckpointInfo cinfo = new CheckpointInfo();
                 cinfo.setCheckpoint( c );
-                cinfo.setMessage( "" );
+                cinfo.setMessage( "acd" );
                 currUserObj.getCheckpoints().add( cinfo );
             }
             else

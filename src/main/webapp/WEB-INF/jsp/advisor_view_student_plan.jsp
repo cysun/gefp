@@ -145,13 +145,17 @@
 																			<ul id="${cell.id}" class="checkpoint_list list">
 																				<c:forEach items="${cell.checkpoints}"
 																					var="checkpoint">
-																					<li id="${checkpoint.id}" class="list"><c:set
+																					<li id="${checkpoint.id}" class="list">
+																					
+																					<c:set
 																							var="userCheckedPoint" value="0" />
+																							<c:set var="checkMessage" value="" />
 																							<c:forEach
 																							items="${currUserObj.checkpoints}" var="userChkInfo">
 
 																							<c:if test="${userChkInfo.checkpoint.id == checkpoint.id }">
 																								<c:set var="userCheckedPoint" value="1" />
+																								<c:set var="checkMessage" value="${userChkInfo.message}" />
 																							</c:if>
 
 																						</c:forEach> <c:choose>
@@ -163,6 +167,11 @@
 																									data-userId="${currUserObj.id}"
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
+																									
+																									<c:if test="${checkMessage != '' }">
+																										XXX
+																									</c:if>
+																									
 																							</c:when>
 																							<c:otherwise>
 																								<input type="checkbox" name="checkpoints"
