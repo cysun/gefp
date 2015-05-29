@@ -25,7 +25,7 @@
 							class="form-control" type="text" name="q"
 							placeholder="Search Student" /></td>
 						<td style="border: 0px solid !important;"><input
-							class="btn btn-primary" type="submit" name="submit"
+							class="btn override btn-primary" type="submit" name="submit"
 							value="Search" /></td>
 					</tr>
 				</table>

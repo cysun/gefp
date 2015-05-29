@@ -82,7 +82,7 @@
 														</c:choose></td>
 													<td><a
 														href="<c:url value="/plan/view/${plan.id}.html" />"
-														class="btn btn-primary"><i class="fa fa-eye "></i>
+														class="btn override btn-primary"><i class="fa fa-eye "></i>
 															View Plan</a>
 															
 															<%--
