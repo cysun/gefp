@@ -201,7 +201,8 @@ public class FlightPlanController {
         Long id = Long.parseLong( request.getParameter( "id" ) );
         String checked = request.getParameter( "checked" );
         String repsonse = "{data:" + id + ", status:" + checked + "}";
-
+        String message = request.getParameter( "message" );
+        
         if( id != null && checked != "" )
         {
 
@@ -210,7 +211,7 @@ public class FlightPlanController {
             if( checked.equals( "true" ) )
             {
                 System.out.println( "Check ID " + c.getId() );
-                CheckpointInfo cinfo = new CheckpointInfo(c, "acd");
+                CheckpointInfo cinfo = new CheckpointInfo(c, message);
                 currUserObj.getCheckpoints().add( cinfo );
             }
             else

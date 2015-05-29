@@ -39,12 +39,32 @@ function customAlert(text, type) {
 			smoke.prompt("Do you want to add a comment?", function(e){
 				if (e){
 					console.log("YES");
-					top.location.href = '/gefp/plan/add-milestone-comment.html';
+					//top.location.href = '/gefp/plan/add-milestone-comment.html';
+					
+					$.ajax({
+						url : '/gefp/plan/saveStudentCheckpoint.html',
+						data : {
+							message: e,
+							userId : $(this).attr("data-userId"),
+							id : $(this).val(),
+							checked : this.checked
+						},
+						type : 'POST',
+						success : function(response) {
+							console.log(response);
+							$("#successMessage").show();
+							setTimeout(function(){
+								$("#successMessage").hide();
+							},3000);
+						}
+					});
+					
 				}else{
 					console.log("NO");
 					$.ajax({
 						url : '/gefp/plan/saveStudentCheckpoint.html',
 						data : {
+							message: "",
 							userId : $(this).attr("data-userId"),
 							id : $(this).val(),
 							checked : this.checked
