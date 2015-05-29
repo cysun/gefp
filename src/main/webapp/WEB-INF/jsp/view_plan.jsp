@@ -164,6 +164,8 @@
 																									data-userId="${currUserObj.id}"
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
+																									
+																									${userChkInfo.message}123
 																							</c:when>
 																							<c:otherwise>
 																								<input type="checkbox" name="checkpoints"
