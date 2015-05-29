@@ -49,7 +49,7 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="panel-body">
-								<div class="table-responsive">
+								<div class="table-responsive__">
 									<table id="datatables" class="table table-striped table-bordered dataTable table-hover">
 										<thead>
 											<tr>

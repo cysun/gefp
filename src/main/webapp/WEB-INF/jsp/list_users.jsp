@@ -50,8 +50,8 @@
 							<div class="clearfix"></div>
 							</div>
 							<div class="panel-body">
-								<div class="table-responsive">
-									<table id="dataTables" class="table table-striped table-bordered dataTable table-hover">
+								<div class="table-responsive__">
+									<table id="dataTables" class="table-responsive table table-striped table-bordered dataTable table-hover">
 										<thead>
 											<tr>
 												<th>#</th>
