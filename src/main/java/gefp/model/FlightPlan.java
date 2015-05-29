@@ -30,8 +30,11 @@ public class FlightPlan implements Serializable {
     @Column(name = "name", nullable = true)
     private String name;
 
-    @Column(name = "quarter_name", nullable = true)
-    private String quarterName;
+    @Column(name = "season_year", nullable = true)
+    private String seasonYear;
+
+    @Column(name = "season_name", nullable = true)
+    private String seasonName;
 
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "flightplan_runways",
@@ -99,16 +102,6 @@ public class FlightPlan implements Serializable {
         this.name = name;
     }
 
-    public String getQuarterName()
-    {
-        return quarterName;
-    }
-
-    public void setQuarterName( String quarterName )
-    {
-        this.quarterName = quarterName;
-    }
-
     public List<Runway> getRunways()
     {
         return runways;
@@ -142,6 +135,26 @@ public class FlightPlan implements Serializable {
     public Department getDepartment()
     {
         return department;
+    }
+
+    public String getSeasonYear()
+    {
+        return seasonYear;
+    }
+
+    public void setSeasonYear( String seasonYear )
+    {
+        this.seasonYear = seasonYear;
+    }
+
+    public String getSeasonName()
+    {
+        return seasonName;
+    }
+
+    public void setSeasonName( String seasonName )
+    {
+        this.seasonName = seasonName;
     }
 
     public void setDepartment( Department department )

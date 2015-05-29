@@ -174,7 +174,7 @@
 									<div class="panel-body">
 										<div class="table-responsive">
 
-											<div class="studentPlanTitle">Student's Flight Plan - ${plan.name} (${plan.quarterName})</div>
+											<div class="studentPlanTitle">Student's Flight Plan - ${plan.name} (${plan.seasonName} ${plan.seasonYear})</div>
 
 											<table class="table table-striped table-bordered">
 												<thead>

@@ -3,6 +3,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
@@ -49,8 +50,24 @@
 												<form:input path="name" class="form-control" placeholder="Plan title here" />
 											</div>
 											<div class="form-group">
-												<label>Quarter/Semester Title:</label>
-												<form:input path="quarterName" class="form-control" placeholder="E.g. Summer Quarter 2015"  />
+												<label>Select Season:</label>
+												<form:select path="seasonName" class="form-control">
+													<form:option value="Fall">Fall</form:option>
+													<form:option value="Winter">Winter</form:option>
+													<form:option value="Spring">Spring</form:option>
+													<form:option value="Summer">Summer</form:option>
+												</form:select>
+											</div>
+											
+											<div class="form-group">
+												<label>Select Year:</label>
+												<c:set var="now" value="<%=new java.util.Date()%>" />
+												<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
+												<form:select path="seasonYear" class="form-control">
+													<c:forEach var="i" begin="${year}" end="${year + 20}">
+													<form:option value="${i}">${i}</form:option>
+													</c:forEach>
+												</form:select>
 											</div>
 
 											<input type="submit" class="btn override btn-primary" value="Save" />

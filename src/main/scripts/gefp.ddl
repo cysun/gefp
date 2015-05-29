@@ -60,6 +60,7 @@
         name varchar(255),
         published boolean not null,
         quarter_name varchar(255),
+        quarter_year varchar(255),
         department_id int4,
         primary key (id)
     );

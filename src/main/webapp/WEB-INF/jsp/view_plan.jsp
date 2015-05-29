@@ -88,7 +88,7 @@
 											
 											
 											<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
-												(${plan.quarterName})
+												(${plan.seasonName} ${plan.seasonYear})
 											</security:authorize>
 											
 											</span>
