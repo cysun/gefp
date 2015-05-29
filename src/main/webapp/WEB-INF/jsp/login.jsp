@@ -57,7 +57,7 @@
 							</div> -->
 
 							
-							<input type="submit" name="submit" class="btn btn-primary" value="Login Now" />
+							<input type="submit" name="submit" class="btn override btn-primary" value="Login Now" />
 							<div class="pull-right errMsg" style="line-height:30px;">${errorLogin}</div>
 							<!-- Not register ? <a href="registeration.html">click here </a> -->
 						</form>
