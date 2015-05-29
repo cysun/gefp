@@ -129,11 +129,28 @@
 													<th>CIN:</th>
 													<td><input type="text" name="cin" class="form-control" value="${currUserObj.cin}" /></td>
 													<th>Major:</th>
-													<td><input type="text" name="major" class="form-control" value="${currUserObj.major.name}" /></td>
+													<td>
+														
+														<select class="form-control" name="major">
+															<option value="">Select Major</option>
+															<c:forEach var="dept" items="${departments}">
+																<c:choose>
+																	<c:when test="${dept.id == currUserObj.major.id }">
+																		<option value="${dept.id}" selected>${dept.name}</option>
+																	</c:when>
+																	<c:otherwise>
+																		<option value="${dept.id}">${dept.name}</option>
+																	</c:otherwise>
+																</c:choose>
+															</c:forEach>
+															
+														</select>
+														
+													</td>
 												</tr>
 												
 												<tr>
-													<td colspan="4"> <input type="submit" class="btn btn-info" value="Save" /> </td>
+													<td colspan="4" align="right"> <input type="submit" class="btn btn-info" value="Save" /> </td>
 												</tr>
 												
 											</tbody>

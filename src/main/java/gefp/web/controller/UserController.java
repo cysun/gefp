@@ -279,7 +279,8 @@ public class UserController {
 
         User currUserObj = userDao.getUser( id );
         models.put( "currUserObj", currUserObj );
-
+        models.put( "departments", deptDao.getDepartments() );
+        
         FlightPlan plan = null;
 
         if( currUserObj.getFlightPlan() != null )
