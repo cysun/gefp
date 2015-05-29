@@ -43,7 +43,7 @@
 								<h5>${department.name} : List of Flight Plans</h5>
 							</div>
 							<div class="pull-right">
-								<a href="<c:url value="/admin/plan/add.html?departmentId=${department.id }"/>" class="btn btn-primary"><i class="fa fa-plus "></i> Add
+								<a href="<c:url value="/admin/plan/add.html?departmentId=${department.id }"/>" class="btn override btn-primary"><i class="fa fa-plus "></i> Add
 								Plan</a>
 							</div>
 							<div class="clearfix"></div>
@@ -71,11 +71,11 @@
 														${plan.name}
 														<c:choose>
 															<c:when test="${plan.id == department.defaultPlan.id}">
-																<span class="label label-success">Official Plan</span>
+																<span class="label override label-success">Official Plan</span>
 															</c:when>
 															<c:otherwise>
 																| 
-																<a href="<c:url value="/admin/department/set-official-plan.html?dept_id=${department.id}&plan_id=${plan.id}"/>" class="btn btn-link">Make Official Plan</a>
+																<a href="<c:url value="/admin/department/set-official-plan.html?dept_id=${department.id}&plan_id=${plan.id}"/>" class="btn override btn-link">Make Official Plan</a>
 															</c:otherwise>
 															
 														</c:choose>

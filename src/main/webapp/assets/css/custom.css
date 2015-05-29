@@ -640,6 +640,10 @@ line-height: 1.428571429;
 	border-color: #242424;
 }
 
+.override.btn-link {
+	color:#FFD400;
+}
+
 .brdt10 {
 	border-top:10px solid #000;
 }

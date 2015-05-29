@@ -56,7 +56,7 @@
 								<security:authorize access="authenticated and hasRole('ADMIN')">
 									<div class="pull-right">
 										<a href="<c:url value="/admin/department/add.html"/>"
-											class="btn override btn-primary">Add Department</a>
+											class="btn override btn-primary"><i class="fa fa-plus "></i>Add Department</a>
 									</div>
 								</security:authorize>
 								<div class="clearfix"></div>
