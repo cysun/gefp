@@ -153,7 +153,7 @@
 												<tr>
 													<td colspan="4" align="right">
 													<input type="hidden" name="" value="${currUserObj.id}" id="userId" />
-													<input id="SaveInformation" type="button" class="btn btn-info" value="Save" /> </td>
+													<input id="SaveInformation" type="button" class="btn override btn-info" value="Save" /> </td>
 												</tr>
 												
 											</tbody>
