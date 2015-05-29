@@ -168,9 +168,7 @@
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
 																									
-																									<c:if test="${checkMessage != '' }">
-																										XXX
-																									</c:if>
+																									${userChkInfo.message}123
 																									
 																							</c:when>
 																							<c:otherwise>
