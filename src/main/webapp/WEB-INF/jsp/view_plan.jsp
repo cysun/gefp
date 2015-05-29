@@ -149,9 +149,9 @@
 																					var="checkpoint">
 																					<li id="${checkpoint.id}" class="list"><c:set
 																							var="userCheckedPoint" value="0" /> <c:forEach
-																							items="${currUserObj.checkpoints}" var="userChk">
+																							items="${currUserObj.checkpoints}" var="userChkInfo">
 
-																							<c:if test="${userChk.id == checkpoint.id }">
+																							<c:if test="${userChkInfo.checkpoint.id == checkpoint.id }">
 																								<c:set var="userCheckedPoint" value="1" />
 																							</c:if>
 
