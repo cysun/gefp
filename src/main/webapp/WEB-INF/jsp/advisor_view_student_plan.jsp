@@ -174,8 +174,7 @@
 									<div class="panel-body">
 										<div class="table-responsive">
 
-											<div class="studentPlanTitle">${currUserObj.firstName}'s
-												Flight Plan</div>
+											<div class="studentPlanTitle">Student's Flight Plan - ${plan.name} (${plan.quarterName})</div>
 
 											<table class="table table-striped table-bordered">
 												<thead>
