@@ -27,6 +27,12 @@ a:focus {
 	margin-right:10px;
 }
 
+.logoIconImg {
+	width:100px;
+	float:left;
+	padding:5px;
+	margin-left:20px;
+}
 
 .flightplan_checkpoints {
 	margin-right: 10px !important;

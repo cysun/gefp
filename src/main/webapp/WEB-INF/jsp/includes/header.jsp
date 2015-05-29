@@ -11,7 +11,9 @@
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
 		
-		<img src="http://www.calstatela.edu/sites/default/files/users/u10871/eaglehead_4c.jpg" />
+		<div class="logoIconImg">
+			<img src="<c:url value="/img/eaglehead_4c.jpg" />" />
+		</div>
 		<a class="navbar-brand navtitle">Golden Eagle Flight Plan</a>
 	</div>
 
