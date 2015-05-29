@@ -29,7 +29,7 @@ public class FlightPlan implements Serializable {
 
     @Column(name = "name", nullable = true)
     private String name;
-    
+
     @Column(name = "quarter_name", nullable = true)
     private String quarterName;
 
@@ -67,14 +67,14 @@ public class FlightPlan implements Serializable {
     {
         FlightPlan flightplan = new FlightPlan();
         flightplan.name = name;
-//        for(int i=0; i < stages.size(); i++) {
-//            flightplan.stages.add(stages.get( i )); 
-//        }
-//        
-//        
-//        flightplan.stages = new ArrayList<Stage>(stages);
-//        flightplan.runways = new ArrayList<Runway>(runways);
-//        flightplan.cells = new ArrayList<Cell>(cells);
+        // for(int i=0; i < stages.size(); i++) {
+        // flightplan.stages.add(stages.get( i ));
+        // }
+        //
+        //
+        // flightplan.stages = new ArrayList<Stage>(stages);
+        // flightplan.runways = new ArrayList<Runway>(runways);
+        // flightplan.cells = new ArrayList<Cell>(cells);
         flightplan.published = false;
         return flightplan;
     }
@@ -97,6 +97,16 @@ public class FlightPlan implements Serializable {
     public void setName( String name )
     {
         this.name = name;
+    }
+
+    public String getQuarterName()
+    {
+        return quarterName;
+    }
+
+    public void setQuarterName( String quarterName )
+    {
+        this.quarterName = quarterName;
     }
 
     public List<Runway> getRunways()
