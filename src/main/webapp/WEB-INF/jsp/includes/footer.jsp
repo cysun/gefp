@@ -38,7 +38,10 @@
 
 <script>
 $(document).ready(function(){
-	$('#dataTables').dataTable();
+	$('#dataTables').dataTable({
+		"lengthMenu": [5, 10, 20, 50, 100],
+        "pageLength": 5
+	});
 	$("#search").autocomplete({
         source: "<c:url value='/autocomplete/user.html' />",
         select: function(event, ui) {
