@@ -94,7 +94,7 @@
 											 --%>
 											<li><a
 												href="<c:url value="/admin/plan/add-checkpoint.html?planId=${plan.id}"/>">Another
-													Checkpoint</a></li>
+													Milestone</a></li>
 										</ul>
 									</div>
 									

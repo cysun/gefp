@@ -101,9 +101,9 @@ public class FlightPlanController {
             models.put( "plan", fp );
             
             if(fp.isPublished())
-            return "edit_plan";
+            return "edit_published_plan";
             else
-                return "edit_published_plan";
+                return "edit_plan";
         }
         else
         {
