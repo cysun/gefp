@@ -83,9 +83,19 @@
 									<div class="panel-heading">
 										<div class="pull-left">
 											<h5>
-												<span class="planTitle">${plan.name}</span>
+												
+											<span class="planTitle">${plan.name} 
+											
+											
+											<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
+												(${plan.quarterName})
+											</security:authorize>
+											
+											</span>
+												
+												
 												<security:authorize access="hasRole('ADMIN')">
-
+													<span class="planTitle">${plan.name} </span>
 													<c:if test="${student_mode != true}">
 														<c:if test="${plan.published == true }">
 															<label class="label override label-success">Published</label>

@@ -81,7 +81,14 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="pull-left">
-									<h5><span class="planTitle"><a href="<c:url value="/plan/view/${plan.id}.html"/>">${plan.name}</a></span>
+									<h5><span class="planTitle"><a href="<c:url value="/plan/view/${plan.id}.html"/>">${plan.name}</a>
+									
+									
+									<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
+										(${plan.quarterName})
+									</security:authorize>
+									
+									</span>
 									
 									<security:authorize access="hasRole('ADMIN')">
 									
