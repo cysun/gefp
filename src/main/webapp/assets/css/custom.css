@@ -659,3 +659,11 @@ line-height: 1.428571429;
 .footerStyle {
 	background-color:#000;color:#FFF;text-align:center;line-height:30px; font-size:12px;width:100%;
 }
+
+.override.label-success {
+	background-color:#FFD400;
+}
+
+.override.label-primary {
+	background-color:#8a8a8d;
+}

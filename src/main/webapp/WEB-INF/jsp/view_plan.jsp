@@ -88,7 +88,7 @@
 
 													<c:if test="${student_mode != true}">
 														<c:if test="${plan.published == true }">
-															<label class="label label-success">Published</label>
+															<label class="label override label-success">Published</label>
 														</c:if>
 														<c:if test="${plan.published == false }">
 															<a onClick="publishPlan(${plan.id})"
