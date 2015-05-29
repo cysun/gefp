@@ -55,7 +55,7 @@
 													<form:option value="">Select Season</form:option>
 													<form:option value="Fall">Fall</form:option>
 													<form:option value="Winter">Winter</form:option>
-													<form:option selected value="Spring">Spring</form:option>
+													<form:option selected="selected" value="Spring">Spring</form:option>
 													<form:option value="Summer">Summer</form:option>
 												</form:select>
 											</div>
@@ -69,7 +69,7 @@
 													<c:forEach var="i" begin="2014" end="${year + 20}">
 													<c:choose>
 														<c:when test="${i == year }">
-															<form:option selected value="${i}">${i}</form:option>
+															<form:option selected="selected" value="${i}">${i}</form:option>
 														</c:when>
 														<c:otherwise>
 															<form:option value="${i}">${i}</form:option>
