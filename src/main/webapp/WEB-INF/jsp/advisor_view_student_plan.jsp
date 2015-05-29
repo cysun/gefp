@@ -121,7 +121,7 @@
 												</tr>
 												<tr>
 													<th>Username:</th>
-													<td><input type="text" name="username" class="form-control" value="${currUserObj.username}" /></td>
+													<td>${currUserObj.username}</td>
 													<th>Email:</th>
 													<td><input type="text" name="email" class="form-control" value="${currUserObj.email}" /></td>
 												</tr>
@@ -133,7 +133,7 @@
 												</tr>
 												
 												<tr>
-													<td colspan="4"> <input type="submit" class="btn btn-default" value="Save" /> </td>
+													<td colspan="4"> <input type="submit" class="btn btn-info" value="Save" /> </td>
 												</tr>
 												
 											</tbody>
