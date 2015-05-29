@@ -100,7 +100,9 @@
 													<th>CIN:</th>
 													<td><span id="cin">${currUserObj.cin}</span></td>
 													<th>Major:</th>
-													<td><span id="major">${currUserObj.major.name}</span></td>
+													<td>
+													<input type="hidden" id="oldMajorId" value="${currUserObj.major.id}" />
+													<span id="major">${currUserObj.major.name}</span></td>
 												</tr>
 											</tbody>
 										</table>
@@ -276,6 +278,7 @@ $(document).ready(function(){
 	$("#SaveInformation").click(function(){
 		console.log("test gdv ykdgyfgyksgk");
 		
+		var oldMajorId = $("#oldMajorId").val();
 		var userId = $("#userId").val();
 		var firstName = $("#firstNameInp").val();
 		var lastName = $("#lastNameInp").val();
@@ -289,13 +292,21 @@ $(document).ready(function(){
 			method : "POST",
 			url : '<c:url value="/advisor/update-student-profile.html" />',
 			success : function(data, textStatus, jqXHR ) {
-				$("#firstName").text(firstName);
-				$("#lastName").text(lastName);
-				$("#email").text(email);
-				$("#cin").text(cin);
-				$("#major").text($("#majorInp option:selected").attr("data-txt"));
-				$("#student-details").show();
-				$(".edit-student-details").hide();
+				
+				if(oldMajorId!=major) {
+					top.location.reload();
+				}
+				else {
+					$("#firstName").text(firstName);
+					$("#lastName").text(lastName);
+					$("#email").text(email);
+					$("#cin").text(cin);
+					$("#major").text($("#majorInp option:selected").attr("data-txt"));
+					$("#student-details").show();
+					$(".edit-student-details").hide();
+				}
+				
+				
 			}
 		})
 		
