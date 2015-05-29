@@ -38,8 +38,10 @@ function customAlert(text, type) {
 			
 			smoke.prompt("Do you want to add a comment?", function(e){
 				if (e){
+					console.log("YES");
 					top.location.href = '/gefp/plan/add-milestone-comment.html';
 				}else{
+					console.log("NO");
 					$.ajax({
 						url : '/gefp/plan/saveStudentCheckpoint.html',
 						data : {
@@ -62,7 +64,7 @@ function customAlert(text, type) {
 				cancel: "No",
 				classname: "custom-class",
 				reverseButtons: true,
-				value: "existential dread"
+				value: ""
 			});
 			// console.log("Checkpoint ID is : " + $(this).val() + " state is "
 			// + this.checked );
