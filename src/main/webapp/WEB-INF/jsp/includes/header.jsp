@@ -12,7 +12,7 @@
 		</button>
 		
 		<div class="logoIconImg">
-			<img src="<c:url value="/img/eaglehead_4c.jpg" />" />
+			<img src="<c:url value="/assets/img/eaglehead_4c.png" />" />
 		</div>
 		<a class="navbar-brand navtitle">Golden Eagle Flight Plan</a>
 	</div>
