@@ -75,7 +75,7 @@
 
 
 
-										<table class="table table-striped student-details">
+										<table class="table table-striped student-details" style="display:none;">
 											<thead>
 												<tr>
 													<td align="right" colspan="4"><a
@@ -101,6 +101,35 @@
 													<td>${currUserObj.cin}</td>
 													<th>Major:</th>
 													<td>${currUserObj.major.name}</td>
+												</tr>
+											</tbody>
+										</table>
+										
+										<table class="table table-striped edit-student-details">
+											<thead>
+												<tr>
+													<td align="right" colspan="4"><a
+														class="editStudentInfo" href="#"></a></td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th>First Name:</th>
+													<td><input type="text" name="firstName" class="" value="${currUserObj.firstName}" /></td>
+													<th>Last Name:</th>
+													<td><input type="text" name="lastName" class="" value="${currUserObj.lastName}" /></td>
+												</tr>
+												<tr>
+													<th>Username:</th>
+													<td><input type="text" name="username" class="" value="${currUserObj.username}" /></td>
+													<th>Email:</th>
+													<td><input type="text" name="email" class="" value="${currUserObj.email}" /></td>
+												</tr>
+												<tr>
+													<th>CIN:</th>
+													<td><input type="text" name="cin" class="" value="${currUserObj.cin}" /></td>
+													<th>Major:</th>
+													<td><input type="text" name="major" class="" value="${currUserObj.major.name}" /></td>
 												</tr>
 											</tbody>
 										</table>
@@ -168,8 +197,7 @@
 																									data-userId="${currUserObj.id}"
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
-																									
-																									${checkMessage}123
+																									${checkMessage}
 																									
 																							</c:when>
 																							<c:otherwise>

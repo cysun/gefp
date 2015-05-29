@@ -170,7 +170,7 @@
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
 																									
-																									${checkMessage}123
+																									${checkMessage}
 																							</c:when>
 																							<c:otherwise>
 																								<input type="checkbox" name="checkpoints"
