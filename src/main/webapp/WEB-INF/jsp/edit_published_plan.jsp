@@ -66,7 +66,7 @@
 									<h5><span class="planTitle"><a href="<c:url value="/plan/view/${plan.id}.html"/>">${plan.name}</a>
 										(${plan.quarterName})
 									</span>
-									<label class="label label-success">Published</label>
+									<label class="label override label-success">Published</label>
 									</h5>
 									
 								</div>
