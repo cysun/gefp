@@ -78,7 +78,8 @@
 										<table id="student-details" class="table table-striped student-details">
 											<thead>
 												<tr>
-													<td align="right" colspan="4"><a
+													<td colspan="2">Student's Profile </td>
+													<td align="right" colspan="2"><a
 														class="editStudentInfo" id="StartEditMode" href="javascript:void(0)"><i
 															class="fa fa-edit "></i>Edit</a></td>
 												</tr>
@@ -108,6 +109,13 @@
 										</table>
 										
 										<table class="table table-striped edit-student-details">
+											<thead>
+												<tr>
+													<td colspan="4">Student's Profile </td>
+													
+												</tr>
+											</thead>
+											
 											<tbody>
 												<tr>
 													<th>First Name:</th>
