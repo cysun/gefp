@@ -34,6 +34,13 @@ function customAlert(text, type) {
 
 	$(document).ready(function() {
 
+		$(".CommentIconClick").click(function(e){
+			
+			smoke.alert("The user comment will be shown here");
+			
+		})
+		
+		
 		$(".flightplan_checkpoints").click(function(e) {
 			
 			smoke.prompt("Do you want to add a comment?", function(e){

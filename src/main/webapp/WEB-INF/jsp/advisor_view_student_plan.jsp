@@ -221,7 +221,7 @@
 																									data-userId="${currUserObj.id}"
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
-																									<img class="CommentIcon" src="<c:url value="/assets/img/comment.png" />" />
+																									<img class="CommentIcon CommentIconClick" src="<c:url value="/assets/img/comment.png" />" />
 																									
 																							</c:when>
 																							<c:otherwise>
@@ -230,7 +230,7 @@
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
 																									
-																									<img class="CommentIcon" src="<c:url value="/assets/img/comment.png" />" />
+																									<img class="CommentIcon CommentIconClick" src="<c:url value="/assets/img/comment.png" />" />
 																							</c:otherwise>
 																						</c:choose> <span class="checkpoint_information pull-left">
 																							${checkpoint.name} </span></li>
