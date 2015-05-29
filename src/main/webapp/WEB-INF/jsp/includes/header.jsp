@@ -10,6 +10,8 @@
 			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
+		
+		<img src="http://www.calstatela.edu/sites/default/files/users/u10871/eaglehead_4c.jpg" />
 		<a class="navbar-brand navtitle">Golden Eagle Flight Plan</a>
 	</div>
 
