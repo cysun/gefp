@@ -99,7 +99,7 @@
 												<div class="col-sm-10">
 												<input type="hidden" name="chkId" value="${checkpoint.id }" />
 												<input type="hidden" name="planId" value="${flightplan.id }" />
-												<input type="submit" class="btn btn-primary pull-right" value="Save" />
+												<input type="submit" class="btn override btn-primary pull-right" value="Save" />
 													<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 												</div>
 											</div>

@@ -54,7 +54,7 @@
 												<!-- <p class="help-block">Enter department name.</p> -->
 											</div>
 
-											<button type="submit" class="btn btn-primary">Save</button>
+											<button type="submit" class="btn override btn-primary">Save</button>
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 
 										</form:form>
