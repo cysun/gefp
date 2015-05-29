@@ -18,7 +18,7 @@
 			style="">
 			Welcome ${loggedInUser.firstName} ${loggedInUser.lastName}! &nbsp; <a
 				href="<c:url value="/logout.html" />"
-				class="btn btn-danger square-btn-adjust">Logout</a>
+				class="btn btn-danger override square-btn-adjust">Logout</a>
 		</div>
 	</security:authorize>
 
