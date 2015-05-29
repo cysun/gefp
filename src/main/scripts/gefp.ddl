@@ -18,7 +18,6 @@
         DTYPE varchar(31) not null,
         id int8 not null,
         name varchar(255) not null,
-        messages varchar(255),
         primary key (id)
     );
 
