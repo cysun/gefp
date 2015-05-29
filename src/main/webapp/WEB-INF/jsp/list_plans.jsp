@@ -50,7 +50,7 @@
 							</div>
 							<div class="panel-body">
 								<div class="table-responsive__">
-									<table id="datatables" class="table table-striped table-bordered dataTable table-hover">
+									<table id="dataTables" class="table-responsive table table-striped table-bordered dataTable table-hover">
 										<thead>
 											<tr>
 												<th>#</th>
