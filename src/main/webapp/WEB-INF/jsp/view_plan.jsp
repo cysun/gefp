@@ -95,7 +95,6 @@
 												
 												
 												<security:authorize access="hasRole('ADMIN')">
-													<span class="planTitle">${plan.name} </span>
 													<c:if test="${student_mode != true}">
 														<c:if test="${plan.published == true }">
 															<label class="label override label-success">Published</label>
