@@ -75,43 +75,37 @@
 
 
 
-										<table class="table table-striped student-details" style="display:none;">
+										<table id="student-details" class="table table-striped student-details">
 											<thead>
 												<tr>
 													<td align="right" colspan="4"><a
-														class="editStudentInfo" href="#"><i
+														class="editStudentInfo" id="StartEditMode" href="#"><i
 															class="fa fa-edit "></i>Edit</a></td>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
 													<th>First Name:</th>
-													<td>${currUserObj.firstName}</td>
+													<td><span id="firstName">${currUserObj.firstName}</span></td>
 													<th>Last Name:</th>
-													<td>${currUserObj.lastName}</td>
+													<td><span id="lastName">${currUserObj.lastName}</span></td>
 												</tr>
 												<tr>
 													<th>Username:</th>
 													<td>${currUserObj.username}</td>
 													<th>Email:</th>
-													<td>${currUserObj.email}</td>
+													<td><span id="email">${currUserObj.email}</span></td>
 												</tr>
 												<tr>
 													<th>CIN:</th>
-													<td>${currUserObj.cin}</td>
+													<td><span id="cin">${currUserObj.cin}</span></td>
 													<th>Major:</th>
-													<td>${currUserObj.major.name}</td>
+													<td><span id="major">${currUserObj.major.name}</span></td>
 												</tr>
 											</tbody>
 										</table>
 										
 										<table class="table table-striped edit-student-details">
-											<thead>
-												<tr>
-													<td align="right" colspan="4"><a
-														class="editStudentInfo" href="#"></a></td>
-												</tr>
-											</thead>
 											<tbody>
 												<tr>
 													<th>First Name:</th>
@@ -150,7 +144,7 @@
 												</tr>
 												
 												<tr>
-													<td colspan="4" align="right"> <input type="submit" class="btn btn-info" value="Save" /> </td>
+													<td colspan="4" align="right"> <input id="SaveInformation" type="button" class="btn btn-info" value="Save" /> </td>
 												</tr>
 												
 											</tbody>
@@ -271,6 +265,24 @@
 	<!-- /. WRAPPER  -->
 
 	<jsp:include page="includes/footer.jsp" />
+
+<script>
+
+$(document).ready(function(){
+	$("#StartEditMode").click(function(){
+		$("#student-details").hide();
+		$(".edit-student-details").show();
+	});
+	
+	$("#SaveInformation").click(function(){
+		console.log("test gdv ykdgyfgyksgk");
+	});
+	
+});
+
+
+</script>
+
 
 </body>
 </html>

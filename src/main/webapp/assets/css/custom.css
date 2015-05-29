@@ -568,7 +568,18 @@ line-height: 1.428571429;
 	border-top:0px none !important;
 }
 
+.student-details {
+	
+}
+
+.edit-student-details {
+	display:none;
+}
+
+
 .studentPlanTitle {
 	padding-bottom:10px;
 }
+
+
 
