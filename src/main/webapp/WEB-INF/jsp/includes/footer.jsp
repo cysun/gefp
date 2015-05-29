@@ -39,6 +39,7 @@
 <script>
 $(document).ready(function(){
 	$('#dataTables').dataTable({
+		"bFilter": false,
 		"lengthMenu": [5, 10, 20, 50, 100],
         "pageLength": 5
 	});
