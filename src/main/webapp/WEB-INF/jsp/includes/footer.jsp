@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-default navbar-cls-top" role="navigation"
 	style="margin-bottom: 0; min-height:30px;">
-	<div class="navbar-header" style="color:#FFF;text-align:center;line-height:30px; font-size:12px;width:100%;">
+	<div class="navbar-header footerStyle" style="">
 		This site is designed for CalStateLa CS520 &copy; All Rights Reserved @Harsh Gadhia
 	</div>
 </nav>

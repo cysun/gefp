@@ -14,8 +14,8 @@
 	</div>
 
 	<security:authorize access="authenticated">
-		<div
-			style="color: #FFF; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
+		<div class="menuUserTitleName"
+			style="">
 			Welcome ${loggedInUser.firstName} ${loggedInUser.lastName}! &nbsp; <a
 				href="<c:url value="/logout.html" />"
 				class="btn btn-danger square-btn-adjust">Logout</a>
