@@ -64,8 +64,19 @@
 												<c:set var="now" value="<%=new java.util.Date()%>" />
 												<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
 												<form:select path="seasonYear" class="form-control">
-													<c:forEach var="i" begin="${year}" end="${year + 20}">
-													<form:option value="${i}">${i}</form:option>
+													<form:option value="">Select Year</form:option>
+													<c:forEach var="i" begin="2014" end="${year + 20}">
+													<c:choose>
+														<c:when test="${i == year }">
+															<form:option selected value="${i}">${i}</form:option>
+														</c:when>
+														<c:otherwise>
+															<form:option value="${i}">${i}</form:option>
+														</c:otherwise>
+														
+													</c:choose>
+													
+													
 													</c:forEach>
 												</form:select>
 											</div>
