@@ -102,12 +102,12 @@
 								</div>
 
 								<security:authorize access="authenticated and hasRole('ADMIN')">
-									<a href="<c:url value="/plan/view/${plan.id}.html"/>" class="btn btn-warning pull-right">Back</a>
+									<a href="<c:url value="/plan/view/${plan.id}.html"/>" class="btn override btn-warning pull-right">Back</a>
 									
 									<div class="btn-group pull-right" style="margin-right:5px;">
-										<button class="btn btn-primary">Add To Plan</button>
+										<button class="btn override btn-primary">Add To Plan</button>
 										<button data-toggle="dropdown"
-											class="btn btn-primary dropdown-toggle">
+											class="btn override btn-primary dropdown-toggle">
 											<span class="caret"></span>
 										</button>
 										<ul class="dropdown-menu">

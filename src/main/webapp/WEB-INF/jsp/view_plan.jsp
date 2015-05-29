@@ -110,7 +110,7 @@
 
 											<c:if test="${student_mode != true}">
 												<div class="pull-right">
-													<a class="btn btn-primary"
+													<a class="btn override btn-primary"
 														href="<c:url value="/plan/edit/${plan.id}.html" />"><i
 														class="fa fa-edit "></i> Edit Plan</a>
 												</div>
