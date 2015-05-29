@@ -4,6 +4,13 @@
     GENERAL  STYLES    
     =============================================*/
 
+a:hover,
+a:focus {
+  color: #FFD400 !important;
+  text-decoration: underline;
+}
+
+
 .planTitle {
 	line-height:30px;
 	margin-right:10px;
@@ -590,6 +597,14 @@ line-height: 1.428571429;
 	background-color: #B6880F !important;
 }
 
+.override.btn-info {
+	background-color: #8a8a8d !important;
+}
+
+.override.btn-primary {
+	background-color: #8a8a8d !important;
+}
+
 .brdt10 {
 	border-top:10px solid #000;
 }
@@ -600,6 +615,10 @@ line-height: 1.428571429;
 
 .yellowIcons {
 	color: #ffd400;
+}
+
+.greyColor {
+	color: #8a8a8d;
 }
 
 .footerStyle {

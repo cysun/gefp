@@ -86,16 +86,16 @@
 															access="authenticated and hasRole('ADMIN')">
 															<a
 																href="<c:url value="/admin/department/list-plans.html?id=${dept.id}" />"
-																class="btn btn-info"><i class="fa fa-eye "></i>
+																class="btn override btn-info"><i class="fa fa-eye "></i>
 																View Plan(s)</a>
 														</security:authorize> <a
 														href="<c:url value="/department/list-students.html?id=${dept.id}" />"
-														class="btn btn-info"><i class="fa fa-user "></i>
+														class="btn override btn-info"><i class="fa fa-user "></i>
 															View Student(s)</a> <security:authorize
 															access="authenticated and hasRole('ADMIN')">
 															<a
 																href="<c:url value="/admin/department/edit.html?id=${dept.id}" />"
-																class="btn btn-primary"><i class="fa fa-edit "></i>
+																class="btn override btn-primary"><i class="fa fa-edit "></i>
 																Edit</a>
 														</security:authorize></td>
 
