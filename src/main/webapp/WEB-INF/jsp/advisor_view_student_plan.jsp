@@ -73,7 +73,7 @@
 								<div class="panel panel-default">
 									<div class="panel-heading">
 
-										
+
 
 										<table class="table table-striped student-details">
 											<thead>
@@ -119,9 +119,10 @@
 
 									<div class="panel-body">
 										<div class="table-responsive">
-											
-											<div class="studentPlanTitle">${currUserObj.firstName}'s Flight Plan </div>
-											
+
+											<div class="studentPlanTitle">${currUserObj.firstName}'s
+												Flight Plan</div>
+
 											<table class="table table-striped table-bordered">
 												<thead>
 													<tr>
@@ -145,17 +146,17 @@
 																			<ul id="${cell.id}" class="checkpoint_list list">
 																				<c:forEach items="${cell.checkpoints}"
 																					var="checkpoint">
-																					<li id="${checkpoint.id}" class="list">
-																					
-																					<c:set
-																							var="userCheckedPoint" value="0" />
-																							<c:set var="checkMessage" value="" />
-																							<c:forEach
-																							items="${currUserObj.checkpoints}" var="userChkInfo">
+																					<li id="${checkpoint.id}" class="list"><c:set
+																							var="userCheckedPoint" value="0" /> <c:set
+																							var="checkMessage" value="" /> <c:forEach
+																							items="${currUserObj.checkpoints}"
+																							var="userChkInfo">
 
-																							<c:if test="${userChkInfo.checkpoint.id == checkpoint.id }">
+																							<c:if
+																								test="${userChkInfo.checkpoint.id == checkpoint.id }">
 																								<c:set var="userCheckedPoint" value="1" />
-																								<c:set var="checkMessage" value="${userChkInfo.message}" />
+																								<c:set var="checkMessage"
+																									value="${userChkInfo.message}" />
 																							</c:if>
 
 																						</c:forEach> <c:choose>
@@ -168,7 +169,7 @@
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
 																									
-																									${userChkInfo.message}123
+																									${checkMessage}123
 																									
 																							</c:when>
 																							<c:otherwise>
