@@ -43,7 +43,7 @@
 							</div>
 							<security:authorize access="authenticated and hasRole('ADMIN')">
 							<div class="pull-right">
-							<a href="<c:url value="/admin/user/add.html"/>" class="btn btn-primary"><i class="fa fa-plus "></i> Add
+							<a href="<c:url value="/admin/user/add.html"/>" class="btn override btn-primary"><i class="fa fa-plus "></i> Add
 							New</a>
 							</div>
 							</security:authorize>
@@ -87,13 +87,13 @@
 													
 													<td><a
 														href="<c:url value="/student/view-plan/${user.id}.html" />"
-														class="btn btn-warning"><i class="fa fa-view "></i>
+														class="btn override btn-warning"><i class="fa fa-view "></i>
 															View Plan</a>
 															
 													<security:authorize access="authenticated and hasRole('ADMINA')">
 													<a
 														href="<c:url value="/user/edit/${user.id}.html" />"
-														class="btn btn-primary"><i class="fa fa-edit "></i>
+														class="btn override btn-primary"><i class="fa fa-edit "></i>
 															Edit</a>
 													</security:authorize>		
 													</td>
