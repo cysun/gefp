@@ -41,9 +41,6 @@
 					<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
 					<li><a href="<c:url value="/admin/list-plans.html"/>">Flight
 						Plans</a></li>
-				
-					<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
-				
 					<li class="active">View Plan</li>
 				</ol>
 
