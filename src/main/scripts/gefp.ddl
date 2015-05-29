@@ -18,6 +18,7 @@
         DTYPE varchar(31) not null,
         id int8 not null,
         name varchar(255) not null,
+        messages varchar(255),
         primary key (id)
     );
 
@@ -53,6 +54,7 @@
         id int8 not null,
         name varchar(255),
         published boolean not null,
+        quarter_name varchar(255),
         department_id int4,
         primary key (id)
     );
@@ -110,12 +112,6 @@
         primary key (id)
     );
 
-    create table users_checkpoints (
-        User_id int8 not null,
-        checkpointInfo_id int8 not null,
-        primary key (User_id, checkpointInfo_id)
-    );
-
     alter table cell_checkpoints 
         add constraint UK_1bq0aejed37fc3yhyfoca8qqu unique (checkpoint_id);
 
@@ -133,9 +129,6 @@
 
     alter table users 
         add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username);
-
-    alter table users_checkpoints 
-        add constraint UK_l56ciu1hreq2gg1qhnk9wsj8h unique (checkpointInfo_id);
 
     alter table cell_checkpoints 
         add constraint FK_1bq0aejed37fc3yhyfoca8qqu 
@@ -246,15 +239,5 @@
         add constraint FK_q37jte7r1ptl16arimkk23y1h 
         foreign key (major_id) 
         references departments;
-
-    alter table users_checkpoints 
-        add constraint FK_l56ciu1hreq2gg1qhnk9wsj8h 
-        foreign key (checkpointInfo_id) 
-        references checkpoints;
-
-    alter table users_checkpoints 
-        add constraint FK_ekgsm9sbd4cdcrq4f538s56i1 
-        foreign key (User_id) 
-        references users;
 
     create sequence hibernate_sequence;
