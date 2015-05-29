@@ -109,42 +109,41 @@
 											<tbody>
 												<tr>
 													<th>First Name:</th>
-													<td><input type="text" name="firstName" class="form-control" value="${currUserObj.firstName}" /></td>
+													<td><input type="text" id="firstNameInp" name="firstName" class="form-control" value="${currUserObj.firstName}" /></td>
 													<th>Last Name:</th>
-													<td><input type="text" name="lastName" class="form-control" value="${currUserObj.lastName}" /></td>
+													<td><input type="text" id="lastNameInp" name="lastName" class="form-control" value="${currUserObj.lastName}" /></td>
 												</tr>
 												<tr>
 													<th>Username:</th>
 													<td>${currUserObj.username}</td>
 													<th>Email:</th>
-													<td><input type="text" name="email" class="form-control" value="${currUserObj.email}" /></td>
+													<td><input type="text" id="emailInp" name="email" class="form-control" value="${currUserObj.email}" /></td>
 												</tr>
 												<tr>
 													<th>CIN:</th>
-													<td><input type="text" name="cin" class="form-control" value="${currUserObj.cin}" /></td>
+													<td><input type="text" id="cinInp" name="cin" class="form-control" value="${currUserObj.cin}" /></td>
 													<th>Major:</th>
 													<td>
-														
-														<select class="form-control" name="major">
+														<select class="form-control" name="major" id="majorInp">
 															<option value="">Select Major</option>
 															<c:forEach var="dept" items="${departments}">
 																<c:choose>
 																	<c:when test="${dept.id == currUserObj.major.id }">
-																		<option value="${dept.id}" selected>${dept.name}</option>
+																		<option value="${dept.id}" data-txt="${dept.name}" selected>${dept.name}</option>
 																	</c:when>
 																	<c:otherwise>
-																		<option value="${dept.id}">${dept.name}</option>
+																		<option value="${dept.id}" data-txt="${dept.name}">${dept.name}</option>
 																	</c:otherwise>
 																</c:choose>
 															</c:forEach>
-															
 														</select>
-														
 													</td>
 												</tr>
 												
 												<tr>
-													<td colspan="4" align="right"> <input id="SaveInformation" type="button" class="btn btn-info" value="Save" /> </td>
+													<td colspan="4" align="right">
+													<input type="hidden" name="" value="${currUserObj.id}" id="userId" />
+													<input id="SaveInformation" type="button" class="btn btn-info" value="Save" /> </td>
 												</tr>
 												
 											</tbody>
@@ -276,6 +275,32 @@ $(document).ready(function(){
 	
 	$("#SaveInformation").click(function(){
 		console.log("test gdv ykdgyfgyksgk");
+		
+		var userId = $("#userId").val();
+		var firstName = $("#firstNameInp").val();
+		var lastName = $("#lastNameInp").val();
+		var email = $("#emailInp").val();
+		var cin = $("#cinInp").val();
+		var major = $("#majorInp").val();
+		
+		$.ajax({
+			data : {userId:userId, firstName:firstName, lastName:lastName, email:email, cin:cin, major:major},
+			dataType: "json",
+			method : "POST",
+			url : "<c:url value=\"/advisor/update-student-profile.html\" />",
+			success : function(resp) {
+				$("#firstName").text(firstName);
+				$("#lastName").text(lastName);
+				$("#email").text(email);
+				$("#cin").text(cin);
+				$("#major").text($("#majorInp:selected").attr("data-txt"));
+				$("#student-details").show();
+				$(".edit-student-details").hide();
+				alert("Updted");
+			}
+		})
+		
+		
 	});
 	
 });

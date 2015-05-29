@@ -11,6 +11,7 @@ import gefp.model.dao.UserDao;
 import gefp.web.validator.UserValidator;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -280,7 +281,7 @@ public class UserController {
         User currUserObj = userDao.getUser( id );
         models.put( "currUserObj", currUserObj );
         models.put( "departments", deptDao.getDepartments() );
-        
+
         FlightPlan plan = null;
 
         if( currUserObj.getFlightPlan() != null )
@@ -289,6 +290,30 @@ public class UserController {
         }
         models.put( "plan", plan );
         return "advisor_view_student_plan";
+    }
+
+    @RequestMapping(value = "/advisor/update-student-profile.html", method=RequestMethod.POST)
+    public void updateProfile( HttpServletRequest request,
+        HttpServletResponse response, PrintWriter out )
+    {
+
+        long userId = Long.parseLong( request.getParameter( "userId" ) );
+        String firstName = request.getParameter( "firstName" );
+        String lastName = request.getParameter( "lastName" );
+        String email = request.getParameter( "email" );
+        String cin = request.getParameter( "cin" );
+        Integer majorId = Integer.parseInt( request.getParameter( "major" ) );
+
+        User usr = userDao.getUser( userId );
+        usr.setFirstName( firstName );
+        usr.setLastName( lastName );
+        usr.setCin( cin );
+        usr.setEmail( email );
+        usr.setDepartment( deptDao.getDepartment( majorId ) );
+        usr.setMajor( deptDao.getDepartment( majorId ) );
+        userDao.saveUser( usr );
+        out.print( "Saved" );
+
     }
 
     @RequestMapping(value = "/autocomplete/user.html")
@@ -334,13 +359,13 @@ public class UserController {
     {
 
         HttpSession session = request.getSession();
-        
+
         String firstName = request.getParameter( "firstName" );
         String middleName = request.getParameter( "middleName" );
         String lastName = request.getParameter( "lastName" );
         String cin = request.getParameter( "cin" );
         String email = request.getParameter( "email" );
-        
+
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
         Integer deptId = Integer.parseInt( request.getParameter( "department" ) );
         Department d = deptDao.getDepartment( deptId );
