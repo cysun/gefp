@@ -35,8 +35,8 @@ function customAlert(text, type) {
 	$(document).ready(function() {
 
 		$(".flightplan_checkpoints").click(function(e) {
-
-			smoke.confirm("Do you want to add a comment?", function(e){
+			
+			smoke.prompt("Do you want to add a comment?", function(e){
 				if (e){
 					top.location.href = '/gefp/plan/add-milestone-comment.html';
 				}else{
@@ -61,8 +61,9 @@ function customAlert(text, type) {
 				ok: "Yes",
 				cancel: "No",
 				classname: "custom-class",
-				reverseButtons: true
-			});	
+				reverseButtons: true,
+				value: "existential dread"
+			});
 			// console.log("Checkpoint ID is : " + $(this).val() + " state is "
 			// + this.checked );
 		});
