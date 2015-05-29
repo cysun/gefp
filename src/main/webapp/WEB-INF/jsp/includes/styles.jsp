@@ -18,6 +18,9 @@
 
 <link href="<c:url value="/assets/css/animate.css" />" rel="stylesheet" />
 
+<!-- DATA TABLES-->
+<link href="<c:url value="/assets/js/dataTables/dataTables.bootstrap.css" />" rel="stylesheet" />
+
 <!-- GOOGLE FONTS-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans'
 	rel='stylesheet' type='text/css' />

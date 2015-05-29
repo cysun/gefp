@@ -30,10 +30,16 @@
 <script src="<c:url value="/assets/ckeditor/ckeditor.js" />"></script>
 <script src="<c:url value="/assets/js/jquery.dragtable.js"/>"></script>
 <script src="<c:url value="/assets/js/jquery.noty.packaged.min.js"/>"></script>
+<!-- DATA TABLE SCRIPTS -->
+<script src="<c:url value="/assets/js/dataTables/jquery.dataTables.js" />"></script>
+<script src="<c:url value="/assets/js/dataTables/dataTables.bootstrap.js" />"></script>
+
+
 
 <script>
 $(document).ready(function(){
-    $("#search").autocomplete({
+	$('#dataTables').dataTable();
+	$("#search").autocomplete({
         source: "<c:url value='/autocomplete/user.html' />",
         select: function(event, ui) {
             if( ui.item )
