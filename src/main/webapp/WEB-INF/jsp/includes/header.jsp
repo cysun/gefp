@@ -2,7 +2,7 @@
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
-<nav class="navbar navbar-default navbar-cls-top " role="navigation"
+<nav class="navbar brdt10 brdb10 navbar-default navbar-cls-top " role="navigation"
 	style="margin-bottom: 0">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse"

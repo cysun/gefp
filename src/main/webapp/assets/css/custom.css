@@ -585,6 +585,17 @@ line-height: 1.428571429;
 	color: #000; padding: 15px 50px 5px 50px; float: right; font-size: 16px;
 }
 
+.override.btn-danger {
+	background-color: #B6880F !important;
+}
+
+.brdt10 {
+	border-top:10px solid #000;
+}
+
+.brdb10 {
+	border-bottom:10px solid #000;
+}
 
 .footerStyle {
 	color:#000;text-align:center;line-height:30px; font-size:12px;width:100%;
