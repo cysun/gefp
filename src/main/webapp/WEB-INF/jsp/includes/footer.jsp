@@ -4,7 +4,7 @@
 <nav class="navbar navbar-default navbar-cls-top" role="navigation"
 	style="margin-bottom: 0; min-height:30px;">
 	<div class="navbar-header footerStyle" style="">
-		This site is designed for CalStateLa CS520 &copy; All Rights Reserved @Harsh Gadhia
+		This site is designed for Cal State LA CS520 &copy; All Rights Reserved @Harsh Gadhia
 	</div>
 </nav>
 
