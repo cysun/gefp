@@ -217,7 +217,6 @@
 			
 			<c:otherwise>
 				Plan not available
-			
 			</c:otherwise>
 			
 			</c:choose>
