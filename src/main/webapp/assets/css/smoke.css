@@ -86,7 +86,7 @@
 
 .smoke-base .dialog-inner {
   padding: 15px;
-  color:#FF0202;
+  color:#000;
 }
 
 .smoke {
@@ -97,7 +97,7 @@
 
 
 .dialog-buttons button {
-  background-color: #3071A9;
+  background-color: #000;
   
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#222222,endColorstr=#222222);
   border-radius: 0;
@@ -105,7 +105,7 @@
 }
 
 button.cancel {
-  background-color: #31B0D5;
+  background-color: #8a8a8d;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#444444,endColorstr=#444444);
 }
 
