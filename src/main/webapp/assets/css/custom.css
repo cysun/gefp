@@ -664,6 +664,10 @@ line-height: 1.428571429;
 	background-color:#FFD400;
 }
 
+.handCursor{
+	cursor: pointer;
+}
+
 .override.label-primary {
 	background-color:#8a8a8d;
 }

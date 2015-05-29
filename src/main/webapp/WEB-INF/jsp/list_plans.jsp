@@ -72,7 +72,7 @@
 															<c:when test="${plan.published == false}">
 																<a
 																	href="<c:url value="/admin/plan/publish.html?planId=${plan.id}"/>">
-																	<label class="label override label-primary">Publish Now</label>
+																	<label class="label override handCursor label-primary">Publish Now</label>
 																</a>
 															</c:when>
 															<c:otherwise>
