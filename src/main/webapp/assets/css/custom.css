@@ -671,3 +671,8 @@ line-height: 1.428571429;
 .override.label-primary {
 	background-color:#8a8a8d;
 }
+
+.CommentIcon {
+	width: 30px;
+	cursor:pointer;
+}

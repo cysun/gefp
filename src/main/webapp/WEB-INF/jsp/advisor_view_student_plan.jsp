@@ -221,7 +221,7 @@
 																									data-userId="${currUserObj.id}"
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
-																									${checkMessage}
+																									<img class="CommentIcon" src="<c:url value="/assets/img/comment.png" />" />
 																									
 																							</c:when>
 																							<c:otherwise>
