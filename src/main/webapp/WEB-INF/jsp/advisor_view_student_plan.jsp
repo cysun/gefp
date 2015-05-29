@@ -131,6 +131,11 @@
 													<th>Major:</th>
 													<td><input type="text" name="major" class="form-control" value="${currUserObj.major.name}" /></td>
 												</tr>
+												
+												<tr>
+													<td colspan="4"> <input type="submit" class="btn btn-default" value="Save" /> </td>
+												</tr>
+												
 											</tbody>
 										</table>
 
