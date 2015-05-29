@@ -37,20 +37,19 @@
 		<div id="page-wrapper" class="fullscreen">
 			<div id="page-inner">
 
-
-
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
 					<li><a href="<c:url value="/admin/list-plans.html"/>">Flight
 						Plans</a></li>
+				
+					<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
+				
 					<li class="active">View Plan</li>
 				</ol>
->
+
 
 				<jsp:include page="includes/dashboard_title.jsp" />
 				<!-- /. ROW  -->
-
-
 
 				<hr />
 
@@ -67,9 +66,7 @@
 									<h5><span class="planTitle"><a href="<c:url value="/plan/view/${plan.id}.html"/>">${plan.name}</a>
 										(${plan.quarterName})
 									</span>
-									
-									<a onClick="publishPlan(${plan.id})" class="pull-right btn btn-warning" href="javascript:void(0);">Publish Now</a>
-									
+									<label class="label label-success">Published</label>
 									</h5>
 									
 								</div>
@@ -87,12 +84,14 @@
 											<span class="caret"></span>
 										</button>
 										<ul class="dropdown-menu">
+											<%--
 											<li><a
 												href="<c:url value="/admin/plan/add-runway.html?planId=${plan.id}"/>">Another
 													Runway</a></li>
 											<li><a
 												href="<c:url value="/admin/plan/add-stage.html?planId=${plan.id}"/>">Another
 													Stage</a></li>
+											 --%>
 											<li><a
 												href="<c:url value="/admin/plan/add-checkpoint.html?planId=${plan.id}"/>">Another
 													Checkpoint</a></li>
@@ -116,9 +115,6 @@
 													<th class="accept editable" id="${runway.id}">${runway.name} 
 													<security:authorize access="hasRole('ADMIN')">
 														<a title="Edit Runway" href="<c:url value="/admin/plan/edit-runway.html?id=${runway.id}&planId=${plan.id}"/>"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
-														<a title="Delete Runway" class="" onClick="deleteRunway(${runway.id},${plan.id});"
-																					href="javascript:void(0);"
-																					class="btn btn-link"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 													</security:authorize>
 													</th>
 												</c:forEach>
@@ -131,10 +127,6 @@
 													<th class="editable">${stage.name} 
 													<security:authorize access="hasRole('ADMIN')">
 														<a title="Edit Stage" href="<c:url value="/admin/plan/edit-stage.html?id=${stage.id}&planId=${plan.id}"/>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-														<a title="Delete Stage" class="" onClick="deleteStage(${stage.id},${plan.id});"
-																					href="javascript:void(0);"
-																					class="btn btn-link"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-														
 													</security:authorize>
 													</th>
 													<c:forEach items="${plan.runways}" var="runway">
@@ -179,9 +171,6 @@
 																				<a title="Edit Checkpoint" class=""
 																					href="<c:url value="/admin/plan/edit-checkpoint.html?id=${checkpoint.id}&cellId=${cell.id}&planId=${plan.id}" />"
 																					class="btn btn-link"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-																				<a title="Delete Checkpoint" class="" onClick="deleteCheckpoint(${checkpoint.id},${cell.id},${plan.id});"
-																					href="javascript:void(0);"
-																					class="btn btn-link"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>	
 																			</security:authorize>
 																			</li>
 																			</c:forEach>
@@ -237,90 +226,6 @@
 
 <script type="text/javascript">
 
-$( ".checkpoint_list" ).sortable({
-	cursor: "move",
-	update: function( event, ui ) {
-		var planId = $('#planId').val();
-		var cellId = $(this).attr("id");
-		var checkIds = $(this).sortable('toArray');
-		$.ajax({ url : '<c:url value="/admin/plan/reorder-checkpoints.html" />',
-			 method : 'post',
-			 data: {planId : planId, cellId : cellId, checkpointIds : checkIds},
-			 success : function(response){
-				 customAlert(response, 'information');
-			}
-		});
-	}
-});	
-	
-$( "#sortable tbody" ).sortable({
-	cursor: "move",
-	update: function( event, ui ) {
-		$.each($("#sortable .state-default"), function(i,v){
-			$(this).attr("order",++i);
-		});
-		var stageIds = $(this).sortable('toArray');
-		var stageOrders = $(this).sortable('toArray', { attribute : "order" });
-		var planId = $('#planId').val();
-		$.ajax({ url : '<c:url value="/admin/plan/reorder-stages.html" />',
-				 method : 'post',
-				 data: {planId : planId, stageIds : stageIds, stageOrders : stageOrders},
-				 success : function(response){
-					 customAlert(response, 'information');
-				}
-		});
-		//$(".save_btn").fadeIn();
-	}
-});
-
-function deleteCheckpoint(checkpointID, cellID, planID) {
-	
-	smoke.confirm("Are you sure you want to remove this checkpoint?", function(e){
-		if (e){
-			top.location.href = '<c:url value="/admin/plan/remove-checkpoint.html?id='+checkpointID+'&cellId='+cellID+'&planId='+planID+'" />';
-		}else{
-			
-		}
-	}, {
-		ok: "Yes",
-		cancel: "No",
-		classname: "custom-class",
-		reverseButtons: true
-	});	
-}
-
-function deleteRunway(runwayID, planID) {
-	
-	smoke.confirm("Are you sure you want to remove this runway?", function(e){
-		if (e) {
-			top.location.href = '<c:url value="/admin/plan/remove-runway.html?rid='+runwayID+'&planId='+planID+'" />'; 
-		}else{
-			
-		}
-	}, {
-		ok: "Yes",
-		cancel: "No",
-		classname: "custom-class",
-		reverseButtons: true
-	});	
-}
-
-function deleteStage(stageID, planID) {
-	
-	smoke.confirm("Are you sure you want to remove this stage?", function(e){
-		if (e){
-			top.location.href = '<c:url value="/admin/plan/remove-stage.html?sid='+stageID+'&planId='+planID+'" />'; 
-		}else{
-			
-		}
-	}, {
-		ok: "Yes",
-		cancel: "No",
-		classname: "custom-class",
-		reverseButtons: true
-	});	
-}
-
 function publishPlan(planID) {
 	
 	smoke.confirm("Are you sure you want to publish this plan?", function(e){
@@ -336,39 +241,6 @@ function publishPlan(planID) {
 		reverseButtons: true
 	});	
 }
-
-$(document).ready(function(){
-	$('#sortable').dragtable({
-		dragHandle: '.table-handle',
-		dragaccept:'.accept',
-		persistState: function(table) {
-        
-		var planId = $('#planId').val();
-        var runwayIds = [];
-		var runwayOrders = [];
-		var tot = table.el.find('th').length;
-		table.el.find('th').each(function(i,v) {
-          	//if(this.id != '') {table.sortOrder[this.id]=i;}
-          	if(this.id != '') {
-          		runwayIds.push(this.id);
-          		runwayOrders.push(i);
-          	}
-          	if(i == tot-1) {
-          		$.ajax({
-                	url: '<c:url value="/admin/plan/reorder-runways.html" />',
-                	method : 'post',
-                	data : {planId : planId, runwayIds : runwayIds, runwayOrders : runwayOrders},
-                	success : function(response) {
-                		customAlert(response, 'information');
-                	}
-                })
-          	}
-          	
-        });
-      }
-    });
-});
-
 
 </script>
 </security:authorize>
