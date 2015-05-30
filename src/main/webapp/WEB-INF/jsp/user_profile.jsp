@@ -56,30 +56,25 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">My Profile</div>
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-md-12">
-										<form action="" method="post">
-											
-											<table class="table table-striped">
-											<thead>
-												<tr>
-													<td colspan="2">Student's Profile</td>
-													
-													<td colspan="2" align="right">
-													<c:if test="${not empty StudentUser}">
+							<div class="panel-heading">
+							
+							<div class="pull-left">
+							<h5>My Profile</h5>
+							</div>
+							<c:if test="${not empty StudentUser}">
 													<div class="pull-right">
 													<a style="text-decoration:underline;" class="btn override btn-link" href="<c:url value="/student/view-plan/${StudentUser.id}.html"/>">Back to FLightplan</a>
 													</div>
 										
 													</c:if>
-													
-													</td>
-													
-												</tr>
-											</thead>
-											
+							
+							
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-12">
+										<form action="" method="post">
+											<table class="table table-striped">
 											<tbody>
 												<tr>
 													<th>First Name: <span class="compulsary">*</span></th>
