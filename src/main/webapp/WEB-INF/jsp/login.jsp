@@ -2,21 +2,33 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html ng-app="gefpApp" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Golden Eagle Flight Plan</title>
-<jsp:include page="includes/styles.jsp" />
+<jsp:include page="/WEB-INF/jsp/includes/styles.jsp" />
 
 </head>
 <body>
-	<div class="container">
-		<div class="row text-center ">
+	
+	<div id="wrapper">
+
+		<jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+
+		<!-- /. NAV SIDE  -->
+		<div id="page-wrapper">
+			<div id="page-inner">
+
+				<jsp:include page="/WEB-INF/jsp/includes/dashboard_title.jsp" />
+				<!-- /. ROW  -->
+
+				<div class="row text-center ">
 			<div class="col-md-12">
 				<br />
 				<br />
@@ -66,17 +78,17 @@
 				</div>
 			</div>
 		</div>
+			
+			
+			</div>
+			<!-- /. PAGE INNER  -->
+		</div>
+		<!-- /. PAGE WRAPPER  -->
 	</div>
+	<!-- /. WRAPPER  -->
 
 
-<!-- JQUERY SCRIPTS -->
-<script src="<c:url value="/assets/js/jquery-1.10.2.js" />"></script>
-<!-- BOOTSTRAP SCRIPTS -->
-<script src="<c:url value="/assets/js/bootstrap.min.js" />"></script>
-<!-- METISMENU SCRIPTS -->
-<script src="<c:url value="/assets/js/jquery.metisMenu.js" />"></script>
-<!-- CUSTOM SCRIPTS -->
-<script src="<c:url value="/assets/js/custom.js" />"></script>
+	<jsp:include page="/WEB-INF/jsp/includes/footer.jsp" />
 
 </body>
 </html>

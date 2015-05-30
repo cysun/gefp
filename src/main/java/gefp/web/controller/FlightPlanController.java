@@ -458,8 +458,6 @@ public class FlightPlanController {
         // Only if it was in a different Cell.
         if( !cellId.equals( newCellId ) )
         {
-            
-            
             /*
             int cellIndex = cells.indexOf( cellDao.getCell( cellId ) );
             Cell oldCell = cells.get( cellIndex );
@@ -470,8 +468,6 @@ public class FlightPlanController {
             oldCell.getCheckpoints().remove( oldIndex );
             cells.set(cellIndex, oldCell);
             */
-            
-            
             
             for( Cell c : cells )
             {
