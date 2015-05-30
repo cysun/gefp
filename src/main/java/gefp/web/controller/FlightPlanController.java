@@ -487,7 +487,7 @@ public class FlightPlanController {
                         c.getCheckpoints().set( index, checkpoint );
                     }
                     else { // Add the checkpoint to new cell
-                        c.getCheckpoints().add(checkpoint);
+                        c.getCheckpoints().add(checkpointDao.getCheckPoint( chkId ));
                         // throw new Exception("Error in updating the checkpoint. No checkpoint with id " + chkId + " is found in Cell. Using parameters newCellId=" + newCellId + " cellId=" + cellId + " index="+index);
                     }
                     
