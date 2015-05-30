@@ -36,7 +36,7 @@ function customAlert(text, type) {
 
 		$(".CommentIconClick").click(function(e){
 			
-			smoke.alert("The user comment will be shown here");
+			smoke.alert($(this).attr("data-comment"));
 			
 		})
 		
@@ -44,57 +44,84 @@ function customAlert(text, type) {
 		$(".flightplan_checkpoints").click(function(e) {
 			
 			var curr = this;
+			var checked = curr.checked;
 			
-			smoke.prompt("Do you want to add a comment?", function(e){
-				if (e){
-					//console.log("YES");
-					//top.location.href = '/gefp/plan/add-milestone-comment.html';
-					
-					$.ajax({
-						url : '/gefp/plan/saveStudentCheckpoint.html',
-						data : {
-							message: e,
-							userId : $(curr).attr("data-userId"),
-							id : $(curr).val(),
-							checked : curr.checked
-						},
-						type : 'POST',
-						success : function(response) {
-							// console.log(response);
-							$("#successMessage").show();
-							setTimeout(function(){
-								$("#successMessage").hide();
-							},3000);
-						}
-					});
-					
-				}else{
-					//console.log("NO");
-					$.ajax({
-						url : '/gefp/plan/saveStudentCheckpoint.html',
-						data : {
-							message: "",
-							userId : $(curr).attr("data-userId"),
-							id : $(curr).val(),
-							checked : curr.checked
-						},
-						type : 'POST',
-						success : function(response) {
-							// console.log(response);
-							$("#successMessage").show();
-							setTimeout(function(){
-								$("#successMessage").hide();
-							},3000);
-						}
-					});
-				}
-			}, {
-				ok: "Yes",
-				cancel: "No",
-				classname: "custom-class",
-				reverseButtons: true,
-				value: ""
-			});
+			if(checked != true) {
+				$.ajax({
+					url : '/gefp/plan/saveStudentCheckpoint.html',
+					data : {
+						message: "",
+						userId : $(curr).attr("data-userId"),
+						id : $(curr).val(),
+						checked : checked
+					},
+					type : 'POST',
+					success : function(response) {
+						// console.log(response);
+						$("#successMessage").show();
+						setTimeout(function(){
+							$(curr).parent().find(".CommentIcon").remove();
+							$("#successMessage").hide();
+						},3000);
+					}
+				});
+			}
+			else {
+				smoke.prompt("Do you want to add a comment?", function(e){
+					if (e){
+						//console.log("YES");
+						//top.location.href = '/gefp/plan/add-milestone-comment.html';
+						
+						$.ajax({
+							url : '/gefp/plan/saveStudentCheckpoint.html',
+							data : {
+								message: e,
+								userId : $(curr).attr("data-userId"),
+								id : $(curr).val(),
+								checked : checked
+							},
+							type : 'POST',
+							success : function(response) {
+								// console.log(response);
+								$("#successMessage").show();
+								setTimeout(function(){
+									$("#successMessage").hide();
+									top.location.reload();
+								},3000);
+							}
+						});
+						
+					}else{
+						//console.log("NO");
+						$.ajax({
+							url : '/gefp/plan/saveStudentCheckpoint.html',
+							data : {
+								message: "",
+								userId : $(curr).attr("data-userId"),
+								id : $(curr).val(),
+								checked : checked
+							},
+							type : 'POST',
+							success : function(response) {
+								// console.log(response);
+								$("#successMessage").show();
+								setTimeout(function(){
+									$("#successMessage").hide();
+								},3000);
+							}
+						});
+					}
+				}, {
+					ok: "Yes",
+					cancel: "No",
+					classname: "custom-class",
+					reverseButtons: true,
+					value: ""
+				});
+			}
+			
+			
+			
 			// console.log("Checkpoint ID is : " + $(this).val() + " state is "
 			// + this.checked );
 		});
