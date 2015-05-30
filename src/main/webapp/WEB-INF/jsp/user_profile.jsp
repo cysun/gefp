@@ -86,7 +86,7 @@
 												</tr>
 												<tr>
 													<th>Middle Name (Optional)</th>
-													<td><input type="text" id="lastNameInp" name="middleName" class="form-control" value="${currUserObj.lastName}" />
+													<td><input type="text" id="lastNameInp" name="middleName" class="form-control" value="${currUserObj.middleName}" />
 													<span style="color:#900">${nameErr}</span>
 													<c:remove var="nameErr" />
 													<th>Email:</th>
