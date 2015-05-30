@@ -183,7 +183,7 @@ public class UserController {
         User currUserObj = userDao.getUser( sessionUserObj.getId() );
 
         models.put( "departments", deptDao.getDepartments() );
-        models.put( "user", userDao.getUser( currUserObj.getId() ) );
+        models.put( "currUserObj", userDao.getUser( currUserObj.getId() ) );
         return "user_profile";
     }
 
@@ -195,17 +195,20 @@ public class UserController {
         HttpSession session, HttpServletRequest request )
     {
 
-        String numRegex = ".*[0-9].*";
-        String alphaRegex = ".*[a-zA-Z].*";
+        //String numRegex = ".*[0-9].*";
+        //String alphaRegex = ".*[a-zA-Z].*";
 
         String firstName = request.getParameter( "firstName" );
         String middleName = request.getParameter( "middleName" );
         String lastName = request.getParameter( "lastName" );
 
         // String uid = request.getParameter("uid");
-        String password = request.getParameter( "password" );
+        //String password = request.getParameter( "password" );
         String deptIdStr = request.getParameter( "departmentID" );
-
+        String email = request.getParameter( "email" );
+        String cin = request.getParameter( "cin" );
+        
+        
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
         User currUserObj = userDao.getUser( sessionUserObj.getId() );
 
@@ -219,21 +222,21 @@ public class UserController {
             session.setAttribute( "firstName", "FirstName cannot be empty" );
             return "redirect:/user/profile/" + pid + ".html";
         }
-        else if( password != "" && password != null && password.length() < 4 )
-        {
-            System.out.println( "pppppp" );
-            session.setAttribute( "passwordErr",
-                "Password should be more than 4 characters." );
-            return "redirect:/user/profile/" + pid + ".html";
-        }
-        else if( password != ""
-            && password != null
-            && (!password.matches( numRegex ) || !password.matches( alphaRegex )) )
-        {
-            session.setAttribute( "passwordErr",
-                "Password should contain both letters and numbers." );
-            return "redirect:/user/profile/" + pid + ".html";
-        }
+//        else if( password != "" && password != null && password.length() < 4 )
+//        {
+//            //System.out.println( "pppppp" );
+//            session.setAttribute( "passwordErr",
+//                "Password should be more than 4 characters." );
+//            return "redirect:/user/profile/" + pid + ".html";
+//        }
+//        else if( password != ""
+//            && password != null
+//            && (!password.matches( numRegex ) || !password.matches( alphaRegex )) )
+//        {
+//            session.setAttribute( "passwordErr",
+//                "Password should contain both letters and numbers." );
+//            return "redirect:/user/profile/" + pid + ".html";
+//        }
         else if( deptIdStr == "" )
         {
             session.setAttribute( "deptErr", "Please select a department." );
@@ -242,10 +245,10 @@ public class UserController {
 
         Integer deptID = Integer.parseInt( deptIdStr );
 
-        if( password != "" && password != null )
-        {
-            currUserObj.setPassword( password );
-        }
+//        if( password != "" && password != null )
+//        {
+//            currUserObj.setPassword( password );
+//        }
 
         if( deptID != currUserObj.getDepartment().getId() )
         {
@@ -257,7 +260,9 @@ public class UserController {
         currUserObj.setFirstName( firstName );
         currUserObj.setMiddleName( middleName );
         currUserObj.setLastName( lastName );
-
+        currUserObj.setEmail( email );
+        currUserObj.setCin( cin );
+        
         userDao.saveUser( currUserObj );
         session.setAttribute( "successMsg", "Profile details updated" );
         session.setAttribute( "loggedInUser", currUserObj );
