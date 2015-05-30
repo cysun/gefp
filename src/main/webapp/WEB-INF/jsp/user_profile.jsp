@@ -18,11 +18,14 @@
 
 		<jsp:include page="includes/header.jsp" />
 		<!-- /. NAV TOP  -->
+		
+		<%--
 		<jsp:include page="includes/left_menu.jsp" />
+		 --%>
 		<!-- /. NAV SIDE  -->
 
 		<div id="page-wrapper">
-			<div id="page-inner">
+			<div id="page-inner" style="margin-left:0px;">
 
 
 				<c:choose>

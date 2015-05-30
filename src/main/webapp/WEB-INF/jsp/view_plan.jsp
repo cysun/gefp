@@ -83,16 +83,11 @@
 									<div class="panel-heading">
 										<div class="pull-left">
 											<h5>
-												
 											<span class="planTitle">${plan.name} 
-											
-											
 											<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
 												(${plan.seasonName} ${plan.seasonYear})
 											</security:authorize>
-											
 											</span>
-												
 												
 												<security:authorize access="hasRole('ADMIN')">
 													<c:if test="${student_mode != true}">
