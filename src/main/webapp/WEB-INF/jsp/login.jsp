@@ -29,13 +29,13 @@
 				<!-- /. ROW  -->
 
 				<div class="row text-center ">
-			<div class="col-md-12">
+			<%-- <div class="col-md-12">
 				<br />
 				<br />
 				<h2>GEFP</h2>
 				<h5>( Login yourself to get access )</h5>
 				<br />
-			</div>
+			</div> --%>
 		</div>
 		<div class="row ">
 
