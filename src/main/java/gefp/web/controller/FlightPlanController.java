@@ -456,7 +456,7 @@ public class FlightPlanController {
 
         // Remove checkpoint from previous Cell.
         // Only if it was in a different Cell.
-        if( newCellId!=null && !newCellId.equals( cellId ) )
+        if( !cellId.equals( newCellId ) )
         {
             
             
@@ -481,8 +481,8 @@ public class FlightPlanController {
                         checkpointDao.getCheckPoint( chkId ) );
                     c.getCheckpoints().remove( index );
                     planDao.saveFlightPlan( plan );
-                    throw new Exception("Checkpoint removed in same cell." + " index="+index + " ");
-                    //break;
+                    //throw new Exception("Checkpoint removed in same cell." + " index="+index + " ");
+                    break;
                 }
             }
             
