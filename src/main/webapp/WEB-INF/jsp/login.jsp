@@ -22,7 +22,7 @@
 		<jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
 
 		<!-- /. NAV SIDE  -->
-		<div id="page-wrapper">
+		<div id="page-wrapper" style="margin-left:0px;">
 			<div id="page-inner">
 
 				<jsp:include page="/WEB-INF/jsp/includes/dashboard_title.jsp" />
