@@ -456,7 +456,7 @@ public class FlightPlanController {
 
         // Remove checkpoint from previous Cell.
         // Only if it was in a different Cell.
-        if( newCellId != cellId )
+        if( !newCellId.equals( cellId )  )
         {
             for( Cell c : cells )
             {

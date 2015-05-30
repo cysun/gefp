@@ -106,7 +106,7 @@
 												<input type="hidden" name="chkId" value="${checkpoint.id }" />
 												<input type="hidden" name="cellId" value="${cell.id }" />
 												<input type="hidden" name="planId" value="${flightplan.id }" />
-												<input type="submit" class="pull-right btn btn-primary " value="Save" />
+												<input type="submit" class="pull-right btn override btn-primary " value="Save" />
 													<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 												</div>
 											</div>
