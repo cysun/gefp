@@ -456,7 +456,7 @@ public class FlightPlanController {
 
         // Remove checkpoint from previous Cell.
         // Only if it was in a different Cell.
-        if( !newCellId.equals( cellId )  )
+        if( !newCellId.equals( cellId ) )
         {
             
             int cellIndex = cells.indexOf( cellDao.getCell( cellId ) );
@@ -485,17 +485,7 @@ public class FlightPlanController {
         // Check if cell exists
 
         if( cellExists )
-        {
-            
-            //int cellIndex = cells.indexOf( cellDao.getCell( newCellId ) );
-            cells.get( cells.indexOf( cellDao.getCell( newCellId ) ) ).getCheckpoints().add(checkpointDao.getCheckPoint( chkId ));
-            
-            plan.setCells(cells);
-            
-            //newCell.getCheckpoints().add(checkpointDao.getCheckPoint( chkId ));
-            //cells.set(cellIndex, newCell);
-            
-            /*
+        {            
             for( Cell c : cells )
             {
                 if( c.getRunway().getId().equals( runwayId )
@@ -509,14 +499,13 @@ public class FlightPlanController {
                         c.getCheckpoints().set( index, checkpoint );
                     }
                     else { // Add the checkpoint to new cell
-                        c.getCheckpoints().add(checkpointDao.getCheckPoint( chkId ));
+                        c.getCheckpoints().add(checkpoint);
                         // throw new Exception("Error in updating the checkpoint. No checkpoint with id " + chkId + " is found in Cell. Using parameters newCellId=" + newCellId + " cellId=" + cellId + " index="+index);
                     }
-                    
                     break;
                 }
             }
-            */
+            
         }
         else
         {
