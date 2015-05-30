@@ -23,7 +23,7 @@
 <!-- METISMENU SCRIPTS -->
 <script src="<c:url value="/assets/js/jquery.metisMenu.js" />"></script>
 <!-- CUSTOM SCRIPTS -->
-<script src="<c:url value="/assets/js/custom.js" />"></script>
+
 <script src="<c:url value="/assets/js/angular.min.js" />"></script>
 <script src="<c:url value="/assets/js/gefp.app.js" />"></script>
 <script src="<c:url value="/assets/js/smoke.min.js" />"></script>
@@ -34,7 +34,7 @@
 <script src="<c:url value="/assets/js/dataTables/jquery.dataTables.js" />"></script>
 <script src="<c:url value="/assets/js/dataTables/dataTables.bootstrap.js" />"></script>
 
-
+<script src="<c:url value="/assets/js/custom.js" />"></script>
 
 <script>
 $(document).ready(function(){
