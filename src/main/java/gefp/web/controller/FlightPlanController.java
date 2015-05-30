@@ -480,6 +480,7 @@ public class FlightPlanController {
                     int index = c.getCheckpoints().indexOf(
                         checkpointDao.getCheckPoint( chkId ) );
                     c.getCheckpoints().remove( index );
+                    planDao.saveFlightPlan( plan );
                     //throw new Exception("Checkpoint removed in same cell." + " index="+index + " ");
                     break;
                 }
