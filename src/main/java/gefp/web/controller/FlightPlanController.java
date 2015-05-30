@@ -481,8 +481,8 @@ public class FlightPlanController {
                         checkpointDao.getCheckPoint( chkId ) );
                     c.getCheckpoints().remove( index );
                     planDao.saveFlightPlan( plan );
-                    //throw new Exception("Checkpoint removed in same cell." + " index="+index + " ");
-                    break;
+                    throw new Exception("Checkpoint removed in same cell." + " index="+index + " ");
+                    //break;
                 }
             }
             
@@ -515,9 +515,7 @@ public class FlightPlanController {
         else
         {
             
-            throw new Exception("IN ELSE");
-            
-            /*
+            // throw new Exception("IN ELSE");
             List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
             checkpoints.add( checkpoint );
             Cell cell = new Cell();
@@ -526,7 +524,6 @@ public class FlightPlanController {
             cell.setStage( stageDao.getStage( stageId ) );
             cell.setCheckpoints( checkpoints );
             plan.getCells().add( cell );
-            */
         }
         
         planDao.saveFlightPlan( plan );
