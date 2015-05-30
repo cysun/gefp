@@ -28,7 +28,7 @@
 					<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
 					<li><a href="<c:url value="/admin/list-plans.html"/>">Flight
 							Plans</a></li>
-					<li class="active">Add New Checkpoint</li>
+					<li class="active">Edit Milestone</li>
 				</ol>
 
 				<jsp:include page="includes/dashboard_title.jsp" />
@@ -94,7 +94,7 @@
 
 
 											<div class="form-group">
-												<label class="col-sm-2 control-label">Checkpoint
+												<label class="col-sm-2 control-label">Milestone
 													Name:</label>
 												<div class="col-sm-9">
 													<form:textarea path="name" class="ckeditor form-control" placeholder="Checkpoint Name" ></form:textarea>

@@ -455,6 +455,7 @@ public class FlightPlanController {
         }
 
         // Remove checkpoint from previous Cell.
+        // Only if it was in a different Cell.
         if( newCellId != cellId )
         {
             for( Cell c : cells )
@@ -485,7 +486,7 @@ public class FlightPlanController {
                         c.getCheckpoints().set( index, checkpoint );
                     }
                     else {
-                        throw new Exception("Error in updating the checkpoint. No checkpoint with id " + chkId + " is found.");
+                        throw new Exception("Error in updating the checkpoint. No checkpoint with id " + chkId + " is found. newCellId=" + newCellId + " cellId=" + cellId);
                     }
                     
                     break;
