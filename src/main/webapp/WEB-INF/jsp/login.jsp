@@ -28,7 +28,7 @@
 				<jsp:include page="/WEB-INF/jsp/includes/dashboard_title.jsp" />
 				<!-- /. ROW  -->
 
-				<div class="row text-center ">
+				<div class="row text-center" style="height:120px;">
 			<%-- <div class="col-md-12">
 				<br />
 				<br />
