@@ -32,7 +32,7 @@
 					<c:when test="${not empty StudentUser}">
 
 						<ol class="breadcrumb">
-							<li><a href="<c:url value="/student/view-plan/${StudentUser.plan.id}.html"/>">Home</a></li>
+							<li><a href="<c:url value="/student/view-plan/${StudentUser.flightPlan.id}.html"/>">Home</a></li>
 							<li class="active">My Profile</li>
 						</ol>
 
