@@ -482,11 +482,13 @@ public class FlightPlanController {
                     int index = c.getCheckpoints().indexOf(
                         checkpointDao.getCheckPoint( chkId ) );
                     
+                    // Get index of the checkpoint and update it
                     if(index >= 0) {
                         c.getCheckpoints().set( index, checkpoint );
                     }
-                    else {
-                        throw new Exception("Error in updating the checkpoint. No checkpoint with id " + chkId + " is found. newCellId=" + newCellId + " cellId=" + cellId + " index="+index);
+                    else { // Add the checkpoint to new cell
+                        c.getCheckpoints().add(checkpoint);
+                        // throw new Exception("Error in updating the checkpoint. No checkpoint with id " + chkId + " is found in Cell. Using parameters newCellId=" + newCellId + " cellId=" + cellId + " index="+index);
                     }
                     
                     break;
