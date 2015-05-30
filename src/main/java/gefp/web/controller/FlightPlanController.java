@@ -456,7 +456,7 @@ public class FlightPlanController {
 
         // Remove checkpoint from previous Cell.
         // Only if it was in a different Cell.
-        if( !newCellId.equals( cellId ) )
+        if( newCellId!=null && !newCellId.equals( cellId ) )
         {
             
             
@@ -499,7 +499,6 @@ public class FlightPlanController {
                 {
                     int currentIndex = c.getCheckpoints().indexOf(
                         checkpointDao.getCheckPoint( chkId ) );
-                    
                     
                     if(currentIndex < 0) { // Add the checkpoint to new cell
                         c.getCheckpoints().add(checkpoint);
