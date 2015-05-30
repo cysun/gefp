@@ -24,15 +24,15 @@
 		 --%>
 		<!-- /. NAV SIDE  -->
 
-		<div id="page-wrapper">
-			<div id="page-inner" style="margin-left:0px;">
+		<div id="page-wrapper" style="margin-left:0px;">
+			<div id="page-inner">
 
 
 				<c:choose>
 					<c:when test="${not empty StudentUser}">
 
 						<ol class="breadcrumb">
-							<li><a href="<c:url value="#"/>">Home</a></li>
+							<li><a href="<c:url value="/student/view-plan/${StudentUser.plan.id}.html"/>">Home</a></li>
 							<li class="active">My Profile</li>
 						</ol>
 
