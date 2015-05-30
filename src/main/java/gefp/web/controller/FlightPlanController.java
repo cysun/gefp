@@ -487,10 +487,11 @@ public class FlightPlanController {
         if( cellExists )
         {
             
-            int cellIndex = cells.indexOf( cellDao.getCell( newCellId ) );
-            Cell newCell = cells.get( cellIndex );
+            //int cellIndex = cells.indexOf( cellDao.getCell( newCellId ) );
+            cells.get( cells.indexOf( cellDao.getCell( newCellId ) ) ).getCheckpoints().add(checkpointDao.getCheckPoint( chkId ));
             
-            newCell.getCheckpoints().add(checkpointDao.getCheckPoint( chkId ));
+            //newCell.getCheckpoints().add(checkpointDao.getCheckPoint( chkId ));
+            //cells.set(cellIndex, newCell);
             
             /*
             for( Cell c : cells )
