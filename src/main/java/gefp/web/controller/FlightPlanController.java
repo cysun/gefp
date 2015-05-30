@@ -490,6 +490,8 @@ public class FlightPlanController {
             //int cellIndex = cells.indexOf( cellDao.getCell( newCellId ) );
             cells.get( cells.indexOf( cellDao.getCell( newCellId ) ) ).getCheckpoints().add(checkpointDao.getCheckPoint( chkId ));
             
+            plan.setCells(cells);
+            
             //newCell.getCheckpoints().add(checkpointDao.getCheckPoint( chkId ));
             //cells.set(cellIndex, newCell);
             
@@ -528,7 +530,7 @@ public class FlightPlanController {
             cell.setCheckpoints( checkpoints );
             plan.getCells().add( cell );
         }
-
+        
         planDao.saveFlightPlan( plan );
         sessionStatus.setComplete();
         return "redirect:/plan/edit/" + planId + ".html";
