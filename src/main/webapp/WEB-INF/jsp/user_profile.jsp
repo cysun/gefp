@@ -63,10 +63,11 @@
 							</div>
 							<c:if test="${not empty StudentUser}">
 													<div class="pull-right">
-													<a style="text-decoration:underline;" class="btn override btn-link" href="<c:url value="/student/view-plan/${StudentUser.id}.html"/>">Back to FLightplan</a>
+													<a style="text-decoration:underline;" class="btn override btn-link" href="<c:url value="/student/view-plan/${StudentUser.id}.html"/>">Back to Flightplan</a>
 													</div>
 										
 													</c:if>
+													<div class="clearfix"></div>
 							
 							
 							</div>
