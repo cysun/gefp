@@ -486,7 +486,7 @@ public class FlightPlanController {
                         c.getCheckpoints().set( index, checkpoint );
                     }
                     else {
-                        throw new Exception("Error in updating the checkpoint. No checkpoint with id " + chkId + " is found. newCellId=" + newCellId + " cellId=" + cellId);
+                        throw new Exception("Error in updating the checkpoint. No checkpoint with id " + chkId + " is found. newCellId=" + newCellId + " cellId=" + cellId + " index="+index);
                     }
                     
                     break;
