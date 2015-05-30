@@ -120,7 +120,12 @@
 												</div>
 											</c:if>
 										</security:authorize>
-
+										
+										<c:if test="${not empty StudentUser}">
+											<a class="btn override btn-link" href="<c:url value="/user/profile/${StudentUser.id}.html"/>">Edit Profile</a>
+										
+										</c:if>
+										
 										<div style="clear: both;"></div>
 									</div>
 
