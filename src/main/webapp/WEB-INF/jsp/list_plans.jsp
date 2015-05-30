@@ -62,10 +62,10 @@
 										</thead>
 										<tbody>
 
-											<c:forEach items="${plans}" var="plan">
+											<c:forEach items="${plans}" var="plan" varStatus="index">
 
 												<tr>
-													<td>${plan.id}</td>
+													<td>${index.count}</td>
 													<td>${plan.name} (${plan.seasonName} ${plan.seasonYear})</td>
 													<td>${plan.department.name}</td>
 													<td><c:choose>

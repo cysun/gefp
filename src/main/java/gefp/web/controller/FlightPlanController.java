@@ -431,7 +431,7 @@ public class FlightPlanController {
         method = RequestMethod.POST)
     public String saveCheckpoint(
         @ModelAttribute("checkpoint") Checkpoint checkpoint,
-        HttpServletRequest request, ModelMap models, SessionStatus sessionStatus )
+        HttpServletRequest request, ModelMap models, SessionStatus sessionStatus ) throws Exception
     {
         Long chkId = Long.parseLong( request.getParameter( "chkId" ) );
         Long planId = Long.parseLong( request.getParameter( "planId" ) );
@@ -480,7 +480,14 @@ public class FlightPlanController {
                 {
                     int index = c.getCheckpoints().indexOf(
                         checkpointDao.getCheckPoint( chkId ) );
-                    c.getCheckpoints().set( index, checkpoint );
+                    
+                    if(index >= 0) {
+                        c.getCheckpoints().set( index, checkpoint );
+                    }
+                    else {
+                        throw new Exception("Error in updating the checkpoint. No checkpoint with id " + chkId + " is found.");
+                    }
+                    
                     break;
                 }
             }

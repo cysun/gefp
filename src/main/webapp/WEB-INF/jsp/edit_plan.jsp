@@ -45,7 +45,6 @@
 						Plans</a></li>
 					<li class="active">View Plan</li>
 				</ol>
->
 
 				<jsp:include page="includes/dashboard_title.jsp" />
 				<!-- /. ROW  -->
