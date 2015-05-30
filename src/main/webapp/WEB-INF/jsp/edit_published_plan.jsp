@@ -61,7 +61,7 @@
 							<div class="panel-heading">
 								<div class="pull-left">
 									<h5><span class="planTitle"><a href="<c:url value="/plan/view/${plan.id}.html"/>">${plan.name}</a>
-										(${plan.quarterName})
+										(${plan.seasonName} ${plan.seasonYear})
 									</span>
 									<label class="label override label-success">Published</label>
 									</h5>
