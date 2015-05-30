@@ -511,11 +511,13 @@ public class FlightPlanController {
                     break;
                 }
             }
-            
         }
         else
         {
-
+            
+            throw new Exception("IN ELSE");
+            
+            /*
             List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
             checkpoints.add( checkpoint );
             Cell cell = new Cell();
@@ -524,6 +526,7 @@ public class FlightPlanController {
             cell.setStage( stageDao.getStage( stageId ) );
             cell.setCheckpoints( checkpoints );
             plan.getCells().add( cell );
+            */
         }
         
         planDao.saveFlightPlan( plan );
