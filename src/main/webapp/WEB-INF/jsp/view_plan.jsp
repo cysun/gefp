@@ -181,7 +181,9 @@
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
 																									
-																									<img class="CommentIcon" src="<c:url value="/assets/img/comment.png" />" />
+																									<c:if test="${not empty checkMessage }">
+																										<img class="CommentIcon CommentIconClick" src="<c:url value="/assets/img/comment.png" />" />
+																									</c:if>
 																							</c:when>
 																							<c:otherwise>
 																								<input type="checkbox" name="checkpoints"
