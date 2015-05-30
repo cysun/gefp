@@ -19,14 +19,26 @@
 	
 	<div id="wrapper">
 
-		<jsp:include page="/WEB-INF/jsp/includes/header.jsp" />
+		<nav class="navbar brdt10 brdb10 navbar-default navbar-cls-top " role="navigation"
+	style="margin-bottom: 0">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse"
+			data-target=".sidebar-collapse">
+			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+			<span class="icon-bar"></span> <span class="icon-bar"></span>
+		</button>
+		
+		<div class="logoIconImg">
+			<img src="<c:url value="/assets/img/eaglehead_4c.png" />" />
+		</div>
+		<a class="navbar-brand navtitle">Golden Eagle Flight Plan</a>
+	</div>
+
+	</nav>
 
 		<!-- /. NAV SIDE  -->
 		<div id="page-wrapper" style="margin-left:0px;">
 			<div id="page-inner">
-
-				<jsp:include page="/WEB-INF/jsp/includes/dashboard_title.jsp" />
-				<!-- /. ROW  -->
 
 				<div class="row text-center" style="height:120px;">
 			<%-- <div class="col-md-12">
