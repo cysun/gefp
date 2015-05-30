@@ -47,7 +47,7 @@ function customAlert(text, type) {
 			
 			smoke.prompt("Do you want to add a comment?", function(e){
 				if (e){
-					console.log("YES");
+					//console.log("YES");
 					//top.location.href = '/gefp/plan/add-milestone-comment.html';
 					
 					$.ajax({
@@ -69,14 +69,14 @@ function customAlert(text, type) {
 					});
 					
 				}else{
-					console.log("NO");
+					//console.log("NO");
 					$.ajax({
 						url : '/gefp/plan/saveStudentCheckpoint.html',
 						data : {
 							message: "",
-							userId : $(this).attr("data-userId"),
-							id : $(this).val(),
-							checked : this.checked
+							userId : $(curr).attr("data-userId"),
+							id : $(curr).val(),
+							checked : curr.checked
 						},
 						type : 'POST',
 						success : function(response) {
