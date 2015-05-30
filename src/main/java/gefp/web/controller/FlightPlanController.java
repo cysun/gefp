@@ -458,6 +458,17 @@ public class FlightPlanController {
         // Only if it was in a different Cell.
         if( !newCellId.equals( cellId )  )
         {
+            
+            int cellIndex = cells.indexOf( cellDao.getCell( cellId ) );
+            Cell oldCell = cells.get( cellIndex );
+            
+            int oldIndex = oldCell.getCheckpoints().indexOf(
+                checkpointDao.getCheckPoint( chkId ) );
+            
+            oldCell.getCheckpoints().remove( oldIndex );
+            cells.set(cellIndex, oldCell);
+            
+            /*
             for( Cell c : cells )
             {
                 if( c.getId().equals( cellId ) )
@@ -468,12 +479,20 @@ public class FlightPlanController {
                     break;
                 }
             }
+            */
         }
 
         // Check if cell exists
 
         if( cellExists )
         {
+            
+            int cellIndex = cells.indexOf( cellDao.getCell( newCellId ) );
+            Cell newCell = cells.get( cellIndex );
+            
+            newCell.getCheckpoints().add(checkpointDao.getCheckPoint( chkId ));
+            
+            /*
             for( Cell c : cells )
             {
                 if( c.getRunway().getId().equals( runwayId )
@@ -494,6 +513,7 @@ public class FlightPlanController {
                     break;
                 }
             }
+            */
         }
         else
         {
