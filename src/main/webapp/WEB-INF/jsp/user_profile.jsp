@@ -65,7 +65,17 @@
 											<table class="table table-striped">
 											<thead>
 												<tr>
-													<td colspan="4">Student's Profile </td>
+													<td colspan="2">Student's Profile</td>
+													
+													<td colspan="2" align="right">
+													<c:if test="${not empty StudentUser}">
+													<div class="pull-right">
+													<a style="text-decoration:underline;" class="btn override btn-link" href="<c:url value="/student/view-plan/${StudentUser.id}.html"/>">Back to FLightplan</a>
+													</div>
+										
+													</c:if>
+													
+													</td>
 													
 												</tr>
 											</thead>
