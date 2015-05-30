@@ -182,7 +182,7 @@
 																									class="flightplan_checkpoints pull-left" />
 																									
 																									<c:if test="${not empty checkMessage }">
-																										<img data-comment="${checkMessage}" class="CommentIcon CommentIconClick" src="<c:url value="/assets/img/comment.png" />" />
+																										<img data-comment="${checkMessage}" class="CommentIcon CommentIconClick" src="<c:url value="/assets/img/comment-icon.png" />" />
 																									</c:if>
 																							</c:when>
 																							<c:otherwise>
