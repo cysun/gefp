@@ -459,6 +459,8 @@ public class FlightPlanController {
         if( !newCellId.equals( cellId ) )
         {
             
+            
+            /*
             int cellIndex = cells.indexOf( cellDao.getCell( cellId ) );
             Cell oldCell = cells.get( cellIndex );
             
@@ -467,8 +469,10 @@ public class FlightPlanController {
             
             oldCell.getCheckpoints().remove( oldIndex );
             cells.set(cellIndex, oldCell);
+            */
             
-            /*
+            
+            
             for( Cell c : cells )
             {
                 if( c.getId().equals( cellId ) )
@@ -476,10 +480,11 @@ public class FlightPlanController {
                     int index = c.getCheckpoints().indexOf(
                         checkpointDao.getCheckPoint( chkId ) );
                     c.getCheckpoints().remove( index );
-                    break;
+                    throw new Exception("Checkpoint removed from previous cell." + " index="+index + " ");
+                    //break;
                 }
             }
-            */
+            
         }
 
         // Check if cell exists
