@@ -43,6 +43,8 @@ function customAlert(text, type) {
 		
 		$(".flightplan_checkpoints").click(function(e) {
 			
+			var curr = this;
+			
 			smoke.prompt("Do you want to add a comment?", function(e){
 				if (e){
 					console.log("YES");
@@ -52,9 +54,9 @@ function customAlert(text, type) {
 						url : '/gefp/plan/saveStudentCheckpoint.html',
 						data : {
 							message: e,
-							userId : $(this).attr("data-userId"),
-							id : $(this).val(),
-							checked : this.checked
+							userId : $(curr).attr("data-userId"),
+							id : $(curr).val(),
+							checked : curr.checked
 						},
 						type : 'POST',
 						success : function(response) {
