@@ -122,7 +122,9 @@
 										</security:authorize>
 										
 										<c:if test="${not empty StudentUser}">
-											<a class="btn override btn-link" href="<c:url value="/user/profile/${StudentUser.id}.html"/>">Edit Profile</a>
+											<div class="pull-right">
+											<a style="text-decoration:underline;" class="btn override btn-link" href="<c:url value="/user/profile/${StudentUser.id}.html"/>">Edit Profile</a>
+											</div>
 										
 										</c:if>
 										
