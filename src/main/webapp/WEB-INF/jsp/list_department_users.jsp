@@ -80,7 +80,6 @@
 													<td><c:forEach var="role" items="${user.roles}">
 														${role.name} 
 													</c:forEach></td>
-													<!-- <td>Computer Science Plan</td> -->
 													<td><a title="View Plan"
 														href="<c:url value="/advisor/view-student-plan/${user.id}.html" />"
 														class="btn override btn-primary"><i class="fa fa-eye"></i> </a> <security:authorize

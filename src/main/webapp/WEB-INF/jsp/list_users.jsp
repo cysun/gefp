@@ -86,7 +86,7 @@
 															</td>
 
 													<td><a title="View Plan"
-														href="<c:url value="/student/view-plan/${user.id}.html" />"
+														href="<c:url value="/advisor/view-student-plan/${user.id}.html" />"
 														class="btn override btn-primary"><i class="fa fa-eye"></i> </a> <security:authorize
 															access="authenticated and hasRole('ADMINA')">
 															<a href="<c:url value="/user/edit/${user.id}.html" />"
