@@ -58,12 +58,16 @@ public class FlightPlan implements Serializable {
 
     private boolean published;
 
+    @OneToOne
+    private FlightPlan parent;
+
     public FlightPlan()
     {
         runways = new ArrayList<Runway>();
         stages = new ArrayList<Stage>();
         cells = new ArrayList<Cell>();
         published = false;
+        parent = null;
     }
 
     public FlightPlan clone()
@@ -79,6 +83,7 @@ public class FlightPlan implements Serializable {
         // flightplan.runways = new ArrayList<Runway>(runways);
         // flightplan.cells = new ArrayList<Cell>(cells);
         flightplan.published = false;
+        flightplan.parent = this;
         return flightplan;
     }
 
@@ -171,4 +176,15 @@ public class FlightPlan implements Serializable {
     {
         this.published = published;
     }
+
+    public FlightPlan getParent()
+    {
+        return parent;
+    }
+
+    public void setParent( FlightPlan parent )
+    {
+        this.parent = parent;
+    }
+
 }

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,14 +22,19 @@ public class Checkpoint implements Serializable {
     @Column(nullable = false)
     private String name;
 
+    @OneToOne
+    private Checkpoint parent;
+
     public Checkpoint()
     {
+        parent = null;
     }
 
     public Checkpoint( String name )
     {
         super();
         this.name = name;
+        this.parent = null;
     }
 
     public Checkpoint( Long id, String name )
@@ -36,12 +42,14 @@ public class Checkpoint implements Serializable {
         super();
         this.id = id;
         this.name = name;
+        this.parent = null;
     }
 
     public Checkpoint clone()
     {
         Checkpoint checkpoint = new Checkpoint();
         checkpoint.name = name;
+        checkpoint.parent = this;
         return checkpoint;
     }
 
@@ -63,6 +71,16 @@ public class Checkpoint implements Serializable {
     public void setName( String name )
     {
         this.name = name;
+    }
+
+    public Checkpoint getParent()
+    {
+        return parent;
+    }
+
+    public void setParent( Checkpoint parent )
+    {
+        this.parent = parent;
     }
 
 }

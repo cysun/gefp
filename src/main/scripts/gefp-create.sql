@@ -38,29 +38,34 @@
         plan_id int8,
         active boolean not null,
         deleted boolean not null,
+        parent_id int8,
         primary key (id)
     );
 
     create table runways (
         id int8 not null,
         name varchar(255),
+        parent_id int8,
         primary key (id)
     );
 
     create table stages (
         id int8 not null,
         name varchar(255),
+        parent_id int8,
         primary key (id)
     );    
     
     create table checkpoints (
         id int8 not null,
         name varchar(255) not null,
+        parent_id int8,
         primary key (id)
     );
 
     create table cells (
         id int8 not null,
+        clonedFrom_id int8,
         flightPlan_id int8,
         runway_id int8,
         stage_id int8,

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,8 +22,12 @@ public class Stage implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @OneToOne
+    private Stage parent;
+
     public Stage()
     {
+        parent = null;
     }
 
     public Stage( Long id, String name )
@@ -30,14 +35,17 @@ public class Stage implements Serializable {
         super();
         this.id = id;
         this.name = name;
+        this.parent = null;
     }
-    
-    public Stage clone() {
+
+    public Stage clone()
+    {
         Stage stage = new Stage();
         stage.name = name;
+        stage.parent = this;
         return stage;
     }
-    
+
     public Long getId()
     {
         return id;
@@ -56,6 +64,16 @@ public class Stage implements Serializable {
     public void setName( String name )
     {
         this.name = name;
+    }
+
+    public Stage getParent()
+    {
+        return parent;
+    }
+
+    public void setParent( Stage parent )
+    {
+        this.parent = parent;
     }
 
 }

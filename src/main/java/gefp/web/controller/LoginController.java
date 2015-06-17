@@ -48,29 +48,4 @@ public class LoginController {
         session.invalidate();
         return "redirect:/j_spring_security_logout";
     }
-
-    /* Following method is not being used */
-    // @RequestMapping(value = "/welcome.html", method = RequestMethod.GET)
-    // public String welcome( Principal principal, HttpSession session )
-    // {
-    // session.setAttribute( "principal", principal );
-    //
-    // User user = userDao.getUserByUsername( principal.getName() );
-    // session.setAttribute( "loggedInUser", user );
-    // user.setUserTypesInSession( session );
-    //
-    // if( user.isAdmin() )
-    // {
-    // return "redirect:/admin/dashboard.html";
-    // }
-    // else if( user.isAdvisor() )
-    // {
-    // return "redirect:/advisor/dashboard.html";
-    // }
-    // else
-    // {
-    // return "redirect:/student/view-plan/" + user.getId() + ".html";
-    // }
-    // }
-
 }

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,9 +21,13 @@ public class Runway implements Serializable {
 
     @Column(name = "name")
     private String name;
+    
+    @OneToOne
+    private Runway parent;
 
     public Runway()
     {
+        parent = null;
     }
 
     public Runway( Long id, String name )
@@ -30,11 +35,13 @@ public class Runway implements Serializable {
         super();
         this.id = id;
         this.name = name;
+        this.parent = null;
     }
     
     public Runway clone() {
         Runway runway = new Runway();
         runway.name = name;
+        runway.parent = this;
         return runway;
     }
 
@@ -58,4 +65,14 @@ public class Runway implements Serializable {
         this.name = name;
     }
 
+    
+    public Runway getParent()
+    {
+        return parent;
+    }
+
+    public void setParent( Runway parent )
+    {
+        this.parent = parent;
+    }
 }

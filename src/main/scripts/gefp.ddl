@@ -8,6 +8,7 @@
 
     create table cells (
         id int8 not null,
+        clonedFrom_id int8,
         flightPlan_id int8,
         runway_id int8,
         stage_id int8,
@@ -24,6 +25,7 @@
     create table checkpoints (
         id int8 not null,
         name varchar(255) not null,
+        parent_id int8,
         primary key (id)
     );
 
@@ -59,9 +61,10 @@
         id int8 not null,
         name varchar(255),
         published boolean not null,
-        quarter_name varchar(255),
-        quarter_year varchar(255),
+        season_name varchar(255),
+        season_year varchar(255),
         department_id int4,
+        parent_id int8,
         primary key (id)
     );
 
@@ -79,12 +82,14 @@
     create table runways (
         id int8 not null,
         name varchar(255),
+        parent_id int8,
         primary key (id)
     );
 
     create table stages (
         id int8 not null,
         name varchar(255),
+        parent_id int8,
         primary key (id)
     );
 
@@ -147,6 +152,11 @@
         references cells;
 
     alter table cells 
+        add constraint FK_giicow1h4frxag9ma8xsbyam7 
+        foreign key (clonedFrom_id) 
+        references cells;
+
+    alter table cells 
         add constraint FK_3eqlt264c3rc8n84quloojtyk 
         foreign key (flightPlan_id) 
         references flightplans;
@@ -164,6 +174,11 @@
     alter table checkpoint_info 
         add constraint FK_9yc90uxhxcs0p3y3mex1ah62b 
         foreign key (checkpoint_id) 
+        references checkpoints;
+
+    alter table checkpoints 
+        add constraint FK_5260pjsgaihtslxa4kd91t4is 
+        foreign key (parent_id) 
         references checkpoints;
 
     alter table department_plans 
@@ -206,6 +221,11 @@
         foreign key (department_id) 
         references departments;
 
+    alter table flightplans 
+        add constraint FK_5w8nccclg9cofccdvr0wb6kho 
+        foreign key (parent_id) 
+        references flightplans;
+
     alter table flightplans_cells 
         add constraint FK_aueh9sf2st922gmaww4573yco 
         foreign key (cells_id) 
@@ -215,6 +235,16 @@
         add constraint FK_c30fl82i7uq9iu7qsj64ympvt 
         foreign key (flightplans_id) 
         references flightplans;
+
+    alter table runways 
+        add constraint FK_3ete1n5lk8i8t9xix17u3fqk4 
+        foreign key (parent_id) 
+        references runways;
+
+    alter table stages 
+        add constraint FK_kgqll7bxd4rt6uvcmcxmci127 
+        foreign key (parent_id) 
+        references stages;
 
     alter table user_checkpoints_info 
         add constraint FK_s9garnqrhi1ayd9ls9txkx20p 

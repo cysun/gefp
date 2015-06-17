@@ -42,10 +42,14 @@ public class Cell implements Serializable {
     @IndexColumn(name = "order_num")
     List<Checkpoint> checkpoints;
 
+    @OneToOne
+    private Cell parent;
+
     public Cell()
     {
         super();
         checkpoints = new ArrayList<Checkpoint>();
+        parent = null;
     }
 
     public Cell clone()
@@ -108,6 +112,16 @@ public class Cell implements Serializable {
     public void setFlightPlan( FlightPlan flightPlan )
     {
         this.flightPlan = flightPlan;
+    }
+
+    public Cell getParent()
+    {
+        return parent;
+    }
+
+    public void setParent( Cell parent )
+    {
+        this.parent = parent;
     }
 
 }
