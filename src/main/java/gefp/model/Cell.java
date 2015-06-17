@@ -49,14 +49,32 @@ public class Cell implements Serializable {
     {
         super();
         checkpoints = new ArrayList<Checkpoint>();
+        flightPlan = null;
         parent = null;
     }
 
-    public Cell clone()
+    public Cell clone( FlightPlan flightPlan, List<Runway> runways, List<Stage> stages )
     {
         Cell cell = new Cell();
-        cell.runway = runway.clone();
-        cell.stage = stage.clone();
+        cell.parent = this;
+        cell.flightPlan = flightPlan;
+
+        for( Runway r : runways )
+        {
+            if( r.getParent().getId().equals( runway.getId() ) )
+            {
+                cell.runway = r;
+            }
+        }
+
+        for( Stage s : stages )
+        {
+            if( s.getParent().getId().equals( stage.getId() ) )
+            {
+                cell.stage = s;
+            }
+        }
+
         for( int i = 0; i < checkpoints.size(); i++ )
         {
             cell.checkpoints.add( checkpoints.get( i ).clone() );

@@ -73,17 +73,27 @@ public class FlightPlan implements Serializable {
     public FlightPlan clone()
     {
         FlightPlan flightplan = new FlightPlan();
-        flightplan.name = name;
-        // for(int i=0; i < stages.size(); i++) {
-        // flightplan.stages.add(stages.get( i ));
-        // }
-        //
-        //
-        // flightplan.stages = new ArrayList<Stage>(stages);
-        // flightplan.runways = new ArrayList<Runway>(runways);
-        // flightplan.cells = new ArrayList<Cell>(cells);
-        flightplan.published = false;
         flightplan.parent = this;
+        flightplan.published = false;
+        flightplan.name = "Copy of " + name;
+        
+        for( int i = 0; i < stages.size(); i++ )
+        {
+            flightplan.stages.add( stages.get( i ).clone() );
+        }
+        
+        for( int i = 0; i < runways.size(); i++ )
+        {
+            flightplan.runways.add( runways.get( i ).clone() );
+        }
+        
+        for( int i = 0; i < cells.size(); i++ )
+        {
+            flightplan.cells.add( cells.get( i ).clone(flightplan, flightplan.runways, flightplan.stages) );
+        }
+
+        
+        
         return flightplan;
     }
 
