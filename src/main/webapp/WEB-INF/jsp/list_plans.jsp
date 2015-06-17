@@ -83,10 +83,10 @@
 															</c:otherwise>
 
 														</c:choose></td>
-													<td><a
+													<td><a title="View Plan"
 														href="<c:url value="/plan/view/${plan.id}.html" />"
 														class="btn override btn-primary"><i class="fa fa-eye "></i>
-													</a> <a
+													</a> <a title="Clone Plan"
 														href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
 														class="btn override btn-primary"><i
 															class="fa fa-share-alt "></i> </a></td>

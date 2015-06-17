@@ -75,10 +75,10 @@
 													<c:forEach var="i" begin="2014" end="${year + 20}">
 													<c:choose>
 														<c:when test="${i == year }">
-															<form:option selected="selected" value="${i}">${i}</form:option>
+															<option selected="selected" value="${i}">${i}</option>
 														</c:when>
 														<c:otherwise>
-															<form:option value="${i}">${i}</form:option>
+															<option value="${i}">${i}</option>
 														</c:otherwise>
 														
 													</c:choose>
