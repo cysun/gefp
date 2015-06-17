@@ -53,8 +53,8 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="panel-body">
-								<div class="table-responsive">
-									<table class="table table-striped table-bordered table-hover">
+								<div class="table-responsive__">
+									<table id="dataTables" class="table table-striped table-bordered dataTables table-hover">
 										<thead>
 											<tr>
 												<th>#</th>
