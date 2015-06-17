@@ -3,7 +3,8 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -38,20 +39,22 @@
 
 						<div class="panel panel-default">
 							<div class="panel-heading">
-							<div class="pull-left">
-							<h5>List of Users</h5>
-							</div>
-							<security:authorize access="authenticated and hasRole('ADMIN')">
-							<div class="pull-right">
-							<a href="<c:url value="/admin/user/add.html"/>" class="btn override btn-primary"><i class="fa fa-plus "></i> Add
-							New</a>
-							</div>
-							</security:authorize>
-							<div class="clearfix"></div>
+								<div class="pull-left">
+									<h5>List of Users</h5>
+								</div>
+								<security:authorize access="authenticated and hasRole('ADMIN')">
+									<div class="pull-right">
+										<a href="<c:url value="/admin/user/add.html"/>"
+											class="btn override btn-primary"><i class="fa fa-plus "></i>
+											Add New</a>
+									</div>
+								</security:authorize>
+								<div class="clearfix"></div>
 							</div>
 							<div class="panel-body">
 								<div class="table-responsive__">
-									<table id="dataTablesNoFilter" class="table-responsive table table-striped table-bordered dataTable table-hover">
+									<table id="dataTablesNoFilter"
+										class="table-responsive table table-striped table-bordered dataTable table-hover">
 										<thead>
 											<tr>
 												<th>#</th>
@@ -74,30 +77,21 @@
 													<td>${user.username}</td>
 													<td>${user.firstName}</td>
 													<td>${user.lastName}</td>
-													<td>
-													
-													
-													<c:set var="roleName" value=""/>
-													
-													
-													
-													<c:forEach var="role" items="${user.roles}">
+													<td><c:set var="roleName" value="" /> <c:forEach
+															var="role" items="${user.roles}">
 														${role.name} 
 													</c:forEach></td>
-													
-													<td><a
+
+													<td><a title="View Plan"
 														href="<c:url value="/student/view-plan/${user.id}.html" />"
-														class="btn override btn-warning"><i class="fa fa-view "></i>
-															View Plan</a>
-															
-													<security:authorize access="authenticated and hasRole('ADMINA')">
-													<a
-														href="<c:url value="/user/edit/${user.id}.html" />"
-														class="btn override btn-primary"><i class="fa fa-edit "></i>
-															Edit</a>
-													</security:authorize>		
-													</td>
-													
+														class="btn override btn-primary"><i
+															class="fa fa-eye"></i> </a> <security:authorize
+															access="authenticated and hasRole('ADMINA')">
+															<a href="<c:url value="/user/edit/${user.id}.html" />"
+																class="btn override btn-primary"><i
+																class="fa fa-edit "></i> Edit</a>
+														</security:authorize></td>
+
 												</tr>
 
 											</c:forEach>
