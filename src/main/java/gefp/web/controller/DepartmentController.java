@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes({ "department" })
 public class DepartmentController {
-    
+
     private static final Logger logger = LoggerFactory.getLogger( DepartmentController.class );
-    
+
     @Autowired
     private UserDao userDao;
 
@@ -84,11 +84,13 @@ public class DepartmentController {
 
     @RequestMapping(value = "/admin/department/add.html",
         method = RequestMethod.POST)
-    public String add( @ModelAttribute Department department, Principal principal )
+    public String add( @ModelAttribute Department department,
+        Principal principal )
     {
         if( department.getName().isEmpty() ){ return "redirect:/admin/department/add.html?error=true"; }
         department = deptDao.saveDepartment( department );
-        logger.info( "User " + principal.getName() + " added new Department ("+ department.getName() +")" );
+        logger.info( "User " + principal.getName() + " added new Department ("
+            + department.getName() + ")" );
         return "redirect:/admin/list-departments.html";
     }
 
@@ -113,12 +115,14 @@ public class DepartmentController {
 
     @RequestMapping(value = "/admin/department/edit.html",
         method = RequestMethod.POST)
-    public String edit( @ModelAttribute("department") Department department, Principal principal )
+    public String edit( @ModelAttribute("department") Department department,
+        Principal principal )
     {
         if( department.getName().isEmpty() ){ return "redirect:/admin/department/edit.html?id="
             + department.getId() + "&error=true"; }
         department = deptDao.saveDepartment( department );
-        logger.info( "User " + principal.getName() + " modified Department title ("+ department.getName() +")" );
+        logger.info( "User " + principal.getName()
+            + " modified Department title (" + department.getName() + ")" );
         return "redirect:/admin/list-departments.html";
     }
 
@@ -126,8 +130,17 @@ public class DepartmentController {
         method = RequestMethod.GET)
     public String listplans( @RequestParam Integer id, ModelMap models )
     {
-        models.put( "department", deptDao.getDepartment( id ) );
-        return "list-department-plans";
+        Department department = deptDao.getDepartment( id );
+
+        if( department != null )
+        {
+            models.put( "department", department );
+            return "list-department-plans";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
     }
 
     @RequestMapping(value = "/admin/department/set-official-plan.html",
@@ -150,46 +163,33 @@ public class DepartmentController {
             return "redirect:/404";
         }
     }
-    
-    
+
     /*
-    @RequestMapping(value = "/admin/department/select-plans.html",
-        method = RequestMethod.GET)
-    public String selectplans( @RequestParam Integer id, ModelMap models )
-    {
-        models.put( "department", deptDao.getDepartment( id ) );
-        models.put( "plans", planDao.getFlightPlans() );
-        return "select-plans";
-    }
-
-    @RequestMapping(value = "/admin/department/select-plans.html",
-        method = RequestMethod.POST)
-    public String selectSaveplans(
-        @ModelAttribute("department") Department department, ModelMap models,
-        HttpServletRequest request, SessionStatus sessionStatus,
-        HttpSession session )
-    {
-        String[] selectedPids = request.getParameterValues( "pis" );
-        List<FlightPlan> plans = new ArrayList<FlightPlan>();
-
-        if( selectedPids == null )
-        {
-            session.setAttribute( "errorMessage", "Please select a plan" );
-            return "redirect:/admin/department/select-plans.html?id="
-                + department.getId();
-        }
-
-        for( String pid : selectedPids )
-        {
-            plans.add( planDao.getFlightPlan( Long.parseLong( pid ) ) );
-        }
-
-        department.setPlans( plans );
-        deptDao.saveDepartment( department );
-        sessionStatus.setComplete();
-        return "redirect:/admin/department/list-plans.html?id="
-            + department.getId();
-    }
-    */
+     * @RequestMapping(value = "/admin/department/select-plans.html", method =
+     * RequestMethod.GET) public String selectplans( @RequestParam Integer id,
+     * ModelMap models ) { models.put( "department", deptDao.getDepartment( id )
+     * ); models.put( "plans", planDao.getFlightPlans() ); return
+     * "select-plans"; }
+     * 
+     * @RequestMapping(value = "/admin/department/select-plans.html", method =
+     * RequestMethod.POST) public String selectSaveplans(
+     * 
+     * @ModelAttribute("department") Department department, ModelMap models,
+     * HttpServletRequest request, SessionStatus sessionStatus, HttpSession
+     * session ) { String[] selectedPids = request.getParameterValues( "pis" );
+     * List<FlightPlan> plans = new ArrayList<FlightPlan>();
+     * 
+     * if( selectedPids == null ) { session.setAttribute( "errorMessage",
+     * "Please select a plan" ); return
+     * "redirect:/admin/department/select-plans.html?id=" + department.getId();
+     * }
+     * 
+     * for( String pid : selectedPids ) { plans.add( planDao.getFlightPlan(
+     * Long.parseLong( pid ) ) ); }
+     * 
+     * department.setPlans( plans ); deptDao.saveDepartment( department );
+     * sessionStatus.setComplete(); return
+     * "redirect:/admin/department/list-plans.html?id=" + department.getId(); }
+     */
 
 }
