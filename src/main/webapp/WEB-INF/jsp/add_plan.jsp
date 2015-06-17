@@ -55,8 +55,8 @@
 													<form:option value="">Select Season</form:option>
 													<form:option value="Fall">Fall</form:option>
 													<form:option value="Winter">Winter</form:option>
-													<form:option selected="selected" value="Spring">Spring</form:option>
-													<form:option value="Summer">Summer</form:option>
+													<form:option value="Spring">Spring</form:option>
+													<form:option selected="selected" value="Summer">Summer</form:option>
 												</form:select>
 											</div>
 											

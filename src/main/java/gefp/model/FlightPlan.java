@@ -74,6 +74,8 @@ public class FlightPlan implements Serializable {
     {
         FlightPlan flightplan = new FlightPlan();
         flightplan.parent = this;
+        flightplan.seasonName = this.seasonName;
+        flightplan.seasonYear = this.seasonYear;
         flightplan.published = false;
         flightplan.name = "Copy of " + name;
         

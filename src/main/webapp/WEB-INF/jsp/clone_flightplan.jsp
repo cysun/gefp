@@ -3,6 +3,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
@@ -52,6 +53,39 @@
 												<c:if test="${error == true }">
 													<span class="errMsg">Please enter Plan title</span>
 												</c:if>
+											</div>
+											
+											<div class="form-group">
+												<label>Select Season:</label>
+												<select name="seasonName" class="form-control">
+													<option value="">Select Season</option>
+													<option value="Fall">Fall</option>
+													<option value="Winter">Winter</option>
+													<option value="Spring">Spring</option>
+													<option selected="selected" value="Summer">Summer</option>
+												</select>
+											</div>
+											
+											<div class="form-group">
+												<label>Select Year:</label>
+												<c:set var="now" value="<%=new java.util.Date()%>" />
+												<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
+												<select name="seasonYear" class="form-control">
+													<option value="">Select Year</option>
+													<c:forEach var="i" begin="2014" end="${year + 20}">
+													<c:choose>
+														<c:when test="${i == year }">
+															<form:option selected="selected" value="${i}">${i}</form:option>
+														</c:when>
+														<c:otherwise>
+															<form:option value="${i}">${i}</form:option>
+														</c:otherwise>
+														
+													</c:choose>
+													
+													
+													</c:forEach>
+												</select>
 											</div>
 
 											<div class="form-group">

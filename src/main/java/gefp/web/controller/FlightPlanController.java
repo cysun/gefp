@@ -145,6 +145,8 @@ public class FlightPlanController {
 
         FlightPlan newPlan = planDao.getFlightPlan( planId ).clone();
         newPlan.setName( request.getParameter( "name" ) );
+        newPlan.setSeasonName( request.getParameter( "seasonName" ) );
+        newPlan.setSeasonYear( request.getParameter( "seasonYear" ) );
         newPlan.setDepartment( deptDao.getDepartment( Integer.parseInt( request.getParameter( "department" ) ) ) );
         newPlan = planDao.saveFlightPlan( newPlan );
         sessionStatus.setComplete();
