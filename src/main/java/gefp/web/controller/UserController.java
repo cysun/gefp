@@ -12,6 +12,7 @@ import gefp.web.validator.UserValidator;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -284,7 +285,7 @@ public class UserController {
 
     @RequestMapping("/advisor/view-student-plan/{id}.html")
     public String advisorViewPlanStudent( @PathVariable Long id,
-        ModelMap models, HttpSession session )
+        ModelMap models, HttpSession session, Principal principal )
     {
 
         User currUserObj = userDao.getUser( id );
@@ -301,6 +302,7 @@ public class UserController {
                     .getId() );
             }
             models.put( "plan", plan );
+            logger.info( "User " + principal.getName() + " viewed flightPlan of " + currUserObj.getUsername() );
             return "advisor_view_student_plan";
         }
         else
@@ -312,7 +314,7 @@ public class UserController {
     @RequestMapping(value = "/advisor/update-student-profile.html",
         method = RequestMethod.POST)
     public void updateProfile( HttpServletRequest request,
-        HttpServletResponse response, PrintWriter out )
+        HttpServletResponse response, PrintWriter out, Principal principal )
     {
 
         long userId = Long.parseLong( request.getParameter( "userId" ) );
@@ -338,7 +340,7 @@ public class UserController {
             usr.setMajor( newDept );
             usr.setFlightPlan( newDept.getDefaultPlan() );
         }
-
+        logger.info( "User " + principal.getName() + " updated " + usr.getUsername() + "'s profile information");
         userDao.saveUser( usr );
         out.print( "Saved" );
 

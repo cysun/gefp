@@ -1,8 +1,9 @@
 package gefp.web.controller;
 
-import gefp.model.User;
 import gefp.model.dao.UserDao;
 import gefp.web.validator.UserValidator;
+
+import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,14 +42,12 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/logout.html", method = RequestMethod.GET)
-    public String logout( ModelMap models, HttpSession session )
+    public String logout( ModelMap models, HttpSession session,
+        Principal principal )
     {
-        User u = (User)session.getAttribute( "loggedInUser" );
-        if(u != null) {
-            logger.info( "User Logout: " + u.getUsername() );
-            session.removeAttribute( "loggedInUser" );
-            session.invalidate();
-        }
+        logger.info( "User Logout: " + principal.getName() );
+        session.removeAttribute( "loggedInUser" );
+        session.invalidate();
         return "redirect:/j_spring_security_logout";
     }
 }

@@ -7,10 +7,13 @@ import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.FlightPlanDao;
 import gefp.model.dao.UserDao;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +26,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes({ "department" })
 public class DepartmentController {
-
+    
+    private static final Logger logger = LoggerFactory.getLogger( DepartmentController.class );
+    
     @Autowired
     private UserDao userDao;
 
@@ -79,10 +84,11 @@ public class DepartmentController {
 
     @RequestMapping(value = "/admin/department/add.html",
         method = RequestMethod.POST)
-    public String add( @ModelAttribute Department department )
+    public String add( @ModelAttribute Department department, Principal principal )
     {
         if( department.getName().isEmpty() ){ return "redirect:/admin/department/add.html?error=true"; }
         department = deptDao.saveDepartment( department );
+        logger.info( "User " + principal.getName() + " added new Department ("+ department.getName() +")" );
         return "redirect:/admin/list-departments.html";
     }
 
@@ -107,11 +113,12 @@ public class DepartmentController {
 
     @RequestMapping(value = "/admin/department/edit.html",
         method = RequestMethod.POST)
-    public String edit( @ModelAttribute("department") Department department )
+    public String edit( @ModelAttribute("department") Department department, Principal principal )
     {
         if( department.getName().isEmpty() ){ return "redirect:/admin/department/edit.html?id="
             + department.getId() + "&error=true"; }
         department = deptDao.saveDepartment( department );
+        logger.info( "User " + principal.getName() + " modified Department title ("+ department.getName() +")" );
         return "redirect:/admin/list-departments.html";
     }
 
