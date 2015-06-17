@@ -50,7 +50,8 @@
 							</div>
 							<div class="panel-body">
 								<div class="table-responsive__">
-									<table id="dataTables" class="table-responsive table table-striped table-bordered dataTable table-hover">
+									<table id="dataTables"
+										class="table-responsive table table-striped table-bordered dataTable table-hover">
 										<thead>
 											<tr>
 												<th>#</th>
@@ -66,13 +67,15 @@
 
 												<tr>
 													<td>${index.count}</td>
-													<td>${plan.name} (${plan.seasonName} ${plan.seasonYear})</td>
+													<td>${plan.name}(${plan.seasonName}
+														${plan.seasonYear})</td>
 													<td>${plan.department.name}</td>
 													<td><c:choose>
 															<c:when test="${plan.published == false}">
 																<a
 																	href="<c:url value="/admin/plan/publish.html?planId=${plan.id}"/>">
-																	<label class="label override handCursor label-primary">Publish Now</label>
+																	<label class="label override handCursor label-primary">Publish
+																		Now</label>
 																</a>
 															</c:when>
 															<c:otherwise>
@@ -83,12 +86,10 @@
 													<td><a
 														href="<c:url value="/plan/view/${plan.id}.html" />"
 														class="btn override btn-primary"><i class="fa fa-eye "></i>
-															View Plan</a>
-															
-															
-															<a href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
-														class="btn btn-primary"><i class="fa fa-share-alt "></i>
-															Clone</a></td>
+													</a> <a
+														href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
+														class="btn override btn-primary"><i
+															class="fa fa-share-alt "></i> </a></td>
 												</tr>
 
 											</c:forEach>
