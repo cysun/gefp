@@ -18,6 +18,7 @@ import gefp.model.dao.UserDao;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,6 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,7 +46,9 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @SessionAttributes({ "checkpoint", "stage", "runway", "flightplan" })
 public class FlightPlanController {
-
+    
+    private static final Logger logger = LoggerFactory.getLogger( FlightPlanController.class );
+    
     @Autowired
     private FlightPlanDao planDao;
 
@@ -258,7 +263,7 @@ public class FlightPlanController {
     @RequestMapping(value = "/admin/plan/add-runway.html",
         method = RequestMethod.POST)
     public String addRunway( @ModelAttribute Runway runway,
-        @RequestParam Long planId, ModelMap models )
+        @RequestParam Long planId, ModelMap models, HttpSession session, Principal principal )
     {
         if( runway.getName().isEmpty() ){ return "redirect:/admin/plan/add-runway.html?planId="
             + planId + "&error=true"; }
@@ -266,6 +271,7 @@ public class FlightPlanController {
         Runway newRunway = runwayDao.saveRunway( runway );
         plan.getRunways().add( newRunway );
         planDao.saveFlightPlan( plan );
+        logger.info( "User " + principal.getName() + " added a new Runway ("+ newRunway.getName() +") to flightplan " + plan.getName() );        
         return "redirect:/plan/edit/" + plan.getId() + ".html";
     }
 
