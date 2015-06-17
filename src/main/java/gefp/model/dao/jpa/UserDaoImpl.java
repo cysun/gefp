@@ -23,15 +23,10 @@ public class UserDaoImpl implements UserDao {
     private EntityManager entityManager;
 
     @Override
-    @PostAuthorize("principal.username == returnObject.username or hasAnyRole('ADMIN','ADVISOR')")
+    @PostAuthorize("returnObject!= null && (principal.username == returnObject.username or hasAnyRole('ADMIN','ADVISOR'))")
     // @PostAuthorize("principal.username == returnObject.username or principal.admin or principal.advisor")
     public User getUser( Long id )
     {
-
-        // User u2 = (User) SecurityContextHolder.getContext()
-        // .getAuthentication()
-        // .getPrincipal();
-
         User u = entityManager.find( User.class, id );
         return u;
     }

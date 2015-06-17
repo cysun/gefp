@@ -139,6 +139,7 @@ public class FlightPlanController {
 
         if( flightPlan != null )
         {
+            flightPlan.setName( "Copy Of " + flightPlan.getName() );
             models.put( "flightplan", flightPlan );
             models.put( "departments", deptDao.getDepartments() );
             return "clone_flightplan";
