@@ -79,9 +79,6 @@
 													<td>${user.firstName}</td>
 													<td>${user.lastName}</td>
 													<td><c:set var="roleName" value="" />
-													<c:if
-															test="${fn:contains(user.roles, 'ADMIN')}">
-															ADMIN ROLE</c:if>
 													
 													<c:forEach var="role" items="${user.roles}">
 														${role.name} 
