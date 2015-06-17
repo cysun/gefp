@@ -1,5 +1,6 @@
 package gefp.web.controller;
 
+import gefp.model.User;
 import gefp.model.dao.UserDao;
 import gefp.web.validator.UserValidator;
 
@@ -32,8 +33,6 @@ public class LoginController {
     @RequestMapping(value = "/login.html", method = RequestMethod.GET)
     public String login( ModelMap models, HttpServletRequest request )
     {
-        logger.debug( "Login Page called" );
-
         String errMsg = request.getParameter( "error" );
         if( errMsg != null && errMsg.equals( "true" ) )
             errMsg = "Invalid Username/Password";
@@ -44,6 +43,8 @@ public class LoginController {
     @RequestMapping(value = "/logout.html", method = RequestMethod.GET)
     public String logout( ModelMap models, HttpSession session )
     {
+        User u = (User)session.getAttribute( "loggedInUser" );
+        logger.info( "User Logout: " + u.getUsername() );
         session.removeAttribute( "loggedInUser" );
         session.invalidate();
         return "redirect:/j_spring_security_logout";

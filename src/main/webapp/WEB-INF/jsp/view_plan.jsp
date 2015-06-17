@@ -123,7 +123,7 @@
 										
 										<c:if test="${not empty StudentUser}">
 											<div class="pull-right">
-											<a style="text-decoration:underline;" class="btn override btn-link" href="<c:url value="/user/profile/${StudentUser.id}.html"/>">Edit Profile</a>
+											<a style="text-decoration:underline;" class="btn override btn-link" href="<c:url value="/user/profile.html"/>">Edit Profile</a>
 											</div>
 										
 										</c:if>
@@ -207,9 +207,6 @@
 
 										</div>
 									</div>
-
-
-
 								</div>
 								<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
 

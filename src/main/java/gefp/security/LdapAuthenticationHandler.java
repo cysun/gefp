@@ -80,13 +80,11 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                 SearchResult rs = (SearchResult) result.next();
                 Attributes attrs = rs.getAttributes();
                 User user = userDao.getUserByUsername( username );
-                logger.info( "username ( " + username
+                logger.info( "Username ( " + username
                     + " ) is authenticated from AD" );
 
                 if( user == null )
                 {
-                    logger.info( "Inside new User IF Loop" );
-
                     String temp = attrs.get( "givenName" ).toString();
                     String firstName = temp.substring( temp.indexOf( ":" ) + 1 );
                     temp = attrs.get( "mail" ).toString();
@@ -115,7 +113,6 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
                     user.setNewAccount( true );
                     user.setDeleted( false );
                     user = userDao.saveUser( user );
-                    logger.info( "new user id is " + user.getId() );
                 }
 
                 List<GrantedAuthority> grantedAuths = new ArrayList<>();
@@ -129,7 +126,7 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
             }
             else
             {
-                logger.info( "No result found!" );
+                logger.info( "No match found in AD for username :" + username );
             }
             activeDirectory.closeLdapConnection();
         }
@@ -140,12 +137,12 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
         }
         catch( IOException e )
         {
-            logger.info( "Exception : " + e.getMessage() );
+            logger.debug( "Exception : " + e.getMessage() );
             e.printStackTrace();
         }
         catch( Exception e )
         {
-            logger.info( "Exception : " + e.getMessage() );
+            logger.debug( "Exception : " + e.getMessage() );
             e.printStackTrace();
         }
         return auth;

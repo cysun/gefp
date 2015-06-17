@@ -25,6 +25,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,6 +42,8 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @SessionAttributes({ "user" })
 public class UserController {
+
+    private static final Logger logger = LoggerFactory.getLogger( UserController.class );
 
     @Autowired
     private UserDao userDao;
@@ -118,8 +122,7 @@ public class UserController {
     @RequestMapping(value = "/admin/user/add.html", method = RequestMethod.POST)
     public String add( HttpServletRequest request, SessionStatus sessionStatus )
     {
-        User user = new User();
-        System.out.println( "In Post" );
+
         String firstName = request.getParameter( "firstName" );
         String lastName = request.getParameter( "lastName" );
         String email = request.getParameter( "email" );
@@ -127,6 +130,7 @@ public class UserController {
         String username = request.getParameter( "username" );
         String password = request.getParameter( "password" );
 
+        User user = new User();
         user.setFirstName( firstName );
         user.setLastName( lastName );
         user.setCin( cin );
@@ -148,6 +152,7 @@ public class UserController {
         user.setEnabled( true );
         User user2 = userDao.saveUser( user );
         sessionStatus.setComplete();
+        logger.debug( "Login Page called" );
         System.out.println( "New user id is " + user2.getId() );
         return "redirect:/admin/list-users.html";
     }
@@ -173,10 +178,8 @@ public class UserController {
 
     /* Student Profile Page */
 
-    @RequestMapping(value = "/user/profile/{id}.html",
-        method = RequestMethod.GET)
-    public String profile( @PathVariable Integer id, ModelMap models,
-        HttpSession session )
+    @RequestMapping(value = "/user/profile.html", method = RequestMethod.GET)
+    public String profile( ModelMap models, HttpSession session )
     {
 
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
@@ -195,20 +198,19 @@ public class UserController {
         HttpSession session, HttpServletRequest request )
     {
 
-        //String numRegex = ".*[0-9].*";
-        //String alphaRegex = ".*[a-zA-Z].*";
+        // String numRegex = ".*[0-9].*";
+        // String alphaRegex = ".*[a-zA-Z].*";
 
         String firstName = request.getParameter( "firstName" );
         String middleName = request.getParameter( "middleName" );
         String lastName = request.getParameter( "lastName" );
 
         // String uid = request.getParameter("uid");
-        //String password = request.getParameter( "password" );
+        // String password = request.getParameter( "password" );
         String deptIdStr = request.getParameter( "departmentID" );
         String email = request.getParameter( "email" );
         String cin = request.getParameter( "cin" );
-        
-        
+
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
         User currUserObj = userDao.getUser( sessionUserObj.getId() );
 
@@ -222,21 +224,23 @@ public class UserController {
             session.setAttribute( "firstName", "FirstName cannot be empty" );
             return "redirect:/user/profile/" + pid + ".html";
         }
-//        else if( password != "" && password != null && password.length() < 4 )
-//        {
-//            //System.out.println( "pppppp" );
-//            session.setAttribute( "passwordErr",
-//                "Password should be more than 4 characters." );
-//            return "redirect:/user/profile/" + pid + ".html";
-//        }
-//        else if( password != ""
-//            && password != null
-//            && (!password.matches( numRegex ) || !password.matches( alphaRegex )) )
-//        {
-//            session.setAttribute( "passwordErr",
-//                "Password should contain both letters and numbers." );
-//            return "redirect:/user/profile/" + pid + ".html";
-//        }
+        // else if( password != "" && password != null && password.length() < 4
+        // )
+        // {
+        // //System.out.println( "pppppp" );
+        // session.setAttribute( "passwordErr",
+        // "Password should be more than 4 characters." );
+        // return "redirect:/user/profile/" + pid + ".html";
+        // }
+        // else if( password != ""
+        // && password != null
+        // && (!password.matches( numRegex ) || !password.matches( alphaRegex ))
+        // )
+        // {
+        // session.setAttribute( "passwordErr",
+        // "Password should contain both letters and numbers." );
+        // return "redirect:/user/profile/" + pid + ".html";
+        // }
         else if( deptIdStr == "" )
         {
             session.setAttribute( "deptErr", "Please select a department." );
@@ -245,10 +249,10 @@ public class UserController {
 
         Integer deptID = Integer.parseInt( deptIdStr );
 
-//        if( password != "" && password != null )
-//        {
-//            currUserObj.setPassword( password );
-//        }
+        // if( password != "" && password != null )
+        // {
+        // currUserObj.setPassword( password );
+        // }
 
         if( deptID != currUserObj.getDepartment().getId() )
         {
@@ -262,7 +266,7 @@ public class UserController {
         currUserObj.setLastName( lastName );
         currUserObj.setEmail( email );
         currUserObj.setCin( cin );
-        
+
         userDao.saveUser( currUserObj );
         session.setAttribute( "successMsg", "Profile details updated" );
         session.setAttribute( "loggedInUser", currUserObj );
@@ -284,20 +288,29 @@ public class UserController {
     {
 
         User currUserObj = userDao.getUser( id );
-        models.put( "currUserObj", currUserObj );
-        models.put( "departments", deptDao.getDepartments() );
 
-        FlightPlan plan = null;
-
-        if( currUserObj.getFlightPlan() != null )
+        if( currUserObj != null )
         {
-            plan = planDao.getFlightPlan( currUserObj.getFlightPlan().getId() );
+            models.put( "currUserObj", currUserObj );
+            models.put( "departments", deptDao.getDepartments() );
+            FlightPlan plan = null;
+
+            if( currUserObj.getFlightPlan() != null )
+            {
+                plan = planDao.getFlightPlan( currUserObj.getFlightPlan()
+                    .getId() );
+            }
+            models.put( "plan", plan );
+            return "advisor_view_student_plan";
         }
-        models.put( "plan", plan );
-        return "advisor_view_student_plan";
+        else
+        {
+            return "redirect:/404";
+        }
     }
 
-    @RequestMapping(value = "/advisor/update-student-profile.html", method=RequestMethod.POST)
+    @RequestMapping(value = "/advisor/update-student-profile.html",
+        method = RequestMethod.POST)
     public void updateProfile( HttpServletRequest request,
         HttpServletResponse response, PrintWriter out )
     {
@@ -309,22 +322,23 @@ public class UserController {
         String cin = request.getParameter( "cin" );
         Integer majorId = Integer.parseInt( request.getParameter( "major" ) );
         User usr = userDao.getUser( userId );
-        
+
         Integer oldMajorId = usr.getMajor().getId();
-        
+
         usr.setFirstName( firstName );
         usr.setLastName( lastName );
         usr.setCin( cin );
         usr.setEmail( email );
-        
+
         // Update Department and Flight Plan only if they are changed.
-        if(oldMajorId!=majorId) {
+        if( oldMajorId != majorId )
+        {
             Department newDept = deptDao.getDepartment( majorId );
             usr.setDepartment( newDept );
             usr.setMajor( newDept );
             usr.setFlightPlan( newDept.getDefaultPlan() );
         }
-        
+
         userDao.saveUser( usr );
         out.print( "Saved" );
 
@@ -339,8 +353,6 @@ public class UserController {
 
         for( User user : users )
         {
-            // System.out.println("username is " + user.getUsername());
-
             if( user.isStudent() )
             {
                 Map<String, String> json = new HashMap<String, String>();

@@ -29,7 +29,7 @@
 				<!-- /. ROW  -->
 
 				<div class="col-md-6">
-					<h3>404 Page Not found</h3>
+					<h3>Page Not found</h3>
 				</div>
 			
 			

@@ -40,7 +40,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 //import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.support.SessionStatus;
 
-
 @Controller
 @SessionAttributes({ "checkpoint", "stage", "runway", "flightplan" })
 public class FlightPlanController {
@@ -111,27 +110,44 @@ public class FlightPlanController {
     public String viewPlanStudent( @PathVariable Long id, ModelMap models,
         HttpSession session )
     {
-        // User sessionUserObj = (User) session.getAttribute("loggedInUser");
         User currUserObj = userDao.getUser( id );
-        // models.put( "sessionUserObj", sessionUserObj );
-        models.put( "currUserObj", currUserObj );
-        FlightPlan plan = null;
-        boolean student_mode = true;
-        if( currUserObj.getFlightPlan() != null )
+
+        if( currUserObj != null )
         {
-            plan = planDao.getFlightPlan( currUserObj.getFlightPlan().getId() );
+            models.put( "currUserObj", currUserObj );
+            FlightPlan plan = null;
+            boolean student_mode = true;
+            if( currUserObj.getFlightPlan() != null )
+            {
+                plan = planDao.getFlightPlan( currUserObj.getFlightPlan()
+                    .getId() );
+            }
+            models.put( "student_mode", student_mode );
+            models.put( "plan", plan );
+            return "view_plan";
         }
-        models.put( "student_mode", student_mode );
-        models.put( "plan", plan );
-        return "view_plan";
+        else
+        {
+            return "redirect:/404";
+        }
     }
 
     @RequestMapping(value = "/plan/clone.html", method = RequestMethod.GET)
     public String clonePlan( @RequestParam Long planId, ModelMap models )
     {
-        models.put( "flightplan", planDao.getFlightPlan( planId ) );
-        models.put( "departments", deptDao.getDepartments() );
-        return "clone_flightplan";
+        FlightPlan flightPlan = planDao.getFlightPlan( planId );
+
+        if( flightPlan != null )
+        {
+            models.put( "flightplan", flightPlan );
+            models.put( "departments", deptDao.getDepartments() );
+            return "clone_flightplan";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+
     }
 
     @RequestMapping(value = "/plan/clone.html", method = RequestMethod.POST)
@@ -167,7 +183,6 @@ public class FlightPlanController {
     public String add( @ModelAttribute FlightPlan flightplan,
         HttpServletRequest request )
     {
-        // System.out.println( flightplan.getName() );
         Integer departmentId = Integer.parseInt( request.getParameter( "departmentId" ) );
         Department department = deptDao.getDepartment( departmentId );
         flightplan.setDepartment( department );
@@ -191,10 +206,7 @@ public class FlightPlanController {
             return;
         }
 
-        // User sessionUserObj = (User) session.getAttribute("loggedInUser");
         Long userId = Long.parseLong( request.getParameter( "userId" ) );
-
-        // User currUserObj = userDao.getUser(sessionUserObj.getId());
         User currUserObj = userDao.getUser( userId );
 
         Long id = Long.parseLong( request.getParameter( "id" ) );
@@ -215,17 +227,6 @@ public class FlightPlanController {
             }
             else
             {
-
-                // This code doesn;t work. Need to ask Professor about this.
-                // System.out.println("size before " +
-                // currUserObj.getCheckpoints().size());
-                // System.out.println("Check ID " + c.getId());
-                // System.out.println("IndexOf " +
-                // currUserObj.getCheckpoints().indexOf(c));
-                // currUserObj.getCheckpoints().remove(c);
-                // System.out.println("size after " +
-                // currUserObj.getCheckpoints().size());
-
                 Set<CheckpointInfo> newCheckpoints = new HashSet<CheckpointInfo>();
                 for( CheckpointInfo cp : currUserObj.getCheckpoints() )
                 {
@@ -235,7 +236,6 @@ public class FlightPlanController {
                     }
                 }
                 currUserObj.setCheckpoints( newCheckpoints );
-
             }
             userDao.saveUser( currUserObj );
         }
@@ -273,10 +273,21 @@ public class FlightPlanController {
     public String editRunway( @RequestParam Long id, @RequestParam Long planId,
         ModelMap models, HttpServletRequest request )
     {
-        models.put( "error", request.getParameter( "error" ) );
-        models.put( "flightplan", planDao.getFlightPlan( planId ) );
-        models.put( "runway", runwayDao.getRunway( id ) );
-        return "edit_runway";
+        FlightPlan flightPlan = planDao.getFlightPlan( planId );
+        Runway runway = runwayDao.getRunway( id );
+
+        if( flightPlan != null && runway != null )
+        {
+
+            models.put( "error", request.getParameter( "error" ) );
+            models.put( "flightplan", flightPlan );
+            models.put( "runway", runway );
+            return "edit_runway";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
     }
 
     @RequestMapping(value = "/admin/plan/edit-runway.html",
@@ -325,10 +336,21 @@ public class FlightPlanController {
     public String editStage( @RequestParam Long id, @RequestParam Long planId,
         ModelMap models, HttpServletRequest request )
     {
-        models.put( "error", request.getParameter( "error" ) );
-        models.put( "flightplan", planDao.getFlightPlan( planId ) );
-        models.put( "stage", stageDao.getStage( id ) );
-        return "edit_stage";
+
+        FlightPlan flightPlan = planDao.getFlightPlan( planId );
+        Stage stage = stageDao.getStage( id );
+
+        if( flightPlan != null && stage != null )
+        {
+            models.put( "error", request.getParameter( "error" ) );
+            models.put( "flightplan", planDao.getFlightPlan( planId ) );
+            models.put( "stage", stageDao.getStage( id ) );
+            return "edit_stage";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
     }
 
     @RequestMapping(value = "/admin/plan/edit-stage.html",
@@ -412,10 +434,23 @@ public class FlightPlanController {
     public String editCheckpoint( @RequestParam Long planId,
         @RequestParam Long cellId, @RequestParam Long id, ModelMap models )
     {
-        models.put( "flightplan", planDao.getFlightPlan( planId ) );
-        models.put( "cell", cellDao.getCell( cellId ) );
-        models.put( "checkpoint", checkpointDao.getCheckPoint( id ) );
-        return "edit_checkpoint";
+
+        FlightPlan flightPlan = planDao.getFlightPlan( planId );
+        Cell cell = cellDao.getCell( cellId );
+        Checkpoint checkpoint = checkpointDao.getCheckPoint( id );
+
+        if( flightPlan != null && cell != null && checkpoint != null )
+        {
+            models.put( "flightplan", flightPlan );
+            models.put( "cell", cell );
+            models.put( "checkpoint", checkpoint );
+            return "edit_checkpoint";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+
     }
 
     @RequestMapping(value = "/admin/plan/publish.html",
@@ -423,16 +458,25 @@ public class FlightPlanController {
     public String publish( ModelMap models, @RequestParam Long planId )
     {
         FlightPlan plan = planDao.getFlightPlan( planId );
-        plan.setPublished( true );
-        planDao.saveFlightPlan( plan );
-        return "redirect:/plan/view/" + planId + ".html";
+
+        if( plan != null )
+        {
+            plan.setPublished( true );
+            planDao.saveFlightPlan( plan );
+            return "redirect:/plan/view/" + planId + ".html";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
     }
 
     @RequestMapping(value = "/admin/plan/save-checkpoint.html",
         method = RequestMethod.POST)
     public String saveCheckpoint(
         @ModelAttribute("checkpoint") Checkpoint checkpoint,
-        HttpServletRequest request, ModelMap models, SessionStatus sessionStatus ) throws Exception
+        HttpServletRequest request, ModelMap models, SessionStatus sessionStatus )
+        throws Exception
     {
         Long chkId = Long.parseLong( request.getParameter( "chkId" ) );
         Long planId = Long.parseLong( request.getParameter( "planId" ) );
@@ -460,16 +504,16 @@ public class FlightPlanController {
         if( !cellId.equals( newCellId ) )
         {
             /*
-            int cellIndex = cells.indexOf( cellDao.getCell( cellId ) );
-            Cell oldCell = cells.get( cellIndex );
-            
-            int oldIndex = oldCell.getCheckpoints().indexOf(
-                checkpointDao.getCheckPoint( chkId ) );
-            
-            oldCell.getCheckpoints().remove( oldIndex );
-            cells.set(cellIndex, oldCell);
-            */
-            
+             * int cellIndex = cells.indexOf( cellDao.getCell( cellId ) ); Cell
+             * oldCell = cells.get( cellIndex );
+             * 
+             * int oldIndex = oldCell.getCheckpoints().indexOf(
+             * checkpointDao.getCheckPoint( chkId ) );
+             * 
+             * oldCell.getCheckpoints().remove( oldIndex ); cells.set(cellIndex,
+             * oldCell);
+             */
+
             for( Cell c : cells )
             {
                 if( c.getId().equals( cellId ) )
@@ -478,17 +522,18 @@ public class FlightPlanController {
                         checkpointDao.getCheckPoint( chkId ) );
                     c.getCheckpoints().remove( index );
                     planDao.saveFlightPlan( plan );
-                    //throw new Exception("Checkpoint removed in same cell." + " index="+index + " ");
+                    // throw new Exception("Checkpoint removed in same cell." +
+                    // " index="+index + " ");
                     break;
                 }
             }
-            
+
         }
 
         // Check if cell exists
 
         if( cellExists )
-        {            
+        {
             for( Cell c : cells )
             {
                 if( c.getRunway().getId().equals( runwayId )
@@ -496,14 +541,22 @@ public class FlightPlanController {
                 {
                     int currentIndex = c.getCheckpoints().indexOf(
                         checkpointDao.getCheckPoint( chkId ) );
-                    
-                    if(currentIndex < 0) { // Add the checkpoint to new cell
-                        c.getCheckpoints().add(checkpoint);
+
+                    if( currentIndex < 0 )
+                    { // Add the checkpoint to new cell
+                        c.getCheckpoints().add( checkpoint );
                     }
-                    else {// Get index of the checkpoint and update it 
+                    else
+                    {// Get index of the checkpoint and update it
                         c.getCheckpoints().set( currentIndex, checkpoint );
-                        // throw new Exception("Checkpoint updated in same cell." + " index="+currentIndex + " ");
-                        // throw new Exception("Error in updating the checkpoint. No checkpoint with id " + chkId + " is found in Cell. Using parameters newCellId=" + newCellId + " cellId=" + cellId + " index="+index);
+                        // throw new
+                        // Exception("Checkpoint updated in same cell." +
+                        // " index="+currentIndex + " ");
+                        // throw new
+                        // Exception("Error in updating the checkpoint. No checkpoint with id "
+                        // + chkId +
+                        // " is found in Cell. Using parameters newCellId=" +
+                        // newCellId + " cellId=" + cellId + " index="+index);
                     }
                     break;
                 }
@@ -511,7 +564,7 @@ public class FlightPlanController {
         }
         else
         {
-            
+
             // throw new Exception("IN ELSE");
             List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
             checkpoints.add( checkpoint );
@@ -522,7 +575,7 @@ public class FlightPlanController {
             cell.setCheckpoints( checkpoints );
             plan.getCells().add( cell );
         }
-        
+
         planDao.saveFlightPlan( plan );
         sessionStatus.setComplete();
         return "redirect:/plan/edit/" + planId + ".html";

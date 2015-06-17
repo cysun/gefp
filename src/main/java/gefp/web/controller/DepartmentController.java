@@ -7,11 +7,9 @@ import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.FlightPlanDao;
 import gefp.model.dao.UserDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes({ "department" })
@@ -56,10 +53,19 @@ public class DepartmentController {
         method = RequestMethod.GET)
     public String listStudents( @RequestParam Integer id, ModelMap models )
     {
-        List<User> users = userDao.getUsersInDepartment( id );
-        models.put( "department", deptDao.getDepartment( id ) );
-        models.put( "users", users );
-        return "list_department_users";
+        Department department = deptDao.getDepartment( id );
+
+        if( department != null )
+        {
+            List<User> users = userDao.getUsersInDepartment( id );
+            models.put( "department", department );
+            models.put( "users", users );
+            return "list_department_users";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
     }
 
     @RequestMapping(value = "/admin/department/add.html",
@@ -85,9 +91,18 @@ public class DepartmentController {
     public String edit( @RequestParam Integer id, ModelMap models,
         HttpServletRequest request )
     {
-        models.put( "error", request.getParameter( "error" ) );
-        models.put( "department", deptDao.getDepartment( id ) );
-        return "edit_department";
+        Department department = deptDao.getDepartment( id );
+
+        if( department != null )
+        {
+            models.put( "error", request.getParameter( "error" ) );
+            models.put( "department", department );
+            return "edit_department";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
     }
 
     @RequestMapping(value = "/admin/department/edit.html",
@@ -108,6 +123,29 @@ public class DepartmentController {
         return "list-department-plans";
     }
 
+    @RequestMapping(value = "/admin/department/set-official-plan.html",
+        method = RequestMethod.GET)
+    public String setOfficialPlan( @RequestParam Integer dept_id,
+        @RequestParam Long plan_id )
+    {
+        Department department = deptDao.getDepartment( dept_id );
+        FlightPlan flightplan = planDao.getFlightPlan( plan_id );
+
+        if( department != null && flightplan != null )
+        {
+            department.setDefaultPlan( flightplan );
+            deptDao.saveDepartment( department );
+            return "redirect:/admin/department/list-plans.html?id="
+                + department.getId();
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+    }
+    
+    
+    /*
     @RequestMapping(value = "/admin/department/select-plans.html",
         method = RequestMethod.GET)
     public String selectplans( @RequestParam Integer id, ModelMap models )
@@ -145,17 +183,6 @@ public class DepartmentController {
         return "redirect:/admin/department/list-plans.html?id="
             + department.getId();
     }
-
-    @RequestMapping(value = "/admin/department/set-official-plan.html",
-        method = RequestMethod.GET)
-    public String setOfficialPlan( @RequestParam Integer dept_id,
-        @RequestParam Long plan_id )
-    {
-        Department department = deptDao.getDepartment( dept_id );
-        department.setDefaultPlan( planDao.getFlightPlan( plan_id ) );
-        deptDao.saveDepartment( department );
-        return "redirect:/admin/department/list-plans.html?id="
-            + department.getId();
-    }
+    */
 
 }
