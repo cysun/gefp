@@ -63,118 +63,126 @@
 				<hr />
 
 
-				<c:choose>
 
-					<c:when test="${not empty plan }">
 
-						<div class="row" ng-controller="checkpointController">
-							<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="row" ng-controller="checkpointController">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 
-								<div class="panel panel-default">
-									<div class="panel-heading">
+						<div class="panel panel-default">
+							<div class="panel-heading">
 
 
 
-										<table id="student-details" class="table table-striped student-details">
-											<thead>
-												<tr>
-													<td colspan="2">Student's Profile </td>
-													<td align="right" colspan="2"><a
-														class="editStudentInfo" id="StartEditMode" href="javascript:void(0)"><i
-															class="fa fa-edit "></i>Edit</a></td>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<th>First Name:</th>
-													<td><span id="firstName">${currUserObj.firstName}</span></td>
-													<th>Last Name:</th>
-													<td><span id="lastName">${currUserObj.lastName}</span></td>
-												</tr>
-												<tr>
-													<th>Username:</th>
-													<td>${currUserObj.username}</td>
-													<th>Email:</th>
-													<td><span id="email">${currUserObj.email}</span></td>
-												</tr>
-												<tr>
-													<th>CIN:</th>
-													<td><span id="cin">${currUserObj.cin}</span></td>
-													<th>Major:</th>
-													<td>
-													<input type="hidden" id="oldMajorId" value="${currUserObj.major.id}" />
-													<span id="major">${currUserObj.major.name}</span></td>
-												</tr>
-											</tbody>
-										</table>
-										
-										<table class="table table-striped edit-student-details">
-											<thead>
-												<tr>
-													<td colspan="4">Student's Profile </td>
-													
-												</tr>
-											</thead>
-											
-											<tbody>
-												<tr>
-													<th>First Name:</th>
-													<td><input type="text" id="firstNameInp" name="firstName" class="form-control" value="${currUserObj.firstName}" /></td>
-													<th>Last Name:</th>
-													<td><input type="text" id="lastNameInp" name="lastName" class="form-control" value="${currUserObj.lastName}" /></td>
-												</tr>
-												<tr>
-													<th>Username:</th>
-													<td>${currUserObj.username}</td>
-													<th>Email:</th>
-													<td><input type="text" id="emailInp" name="email" class="form-control" value="${currUserObj.email}" /></td>
-												</tr>
-												<tr>
-													<th>CIN:</th>
-													<td><input type="text" id="cinInp" name="cin" class="form-control" value="${currUserObj.cin}" /></td>
-													<th>Major:</th>
-													<td>
-														<select class="form-control" name="major" id="majorInp">
-															<option value="">Select Major</option>
-															<c:forEach var="dept" items="${departments}">
-																<c:choose>
-																	<c:when test="${dept.id == currUserObj.major.id }">
-																		<option value="${dept.id}" data-txt="${dept.name}" selected>${dept.name}</option>
-																	</c:when>
-																	<c:otherwise>
-																		<option value="${dept.id}" data-txt="${dept.name}">${dept.name}</option>
-																	</c:otherwise>
-																</c:choose>
-															</c:forEach>
-														</select>
-													</td>
-												</tr>
-												
-												<tr>
-													<td colspan="4" align="right">
-													<input type="hidden" name="" value="${currUserObj.id}" id="userId" />
-													<input id="SaveInformation" type="button" class="btn override btn-info" value="Save" /> </td>
-												</tr>
-												
-											</tbody>
-										</table>
+								<table id="student-details"
+									class="table table-striped student-details">
+									<thead>
+										<tr>
+											<td colspan="2">Student's Profile</td>
+											<td align="right" colspan="2"><a class="editStudentInfo"
+												id="StartEditMode" href="javascript:void(0)"><i
+													class="fa fa-edit "></i>Edit</a></td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th>First Name:</th>
+											<td><span id="firstName">${currUserObj.firstName}</span></td>
+											<th>Last Name:</th>
+											<td><span id="lastName">${currUserObj.lastName}</span></td>
+										</tr>
+										<tr>
+											<th>Username:</th>
+											<td>${currUserObj.username}</td>
+											<th>Email:</th>
+											<td><span id="email">${currUserObj.email}</span></td>
+										</tr>
+										<tr>
+											<th>CIN:</th>
+											<td><span id="cin">${currUserObj.cin}</span></td>
+											<th>Major:</th>
+											<td><input type="hidden" id="oldMajorId"
+												value="${currUserObj.major.id}" /> <span id="major">${currUserObj.major.name}</span></td>
+										</tr>
+									</tbody>
+								</table>
+
+								<table class="table table-striped edit-student-details">
+									<thead>
+										<tr>
+											<td colspan="4">Student's Profile</td>
+
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr>
+											<th>First Name:</th>
+											<td><input type="text" id="firstNameInp"
+												name="firstName" class="form-control"
+												value="${currUserObj.firstName}" /></td>
+											<th>Last Name:</th>
+											<td><input type="text" id="lastNameInp" name="lastName"
+												class="form-control" value="${currUserObj.lastName}" /></td>
+										</tr>
+										<tr>
+											<th>Username:</th>
+											<td>${currUserObj.username}</td>
+											<th>Email:</th>
+											<td><input type="text" id="emailInp" name="email"
+												class="form-control" value="${currUserObj.email}" /></td>
+										</tr>
+										<tr>
+											<th>CIN:</th>
+											<td><input type="text" id="cinInp" name="cin"
+												class="form-control" value="${currUserObj.cin}" /></td>
+											<th>Major:</th>
+											<td><select class="form-control" name="major"
+												id="majorInp">
+													<option value="">Select Major</option>
+													<c:forEach var="dept" items="${departments}">
+														<c:choose>
+															<c:when test="${dept.id == currUserObj.major.id }">
+																<option value="${dept.id}" data-txt="${dept.name}"
+																	selected>${dept.name}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${dept.id}" data-txt="${dept.name}">${dept.name}</option>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+											</select></td>
+										</tr>
+
+										<tr>
+											<td colspan="4" align="right"><input type="hidden"
+												name="" value="${currUserObj.id}" id="userId" /> <input
+												id="SaveInformation" type="button"
+												class="btn override btn-info" value="Save" /></td>
+										</tr>
+
+									</tbody>
+								</table>
 
 
 
-										<div class="col-xs-offset-5 ">
-											<div id="successMessage" style="color: #090; display: none;">
-												<h5>Checkpoints updated successfully</h5>
-											</div>
-										</div>
-
-										<div style="clear: both;"></div>
+								<div class="col-xs-offset-5 ">
+									<div id="successMessage" style="color: #090; display: none;">
+										<h5>Checkpoints updated successfully</h5>
 									</div>
+								</div>
+
+								<div style="clear: both;"></div>
+							</div>
 
 
+							<c:choose>
+
+								<c:when test="${not empty plan }">
 									<div class="panel-body">
 										<div class="table-responsive">
 
-											<div class="studentPlanTitle">Student's Flight Plan - ${plan.name} (${plan.seasonName} ${plan.seasonYear})</div>
+											<div class="studentPlanTitle">Student's Flight Plan -
+												${plan.name} (${plan.seasonName} ${plan.seasonYear})</div>
 
 											<table class="table table-striped table-bordered">
 												<thead>
@@ -221,19 +229,21 @@
 																									data-userId="${currUserObj.id}"
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
-																									
-																									<c:if test="${not empty checkMessage }">
-																										<img data-comment="${checkMessage}" class="CommentIcon CommentIconClick" src="<c:url value="/assets/img/comment-icon.png" />" />
-																									</c:if>
-																									
+
+																								<c:if test="${not empty checkMessage }">
+																									<img data-comment="${checkMessage}"
+																										class="CommentIcon CommentIconClick"
+																										src="<c:url value="/assets/img/comment-icon.png" />" />
+																								</c:if>
+
 																							</c:when>
 																							<c:otherwise>
 																								<input type="checkbox" name="checkpoints"
 																									data-userId="${currUserObj.id}"
 																									value="${checkpoint.id}"
 																									class="flightplan_checkpoints pull-left" />
-																									
-																									
+
+
 																							</c:otherwise>
 																						</c:choose> <span class="checkpoint_information pull-left">
 																							${checkpoint.name} </span></li>
@@ -254,21 +264,20 @@
 										</div>
 									</div>
 
-								</div>
-								<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
+								</c:when>
 
-							</div>
-						</div>
-						<!-- /. ROW  -->
-
-					</c:when>
-
-					<c:otherwise>
+								<c:otherwise>
 				Plan not available
 			</c:otherwise>
 
-				</c:choose>
+							</c:choose>
 
+						</div>
+						<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
+
+					</div>
+				</div>
+				<!-- /. ROW  -->
 
 			</div>
 			<!-- /. PAGE INNER  -->
@@ -279,56 +288,91 @@
 
 	<jsp:include page="includes/footer.jsp" />
 
-<script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#StartEditMode").click(function() {
+								$("#student-details").hide();
+								$(".edit-student-details").show();
+							});
 
-$(document).ready(function(){
-	$("#StartEditMode").click(function(){
-		$("#student-details").hide();
-		$(".edit-student-details").show();
-	});
-	
-	$("#SaveInformation").click(function(){
-		console.log("test gdv ykdgyfgyksgk");
-		
-		var oldMajorId = $("#oldMajorId").val();
-		var userId = $("#userId").val();
-		var firstName = $("#firstNameInp").val();
-		var lastName = $("#lastNameInp").val();
-		var email = $("#emailInp").val();
-		var cin = $("#cinInp").val();
-		var major = $("#majorInp").val();
-		
-		$.ajax({
-			data : {userId:userId, firstName:firstName, lastName:lastName, email:email, cin:cin, major:major},
-			dataType: "text",
-			method : "POST",
-			url : '<c:url value="/advisor/update-student-profile.html" />',
-			success : function(data, textStatus, jqXHR ) {
-				
-				if(oldMajorId!=major) {
-					top.location.reload();
-				}
-				else {
-					$("#firstName").text(firstName);
-					$("#lastName").text(lastName);
-					$("#email").text(email);
-					$("#cin").text(cin);
-					$("#major").text($("#majorInp option:selected").attr("data-txt"));
-					$("#student-details").show();
-					$(".edit-student-details").hide();
-				}
-				
-				
-			}
-		})
-		
-		
-	});
-	
-});
+							$("#SaveInformation")
+									.click(
+											function() {
+												console
+														.log("test gdv ykdgyfgyksgk");
 
+												var oldMajorId = $(
+														"#oldMajorId").val();
+												var userId = $("#userId").val();
+												var firstName = $(
+														"#firstNameInp").val();
+												var lastName = $("#lastNameInp")
+														.val();
+												var email = $("#emailInp")
+														.val();
+												var cin = $("#cinInp").val();
+												var major = $("#majorInp")
+														.val();
 
-</script>
+												$
+														.ajax({
+															data : {
+																userId : userId,
+																firstName : firstName,
+																lastName : lastName,
+																email : email,
+																cin : cin,
+																major : major
+															},
+															dataType : "text",
+															method : "POST",
+															url : '<c:url value="/advisor/update-student-profile.html" />',
+															success : function(
+																	data,
+																	textStatus,
+																	jqXHR) {
+
+																if (oldMajorId != major) {
+																	top.location
+																			.reload();
+																} else {
+																	$(
+																			"#firstName")
+																			.text(
+																					firstName);
+																	$(
+																			"#lastName")
+																			.text(
+																					lastName);
+																	$("#email")
+																			.text(
+																					email);
+																	$("#cin")
+																			.text(
+																					cin);
+																	$("#major")
+																			.text(
+																					$(
+																							"#majorInp option:selected")
+																							.attr(
+																									"data-txt"));
+																	$(
+																			"#student-details")
+																			.show();
+																	$(
+																			".edit-student-details")
+																			.hide();
+																}
+
+															}
+														})
+
+											});
+
+						});
+	</script>
 
 
 </body>
