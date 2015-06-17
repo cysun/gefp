@@ -44,9 +44,11 @@ public class LoginController {
     public String logout( ModelMap models, HttpSession session )
     {
         User u = (User)session.getAttribute( "loggedInUser" );
-        logger.info( "User Logout: " + u.getUsername() );
-        session.removeAttribute( "loggedInUser" );
-        session.invalidate();
+        if(u != null) {
+            logger.info( "User Logout: " + u.getUsername() );
+            session.removeAttribute( "loggedInUser" );
+            session.invalidate();
+        }
         return "redirect:/j_spring_security_logout";
     }
 }
