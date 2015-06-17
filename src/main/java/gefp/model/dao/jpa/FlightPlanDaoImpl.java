@@ -19,7 +19,7 @@ public class FlightPlanDaoImpl implements FlightPlanDao {
     private EntityManager entityManager;
 
     @Override
-    @PostAuthorize("returnObject.published == true or hasRole('ADMIN')")
+    @PostAuthorize("returnObject != null && (returnObject.published == true or hasRole('ADMIN'))")
     public FlightPlan getFlightPlan( Long id )
     {
         return entityManager.find( FlightPlan.class, id );

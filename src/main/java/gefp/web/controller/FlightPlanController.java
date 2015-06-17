@@ -40,7 +40,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 //import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.support.SessionStatus;
 
-//import gefp.web.controller.WebApplicationContext;
 
 @Controller
 @SessionAttributes({ "checkpoint", "stage", "runway", "flightplan" })
