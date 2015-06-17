@@ -3,6 +3,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
@@ -77,15 +78,19 @@
 													<td>${user.username}</td>
 													<td>${user.firstName}</td>
 													<td>${user.lastName}</td>
-													<td><c:set var="roleName" value="" /> <c:forEach
-															var="role" items="${user.roles}">
+													<td><c:set var="roleName" value="" />
+													<c:if
+															test="${fn:contains(user.roles, 'ADMIN')}">
+															ADMIN ROLE</c:if>
+													
+													<c:forEach var="role" items="${user.roles}">
 														${role.name} 
-													</c:forEach></td>
+													</c:forEach>
+															</td>
 
 													<td><a title="View Plan"
 														href="<c:url value="/student/view-plan/${user.id}.html" />"
-														class="btn override btn-primary"><i
-															class="fa fa-eye"></i> </a> <security:authorize
+														class="btn override btn-primary"><i class="fa fa-eye"></i> </a> <security:authorize
 															access="authenticated and hasRole('ADMINA')">
 															<a href="<c:url value="/user/edit/${user.id}.html" />"
 																class="btn override btn-primary"><i
