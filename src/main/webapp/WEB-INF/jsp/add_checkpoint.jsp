@@ -96,7 +96,7 @@
 											</div>
 
 											<div class="form-group">
-												<div class="col-sm-9">
+												<div class="col-sm-11">
 												<input type="hidden" name="chkId" value="${checkpoint.id }" />
 												<input type="hidden" name="planId" value="${flightplan.id }" />
 												<input type="submit" class="btn override btn-primary pull-right" value="Save" />
