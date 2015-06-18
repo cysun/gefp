@@ -85,9 +85,12 @@
 												</form:select>
 											</div>
 											</div>
-
+											
+											<div class="col-md-12">
 											<input type="submit" class="btn override btn-primary mr10" value="Save" />
 											<a class="btn override btn-primary" href="<c:url value="/plan/edit/${flightplan.id }.html"/>">Cancel</a>
+											</div>
+											
 										</form:form>
 									</div>
 									<div class="pull-right" style="padding: 0 15px 0 0;">
