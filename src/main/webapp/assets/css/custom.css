@@ -679,3 +679,7 @@ line-height: 1.428571429;
 .CommentIcon {
 	cursor:pointer;
 }
+
+.ml10{
+	margin-left:10px !important;
+}
