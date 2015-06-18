@@ -63,12 +63,12 @@
 										</thead>
 										<tbody>
 
-											<c:forEach items="${department.plans}" var="plan">
+											<c:forEach items="${department.plans}" var="plan" varStatus="index">
 
 												<tr>
-													<td>${plan.id}</td>
+													<td>${index.count}</td>
 													<td>
-														${plan.name}
+														${plan.name} (${plan.seasonName} ${plan.seasonYear})
 														<c:choose>
 															<c:when test="${plan.id == department.defaultPlan.id}">
 																<span class="label override label-success">Official Plan</span>

@@ -89,7 +89,7 @@
 
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Milestone
-													Name:</label>
+													Info:</label>
 												<div class="col-sm-9">
 													<form:textarea path="name" class="ckeditor form-control" placeholder="Checkpoint Name" ></form:textarea>
 												</div>
@@ -100,6 +100,7 @@
 												<input type="hidden" name="chkId" value="${checkpoint.id }" />
 												<input type="hidden" name="planId" value="${flightplan.id }" />
 												<input type="submit" class="btn override btn-primary pull-right" value="Save" />
+												<a class="btn override btn-primary pull-right" href="<c:url value="/plan/edit/${flightplan.id }.html"/>">Cancel</a>
 													<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 												</div>
 											</div>
