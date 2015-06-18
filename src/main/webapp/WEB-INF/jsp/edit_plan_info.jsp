@@ -43,7 +43,7 @@
 							<div class="panel-heading">Edit Flight Plan</div>
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<form:form modelAttribute="flightplan" method="post">
 											<div class="form-group">
 												<label>Plan Title <span class="compulsary">*</span></label>
@@ -79,8 +79,8 @@
 												</form:select>
 											</div>
 
-											<input type="submit" class="btn override btn-primary" value="Save" />
-											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
+											<input type="submit" class="btn override btn-primary mr10" value="Save" />
+											<a class="btn override btn-primary pull-right" href="<c:url value="/plan/edit/${flightplan.id }.html"/>">Cancel</a>
 										</form:form>
 									</div>
 									<div class="pull-right" style="padding: 0 15px 0 0;">
