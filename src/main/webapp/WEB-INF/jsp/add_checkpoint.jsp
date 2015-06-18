@@ -48,7 +48,7 @@
 
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Runway Name:</label>
-												<div class="col-sm-6">
+												<div class="col-sm-9">
 													
 													<select name="runwayId" class="form-control">
 														<option value="">--Select Runway--</option>
@@ -68,7 +68,7 @@
 
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Stage Name:</label>
-												<div class="col-sm-6">
+												<div class="col-sm-9">
 													
 													<select name="stageId" class="form-control">
 														<option value="">--Select Stage--</option>
@@ -96,7 +96,7 @@
 											</div>
 
 											<div class="form-group">
-												<div class="col-sm-10">
+												<div class="col-sm-9">
 												<input type="hidden" name="chkId" value="${checkpoint.id }" />
 												<input type="hidden" name="planId" value="${flightplan.id }" />
 												<input type="submit" class="btn override btn-primary pull-right" value="Save" />
