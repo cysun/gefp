@@ -46,11 +46,11 @@
 									<div class="col-md-6">
 										<form:form modelAttribute="flightplan" method="post">
 											<div class="form-group">
-												<label>Plan Title</label>
+												<label>Plan Title <span class="compulsary">*</span></label>
 												<form:input path="name" class="form-control" placeholder="Plan title here" />
 											</div>
 											<div class="form-group">
-												<label>Select Season:</label>
+												<label>Select Season: <span class="compulsary">*</span></label>
 												<form:select path="seasonName" class="form-control">
 													<form:option value="">Select Season</form:option>
 													<form:option value="Fall">Fall</form:option>
@@ -61,7 +61,7 @@
 											</div>
 											
 											<div class="form-group">
-												<label>Select Year:</label>
+												<label>Select Year: <span class="compulsary">*</span></label>
 												<c:set var="now" value="<%=new java.util.Date()%>" />
 												<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
 												<form:select path="seasonYear" class="form-control">
@@ -82,6 +82,9 @@
 											<input type="submit" class="btn override btn-primary" value="Save" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 										</form:form>
+									</div>
+									<div class="pull-right" style="padding: 0 15px 0 0;">
+										<span class="compulsary">*</span> Required
 									</div>
 								</div>
 							</div>

@@ -45,7 +45,7 @@
 									<div class="col-md-6">
 										<form:form modelAttribute="stage">
 											<div class="form-group">
-												<label>Stage Name</label>
+												<label>Stage Name <span class="compulsary">*</span></label>
 												<form:input path="name" class="form-control" />
 												<c:if test="${error == true }">
 												<span class="errMsg">Please enter Stage Name</span>
@@ -56,6 +56,9 @@
 											<input type="submit" class="btn override btn-primary" value="Save" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 										</form:form>
+									</div>
+									<div class="pull-right" style="padding: 0 15px 0 0;">
+										<span class="compulsary">*</span> Required
 									</div>
 								</div>
 							</div>

@@ -39,7 +39,7 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Edit Runway</div>
+							<div class="panel-heading">Edit Runway <span class="compulsary">*</span></div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-6">
@@ -55,6 +55,9 @@
 											<input type="submit" class="btn override btn-primary" value="Save" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 										</form:form>
+									</div>
+									<div class="pull-right" style="padding: 0 15px 0 0;">
+										<span class="compulsary">*</span> Required
 									</div>
 								</div>
 							</div>
