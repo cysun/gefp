@@ -65,6 +65,7 @@
 								<div class="pull-left">
 									<h5><span class="planTitle"><a href="<c:url value="/plan/view/${plan.id}.html"/>">${plan.name}</a>
 										(${plan.seasonName} ${plan.seasonYear})
+										<a title="Edit Plan Title" href="<c:url value="/plan/edit-info/${plan.id}.html"/>"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
 									</span>
 									
 									<a onClick="publishPlan(${plan.id})" class="pull-right btn btn-warning" href="javascript:void(0);">Publish Now</a>

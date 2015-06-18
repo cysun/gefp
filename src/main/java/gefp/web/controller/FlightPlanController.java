@@ -93,7 +93,35 @@ public class FlightPlanController {
         }
 
     }
+    
+    @RequestMapping("/plan/edit-info/{id}.html")
+    public String editPlanInfo( @PathVariable Long id, ModelMap models )
+    {
+        FlightPlan fp = planDao.getFlightPlan( id );
 
+        if( fp != null )
+        {
+            models.put( "flightplan", fp );
+            return "edit_plan_info";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+
+    }
+    
+    @RequestMapping(value="/plan/edit-info/{id}.html", method=RequestMethod.POST)
+    public String savePlanInfo( @PathVariable Long id, @ModelAttribute("flightplan") FlightPlan flightplan, HttpServletRequest request )
+    {
+        String seasonName = request.getParameter( "seasonName" );
+        String seasonYear = request.getParameter( "seasonYear" );
+        flightplan.setSeasonName( seasonName );
+        flightplan.setSeasonYear( seasonYear );
+        planDao.saveFlightPlan( flightplan );
+        return "redirect:/plan/edit/" + id + ".html";
+    }
+    
     @RequestMapping("/plan/edit/{id}.html")
     public String editplan( @PathVariable Long id, ModelMap models )
     {
@@ -108,7 +136,6 @@ public class FlightPlanController {
         {
             return "redirect:/404";
         }
-
     }
 
     @RequestMapping("/student/view-plan/{id}.html")

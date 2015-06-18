@@ -76,8 +76,6 @@
 														</c:otherwise>
 														
 													</c:choose>
-													
-													
 													</c:forEach>
 												</form:select>
 											</div>
