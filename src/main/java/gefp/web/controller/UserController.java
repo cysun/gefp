@@ -121,7 +121,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/user/add.html", method = RequestMethod.POST)
-    public String add( HttpServletRequest request, SessionStatus sessionStatus )
+    public String add( HttpServletRequest request, HttpSession session, SessionStatus sessionStatus, Principal principal )
     {
 
         String firstName = request.getParameter( "firstName" );
@@ -131,31 +131,43 @@ public class UserController {
         String username = request.getParameter( "username" );
         String password = request.getParameter( "password" );
 
-        User user = new User();
-        user.setFirstName( firstName );
-        user.setLastName( lastName );
-        user.setCin( cin );
-        user.setEmail( email );
-        user.setUsername( username );
-        user.setPassword( password );
+        if( userDao.getUserByUsername( username ) == null )
+        {
 
-        Integer deptId = Integer.parseInt( request.getParameter( "department" ) );
-        String[] roleIds = request.getParameterValues( "roles" );
-        Set<Role> roles = new HashSet<Role>();
+            User user = new User();
+            user.setFirstName( firstName );
+            user.setLastName( lastName );
+            user.setCin( cin );
+            user.setEmail( email );
+            user.setUsername( username );
+            user.setPassword( password );
 
-        for( String role : roleIds )
-            roles.add( roleDao.getRole( Integer.parseInt( role ) ) );
+            Integer deptId = Integer.parseInt( request.getParameter( "department" ) );
+            String[] roleIds = request.getParameterValues( "roles" );
+            Set<Role> roles = new HashSet<Role>();
 
-        user.setDepartment( deptDao.getDepartment( deptId ) );
-        user.setMajor( deptDao.getDepartment( deptId ) );
-        user.setFlightPlan( deptDao.getDepartment( deptId ).getDefaultPlan() );
-        user.setRoles( roles );
-        user.setEnabled( true );
-        User user2 = userDao.saveUser( user );
-        sessionStatus.setComplete();
-        logger.debug( "Login Page called" );
-        System.out.println( "New user id is " + user2.getId() );
-        return "redirect:/admin/list-users.html";
+            for( String role : roleIds )
+                roles.add( roleDao.getRole( Integer.parseInt( role ) ) );
+
+            user.setDepartment( deptDao.getDepartment( deptId ) );
+            user.setMajor( deptDao.getDepartment( deptId ) );
+            user.setFlightPlan( deptDao.getDepartment( deptId )
+                .getDefaultPlan() );
+            user.setRoles( roles );
+            user.setEnabled( true );
+            User user2 = userDao.saveUser( user );
+            sessionStatus.setComplete();
+
+            logger.info( "User " + principal.getName() + " created "
+                + user2.getUsername() );
+            
+            return "redirect:/admin/list-users.html";
+        }
+        else
+        {
+            session.setAttribute( "errMsg", "Username already exists." );
+            return "redirect:/admin/user/add.html?error=true";
+        }
     }
 
     @RequestMapping(value = "/admin/user/edit/{id}.html",
@@ -302,7 +314,8 @@ public class UserController {
                     .getId() );
             }
             models.put( "plan", plan );
-            logger.info( "User " + principal.getName() + " viewed flightPlan of " + currUserObj.getUsername() );
+            logger.info( "User " + principal.getName()
+                + " viewed flightPlan of " + currUserObj.getUsername() );
             return "advisor_view_student_plan";
         }
         else
@@ -340,7 +353,8 @@ public class UserController {
             usr.setMajor( newDept );
             usr.setFlightPlan( newDept.getDefaultPlan() );
         }
-        logger.info( "User " + principal.getName() + " updated " + usr.getUsername() + "'s profile information");
+        logger.info( "User " + principal.getName() + " updated "
+            + usr.getUsername() + "'s profile information" );
         userDao.saveUser( usr );
         out.print( "Saved" );
 

@@ -98,7 +98,8 @@
 												<input type="submit" class="btn override btn-primary" value="Save" />
 												<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 											</div>
-
+											<span class="errMsg">${errMsg}</span>
+											<c:remove var="errMsg" />
 										</form>
 									</div>
 									<div class="pull-right" style="padding: 0 15px 0 0;">

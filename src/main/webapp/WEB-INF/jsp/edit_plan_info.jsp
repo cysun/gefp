@@ -74,7 +74,6 @@
 														<c:otherwise>
 															<form:option value="${i}">${i}</form:option>
 														</c:otherwise>
-														
 													</c:choose>
 													</c:forEach>
 												</form:select>
