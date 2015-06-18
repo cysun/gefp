@@ -45,10 +45,14 @@
 								<div class="row">
 									<div class="col-md-12">
 										<form:form modelAttribute="flightplan" method="post">
+											<div class="col-md-12">
 											<div class="form-group">
 												<label>Plan Title <span class="compulsary">*</span></label>
 												<form:input path="name" class="form-control" placeholder="Plan title here" />
 											</div>
+											</div>
+											
+											<div class="col-md-6">
 											<div class="form-group">
 												<label>Select Season: <span class="compulsary">*</span></label>
 												<form:select path="seasonName" class="form-control">
@@ -59,7 +63,9 @@
 													<form:option value="Summer">Summer</form:option>
 												</form:select>
 											</div>
+											</div>
 											
+											<div class="col-md-6">
 											<div class="form-group">
 												<label>Select Year: <span class="compulsary">*</span></label>
 												<c:set var="now" value="<%=new java.util.Date()%>" />
@@ -78,9 +84,10 @@
 													</c:forEach>
 												</form:select>
 											</div>
+											</div>
 
 											<input type="submit" class="btn override btn-primary mr10" value="Save" />
-											<a class="btn override btn-primary pull-right" href="<c:url value="/plan/edit/${flightplan.id }.html"/>">Cancel</a>
+											<a class="btn override btn-primary" href="<c:url value="/plan/edit/${flightplan.id }.html"/>">Cancel</a>
 										</form:form>
 									</div>
 									<div class="pull-right" style="padding: 0 15px 0 0;">
