@@ -62,7 +62,9 @@
 								<div class="pull-left">
 									<h5><span class="planTitle"><a href="<c:url value="/plan/view/${plan.id}.html"/>">${plan.name}</a>
 										(${plan.seasonName} ${plan.seasonYear})
+									<a title="Edit Plan Title" href="<c:url value="/plan/edit-info/${plan.id}.html"/>"><span class="glyphicon glyphicon-edit"></span></a>
 									</span>
+									
 									<label class="label override label-success">Published</label>
 									</h5>
 									
