@@ -802,16 +802,18 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/plan/milestone/add-comment.html",
         method = RequestMethod.POST)
-    public void saveStudentCheckpointComment( ModelMap models,
+    public String saveStudentCheckpointComment( ModelMap models,
         HttpServletRequest request, HttpServletResponse response,
         PrintWriter out, HttpSession session, Principal principal )
     {
+        
+        User loginUser = (User) session.getAttribute("loggedInUser");
 
         if( request.getParameter( "userId" ) == ""
             || request.getParameter( "userId" ) == null )
         {
             System.out.println( "User ID is null" );
-            return;
+            return "";
         }
 
         Long userId = Long.parseLong( request.getParameter( "userId" ) );
@@ -828,6 +830,13 @@ public class FlightPlanController {
             logger.info( "User " + principal.getName()
                 + " checked a Milestone (ID: " + id + " ) for "
                 + currUserObj.getUsername() );
+        }
+        
+        if(loginUser.isAdmin() || loginUser.isAdvisor()) {
+            return "/advisor/view-student-plan/"+userId+".html";
+        }
+        else {
+            return "/student/view-plan/"+userId+".html";
         }
     }
 }

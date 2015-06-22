@@ -78,7 +78,7 @@
 														<security:authorize access="hasRole('STUDENT')">
 														<a
 														class="btn override btn-primary pull-right"
-														href="<c:url value=""/>">Cancel</a>
+														href="<c:url value="/student/view-plan/${userId}.html"/>">Cancel</a>
 														</security:authorize>
 													
 													<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
