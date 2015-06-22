@@ -827,6 +827,7 @@ public class FlightPlanController {
             Checkpoint c = checkpointDao.getCheckPoint( id );
             CheckpointInfo cinfo = new CheckpointInfo( c, message );
             currUserObj.getCheckpoints().add( cinfo );
+            userDao.saveUser( currUserObj );
             logger.info( "User " + principal.getName()
                 + " checked a Milestone (ID: " + id + " ) for "
                 + currUserObj.getUsername() );
