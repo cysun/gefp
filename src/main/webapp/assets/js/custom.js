@@ -72,7 +72,7 @@ function customAlert(text, type) {
 						//console.log("YES");
 						var userId = $(curr).attr("data-userId");
 						var id = $(curr).val();
-						top.location.href = '/gefp/plan/milestone/add-comment.html?milestoneId='+id+'&userId='+userId;
+						top.location.href = '/gefp/plan/milestone/add-comment.html?checkpointId='+id+'&userId='+userId;
 						
 						/*
 						$.ajax({
