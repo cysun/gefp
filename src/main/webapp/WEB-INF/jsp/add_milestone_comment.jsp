@@ -47,7 +47,7 @@
 											<div class="col-md-12">
 											<div class="form-group">
 												<label>Please enter your comment below:</label>
-												<textarea name="message" class="form-control"></textarea>
+												<textarea name="message" class="ckeditor form-control"></textarea>
 											</div>
 											</div>
 
