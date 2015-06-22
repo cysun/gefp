@@ -49,7 +49,7 @@
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Milestone:</label>
 												<div class="col-sm-9">
-													<h4>${checkpoint.name}</h4>
+													${checkpoint.name}
 												</div>
 											</div>
 											
