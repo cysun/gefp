@@ -44,7 +44,7 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12">
-										<form action="">
+										<form action="" class="form-horizontal" method="post">
 											
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Milestone:</label>
