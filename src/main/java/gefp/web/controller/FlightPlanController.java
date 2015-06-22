@@ -813,7 +813,7 @@ public class FlightPlanController {
             || request.getParameter( "userId" ) == null )
         {
             System.out.println( "User ID is null" );
-            return "";
+            return "redirect:/404";
         }
 
         Long userId = Long.parseLong( request.getParameter( "userId" ) );
@@ -833,10 +833,10 @@ public class FlightPlanController {
         }
         
         if(loginUser.isAdmin() || loginUser.isAdvisor()) {
-            return "/advisor/view-student-plan/"+userId+".html";
+            return "redirect:/advisor/view-student-plan/"+userId+".html";
         }
         else {
-            return "/student/view-plan/"+userId+".html";
+            return "redirect:/student/view-plan/"+userId+".html";
         }
     }
 }
