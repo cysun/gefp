@@ -765,5 +765,58 @@ public class FlightPlanController {
         models.put( "userId", userId );
         return "add_milestone_comment";
     }
+    
+    
+    @RequestMapping(value = "/plan/milestone/add-comment.html",
+        method = RequestMethod.POST)
+    public void saveStudentCheckpointComment( ModelMap models,
+        HttpServletRequest request, HttpServletResponse response,
+        PrintWriter out, HttpSession session, Principal principal )
+    {
+
+        if( request.getParameter( "userId" ) == ""
+            || request.getParameter( "userId" ) == null )
+        {
+            System.out.println( "User ID is null" );
+            return;
+        }
+
+        Long userId = Long.parseLong( request.getParameter( "userId" ) );
+        User currUserObj = userDao.getUser( userId );
+
+        Long id = Long.parseLong( request.getParameter( "id" ) );
+        String checked = request.getParameter( "checked" );
+        String repsonse = "{data:" + id + ", status:" + checked + "}";
+        String message = request.getParameter( "message" );
+
+        if( id != null && checked != "" )
+        {
+
+            Checkpoint c = checkpointDao.getCheckPoint( id );
+ 
+            if( checked.equals( "true" ) )
+            {
+                CheckpointInfo cinfo = new CheckpointInfo( c, message );
+                currUserObj.getCheckpoints().add( cinfo );
+                logger.info( "User " + principal.getName() + " checked a Milestone (ID: " +id+" ) for " + currUserObj.getUsername());
+            }
+            else
+            {
+                Set<CheckpointInfo> newCheckpoints = new HashSet<CheckpointInfo>();
+                for( CheckpointInfo cp : currUserObj.getCheckpoints() )
+                {
+                    if( cp.getCheckpoint().getId() != id )
+                    {
+                        newCheckpoints.add( cp );
+                    }
+                }
+                currUserObj.setCheckpoints( newCheckpoints );
+                logger.info( "User " + principal.getName() + " Unchecked a Milestone (ID: " +id+" ) for " + currUserObj.getUsername());
+            }
+            userDao.saveUser( currUserObj );
+        }
+        response.setContentType( "text/plain" );
+        out.print( repsonse );
+    }
 
 }

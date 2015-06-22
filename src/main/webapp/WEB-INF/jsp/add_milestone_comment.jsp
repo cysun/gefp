@@ -47,7 +47,7 @@
 											<div class="col-md-12">
 											<div class="form-group">
 												<label>Please enter your comment below:</label>
-												<textarea name="" class="form-control"></textarea>
+												<textarea name="message" class="form-control"></textarea>
 											</div>
 											</div>
 
@@ -74,6 +74,17 @@
 	<!-- /. WRAPPER  -->
 
 	<jsp:include page="includes/footer.jsp" />
+
+<script type="text/javascript">
+
+$(function(){
+	$("textarea").each(function(){
+    CKEDITOR.replace( $(this).attr("id"), {
+      toolbar : "Default"
+    });
+});
+
+</script>
 
 </body>
 </html>
