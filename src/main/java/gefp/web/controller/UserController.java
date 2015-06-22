@@ -205,10 +205,9 @@ public class UserController {
 
     /* Student Profile Page */
 
-    @RequestMapping(value = "/user/profile/{pid}.html",
+    @RequestMapping(value = "/user/profile.html",
         method = RequestMethod.POST)
-    public String updateprofile( @PathVariable Integer pid, ModelMap models,
-        HttpSession session, HttpServletRequest request )
+    public String updateprofile( HttpSession session, HttpServletRequest request )
     {
 
         // String numRegex = ".*[0-9].*";
@@ -230,12 +229,12 @@ public class UserController {
         if( firstName == "" || firstName == null )
         {
             session.setAttribute( "firstName", "FirstName cannot be empty" );
-            return "redirect:/user/profile/" + pid + ".html";
+            return "redirect:/user/profile.html";
         }
         else if( firstName == "" || firstName == null )
         {
             session.setAttribute( "firstName", "FirstName cannot be empty" );
-            return "redirect:/user/profile/" + pid + ".html";
+            return "redirect:/user/profile.html";
         }
         // else if( password != "" && password != null && password.length() < 4
         // )
@@ -257,7 +256,7 @@ public class UserController {
         else if( deptIdStr == "" )
         {
             session.setAttribute( "deptErr", "Please select a department." );
-            return "redirect:/user/profile/" + pid + ".html";
+            return "redirect:/user/profile.html";
         }
 
         Integer deptID = Integer.parseInt( deptIdStr );
@@ -283,7 +282,7 @@ public class UserController {
         userDao.saveUser( currUserObj );
         session.setAttribute( "successMsg", "Profile details updated" );
         session.setAttribute( "loggedInUser", currUserObj );
-        return "redirect:/user/profile/" + pid + ".html";
+        return "redirect:/user/profile.html";
     }
 
     /* Advisor Search functions */
