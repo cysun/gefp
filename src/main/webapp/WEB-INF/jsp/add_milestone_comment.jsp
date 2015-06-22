@@ -4,6 +4,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -47,28 +49,38 @@
 										<form action="" class="form-horizontal" method="post">
 											
 											<div class="form-group">
-												<label class="col-sm-2 control-label">Milestone:</label>
-												<div class="col-sm-9">
-													${checkpoint.name}
+												<div class="col-sm-12">
+													<div class="milestoneTitle">${checkpoint.name}</div>
 												</div>
 											</div>
 											
 											<div class="form-group">
-												<label class="col-sm-2 control-label">Comment:</label>
-												<div class="col-sm-9">
+												<div class="col-sm-12">
 													<textarea name="message" class="ckeditor form-control"></textarea>
 												</div>
 											</div>
 
 											<div class="form-group">
-												<div class="col-sm-11">
+												<div class="col-sm-12">
 													<input type="hidden" name="id" value="${flightplan.id}" />
 													<input type="hidden" name="userId" value="${userId}" /> <input
 														type="submit"
 														class="btn override btn-primary pull-right ml10"
-														value="Save" /> <a
+														value="Save" />
+														
+														
+														<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
+														<a
+														class="btn override btn-primary pull-right"
+														href="<c:url value="/advisor/view-student-plan/${userId}.html"/>">Cancel</a>
+														</security:authorize>
+														
+														<security:authorize access="hasRole('STUDENT')">
+														<a
 														class="btn override btn-primary pull-right"
 														href="<c:url value=""/>">Cancel</a>
+														</security:authorize>
+													
 													<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 												</div>
 											</div>
