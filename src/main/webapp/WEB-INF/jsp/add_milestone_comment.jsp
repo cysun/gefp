@@ -26,7 +26,8 @@
 
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
-					<li><a href="<c:url value="/admin/list-plans.html"/>">Flight Plans</a></li>
+					<li><a href="<c:url value="/admin/list-plans.html"/>">Flight
+							Plans</a></li>
 					<li class="active">Check Milestone</li>
 				</ol>
 
@@ -44,18 +45,32 @@
 								<div class="row">
 									<div class="col-md-12">
 										<form action="">
-											<div class="col-md-12">
+											
 											<div class="form-group">
-												<label>Please enter your comment below:</label>
-												<textarea name="message" class="ckeditor form-control"></textarea>
+												<label class="col-sm-2 control-label">Milestone:</label>
+												<div class="col-sm-9">
+													<h4>${checkpoint.name}</h4>
+												</div>
 											</div>
+											
+											<div class="form-group">
+												<label class="col-sm-2 control-label">Comment:</label>
+												<div class="col-sm-9">
+													<textarea name="message" class="ckeditor form-control"></textarea>
+												</div>
 											</div>
 
-											<div class="col-md-12">
-											<input type="hidden" name="id" value="${flightplan.id}" />
-											<input type="hidden" name="userId" value="${userId}" />
-											<input type="submit" class="btn override btn-primary pull-right ml10" value="Save" />
-											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
+											<div class="form-group">
+												<div class="col-sm-11">
+													<input type="hidden" name="id" value="${flightplan.id}" />
+													<input type="hidden" name="userId" value="${userId}" /> <input
+														type="submit"
+														class="btn override btn-primary pull-right ml10"
+														value="Save" /> <a
+														class="btn override btn-primary pull-right"
+														href="<c:url value=""/>">Cancel</a>
+													<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
+												</div>
 											</div>
 										</form>
 									</div>
@@ -75,7 +90,7 @@
 
 	<jsp:include page="includes/footer.jsp" />
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 $(function(){
 	$("textarea").each(function(){
