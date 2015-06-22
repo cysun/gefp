@@ -42,16 +42,21 @@
 							<div class="panel-heading">Add a comment for the Milestone</div>
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<form action="">
+											<div class="col-md-12">
 											<div class="form-group">
 												<label>Please enter your comment below:</label>
 												<textarea name="" class="form-control"></textarea>
 											</div>
+											</div>
 
-											<input type="hidden" name="planId" value="${flightplan.id}" />
-											<input type="submit" class="btn override btn-primary" value="Save" />
+											<div class="col-md-12">
+											<input type="hidden" name="id" value="${flightplan.id}" />
+											<input type="hidden" name="userId" value="${userId}" />
+											<input type="submit" class="btn override btn-primary pull-right ml10" value="Save" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
+											</div>
 										</form>
 									</div>
 								</div>

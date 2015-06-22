@@ -756,10 +756,13 @@ public class FlightPlanController {
         }
     }
 
-    @RequestMapping(value = "/plan/add-milestone-comment.html",
+    @RequestMapping(value = "/plan/milestone/add-comment.html",
         method = RequestMethod.GET)
-    public String addMilestoneComment( HttpServletRequest request )
+    public String addMilestoneComment( ModelMap models, @RequestParam Long checkpointId, @RequestParam Long userId )
     {
+        Checkpoint checkpoint = checkpointDao.getCheckPoint( checkpointId );
+        models.put("checkpoint", checkpoint);
+        models.put( "userId", userId );
         return "add_milestone_comment";
     }
 

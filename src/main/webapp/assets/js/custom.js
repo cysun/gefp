@@ -67,11 +67,14 @@ function customAlert(text, type) {
 				});
 			}
 			else {
-				smoke.prompt("Do you want to add a comment?", function(e){
+				smoke.confirm("Do you want to add a comment?", function(e){
 					if (e){
 						//console.log("YES");
-						//top.location.href = '/gefp/plan/add-milestone-comment.html';
+						var userId = $(curr).attr("data-userId");
+						var id = $(curr).val();
+						top.location.href = '/gefp/plan/milestone/add-comment.html?milestoneId='+id+'&userId='+userId;
 						
+						/*
 						$.ajax({
 							url : '/gefp/plan/saveStudentCheckpoint.html',
 							data : {
@@ -90,6 +93,7 @@ function customAlert(text, type) {
 								},3000);
 							}
 						});
+						*/
 						
 					}else{
 						//console.log("NO");
