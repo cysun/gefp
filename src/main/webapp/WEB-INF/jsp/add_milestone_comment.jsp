@@ -62,7 +62,7 @@
 
 											<div class="form-group">
 												<div class="col-sm-12">
-													<input type="hidden" name="id" value="${flightplan.id}" />
+													<input type="hidden" name="id" value="${checkpoint.id}" />
 													<input type="hidden" name="userId" value="${userId}" /> <input
 														type="submit"
 														class="btn override btn-primary pull-right ml10"
