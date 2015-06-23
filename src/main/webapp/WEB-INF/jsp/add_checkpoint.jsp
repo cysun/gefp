@@ -128,7 +128,12 @@
 $(function(){
 	$("textarea").each(function(){
     CKEDITOR.replace( $(this).attr("id"), {
-      toolbar : "Default"
+    	toolbar: [
+{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'SpecialChar'] },
+{ name: 'tools', items: [ 'Maximize', 'Source' ] },
+{ name: 'about', items: [ 'About' ] }
+			]
     });
 });
 
