@@ -35,7 +35,8 @@ function customAlert(text, type) {
 	$(document).ready(function() {
 		
 	    $( ".accordion" ).accordion({
-	      collapsible: true
+	      collapsible: true,
+	      heightStyle: "content"
 	    });
 		
 		$(".CommentIconClick").click(function(e){
