@@ -707,3 +707,8 @@ line-height: 1.428571429;
 .accordion.ui-accordion p{
 	float:none !important;
 }
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	background:none !important;
+	border:0px none !important;
+}
