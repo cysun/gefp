@@ -708,7 +708,16 @@ line-height: 1.428571429;
 	float:none !important;
 }
 
+.ui-accordion .ui-accordion-header {
+	padding:0px !important;
+}
+
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	background:none !important;
+	border:0px none !important;
+}
+
+.ui-widget-content{
 	background:none !important;
 	border:0px none !important;
 }
