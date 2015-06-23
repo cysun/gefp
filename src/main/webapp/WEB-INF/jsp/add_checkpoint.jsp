@@ -131,6 +131,7 @@ $(function(){
     	toolbar: [
 { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
 { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'SpecialChar'] },
+{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
 { name: 'tools', items: [ 'Maximize', 'Source' ] },
 { name: 'about', items: [ 'About' ] }
 			]
