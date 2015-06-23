@@ -699,3 +699,11 @@ line-height: 1.428571429;
 .milestoneTitle {
 	
 }
+
+.accordion.ui-accordion {
+	width:400px;
+}
+
+.accordion.ui-accordion p{
+	float:none !important;
+}

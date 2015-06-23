@@ -42,9 +42,7 @@ function customAlert(text, type) {
 		$(".CommentIconClick").click(function(e){
 			
 			smoke.alert($(this).attr("data-comment"));
-			
 		})
-		
 		
 		$(".flightplan_checkpoints").click(function(e) {
 			
