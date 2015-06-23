@@ -33,7 +33,11 @@ function customAlert(text, type) {
 	// AJAX function to save user checkpoints ///
 
 	$(document).ready(function() {
-
+		
+	    $( ".accordion" ).accordion({
+	      collapsible: true
+	    });
+		
 		$(".CommentIconClick").click(function(e){
 			
 			smoke.alert($(this).attr("data-comment"));
