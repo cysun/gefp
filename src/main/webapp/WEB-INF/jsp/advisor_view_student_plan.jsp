@@ -53,7 +53,7 @@
 								<li><a href="<c:url value="/advisor/list-students.html"/>">Students</a></li>
 							</security:authorize>
 
-							<li class="active">View Plan</li>
+							<li class="active">View Student's Plan</li>
 						</ol>
 					</c:otherwise>
 				</c:choose>
