@@ -46,21 +46,27 @@
 									<div class="col-md-12">
 										<form:form modelAttribute="department">
 											<div class="form-group">
-												<label class="col-sm-2 control-label">Department Name <span class="compulsary">*</span></label>
-												
+												<label class="col-sm-2 control-label">Department
+													Name <span class="compulsary">*</span>
+												</label>
+
 												<div class="col-sm-9">
-												<form:input path="name" class="form-control" />
-												<c:if test="${error == true }">
-												<span class="errMsg">Please enter Department Name</span>
-												</c:if>
+													<form:input path="name" class="form-control" />
+													<c:if test="${error == true }">
+														<span class="errMsg">Please enter Department Name</span>
+													</c:if>
 												</div>
 												<!-- <p class="help-block">Enter department name.</p> -->
 											</div>
 
 											<div class="form-group">
-											<button type="submit" class="btn pull-right override btn-primary ml10">Save</button>
-											<a href="<c:url value="/admin/list-departments.html"/>" class="btn pull-right override btn-primary">Cancel</a>
-											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
+												<div class="col-sm-11">
+													<button type="submit"
+														class="btn pull-right override btn-primary ml10">Save</button>
+													<a href="<c:url value="/admin/list-departments.html"/>"
+														class="btn pull-right override btn-primary">Cancel</a>
+													<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
+												</div>
 											</div>
 										</form:form>
 									</div>
