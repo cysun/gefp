@@ -39,14 +39,14 @@
 <script>
 $(document).ready(function(){
 	$('#dataTables').dataTable({
-		"lengthMenu": [5, 10, 20, 50, 100],
-        "pageLength": 5
+		"lengthMenu": [10, 20, 50, 100],
+        "pageLength": 10
 	});
 	
 	$('#dataTablesNoFilter').dataTable({
 		"bFilter": false,
-		"lengthMenu": [5, 10, 20, 50, 100],
-        "pageLength": 5
+		"lengthMenu": [10, 20, 50, 100],
+        "pageLength": 10
 	});
 	
 	$("#search").autocomplete({
