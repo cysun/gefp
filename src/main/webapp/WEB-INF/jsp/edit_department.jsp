@@ -38,7 +38,7 @@
 											action="/gefp/admin/department/edit.html" method="post">
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Department
-													Name</label>
+													Name <span class="compulsary">*</span></label>
 
 												<div class="col-sm-10">
 													<form:input class="form-control" path="name" />
