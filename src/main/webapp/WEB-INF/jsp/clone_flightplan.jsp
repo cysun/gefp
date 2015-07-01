@@ -107,10 +107,10 @@
 												</select>
 											</div>
 
-											<div class="form-group col-md-6">
+											<div class="form-group col-md-12">
 											<input type="submit" class="btn override btn-primary pull-right" value="Save" />
 											<a href="<c:url value="/admin/list-plans.html"/>"
-														class="btn override btn-primary ml10 pull-right">Cancel</a>
+														class="btn override btn-primary  pull-right mr10">Cancel</a>
 											</div>
 										</form>
 									</div>
