@@ -718,7 +718,7 @@ line-height: 1.428571429;
 	border:0px none !important;
 }
 
-.ui-widget-content{
-	/*background:none !important;
-	border:0px none !important;*/
+.ui-accordion-content{
+	background:none !important;
+	border:0px none !important;
 }
