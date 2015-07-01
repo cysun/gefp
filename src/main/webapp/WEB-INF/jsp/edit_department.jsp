@@ -22,6 +22,14 @@
 		<!-- /. NAV SIDE  -->
 
 		<div id="page-wrapper">
+		
+		
+			<ol class="breadcrumb">
+				<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
+				<li><a href="<c:url value="/admin/list-departments.html"/>">Departments</a></li>
+				<li class="active">Edit Department</li>
+			</ol>
+		
 			<div id="page-inner">
 				<jsp:include page="includes/dashboard_title.jsp" />
 				<!-- /. ROW  -->
