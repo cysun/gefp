@@ -55,8 +55,8 @@
 											</div>
 
 											
-											<button type="submit" class="btn override btn-primary ml10">Save</button>
-											<a href="<c:url value="/admin/list-departments.html"/>" class="btn override btn-primary">Cancel</a>
+											<button type="submit" class="btn pull-right override btn-primary ml10">Save</button>
+											<a href="<c:url value="/admin/list-departments.html"/>" class="btn pull-right override btn-primary">Cancel</a>
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 
 										</form:form>
