@@ -43,7 +43,7 @@
 							<div class="panel-heading">Add new Department</div>
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<form:form modelAttribute="department">
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Department Name <span class="compulsary">*</span></label>
