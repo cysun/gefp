@@ -24,10 +24,19 @@
 		<div id="page-wrapper">
 			<div id="page-inner">
 
+				<security:authorize access="hasRole('ADMIN')">
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
 					<li class="active">Users</li>
 				</ol>
+				</security:authorize>
+				
+				<security:authorize access="hasRole('ADVISOR')">
+				<ol class="breadcrumb">
+					<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
+					<li class="active">Users</li>
+				</ol>
+				</security:authorize>
 
 				<jsp:include page="includes/dashboard_title.jsp" />
 				<!-- /. ROW  -->
@@ -61,8 +70,7 @@
 													<td>${user.cin}</td>
 													<td><a
 														href="<c:url value="/advisor/view-student-plan/${user.id}.html" />"
-														class="btn btn-warning"><i class="fa fa-view "></i>
-															View Plan</a>		
+														class="btn btn-info override"><i class="fa fa-view "></i></a>		
 													</td>
 												</tr>
 											</c:forEach>
