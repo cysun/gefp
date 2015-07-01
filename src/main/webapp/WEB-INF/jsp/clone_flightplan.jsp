@@ -108,9 +108,9 @@
 											</div>
 
 											<div class="form-group col-md-6">
-											<input type="submit" class="btn override btn-primary mr10" value="Save" />
+											<input type="submit" class="btn override btn-primary pull-right" value="Save" />
 											<a href="<c:url value="/admin/list-plans.html"/>"
-														class="btn override btn-primary">Cancel</a>
+														class="btn override btn-primary ml10 pull-right">Cancel</a>
 											</div>
 										</form>
 									</div>
