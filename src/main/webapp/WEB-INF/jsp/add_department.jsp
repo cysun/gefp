@@ -44,7 +44,7 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12">
-										<form:form modelAttribute="department">
+										<form:form class="form-horizontal" modelAttribute="department">
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Department
 													Name <span class="compulsary">*</span>
