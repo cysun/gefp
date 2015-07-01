@@ -50,7 +50,7 @@
 													Name <span class="compulsary">*</span>
 												</label>
 
-												<div class="col-sm-9">
+												<div class="col-sm-10">
 													<form:input path="name" class="form-control" />
 													<c:if test="${error == true }">
 														<span class="errMsg">Please enter Department Name</span>
@@ -60,12 +60,11 @@
 											</div>
 
 											<div class="form-group">
-												<div class="col-sm-11">
+												<div class="col-sm-12">
 													<button type="submit"
 														class="btn pull-right override btn-primary ml10">Save</button>
 													<a href="<c:url value="/admin/list-departments.html"/>"
 														class="btn pull-right override btn-primary">Cancel</a>
-													<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 												</div>
 											</div>
 										</form:form>

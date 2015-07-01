@@ -2,8 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -33,19 +33,29 @@
 							<div class="panel-heading">Edit Department</div>
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-6">
-										<form:form modelAttribute="department" action="/gefp/admin/department/edit.html" method="post">
+									<div class="col-md-12">
+										<form:form class="form-horizontal" modelAttribute="department"
+											action="/gefp/admin/department/edit.html" method="post">
 											<div class="form-group">
-												<label>Department Name</label>
-												<form:input class="form-control" path="name" />
-												<c:if test="${error == true }">
-												<span class="errMsg">Please enter Department Name</span>
-												</c:if>
-												<!-- <p class="help-block">Enter department name.</p> -->
+												<label class="col-sm-2 control-label">Department
+													Name</label>
+
+												<div class="col-sm-10">
+													<form:input class="form-control" path="name" />
+													<c:if test="${error == true }">
+														<span class="errMsg">Please enter Department Name</span>
+													</c:if>
+												</div>
 											</div>
 
-											<button type="submit" class="btn btn-default">Save</button>
-											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
+											<div class="form-group">
+												<div class="col-sm-12">
+													<button type="submit"
+														class="btn pull-right override btn-primary ml10">Save</button>
+													<a href="<c:url value="/admin/list-departments.html"/>"
+														class="btn pull-right override btn-primary">Cancel</a>
+												</div>
+											</div>
 
 										</form:form>
 									</div>
