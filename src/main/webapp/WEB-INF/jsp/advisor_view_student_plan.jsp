@@ -50,6 +50,7 @@
 
 							<security:authorize access="hasRole('ADVISOR')">
 								<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
+								<li><a href="<c:url value="/advisor/list-students.html"/>">Students</a></li>
 							</security:authorize>
 
 							<li class="active">View Plan</li>
