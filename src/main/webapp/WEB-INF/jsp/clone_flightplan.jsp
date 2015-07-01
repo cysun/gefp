@@ -44,9 +44,9 @@
 							<div class="panel-heading">Clone Flight Plan : ${flightplan.name}</div>
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-12">
 										<form action="" method="post">
-											<div class="form-group">
+											<div class="form-group col-md-6">
 												<label>Plan Title <span class="compulsary">*</span></label>
 												<input type="text" name="name" class="form-control"
 													value="${flightplan.name}" />
@@ -54,8 +54,27 @@
 													<span class="errMsg">Please enter Plan title</span>
 												</c:if>
 											</div>
+
+											<div class="form-group col-md-6">
+												<label>Department <span class="compulsary">*</span></label>
+												<select name="department" class="form-control">
+													<option value="">--Select Department--</option>
+													<c:forEach var="department" items="${departments}">
+														<c:choose>
+															<c:when
+																test="${department.id == flightplan.department.id}">
+																<option selected value="${department.id }">${department.name}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${department.id }">${department.name}</option>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+												</select>
+											</div>
+
 											
-											<div class="form-group">
+											<div class="form-group col-md-6">
 												<label>Select Season:</label>
 												<select name="seasonName" class="form-control">
 													<option value="">Select Season</option>
@@ -66,7 +85,7 @@
 												</select>
 											</div>
 											
-											<div class="form-group">
+											<div class="form-group col-md-6">
 												<label>Select Year:</label>
 												<c:set var="now" value="<%=new java.util.Date()%>" />
 												<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
@@ -88,23 +107,6 @@
 												</select>
 											</div>
 
-											<div class="form-group">
-												<label>Department <span class="compulsary">*</span></label>
-												<select name="department" class="form-control">
-													<option value="">--Select Department--</option>
-													<c:forEach var="department" items="${departments}">
-														<c:choose>
-															<c:when
-																test="${department.id == flightplan.department.id}">
-																<option selected value="${department.id }">${department.name}</option>
-															</c:when>
-															<c:otherwise>
-																<option value="${department.id }">${department.name}</option>
-															</c:otherwise>
-														</c:choose>
-													</c:forEach>
-												</select>
-											</div>
 
 											<input type="submit" class="btn btn-primary" value="Save" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
