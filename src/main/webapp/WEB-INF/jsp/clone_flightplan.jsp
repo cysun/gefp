@@ -107,9 +107,10 @@
 												</select>
 											</div>
 
-
-											<input type="submit" class="btn btn-primary" value="Save" />
+											<div class="form-group col-md-6">
+											<input type="submit" class="btn override btn-primary" value="Save" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
+											</div>
 										</form>
 									</div>
 									<div class="pull-right" style="padding: 0 15px 0 0;">
