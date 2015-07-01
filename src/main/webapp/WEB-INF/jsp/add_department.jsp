@@ -46,7 +46,7 @@
 									<div class="col-md-6">
 										<form:form modelAttribute="department">
 											<div class="form-group">
-												<label>Department Name</label>
+												<label>Department Name <span class="compulsary">*</span></label>
 												<form:input path="name" class="form-control" />
 												<c:if test="${error == true }">
 												<span class="errMsg">Please enter Department Name</span>
@@ -54,7 +54,9 @@
 												<!-- <p class="help-block">Enter department name.</p> -->
 											</div>
 
-											<button type="submit" class="btn override btn-primary">Save</button>
+											
+											<button type="submit" class="btn override btn-primary ml10">Save</button>
+											<a href="<c:url value="/admin/list-departments.html"/>" class="btn override btn-primary">Cancel</a>
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 
 										</form:form>
