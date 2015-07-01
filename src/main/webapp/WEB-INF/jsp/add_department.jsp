@@ -57,11 +57,11 @@
 												<!-- <p class="help-block">Enter department name.</p> -->
 											</div>
 
-											
+											<div class="form-group">
 											<button type="submit" class="btn pull-right override btn-primary ml10">Save</button>
 											<a href="<c:url value="/admin/list-departments.html"/>" class="btn pull-right override btn-primary">Cancel</a>
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
-
+											</div>
 										</form:form>
 									</div>
 								</div>
