@@ -41,7 +41,7 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Clone Flight Plan : ${flightplan.name}</div>
+							<div class="panel-heading">Clone Flight Plan : ${flightplan.parent.name}</div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12">
