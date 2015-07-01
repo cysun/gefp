@@ -706,6 +706,7 @@ line-height: 1.428571429;
 
 .accordion.ui-accordion p{
 	float:none !important;
+	outline:none;
 }
 
 .ui-accordion .ui-accordion-header {

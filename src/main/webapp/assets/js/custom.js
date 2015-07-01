@@ -34,6 +34,8 @@ function customAlert(text, type) {
 
 	$(document).ready(function() {
 		
+		$("#page-wrapper").css({"min-height": window.innerHeight - 115});
+		
 	    $( ".accordion" ).accordion({
 	      collapsible: true,
 	      active: false,
@@ -43,7 +45,7 @@ function customAlert(text, type) {
 		$(".CommentIconClick").click(function(e){
 			
 			smoke.alert($(this).attr("data-comment"));
-		})
+		});
 		
 		$(".flightplan_checkpoints").click(function(e) {
 			

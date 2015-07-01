@@ -72,18 +72,9 @@
 									placeholder="Your Password" />
 							</div>
 							
-							<!-- <div class="form-group">
-								<label class="checkbox-inline"> <input type="checkbox" />
-									Remember me
-								</label> <span class="pull-right"> <a href="#">Forget
-										password ? </a>
-								</span>
-							</div> -->
-
+							<div class="pull-left errMsg" style="line-height:30px;">${errorLogin}</div>
+							<input type="submit" name="submit" class="pull-right btn override btn-primary" value="Login Now" />
 							
-							<input type="submit" name="submit" class="btn override btn-primary" value="Login Now" />
-							<div class="pull-right errMsg" style="line-height:30px;">${errorLogin}</div>
-							<!-- Not register ? <a href="registeration.html">click here </a> -->
 						</form>
 					</div>
 
