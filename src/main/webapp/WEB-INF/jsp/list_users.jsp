@@ -95,7 +95,7 @@
 													</c:forEach>
 															</td>
 
-													<td><a title="View Plan"
+													<td><a title="View Flight Plan"
 														href="<c:url value="/advisor/view-student-plan/${user.id}.html" />"
 														class="btn override btn-primary"><i class="fa fa-eye"></i> </a> <security:authorize
 															access="authenticated and hasRole('ADMINA')">

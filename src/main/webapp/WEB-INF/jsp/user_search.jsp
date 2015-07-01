@@ -68,9 +68,9 @@
 													<td>${user.username}</td>
 													<td>${user.firstName} ${user.lastName}</td>
 													<td>${user.cin}</td>
-													<td><a
+													<td><a title="View Flight Plan"
 														href="<c:url value="/advisor/view-student-plan/${user.id}.html" />"
-														class="btn btn-info override"><i class="fa fa-view "></i></a>		
+														class="btn btn-info override"><i class="fa fa-eye"></i></a>		
 													</td>
 												</tr>
 											</c:forEach>
