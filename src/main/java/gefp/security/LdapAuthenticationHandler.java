@@ -95,10 +95,13 @@ public class LdapAuthenticationHandler implements AuthenticationProvider {
 
                     user = new User();
                     Set<Role> roles = new HashSet<Role>();
-                    roles.add( roleDao.getRole( "STUDENT" ) );
+                    
                     if( facultyIndex > 0 )
                     {
                         roles.add( roleDao.getRole( "ADVISOR" ) );
+                    }
+                    else {
+                        roles.add( roleDao.getRole( "STUDENT" ) );
                     }
 
                     user.setUsername( username );
