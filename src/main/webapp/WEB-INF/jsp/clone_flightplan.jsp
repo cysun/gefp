@@ -41,7 +41,7 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Clone Flight Plan : ${flightplan.parent.name}</div>
+							<div class="panel-heading">Clone Flight Plan : ${flightplan.name}</div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12">
@@ -108,8 +108,9 @@
 											</div>
 
 											<div class="form-group col-md-6">
-											<input type="submit" class="btn override btn-primary" value="Save" />
-											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
+											<input type="submit" class="btn override btn-primary mr10" value="Save" />
+											<a href="<c:url value="/admin/list-plans.html"/>"
+														class="btn override btn-primary">Cancel</a>
 											</div>
 										</form>
 									</div>
