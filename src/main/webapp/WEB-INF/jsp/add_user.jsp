@@ -25,8 +25,8 @@
 			<div id="page-inner">
 
 				<ol class="breadcrumb">
-					<li><a href="<c:url value="/user/dashboard.html"/>">Home</a></li>
-					<li><a href="<c:url value="/user/list.html"/>">Users</a></li>
+					<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
+					<li><a href="<c:url value="/admin/list-users.html"/>">Users</a></li>
 					<li class="active">Add New User</li>
 				</ol>
 

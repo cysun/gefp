@@ -25,10 +25,22 @@
 		<div id="page-wrapper">
 			<div id="page-inner">
 
+				
+				<security:authorize access="hasRole('ADMIN')">
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
+					<li><a href="<c:url value="/admin/list-departments.html"/>">Departments</a></li>
 					<li class="active">Users</li>
 				</ol>
+				</security:authorize>
+				
+				<security:authorize access="hasRole('ADVISOR')">
+				<ol class="breadcrumb">
+					<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
+					<li><a href="<c:url value="/advisor/list-departments.html"/>">Departments</a></li>
+					<li class="active">Users</li>
+				</ol>
+				</security:authorize>
 
 				<jsp:include page="includes/dashboard_title.jsp" />
 				<!-- /. ROW  -->
@@ -40,7 +52,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="pull-left">
-									<h5>List of Users</h5>
+									<h5>List of Users in ${department.name}</h5>
 								</div>
 								<security:authorize
 									access="authenticated and hasRole('ADMINSSSSS')">
