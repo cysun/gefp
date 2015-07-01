@@ -53,7 +53,7 @@
 								<div class="pull-left">
 									<h5>List of Users</h5>
 								</div>
-								<security:authorize access="authenticated and hasRole('ADMIN')">
+								<security:authorize access="authenticated and hasRole('ADMINAA')">
 									<div class="pull-right">
 										<a href="<c:url value="/admin/user/add.html"/>"
 											class="btn override btn-primary"><i class="fa fa-plus "></i>
