@@ -110,8 +110,9 @@
 														<th>CIN (Optional):</th>
 														<td><input type="text" id="cinInp" name="cin"
 															class="form-control" value="${currUserObj.cin}" /></td>
-														<th>Major: <span class="compulsary">*</span></th>
+														<th>Major: </th>
 														<td>
+														${currUserObj.department.name}
 														<!-- 
 														<select class="form-control" name="departmentID"
 															id="majorInp">
