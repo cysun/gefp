@@ -45,7 +45,7 @@ public class LoginController {
     public String logout( ModelMap models, HttpSession session,
         Principal principal )
     {
-        if(principal.getName() != null)
+        if(principal != null)
         logger.info( "User Logout: " + principal.getName() );
         
         session.removeAttribute( "loggedInUser" );
