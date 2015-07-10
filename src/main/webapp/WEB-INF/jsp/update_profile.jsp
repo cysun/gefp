@@ -18,8 +18,6 @@
 
 		<jsp:include page="includes/header.jsp" />
 		<!-- /. NAV TOP  -->
-		<jsp:include page="includes/left_menu.jsp" />
-		<!-- /. NAV SIDE  -->
 
 		<div id="page-wrapper">
 			<div id="page-inner">
@@ -44,34 +42,42 @@
 									<div class="col-md-12">
 										<form action="" method="post">
 											<div class="form-group col-md-6">
-												<label>First Name</label> <input type="text"
+												<label>First Name: <span class="compulsary">*</span></label> <input type="text"
 													name="firstName" class="form-control" value="${user.firstName}" />
+													<span style="color: #900">${fnameErr}</span>
+													<c:remove var="fnameErr" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Middle Name</label> <input type="text"
+												<label>Middle Name (Optional)</label> <input type="text"
 													name="middleName" class="form-control" value="${user.middleName}" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Last Name</label> <input type="text" name="lastName"
+												<label>Last Name: <span class="compulsary">*</span></label> <input type="text" name="lastName"
 													class="form-control" value="${user.lastName}" />
+													<span style="color: #900">${lnameErr}</span>
+													<c:remove var="lnameErr" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>CIN</label> <input type="text" name="cin"
+												<label>CIN (Optional)</label> <input type="text" name="cin"
 													class="form-control" value="${user.cin}" />
 											</div>
 											<div class="form-group col-md-6">
-												<label>Email ID</label> <input type="text" name="email"
+												<label>Email ID <span class="compulsary">*</span></label> <input type="text" name="email"
 													class="form-control" value="${user.email}" />
+													<span style="color: #900">${emailErr}</span>
+													<c:remove var="emailErr" />
 											</div>
 
 											<div class="form-group col-md-6">
-												<label>Department</label> <select name="department"
+												<label>Department <span class="compulsary">*</span> </label> <select name="department"
 													class="form-control">
 													<option value="">--Select Department--</option>
 													<c:forEach var="department" items="${departments}">
 														<option value="${department.id }">${department.name}</option>
 													</c:forEach>
 												</select>
+												<span style="color: #900">${deptErr}</span>
+													<c:remove var="deptErr" />
 											</div>
 
 											<div class="clearfix"></div>

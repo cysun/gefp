@@ -219,7 +219,7 @@ public class UserController {
 
         // String uid = request.getParameter("uid");
         // String password = request.getParameter( "password" );
-        String deptIdStr = request.getParameter( "departmentID" );
+        // String deptIdStr = request.getParameter( "departmentID" );
         String email = request.getParameter( "email" );
         String cin = request.getParameter( "cin" );
 
@@ -253,25 +253,25 @@ public class UserController {
         // "Password should contain both letters and numbers." );
         // return "redirect:/user/profile/" + pid + ".html";
         // }
-        else if( deptIdStr == "" )
-        {
-            session.setAttribute( "deptErr", "Please select a department." );
-            return "redirect:/user/profile.html";
-        }
+//        else if( deptIdStr == "" )
+//        {
+//            session.setAttribute( "deptErr", "Please select a department." );
+//            return "redirect:/user/profile.html";
+//        }
 
-        Integer deptID = Integer.parseInt( deptIdStr );
+        // Integer deptID = Integer.parseInt( deptIdStr );
 
         // if( password != "" && password != null )
         // {
         // currUserObj.setPassword( password );
         // }
 
-        if( deptID != currUserObj.getDepartment().getId() )
-        {
-            Department newDept = deptDao.getDepartment( deptID );
-            currUserObj.setDepartment( newDept );
-            currUserObj.setFlightPlan( newDept.getDefaultPlan() );
-        }
+//        if( deptID != currUserObj.getDepartment().getId() )
+//        {
+//            Department newDept = deptDao.getDepartment( deptID );
+//            currUserObj.setDepartment( newDept );
+//            currUserObj.setFlightPlan( newDept.getDefaultPlan() );
+//        }
 
         currUserObj.setFirstName( firstName );
         currUserObj.setMiddleName( middleName );
@@ -406,9 +406,27 @@ public class UserController {
         String lastName = request.getParameter( "lastName" );
         String cin = request.getParameter( "cin" );
         String email = request.getParameter( "email" );
-
+        String departmentId = request.getParameter( "department" );
+        
+        if( firstName == "") {
+            session.setAttribute("fnameErr", "Firstname is required");
+        }
+        if( lastName == "" ) {
+            session.setAttribute("lnameErr", "Lastname is required");
+        }
+        if( email == "" ) {
+            session.setAttribute("emailErr", "Email is required");
+        }
+        if( departmentId == "" ) {
+            session.setAttribute("deptErr", "Department is required");
+        }
+        
+        if( firstName == "" || lastName == "" || email == "" || departmentId == "" ) {
+            return "redirect:/update-profile.html";
+        }
+        
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
-        Integer deptId = Integer.parseInt( request.getParameter( "department" ) );
+        Integer deptId = Integer.parseInt( departmentId );
         Department d = deptDao.getDepartment( deptId );
         sessionUserObj.setFirstName( firstName );
         sessionUserObj.setMiddleName( middleName );
