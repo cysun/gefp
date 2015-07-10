@@ -196,13 +196,18 @@ public class FlightPlanController {
             + planId + "&error=true"; }
 
         FlightPlan flightplan = planDao.getFlightPlan( planId );
+        Department department = deptDao.getDepartment(Integer.parseInt( request.getParameter( "department" )));
+        
         FlightPlan newPlan = flightplan.clone();
         newPlan.setName( request.getParameter( "name" ) );
         newPlan.setSeasonName( request.getParameter( "seasonName" ) );
         newPlan.setSeasonYear( request.getParameter( "seasonYear" ) );
-        newPlan.setDepartment( deptDao.getDepartment( Integer.parseInt( request.getParameter( "department" ) ) ) );
+        newPlan.setDepartment( department );
         newPlan = planDao.saveFlightPlan( newPlan );
         sessionStatus.setComplete();
+        department.getPlans().add( newPlan );
+        deptDao.saveDepartment( department );
+        
         logger.info( "User " + principal.getName() + " cloned Flightplan "
             + flightplan.getName() );
         return "redirect:/plan/view/" + newPlan.getId() + ".html";
