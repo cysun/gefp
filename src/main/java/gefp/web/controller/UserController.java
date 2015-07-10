@@ -225,22 +225,29 @@ public class UserController {
 
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
         User currUserObj = userDao.getUser( sessionUserObj.getId() );
-
+        
+        boolean errorValues = false;
+        
         if( firstName == "" || firstName == null )
         {
+            errorValues = true;
             session.setAttribute( "fnameErr", "FirstName cannot be empty" );
-            return "redirect:/user/profile.html";
         }
-        else if( lastName == "" || lastName == null )
+        if( lastName == "" || lastName == null )
         {
+            errorValues = true;
             session.setAttribute( "lnameErr", "LastName cannot be empty" );
-            return "redirect:/user/profile.html";
         }
-        else if( email == "" || email == null )
+        if( email == "" || email == null )
         {
+            errorValues = true;
             session.setAttribute( "emailErr", "Email cannot be empty" );
+        }
+        
+        if(errorValues == true) {
             return "redirect:/user/profile.html";
         }
+        
         // else if( password != "" && password != null && password.length() < 4
         // )
         // {
