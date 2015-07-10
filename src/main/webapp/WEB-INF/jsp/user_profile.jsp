@@ -86,25 +86,26 @@
 														<td><input type="text" id="firstNameInp"
 															name="firstName" class="form-control"
 															value="${currUserObj.firstName}" /> <span
-															style="color: #900">${nameErr}</span> <c:remove
-																var="nameErr" /></td>
+															style="color: #900">${fnameErr}</span> <c:remove
+																var="fnameErr" /></td>
 														<th>Last Name: <span class="compulsary">*</span></th>
 														<td><input type="text" id="lastNameInp"
 															name="lastName" class="form-control"
 															value="${currUserObj.lastName}" /> <span
-															style="color: #900">${nameErr}</span> <c:remove
-																var="nameErr" /></td>
+															style="color: #900">${lnameErr}</span> <c:remove
+																var="lnameErr" /></td>
 													</tr>
 													<tr>
 														<th>Middle Name (Optional)</th>
 														<td><input type="text" id="lastNameInp"
 															name="middleName" class="form-control"
-															value="${currUserObj.middleName}" /> <span
-															style="color: #900">${nameErr}</span> <c:remove
-																var="nameErr" />
+															value="${currUserObj.middleName}" /> 
 														<th>Email: <span class="compulsary">*</span></th>
 														<td><input type="text" id="emailInp" name="email"
-															class="form-control" value="${currUserObj.email}" /></td>
+															class="form-control" value="${currUserObj.email}" />
+															<span style="color: #900">${emailErr}</span> <c:remove
+																var="emailErr" />
+															</td>
 													</tr>
 													<tr>
 														<th>CIN (Optional):</th>

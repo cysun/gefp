@@ -36,6 +36,7 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
+							
 							<div class="panel-heading">Update Profile</div>
 							<div class="panel-body">
 								<div class="row">
@@ -83,7 +84,7 @@
 											<div class="clearfix"></div>
 
 											<div class="form-group col-md-6">
-												<input type="submit" class="btn override btn-primary" value="Save" />
+												<input type="submit" class="btn override btn-primary" value="Continue" />
 												<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 											</div>
 

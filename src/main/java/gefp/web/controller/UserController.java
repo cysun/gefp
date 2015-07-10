@@ -228,12 +228,17 @@ public class UserController {
 
         if( firstName == "" || firstName == null )
         {
-            session.setAttribute( "firstName", "FirstName cannot be empty" );
+            session.setAttribute( "fnameErr", "FirstName cannot be empty" );
             return "redirect:/user/profile.html";
         }
-        else if( firstName == "" || firstName == null )
+        else if( lastName == "" || lastName == null )
         {
-            session.setAttribute( "firstName", "FirstName cannot be empty" );
+            session.setAttribute( "lnameErr", "LastName cannot be empty" );
+            return "redirect:/user/profile.html";
+        }
+        else if( email == "" || email == null )
+        {
+            session.setAttribute( "emailErr", "Email cannot be empty" );
             return "redirect:/user/profile.html";
         }
         // else if( password != "" && password != null && password.length() < 4
