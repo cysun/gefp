@@ -19,7 +19,7 @@
 		<jsp:include page="includes/header.jsp" />
 		<!-- /. NAV TOP  -->
 
-		<div id="page-wrapper">
+		<div id="page-wrapper" style="margin-left: 0px;">
 			<div id="page-inner">
 
 				<ol class="breadcrumb">
