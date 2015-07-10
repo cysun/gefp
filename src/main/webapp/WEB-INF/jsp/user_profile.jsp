@@ -102,7 +102,7 @@
 															value="${currUserObj.middleName}" /> <span
 															style="color: #900">${nameErr}</span> <c:remove
 																var="nameErr" />
-														<th>Email:</th>
+														<th>Email: <span class="compulsary">*</span></th>
 														<td><input type="text" id="emailInp" name="email"
 															class="form-control" value="${currUserObj.email}" /></td>
 													</tr>
