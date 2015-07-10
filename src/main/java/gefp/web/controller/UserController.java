@@ -402,7 +402,7 @@ public class UserController {
     {
         HttpSession session = request.getSession();
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
-        models.put( "user", sessionUserObj );
+        models.put( "currUserObj", sessionUserObj );
         models.put( "departments", deptDao.getDepartments() );
         return "update_profile";
     }

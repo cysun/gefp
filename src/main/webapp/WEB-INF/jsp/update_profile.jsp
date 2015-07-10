@@ -24,7 +24,7 @@
 
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="#"/>">Home</a></li>
-					<li class="active">My Profile</li>
+					<li class="active">Profile Information</li>
 				</ol>
 
 				<jsp:include page="includes/dashboard_title.jsp" />
