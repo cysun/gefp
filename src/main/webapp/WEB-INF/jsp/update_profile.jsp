@@ -42,51 +42,83 @@
 								<div class="row">
 									<div class="col-md-12">
 										<form action="" method="post">
-											<div class="form-group col-md-6">
-												<label>First Name: <span class="compulsary">*</span></label> <input type="text"
-													name="firstName" class="form-control" value="${user.firstName}" />
-													<span style="color: #900">${fnameErr}</span>
-													<c:remove var="fnameErr" />
-											</div>
-											<div class="form-group col-md-6">
-												<label>Middle Name (Optional)</label> <input type="text"
-													name="middleName" class="form-control" value="${user.middleName}" />
-											</div>
-											<div class="form-group col-md-6">
-												<label>Last Name: <span class="compulsary">*</span></label> <input type="text" name="lastName"
-													class="form-control" value="${user.lastName}" />
-													<span style="color: #900">${lnameErr}</span>
-													<c:remove var="lnameErr" />
-											</div>
-											<div class="form-group col-md-6">
-												<label>CIN (Optional)</label> <input type="text" name="cin"
-													class="form-control" value="${user.cin}" />
-											</div>
-											<div class="form-group col-md-6">
-												<label>Email ID <span class="compulsary">*</span></label> <input type="text" name="email"
-													class="form-control" value="${user.email}" />
-													<span style="color: #900">${emailErr}</span>
-													<c:remove var="emailErr" />
-											</div>
+											<table class="table table-striped">
+												<tbody>
+													<tr>
+														<th>First Name: <span class="compulsary">*</span></th>
+														<td><input type="text" id="firstNameInp"
+															name="firstName" class="form-control"
+															value="${currUserObj.firstName}" /> <span
+															style="color: #900">${fnameErr}</span> <c:remove
+																var="fnameErr" /></td>
+														<th>Last Name: <span class="compulsary">*</span></th>
+														<td><input type="text" id="lastNameInp"
+															name="lastName" class="form-control"
+															value="${currUserObj.lastName}" /> <span
+															style="color: #900">${lnameErr}</span> <c:remove
+																var="lnameErr" /></td>
+													</tr>
+													<tr>
+														<th>Middle Name (Optional)</th>
+														<td><input type="text" id="lastNameInp"
+															name="middleName" class="form-control"
+															value="${currUserObj.middleName}" /> 
+														<th>Email: <span class="compulsary">*</span></th>
+														<td><input type="text" id="emailInp" name="email"
+															class="form-control" value="${currUserObj.email}" />
+															<span style="color: #900">${emailErr}</span> <c:remove
+																var="emailErr" />
+															</td>
+													</tr>
+													<tr>
+														<th>CIN (Optional):</th>
+														<td><input type="text" id="cinInp" name="cin"
+															class="form-control" value="${currUserObj.cin}" /></td>
+														<th>Major: </th>
+														<td>
+														
+														 
+														<select class="form-control" name="departmentID"
+															id="majorInp">
+																<option value="">--Select Department--</option>
 
-											<div class="form-group col-md-6">
-												<label>Department <span class="compulsary">*</span> </label> <select name="department"
-													class="form-control">
-													<option value="">--Select Department--</option>
-													<c:forEach var="department" items="${departments}">
-														<option value="${department.id }">${department.name}</option>
-													</c:forEach>
-												</select>
-												<span style="color: #900">${deptErr}</span>
-													<c:remove var="deptErr" />
-											</div>
+																<c:forEach var="dept" items="${departments}">
+																	<c:if test="${dept.defaultPlan != null}">
+																		<c:choose>
+																			<c:when
+																				test="${currUserObj.department.id == dept.id}">
+																				<option selected="selected" value="${dept.id}">${dept.name}</option>
+																			</c:when>
+																			<c:otherwise>
+																				<option value="${dept.id}">${dept.name}</option>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:if>
+																</c:forEach>
 
-											<div class="clearfix"></div>
+														</select> <span style="color: #900">${deptErr}</span> <c:remove
+																var="deptErr" />
+																
+																 
+																</td>
+													</tr>
 
-											<div class="form-group col-md-6">
-												<input type="submit" class="btn override btn-primary" value="Continue" />
-												<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
-											</div>
+													<tr>
+														<td colspan="2">
+															<span
+															id="successMsg" style="color: #090">${successMsg}</span>
+															<c:remove var="successMsg" />
+														</td>
+														<td colspan="2" align="right">
+														
+														<input type="hidden"
+															name="uid" value="${currUserObj.id}" id="userId" /> <input
+															id="SaveInformation" type="submit"
+															class="btn override btn-info" value="Continue" /> </td>
+													</tr>
+
+												</tbody>
+											</table>
 
 										</form>
 									</div>

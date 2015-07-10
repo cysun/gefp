@@ -418,7 +418,7 @@ public class UserController {
         String lastName = request.getParameter( "lastName" );
         String cin = request.getParameter( "cin" );
         String email = request.getParameter( "email" );
-        String departmentId = request.getParameter( "department" );
+        String departmentId = request.getParameter( "departmentID" );
         
         if( firstName == "") {
             session.setAttribute("fnameErr", "Firstname is required");
