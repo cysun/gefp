@@ -141,6 +141,8 @@
 												id="majorInp">
 													<option value="">Select Major</option>
 													<c:forEach var="dept" items="${departments}">
+														<!-- Do not show a department whose current plan is empty -->
+														<c:if test="${dept.defaultPlan != null}">
 														<c:choose>
 															<c:when test="${dept.id == currUserObj.major.id }">
 																<option value="${dept.id}" data-txt="${dept.name}"
@@ -150,6 +152,7 @@
 																<option value="${dept.id}" data-txt="${dept.name}">${dept.name}</option>
 															</c:otherwise>
 														</c:choose>
+														</c:if>
 													</c:forEach>
 											</select></td>
 										</tr>

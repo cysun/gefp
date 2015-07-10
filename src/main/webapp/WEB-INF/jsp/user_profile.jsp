@@ -111,12 +111,14 @@
 														<td><input type="text" id="cinInp" name="cin"
 															class="form-control" value="${currUserObj.cin}" /></td>
 														<th>Major: <span class="compulsary">*</span></th>
-														<td><select class="form-control" name="departmentID"
+														<td>
+														<!-- 
+														<select class="form-control" name="departmentID"
 															id="majorInp">
 																<option value="">--Select Department--</option>
 
 																<c:forEach var="dept" items="${departments}">
-																	<!-- Do not show a department whose current plan is empty -->
+																	</!-- Do not show a department whose current plan is empty --!/>
 																	<c:if test="${dept.defaultPlan != null}">
 																		<c:choose>
 																			<c:when
@@ -131,7 +133,10 @@
 																</c:forEach>
 
 														</select> <span style="color: #900">${deptErr}</span> <c:remove
-																var="deptErr" /></td>
+																var="deptErr" />
+																
+																 -->
+																</td>
 													</tr>
 
 													<tr>
