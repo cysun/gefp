@@ -243,6 +243,11 @@ public class UserController {
             errorValues = true;
             session.setAttribute( "emailErr", "Email cannot be empty" );
         }
+        if( cin == "" || cin == null )
+        {
+            errorValues = true;
+            session.setAttribute( "cinErr", "CIN cannot be empty" );
+        }
         
         if(errorValues == true) {
             return "redirect:/user/profile.html";

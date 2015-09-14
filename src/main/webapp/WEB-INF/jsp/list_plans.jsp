@@ -67,8 +67,12 @@
 
 												<tr>
 													<td>${index.count}</td>
-													<td>${plan.name}(${plan.seasonName}
-														${plan.seasonYear})</td>
+													<td>${plan.name}(${plan.seasonName} ${plan.seasonYear})
+														<c:if test="${plan.id == plan.department.defaultPlan.id}">
+															<span class="label override label-success">Official Plan</span>
+														</c:if>
+													
+													</td>
 													<td>${plan.department.name}</td>
 													<td><c:choose>
 															<c:when test="${plan.published == false}">

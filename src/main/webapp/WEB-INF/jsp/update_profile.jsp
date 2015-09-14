@@ -71,9 +71,12 @@
 															</td>
 													</tr>
 													<tr>
-														<th>CIN (Optional):</th>
+														<th>CIN: <span class="compulsary">*</span></th>
 														<td><input type="text" id="cinInp" name="cin"
-															class="form-control" value="${currUserObj.cin}" /></td>
+															class="form-control" value="${currUserObj.cin}" />
+															<span style="color: #900">${cinErr}</span> <c:remove
+																var="cinErr" />
+															</td>
 														<th>Major: </th>
 														<td>
 														
@@ -98,8 +101,6 @@
 
 														</select> <span style="color: #900">${deptErr}</span> <c:remove
 																var="deptErr" />
-																
-																 
 																</td>
 													</tr>
 
