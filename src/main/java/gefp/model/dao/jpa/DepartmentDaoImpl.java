@@ -36,7 +36,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     {
         try
         {
-            return entityManager.createQuery( "from Department order by name",
+            return entityManager.createQuery( "from Department where deleted = 'f' order by name",
                 Department.class ).getResultList();
         }
         catch( NoResultException nre )

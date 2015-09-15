@@ -3,6 +3,7 @@ package gefp.web.controller;
 import gefp.model.Cell;
 import gefp.model.Checkpoint;
 import gefp.model.CheckpointInfo;
+import gefp.model.Comment;
 import gefp.model.Department;
 import gefp.model.FlightPlan;
 import gefp.model.Runway;
@@ -10,6 +11,7 @@ import gefp.model.Stage;
 import gefp.model.User;
 import gefp.model.dao.CellDao;
 import gefp.model.dao.CheckpointDao;
+import gefp.model.dao.CheckpointInfoDao;
 import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.FlightPlanDao;
 import gefp.model.dao.RunwayDao;
@@ -44,7 +46,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@SessionAttributes({ "checkpoint", "stage", "runway", "flightplan" })
+@SessionAttributes({ "checkpoint", "stage", "runway", "flightplan", "comment" })
 public class FlightPlanController {
 
     private static final Logger logger = LoggerFactory.getLogger( FlightPlanController.class );
@@ -66,6 +68,9 @@ public class FlightPlanController {
 
     @Autowired
     private CheckpointDao checkpointDao;
+
+    @Autowired
+    private CheckpointInfoDao checkpointInfoDao;
 
     @Autowired
     private UserDao userDao;
@@ -196,8 +201,11 @@ public class FlightPlanController {
             + planId + "&error=true"; }
 
         FlightPlan flightplan = planDao.getFlightPlan( planId );
-        Department department = deptDao.getDepartment(Integer.parseInt( request.getParameter( "department" )));
-        
+
+        System.out.println( flightplan.getName() );
+
+        Department department = deptDao.getDepartment( Integer.parseInt( request.getParameter( "department" ) ) );
+
         FlightPlan newPlan = flightplan.clone();
         newPlan.setName( request.getParameter( "name" ) );
         newPlan.setSeasonName( request.getParameter( "seasonName" ) );
@@ -207,7 +215,7 @@ public class FlightPlanController {
         sessionStatus.setComplete();
         department.getPlans().add( newPlan );
         deptDao.saveDepartment( department );
-        
+
         logger.info( "User " + principal.getName() + " cloned Flightplan "
             + flightplan.getName() );
         return "redirect:/plan/view/" + newPlan.getId() + ".html";
@@ -269,7 +277,7 @@ public class FlightPlanController {
             if( checked.equals( "true" ) )
             {
                 CheckpointInfo cinfo = new CheckpointInfo( c, message );
-                currUserObj.getCheckpoints().add( cinfo );
+                currUserObj.getCheckpointsInfo().add( cinfo );
                 logger.info( "User " + principal.getName()
                     + " checked a Milestone (ID: " + id + " ) for "
                     + currUserObj.getUsername() );
@@ -277,14 +285,14 @@ public class FlightPlanController {
             else
             {
                 Set<CheckpointInfo> newCheckpoints = new HashSet<CheckpointInfo>();
-                for( CheckpointInfo cp : currUserObj.getCheckpoints() )
+                for( CheckpointInfo cp : currUserObj.getCheckpointsInfo() )
                 {
                     if( cp.getCheckpoint().getId() != id )
                     {
                         newCheckpoints.add( cp );
                     }
                 }
-                currUserObj.setCheckpoints( newCheckpoints );
+                currUserObj.setCheckpointsInfo( newCheckpoints );
                 logger.info( "User " + principal.getName()
                     + " Unchecked a Milestone (ID: " + id + " ) for "
                     + currUserObj.getUsername() );
@@ -661,10 +669,13 @@ public class FlightPlanController {
         @RequestParam Long cellId, @RequestParam Long planId,
         Principal principal )
     {
+        Checkpoint c = checkpointDao.getCheckPoint( id );
         FlightPlan plan = planDao.getFlightPlan( planId );
-        Cell cell = cellDao.getCell( cellId );
-        cell.getCheckpoints().remove( checkpointDao.getCheckPoint( id ) );
-        cellDao.saveCell( cell );
+        // Cell cell = cellDao.getCell( cellId );
+        // cell.getCheckpoints().remove( c );
+        // cellDao.saveCell( cell );
+        c.setDeleted( true );
+        checkpointDao.saveCheckPoint( c );
         logger.info( "User " + principal.getName() + " deleted Milestone(ID: "
             + id + ") in " + plan.getName() );
         return "redirect:/plan/edit/" + planId + ".html";
@@ -675,9 +686,16 @@ public class FlightPlanController {
     public String removeRunway( @RequestParam Long rid,
         @RequestParam Long planId, Principal principal )
     {
+        Runway r = runwayDao.getRunway( rid );
         FlightPlan flightplan = planDao.getFlightPlan( planId );
-        flightplan.getRunways().remove( runwayDao.getRunway( rid ) );
-        planDao.saveFlightPlan( flightplan );
+
+        r.setDeleted( true );
+        runwayDao.saveRunway( r );
+        runwayDao.deleteRunwayFromFlightPlan( r, flightplan );
+        cellDao.deleteCells( r );
+
+        // flightplan.getRunways().remove( r );
+        // planDao.saveFlightPlan( flightplan );
         logger.info( "User " + principal.getName() + " deleted Runway(ID: "
             + rid + ") in " + flightplan.getName() );
         return "redirect:/plan/edit/" + planId + ".html";
@@ -691,9 +709,13 @@ public class FlightPlanController {
         FlightPlan flightplan = planDao.getFlightPlan( planId );
 
         Stage s = stageDao.getStage( sid );
+        s.setDeleted( true );
+        cellDao.deleteCells( s );
         // stageDao.removeStage( s );
-        flightplan.getStages().remove( s );
-        planDao.saveFlightPlan( flightplan );
+        // flightplan.getStages().remove( s );
+        // planDao.saveFlightPlan( flightplan );
+        stageDao.saveStage( s );
+        stageDao.deleteStageFromFlightPlan( s, flightplan );
         logger.info( "User " + principal.getName() + " deleted Stage(ID: "
             + sid + ") in " + flightplan.getName() );
         return "redirect:/plan/edit/" + planId + ".html";
@@ -797,22 +819,39 @@ public class FlightPlanController {
     @RequestMapping(value = "/plan/milestone/add-comment.html",
         method = RequestMethod.GET)
     public String addMilestoneComment( ModelMap models,
-        @RequestParam Long checkpointId, @RequestParam Long userId )
+        @RequestParam Long planId, @RequestParam Long checkpointId,
+        @RequestParam Long userId, HttpSession session )
     {
+        FlightPlan plan = planDao.getFlightPlan( planId );
         Checkpoint checkpoint = checkpointDao.getCheckPoint( checkpointId );
+        CheckpointInfo cinfo = checkpointInfoDao.getCheckPointInfo( userId,
+            checkpointId );
+
+        if( cinfo == null )
+        {
+            cinfo = new CheckpointInfo();
+            cinfo.setCheckpoint( checkpoint );
+        }
+
+        models.put( "comment", new Comment() );
+        models.put( "plan", plan );
         models.put( "checkpoint", checkpoint );
         models.put( "userId", userId );
-        return "add_milestone_comment";
+        models.put( "comments", cinfo.getComments() );
+        // return "add_milestone_comment";
+        return "comments_page";
     }
 
     @RequestMapping(value = "/plan/milestone/add-comment.html",
         method = RequestMethod.POST)
-    public String saveStudentCheckpointComment( ModelMap models,
+    public String saveStudentCheckpointComment(
+        @ModelAttribute("comment") Comment comment, ModelMap models,
         HttpServletRequest request, HttpServletResponse response,
-        PrintWriter out, HttpSession session, Principal principal )
+        PrintWriter out, HttpSession session, Principal principal,
+        SessionStatus status )
     {
-        
-        User loginUser = (User) session.getAttribute("loggedInUser");
+
+        User loginUser = (User) session.getAttribute( "loggedInUser" );
 
         if( request.getParameter( "userId" ) == ""
             || request.getParameter( "userId" ) == null )
@@ -821,28 +860,102 @@ public class FlightPlanController {
             return "redirect:/404";
         }
 
+        Long planId = Long.parseLong( request.getParameter( "planId" ) );
         Long userId = Long.parseLong( request.getParameter( "userId" ) );
         User currUserObj = userDao.getUser( userId );
 
-        Long id = Long.parseLong( request.getParameter( "id" ) );
-        String message = request.getParameter( "message" );
+        Long checkpointId = Long.parseLong( request.getParameter( "checkpointId" ) );
+        // String message = request.getParameter( "message" );
 
-        if( id != null )
+        if( checkpointId != null )
         {
-            Checkpoint c = checkpointDao.getCheckPoint( id );
-            CheckpointInfo cinfo = new CheckpointInfo( c, message );
-            currUserObj.getCheckpoints().add( cinfo );
+            comment.setCommentedBy( loginUser );
+            comment.setVisibleToStudent( true );
+
+            CheckpointInfo cinfo = null;
+            for( CheckpointInfo csx : currUserObj.getCheckpointsInfo() )
+            {
+                if( csx.getCheckpoint().getId().equals( checkpointId ) )
+                {
+                    cinfo = csx;
+                }
+            }
+
+            if( cinfo == null )
+            {
+                Checkpoint c = checkpointDao.getCheckPoint( checkpointId );
+                cinfo = new CheckpointInfo();
+                cinfo.setCheckpoint( c );
+            }
+            cinfo.getComments().add( comment );
+
+            currUserObj.getCheckpointsInfo().add( cinfo );
             userDao.saveUser( currUserObj );
-            logger.info( "User " + principal.getName()
-                + " checked a Milestone (ID: " + id + " ) for "
-                + currUserObj.getUsername() );
+            status.setComplete();
+            /*logger.info( "User " + principal.getName()
+                + " checked a Milestone (ID: " + checkpointId + " ) for "
+                + currUserObj.getUsername() );*/
         }
-        
-        if(loginUser.isAdmin() || loginUser.isAdvisor()) {
-            return "redirect:/advisor/view-student-plan/"+userId+".html";
+
+        if( loginUser.isAdmin() || loginUser.isAdvisor() )
+        {
+            return "redirect:/plan/milestone/add-comment.html?userId="+userId+"&checkpointId="+checkpointId+"&planId="+planId;
+            //return "redirect:/advisor/view-student-plan/" + userId + ".html";
         }
-        else {
-            return "redirect:/student/view-plan/"+userId+".html";
+        else
+        {
+            return "redirect:/plan/milestone/add-comment.html?userId="+userId+"&checkpointId="+checkpointId+"&planId="+planId;
+            //return "redirect:/student/view-plan/" + userId + ".html";
         }
     }
+
+    @RequestMapping(value = "/admin/plan/delete.html",
+        method = RequestMethod.GET)
+    public String deleteFlightplan( @RequestParam Long planId,
+        Principal principal )
+    {
+        FlightPlan plan = planDao.getFlightPlan( planId );
+        plan.setDeleted( true );
+        planDao.saveFlightPlan( plan );
+        cellDao.deleteCells( plan );
+        logger.info( "User " + principal.getName() + " deleted flight plan: "
+            + plan.getName() );
+        return "redirect:/admin/list-plans.html";
+    }
+
+    @RequestMapping(value = "/plan/statistics-details.html",
+        method = RequestMethod.GET)
+    public String planStats( @RequestParam Long planId, Principal principal,
+        ModelMap models )
+    {
+        FlightPlan fp = planDao.getFlightPlan( planId );
+
+        if( fp != null )
+        {
+            models.put( "plan", fp );
+            return "statistics-details-page";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+    }
+
+    @RequestMapping("/plan/print/{id}.html")
+    public String printFLightPlan( @PathVariable Long id, ModelMap models )
+    {
+        FlightPlan fp = planDao.getFlightPlan( id );
+
+        if( fp != null )
+        {
+            models.put( "plan", fp );
+            return "print_plan";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+
+    }
+
 }

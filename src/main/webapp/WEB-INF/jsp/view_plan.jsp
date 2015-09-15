@@ -6,6 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html ng-app="gefpApp" xmlns="http://www.w3.org/1999/xhtml">
@@ -76,19 +77,19 @@
 
 					<c:when test="${not empty plan }">
 
-						<div class="row" ng-controller="checkpointController">
+						<div class="row">
 							<div class="col-md-12 col-sm-12 col-xs-12">
 
 								<div class="panel panel-default">
 									<div class="panel-heading">
 										<div class="pull-left">
 											<h5>
-											<span class="planTitle">${plan.name} 
-											<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
+												<span class="planTitle">${plan.name} <security:authorize
+														access="hasAnyRole('ADMIN','ADVISOR')">
 												(${plan.seasonName} ${plan.seasonYear})
 											</security:authorize>
-											</span>
-												
+												</span>
+
 												<security:authorize access="hasRole('ADMIN')">
 													<c:if test="${student_mode != true}">
 														<c:if test="${plan.published == true }">
@@ -114,101 +115,227 @@
 
 											<c:if test="${student_mode != true}">
 												<div class="pull-right">
-													<a class="btn override btn-primary"
+													<a title="Edit Plan" class=""
 														href="<c:url value="/plan/edit/${plan.id}.html" />"><i
-														class="fa fa-edit "></i> Edit Plan</a>
+														class="fa fa-edit "></i></a>
 												</div>
 											</c:if>
 										</security:authorize>
-										
+
 										<c:if test="${not empty StudentUser}">
 											<div class="pull-right">
-											<a style="text-decoration:underline;" class="btn override btn-link" href="<c:url value="/user/profile.html"/>">Edit Profile</a>
+												<a style="text-decoration: underline;"
+													class="btn override btn-link"
+													href="<c:url value="/user/profile.html"/>">Edit Profile</a>
 											</div>
-										
+
 										</c:if>
-										
+
 										<div style="clear: both;"></div>
 									</div>
 
 
-									<div class="panel-body">
-										<div class="table-responsive">
-											<table id="sortable"
-												class="table table-striped table-bordered sar-table">
-												<thead>
-													<tr>
-														<th><input type="hidden" id="planId"
-															value="${plan.id}" /></th>
-														<c:forEach items="${plan.runways}" var="runway">
-															<th>${runway.name}</th>
-														</c:forEach>
-													</tr>
-												</thead>
-												<tbody>
+									<div class="panel-body"></div>
+								</div>
 
-													<c:forEach items="${plan.stages}" var="stage"
-														varStatus="counter">
-														<tr class="state-default">
-															<th>${stage.name}</th>
-															<c:forEach items="${plan.runways}" var="runway">
+								<div class="">
+									<table id="sortable"
+										class="table table-striped table-bordered sar-table table-responsive">
+										<thead>
+											<tr>
+												<th><input type="hidden" id="planId" value="${plan.id}" /></th>
+												<c:forEach items="${plan.runways}" var="runway">
+													<c:if test="${not empty runway}">
+														<th>${runway.name}</th>
+													</c:if>
+												</c:forEach>
+											</tr>
+										</thead>
+										<tbody>
+
+											<c:forEach items="${plan.stages}" var="stage"
+												varStatus="counter">
+
+												<c:if test="${not empty stage}">
+													<tr class="state-default">
+														<th>${stage.name}</th>
+														<c:forEach items="${plan.runways}" var="runway">
+
+															<c:if test="${not empty runway}">
 																<td><c:forEach items="${plan.cells}" var="cell">
 																		<c:if
 																			test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
 																			<ul id="${cell.id}" class="checkpoint_list list">
 																				<c:forEach items="${cell.checkpoints}"
 																					var="checkpoint">
-																					<li id="${checkpoint.id}" class="list"><c:set
-																							var="userCheckedPoint" value="0" /> <c:set
-																							var="checkMessage" value="" /> <c:forEach
-																							items="${currUserObj.checkpoints}"
-																							var="userChkInfo">
 
-																							<c:if
-																								test="${userChkInfo.checkpoint.id == checkpoint.id }">
-																								<c:set var="userCheckedPoint" value="1" />
-																								<c:set var="checkMessage"
-																									value="${userChkInfo.message}" />
-																							</c:if>
+																					<c:if test="${not empty checkpoint}">
+																						<li id="${checkpoint.id}" class="list"><c:set
+																								var="userCheckedPoint" value="0" /> <c:set
+																								var="checkMessage" value="" /> <c:forEach
+																								items="${currUserObj.checkpointsInfo}"
+																								var="userChkInfo">
 
-																						</c:forEach> <c:choose>
+																								<c:if
+																									test="${userChkInfo.checkpoint.id == checkpoint.id }">
+																									<c:set var="userCheckedPoint" value="1" />
+																									<c:set var="checkMessage"
+																										value="${userChkInfo.message}" />
+																								</c:if>
 
-																							<c:when test="${userCheckedPoint == 1}">
+																							</c:forEach> <c:choose>
 
-																								<input checked type="checkbox"
-																									name="checkpoints"
-																									data-userId="${currUserObj.id}"
-																									value="${checkpoint.id}"
-																									class="flightplan_checkpoints pull-left" />
-																									
+																								<c:when test="${userCheckedPoint == 1}">
+
+																									<input checked type="checkbox"
+																										name="checkpoints"
+																										data-userId="${currUserObj.id}"
+																										value="${checkpoint.id}"
+																										class="flightplan_checkpoints pull-left" />
+
 																									<c:if test="${not empty checkMessage }">
-																										<img data-comment="${checkMessage}" class="CommentIcon CommentIconClick" src="<c:url value="/assets/img/comment-icon.png" />" />
+																										<!-- <i class="fa fa-comments-o "></i> -->
+
+																										<img data-comment="${checkMessage}"
+																											class="CommentIcon CommentIconClick"
+																											src="<c:url value="/assets/img/comment-icon.png" />" />
 																									</c:if>
-																							</c:when>
-																							<c:otherwise>
-																								<input type="checkbox" name="checkpoints"
-																									data-userId="${currUserObj.id}"
-																									value="${checkpoint.id}"
-																									class="flightplan_checkpoints pull-left" />
-																							</c:otherwise>
-																						</c:choose> <span class="checkpoint_information pull-left">
-																							${checkpoint.name} </span></li>
+																								</c:when>
+																								<c:otherwise>
+																									<input type="checkbox" name="checkpoints"
+																										data-userId="${currUserObj.id}"
+																										value="${checkpoint.id}"
+																										class="flightplan_checkpoints pull-left" />
+																								</c:otherwise>
+																							</c:choose> <span class="checkpoint_information pull-left">
+																								${checkpoint.name} <security:authorize
+																									access="hasAnyRole('ADMIN','ADVISOR')">
+																								&nbsp;<a
+																										href="<c:url value="/plan/statistics-details.html?planId=${plan.id}" />">
+																										(20)</a>
+																								</security:authorize>
+
+																						</span>
+																						
+																						<%-- <img
+																									class="CommentIcon"
+																									src="<c:url value="/assets/img/comment-icon.png" />" /> --%>
+																						
+																						 <security:authorize access="hasRole('STUDENT')">
+																						 <span> <!-- <i class="fa fa-comments-o "></i> --> <a
+																								href="<c:url value="/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${StudentUser.id }"/>">
+																								<i class="fa fa-comments-o "></i>
+																								</a></span>
+																						 </security:authorize>
+
+																						</li>
+
+																					</c:if>
 																				</c:forEach>
 																			</ul>
 																		</c:if>
 																	</c:forEach></td>
-															</c:forEach>
 
-														</tr>
+															</c:if>
+														</c:forEach>
 
-													</c:forEach>
-												</tbody>
-											</table>
+													</tr>
+												</c:if>
 
-										</div>
-									</div>
+											</c:forEach>
+										</tbody>
+									</table>
+
 								</div>
-								<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
+
+
+								<div class="row">Comments:</div>
+
+								<div class="row">
+									<table id="sortable"
+										class="table table-striped table-bordered sar-table table-responsive">
+										<thead>
+											<tr>
+												<th>Author</th>
+												<th>Comment</th>
+												<th>Commented On</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											<tr class="state-default">
+												<th>jdoe2</th>
+												<td>Lorem Ipsum is simply dummy text of the printing
+													and typesetting industry. Lorem Ipsum has been the
+													industry's standard dummy text ever since the 1500s, when
+													an unknown printer took a galley of type and scrambled it
+													to make a type specimen book. It has survived not only five
+													centuries</td>
+												<td><span style="font-size: 12px; font-weight: normal;">Posted
+														On: 14:33 Sep 03, 2015 </span></td>
+											</tr>
+											<tr class="state-default">
+												<th>tfox</th>
+												<td>Lorem Ipsum is simply dummy text of the printing
+													and typesetting industry. Lorem Ipsum has been the
+													industry's standard dummy text ever since the 1500s, when
+													an unknown printer took a galley of type and scrambled it
+													to make a type specimen book. It has survived not only five
+													centuries</td>
+												<td><span style="font-size: 12px; font-weight: normal;">Posted
+														On: 14:33 Sep 03, 2015 </span></td>
+											</tr>
+											<tr class="state-default">
+												<th>jdoe2</th>
+												<td>Lorem Ipsum is simply dummy text of the printing
+													and typesetting industry. Lorem Ipsum has been the
+													industry's standard dummy text ever since the 1500s, when
+													an unknown printer took a galley of type and scrambled it
+													to make a type specimen book. It has survived not only five
+													centuries</td>
+												<td><span style="font-size: 12px; font-weight: normal;">Posted
+														On: 14:33 Sep 03, 2015 </span></td>
+											</tr>
+											<tr class="state-default">
+												<th>tfox</th>
+												<td>Lorem Ipsum is simply dummy text of the printing
+													and typesetting industry. Lorem Ipsum has been the
+													industry's standard dummy text ever since the 1500s, when
+													an unknown printer took a galley of type and scrambled it
+													to make a type specimen book. It has survived not only five
+													centuries</td>
+												<td><span style="font-size: 12px; font-weight: normal;">Posted
+														On: 14:33 Sep 03, 2015 </span></td>
+											</tr>
+											<tr class="state-default">
+												<th>jdoe2</th>
+												<td>Lorem Ipsum is simply dummy text of the printing
+													and typesetting industry. Lorem Ipsum has been the
+													industry's standard dummy text ever since the 1500s, when
+													an unknown printer took a galley of type and scrambled it
+													to make a type specimen book. It has survived not only five
+													centuries</td>
+												<td><span style="font-size: 12px; font-weight: normal;">Posted
+														On: 14:33 Sep 03, 2015 </span></td>
+											</tr>
+
+
+											<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
+												<form:form modelAttribute="comment">
+												<tr>
+													<td colspan="3"><textarea
+															class="ckeditor form-control" placeholder=""></textarea></td>
+												</tr>
+												<tr>
+													<td colspan="3" align="right"><input type="submit"
+														class="btn btn-primary override" value="Add Comment" /></td>
+												</tr>
+												</form:form>
+											</security:authorize>
+										</tbody>
+									</table>
+
+								</div>
 
 							</div>
 						</div>

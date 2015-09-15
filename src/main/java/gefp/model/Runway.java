@@ -21,9 +21,11 @@ public class Runway implements Serializable {
 
     @Column(name = "name")
     private String name;
-    
+
     @OneToOne
     private Runway parent;
+
+    private boolean deleted = false;
 
     public Runway()
     {
@@ -36,12 +38,15 @@ public class Runway implements Serializable {
         this.id = id;
         this.name = name;
         this.parent = null;
+        this.deleted = false;
     }
-    
-    public Runway clone() {
+
+    public Runway clone()
+    {
         Runway runway = new Runway();
         runway.name = name;
         runway.parent = this;
+        runway.deleted = false;
         return runway;
     }
 
@@ -65,7 +70,6 @@ public class Runway implements Serializable {
         this.name = name;
     }
 
-    
     public Runway getParent()
     {
         return parent;
@@ -75,4 +79,15 @@ public class Runway implements Serializable {
     {
         this.parent = parent;
     }
+
+    public boolean isDeleted()
+    {
+        return deleted;
+    }
+
+    public void setDeleted( boolean deleted )
+    {
+        this.deleted = deleted;
+    }
+
 }

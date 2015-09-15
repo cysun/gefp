@@ -79,9 +79,14 @@
 									<thead>
 										<tr>
 											<td colspan="2">Student's Profile</td>
-											<td align="right" colspan="2"><a class="editStudentInfo"
+											<td align="right" colspan="2">
+											<a class="editStudentInfo"
 												id="StartEditMode" href="javascript:void(0)"><i
-													class="fa fa-edit "></i>Edit</a></td>
+													class="fa fa-edit "></i></a>
+													<a class=""
+								href="<c:url value="/advisor/print-student-plan/${currUserObj.id}.html" />"><i
+														class="fa fa-print "></i></a>
+													</td>
 										</tr>
 									</thead>
 									<tbody>
@@ -159,9 +164,9 @@
 
 										<tr>
 											<td colspan="4" align="right"><input type="hidden"
-												name="" value="${currUserObj.id}" id="userId" /> <input
+												name="" value="${currUserObj.id}" id="userId" /> <button
 												id="SaveInformation" type="button"
-												class="btn override btn-info" value="Save" /></td>
+												class="btn override btn-info" value=""><i class="fa fa-save "></i></button></td>
 										</tr>
 
 									</tbody>
@@ -183,12 +188,31 @@
 
 								<c:when test="${not empty plan }">
 									<div class="panel-body">
-										<div class="table-responsive">
+										<div class="">
 
-											<div class="studentPlanTitle">Student's Flight Plan -
+											<div class="pull-left">Student's Flight Plan -
 												${plan.name} (${plan.seasonName} ${plan.seasonYear})</div>
+											<div class="studentPlanTitle pull-right">
+											
+											</div>
 
-											<table class="table table-striped table-bordered">
+										</div>
+									</div>
+								</c:when>
+
+								<c:otherwise>
+				Plan not available
+			</c:otherwise>
+
+							</c:choose>
+
+						</div>
+						<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
+					
+					
+					<div>
+									
+									<table class="table table-striped table-bordered table-responsive">
 												<thead>
 													<tr>
 														<th></th>
@@ -214,7 +238,7 @@
 																					<li id="${checkpoint.id}" class="list"><c:set
 																							var="userCheckedPoint" value="0" /> <c:set
 																							var="checkMessage" value="" /> <c:forEach
-																							items="${currUserObj.checkpoints}"
+																							items="${currUserObj.checkpointsInfo}"
 																							var="userChkInfo">
 
 																							<c:if
@@ -250,7 +274,15 @@
 
 																							</c:otherwise>
 																						</c:choose> <span class="checkpoint_information pull-left">
-																							${checkpoint.name} </span></li>
+																							${checkpoint.name} </span>
+																							
+																							
+																							<span> <a
+																								href="<c:url value="/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${currUserObj.id}"/>">
+																								<i class="fa fa-comments-o "></i>
+																								</a></span>
+																							
+																							</li>
 																				</c:forEach>
 																			</ul>
 																		</c:if>
@@ -262,20 +294,10 @@
 													</c:forEach>
 												</tbody>
 											</table>
-										</div>
 									</div>
-
-								</c:when>
-
-								<c:otherwise>
-				Plan not available
-			</c:otherwise>
-
-							</c:choose>
-
-						</div>
-						<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
-
+					
+					
+					
 					</div>
 				</div>
 				<!-- /. ROW  -->

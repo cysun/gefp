@@ -75,9 +75,9 @@
 
 											
 											<div class="form-group col-md-6">
-												<label>Select Season:</label>
+												<label>Select Term:</label>
 												<select name="seasonName" class="form-control">
-													<option value="">Select Season</option>
+													<option value="">Select Term</option>
 													<option value="Fall">Fall</option>
 													<option value="Winter">Winter</option>
 													<option value="Spring">Spring</option>

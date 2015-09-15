@@ -722,3 +722,15 @@ line-height: 1.428571429;
 	background:none !important;
 	border:0px none !important;
 }
+
+
+@media print {
+    a:link:after,
+    a:visited:after {
+        content: "" !important;
+    }
+    
+    .noprint {
+    	display:none;
+    }
+}

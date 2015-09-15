@@ -25,6 +25,8 @@ public class Stage implements Serializable {
     @OneToOne
     private Stage parent;
 
+    private boolean deleted;
+
     public Stage()
     {
         parent = null;
@@ -36,6 +38,7 @@ public class Stage implements Serializable {
         this.id = id;
         this.name = name;
         this.parent = null;
+        this.deleted = false;
     }
 
     public Stage clone()
@@ -43,6 +46,7 @@ public class Stage implements Serializable {
         Stage stage = new Stage();
         stage.name = name;
         stage.parent = this;
+        stage.deleted = false;
         return stage;
     }
 
@@ -74,6 +78,16 @@ public class Stage implements Serializable {
     public void setParent( Stage parent )
     {
         this.parent = parent;
+    }
+
+    public boolean isDeleted()
+    {
+        return deleted;
+    }
+
+    public void setDeleted( boolean deleted )
+    {
+        this.deleted = deleted;
     }
 
 }

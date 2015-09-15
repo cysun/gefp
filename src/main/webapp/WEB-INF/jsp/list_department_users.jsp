@@ -94,10 +94,10 @@
 													</c:forEach></td>
 													<td><a title="View Plan"
 														href="<c:url value="/advisor/view-student-plan/${user.id}.html" />"
-														class="btn override btn-primary"><i class="fa fa-eye"></i> </a> <security:authorize
+														class=""><i class="fa fa-external-link"></i> </a> <security:authorize
 															access="authenticated and hasRole('ADMINAA')">
 															<a href="<c:url value="/user/edit/${user.id}.html" />"
-																class="btn btn-primary"><i class="fa fa-edit "></i>
+																class=""><i class="fa fa-edit "></i>
 																Edit</a>
 														</security:authorize></td>
 

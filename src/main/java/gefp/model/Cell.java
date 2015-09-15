@@ -10,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "cells")
@@ -26,13 +28,15 @@ public class Cell implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     FlightPlan flightPlan;
 
     @OneToOne
+    @Where(clause = "deleted = 'f'")
     private Runway runway;
 
     @OneToOne
+    @Where(clause = "deleted = 'f'")
     private Stage stage;
 
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -40,10 +44,13 @@ public class Cell implements Serializable {
         joinColumns = { @JoinColumn(name = "cell_id") },
         inverseJoinColumns = { @JoinColumn(name = "checkpoint_id") })
     @IndexColumn(name = "order_num")
+    @Where(clause = "deleted = 'f'")
     List<Checkpoint> checkpoints;
 
     @OneToOne
     private Cell parent;
+
+    private boolean deleted = false;
 
     public Cell()
     {
@@ -53,7 +60,8 @@ public class Cell implements Serializable {
         parent = null;
     }
 
-    public Cell clone( FlightPlan flightPlan, List<Runway> runways, List<Stage> stages )
+    public Cell clone( FlightPlan flightPlan, List<Runway> runways,
+        List<Stage> stages )
     {
         Cell cell = new Cell();
         cell.parent = this;
@@ -140,6 +148,16 @@ public class Cell implements Serializable {
     public void setParent( Cell parent )
     {
         this.parent = parent;
+    }
+
+    public boolean isDeleted()
+    {
+        return deleted;
+    }
+
+    public void setDeleted( boolean deleted )
+    {
+        this.deleted = deleted;
     }
 
 }

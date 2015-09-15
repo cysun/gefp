@@ -28,7 +28,7 @@ public class FlightPlanDaoImpl implements FlightPlanDao {
     @Override
     public List<FlightPlan> getFlightPlans()
     {
-        return entityManager.createQuery( "from FlightPlan order by id",
+        return entityManager.createQuery( "from FlightPlan where deleted = 'f' order by id",
             FlightPlan.class ).getResultList();
     }
 

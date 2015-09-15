@@ -1,5 +1,6 @@
 package gefp.model.dao.jpa;
 
+import gefp.model.FlightPlan;
 import gefp.model.Runway;
 import gefp.model.dao.RunwayDao;
 
@@ -36,7 +37,8 @@ public class RunwayDaoImpl implements RunwayDao {
     {
         try
         {
-            return entityManager.createQuery( "from Runway order by order_num",
+            return entityManager.createQuery(
+                "from Runway where deleted = 'f' order by order_num",
                 Runway.class ).getResultList();
         }
         catch( NoResultException nre )
@@ -50,6 +52,17 @@ public class RunwayDaoImpl implements RunwayDao {
     public Runway saveRunway( Runway runway )
     {
         return entityManager.merge( runway );
+    }
+
+    @Override
+    @Transactional
+    public void deleteRunwayFromFlightPlan( Runway runway, FlightPlan plan )
+    {
+        String query = "delete from flightplan_runways where flightplan_id = :flightplan_id and runway_id = :runway_id";
+        entityManager.createNativeQuery( query )
+            .setParameter( "runway_id", runway.getId() )
+            .setParameter( "flightplan_id", plan.getId() ).executeUpdate();
+
     }
 
 }

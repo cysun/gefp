@@ -3,6 +3,7 @@ package gefp.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -76,6 +78,20 @@ public class User implements Serializable, UserDetails {
     @JoinColumn(name = "plan_id")
     private FlightPlan flightPlan = new FlightPlan();
 
+    @ManyToMany
+    @JoinTable(name = "user_plan_history",
+    joinColumns = { @JoinColumn(name = "user_id") },
+    inverseJoinColumns = { @JoinColumn(name = "plan_id") })
+    private List<FlightPlan> planHistory;
+    
+    
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "user_comments",
+        joinColumns = { @JoinColumn(name = "user_id") },
+        inverseJoinColumns = { @JoinColumn(name = "comment_id") })
+    @Where(clause = "deleted = 'f'")
+    private List<Comment> comments;
+    
     private boolean enabled;
 
     private boolean newAccount = false;
@@ -202,12 +218,12 @@ public class User implements Serializable, UserDetails {
         this.flightPlan = flightPlan;
     }
 
-    public Set<CheckpointInfo> getCheckpoints()
+    public Set<CheckpointInfo> getCheckpointsInfo()
     {
         return checkpointsInfo;
     }
 
-    public void setCheckpoints( Set<CheckpointInfo> checkpoints )
+    public void setCheckpointsInfo( Set<CheckpointInfo> checkpoints )
     {
         this.checkpointsInfo = checkpoints;
     }
@@ -248,6 +264,29 @@ public class User implements Serializable, UserDetails {
     public void setEmail( String email )
     {
         this.email = email;
+    }
+    
+    
+    public List<FlightPlan> getPlanHistory()
+    {
+        return planHistory;
+    }
+
+    
+    public void setPlanHistory( List<FlightPlan> planHistory )
+    {
+        this.planHistory = planHistory;
+    }
+    
+    public List<Comment> getComments()
+    {
+        return comments;
+    }
+
+    
+    public void setComments( List<Comment> comments )
+    {
+        this.comments = comments;
     }
 
     public void setUserTypesInSession( HttpSession session )
@@ -331,4 +370,6 @@ public class User implements Serializable, UserDetails {
     {
         return true;
     }
+    
+    
 }

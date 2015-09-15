@@ -39,13 +39,13 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Edit Runway <span class="compulsary">*</span></div>
+							<div class="panel-heading">Edit Runway</div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-6">
 										<form:form modelAttribute="runway">
 											<div class="form-group">
-												<label>Runway Name:</label>
+												<label>Runway Name: <span class="compulsary">*</span></label>
 												<form:input path="name" class="form-control" />
 												<c:if test="${error == true }">
 												<span class="errMsg">Please enter Runway Name</span>

@@ -458,6 +458,36 @@ public class UserController {
         return "redirect:/student/view-plan/" + sessionUserObj.getId()
             + ".html";
     }
+    
+    
+    @RequestMapping("/advisor/print-student-plan/{id}.html")
+    public String advisorPrintStudentPlan( @PathVariable Long id,
+        ModelMap models, HttpSession session, Principal principal )
+    {
+
+        User currUserObj = userDao.getUser( id );
+
+        if( currUserObj != null )
+        {
+            models.put( "currUserObj", currUserObj );
+            models.put( "departments", deptDao.getDepartments() );
+            FlightPlan plan = null;
+
+            if( currUserObj.getFlightPlan() != null )
+            {
+                plan = planDao.getFlightPlan( currUserObj.getFlightPlan()
+                    .getId() );
+            }
+            models.put( "plan", plan );
+            logger.info( "User " + principal.getName()
+                + " viewed flightPlan of " + currUserObj.getUsername() );
+            return "print_plan";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+    }
 
     /*
      * @RequestMapping(value = "/user/profile/{pid}.html", method =

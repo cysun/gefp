@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Where;
+
 @Entity
 @Table(name = "departments")
 public class Department implements Serializable {
@@ -28,12 +30,14 @@ public class Department implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "plan_id")
+    @Where(clause = "deleted = 'f'")
     private FlightPlan defaultPlan;
 
     @OneToMany
     @JoinTable(name = "department_plans",
         joinColumns = { @JoinColumn(name = "department_id") },
         inverseJoinColumns = { @JoinColumn(name = "plan_id") })
+    @Where(clause = "deleted = 'f'")
     private List<FlightPlan> plans;
 
     private boolean active;

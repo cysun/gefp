@@ -101,10 +101,13 @@
 								<div style="clear: both;"></div>
 							</div>
 
-
 							<div class="panel-body">
-								<div class="table-responsive">
-									<table id="sortable" class="table table-striped table-bordered sar-table">
+							</div>
+						</div>
+						
+						
+						<div class="">
+									<table id="sortable" class="table table-striped table-bordered sar-table table-responsive">
 										<thead>
 											<tr>
 												<th>
@@ -190,12 +193,7 @@
 									</div>	
 									
 								</div>
-							</div>
-							
-							
-							
-						</div>
-						<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
+						
 
 					</div>
 				</div>

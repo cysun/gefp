@@ -2,6 +2,7 @@ package gefp.model.dao.jpa;
 
 import gefp.model.Cell;
 import gefp.model.Checkpoint;
+import gefp.model.FlightPlan;
 import gefp.model.Stage;
 import gefp.model.dao.StageDao;
 
@@ -38,7 +39,7 @@ public class StageDaoImpl implements StageDao {
     {
         try
         {
-            return entityManager.createQuery( "from Stage order by order_num",
+            return entityManager.createQuery( "from Stage where deleted = 'f' order by order_num",
                 Stage.class ).getResultList();
         }
         catch( NoResultException nre )
@@ -84,6 +85,17 @@ public class StageDaoImpl implements StageDao {
         }
 
         entityManager.remove( stage );
+
+    }
+    
+    @Override
+    @Transactional
+    public void deleteStageFromFlightPlan( Stage stage, FlightPlan plan )
+    {
+        String query = "delete from flightplan_stages where flightplan_id = :flightplan_id and stage_id = :stage_id";
+        entityManager.createNativeQuery( query )
+            .setParameter( "stage_id", stage.getId() )
+            .setParameter( "flightplan_id", plan.getId() ).executeUpdate();
 
     }
 

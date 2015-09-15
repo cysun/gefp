@@ -25,6 +25,8 @@ public class Checkpoint implements Serializable {
     @OneToOne
     private Checkpoint parent;
 
+    private boolean deleted = false;
+
     public Checkpoint()
     {
         parent = null;
@@ -81,6 +83,16 @@ public class Checkpoint implements Serializable {
     public void setParent( Checkpoint parent )
     {
         this.parent = parent;
+    }
+
+    public boolean isDeleted()
+    {
+        return deleted;
+    }
+
+    public void setDeleted( boolean deleted )
+    {
+        this.deleted = deleted;
     }
 
 }

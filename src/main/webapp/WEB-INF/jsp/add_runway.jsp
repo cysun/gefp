@@ -45,7 +45,7 @@
 									<div class="col-md-6">
 										<form:form modelAttribute="runway">
 											<div class="form-group">
-												<label>Runway Name:</label>
+												<label>Runway Name: <span class="compulsary">*</span></label>
 												<form:input path="name" class="form-control" />
 												<c:if test="${error == true }">
 												<span class="errMsg">Please enter Runway Name</span>

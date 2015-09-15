@@ -67,12 +67,14 @@
 
 												<tr>
 													<td>${index.count}</td>
-													<td>${plan.name}(${plan.seasonName} ${plan.seasonYear})
-														<c:if test="${plan.id == plan.department.defaultPlan.id}">
-															<span class="label override label-success">Official Plan</span>
-														</c:if>
-													
-													</td>
+													<td><a title="View Plan"
+														href="<c:url value="/plan/view/${plan.id}.html" />"
+														class=""> ${plan.name}(${plan.seasonName}
+															${plan.seasonYear}) </a> <c:if
+															test="${plan.id == plan.department.defaultPlan.id}">
+															<span class="label override label-success">Official
+																Plan</span>
+														</c:if></td>
 													<td>${plan.department.name}</td>
 													<td><c:choose>
 															<c:when test="${plan.published == false}">
@@ -89,11 +91,14 @@
 														</c:choose></td>
 													<td><a title="View Plan"
 														href="<c:url value="/plan/view/${plan.id}.html" />"
-														class="btn override btn-primary"><i class="fa fa-eye "></i>
+														class=""><i class="fa fa-external-link "></i>
 													</a> <a title="Clone Plan"
 														href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
-														class="btn override btn-primary"><i
-															class="fa fa-share-alt "></i> </a></td>
+														class=""><i
+															class="fa fa-copy "></i> </a> <a title="Delete Flight Plan"
+														href="javascript:void(0);" onClick="deletePlan(${plan.id})"
+														class=""><i
+															class="fa fa-remove "></i> </a></td>
 												</tr>
 
 											</c:forEach>
@@ -117,6 +122,26 @@
 
 
 	<jsp:include page="includes/footer.jsp" />
+
+<script>
+
+function deletePlan(planID) {
+	
+	smoke.confirm("Are you sure you want to delete this plan?", function(e){
+		if (e){
+			top.location.href = '<c:url value="/admin/plan/delete.html?planId='+planID+'" />';
+		}else{
+			
+		}
+	}, {
+		ok: "Yes",
+		cancel: "No",
+		classname: "custom-class",
+		reverseButtons: true
+	});	
+}
+
+</script>
 
 </body>
 </html>

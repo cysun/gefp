@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "flightplans")
@@ -30,17 +31,18 @@ public class FlightPlan implements Serializable {
     @Column(name = "name", nullable = true)
     private String name;
 
-    @Column(name = "season_year", nullable = true)
+    @Column(name = "term_year", nullable = true)
     private String seasonYear;
 
-    @Column(name = "season_name", nullable = true)
+    @Column(name = "term_name", nullable = true)
     private String seasonName;
 
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "flightplan_runways",
         joinColumns = { @JoinColumn(name = "flightplan_id") },
         inverseJoinColumns = { @JoinColumn(name = "runway_id") })
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @IndexColumn(name = "order_num")
+    @Where(clause = "deleted = 'f'")
     private List<Runway> runways;
 
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -48,15 +50,19 @@ public class FlightPlan implements Serializable {
         joinColumns = { @JoinColumn(name = "flightplan_id") },
         inverseJoinColumns = { @JoinColumn(name = "stage_id") })
     @IndexColumn(name = "order_num")
+    @Where(clause = "deleted = 'f'")
     private List<Stage> stages;
 
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "flightPlan")
     private List<Cell> cells;
 
     @OneToOne
+    @Where(clause = "deleted = 'f'")
     Department department;
 
     private boolean published;
+
+    private boolean deleted = false;
 
     @OneToOne
     private FlightPlan parent;
@@ -78,24 +84,23 @@ public class FlightPlan implements Serializable {
         flightplan.seasonYear = this.seasonYear;
         flightplan.published = false;
         flightplan.name = "Copy of " + name;
-        
+
         for( int i = 0; i < stages.size(); i++ )
         {
             flightplan.stages.add( stages.get( i ).clone() );
         }
-        
+
         for( int i = 0; i < runways.size(); i++ )
         {
             flightplan.runways.add( runways.get( i ).clone() );
         }
-        
+
         for( int i = 0; i < cells.size(); i++ )
         {
-            flightplan.cells.add( cells.get( i ).clone(flightplan, flightplan.runways, flightplan.stages) );
+            flightplan.cells.add( cells.get( i ).clone( flightplan,
+                flightplan.runways, flightplan.stages ) );
         }
 
-        
-        
         return flightplan;
     }
 
@@ -197,6 +202,16 @@ public class FlightPlan implements Serializable {
     public void setParent( FlightPlan parent )
     {
         this.parent = parent;
+    }
+
+    public boolean isDeleted()
+    {
+        return deleted;
+    }
+
+    public void setDeleted( boolean deleted )
+    {
+        this.deleted = deleted;
     }
 
 }

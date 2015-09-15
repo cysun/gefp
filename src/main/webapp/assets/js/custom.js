@@ -64,69 +64,32 @@ function customAlert(text, type) {
 					type : 'POST',
 					success : function(response) {
 						// console.log(response);
-						$("#successMessage").show();
+						/*$("#successMessage").show();
 						setTimeout(function(){
 							$(curr).parent().find(".CommentIcon").remove();
 							$("#successMessage").hide();
-						},3000);
+						},3000);*/
 					}
 				});
 			}
 			else {
-				smoke.confirm("Do you want to add a comment?", function(e){
-					if (e){
-						//console.log("YES");
-						var userId = $(curr).attr("data-userId");
-						var id = $(curr).val();
-						top.location.href = '/gefp/plan/milestone/add-comment.html?checkpointId='+id+'&userId='+userId;
-						
-						/*
-						$.ajax({
-							url : '/gefp/plan/saveStudentCheckpoint.html',
-							data : {
-								message: e,
-								userId : $(curr).attr("data-userId"),
-								id : $(curr).val(),
-								checked : checked
-							},
-							type : 'POST',
-							success : function(response) {
-								// console.log(response);
-								$("#successMessage").show();
-								setTimeout(function(){
-									$("#successMessage").hide();
-									top.location.reload();
-								},3000);
-							}
-						});
-						*/
-						
-					}else{
-						//console.log("NO");
-						$.ajax({
-							url : '/gefp/plan/saveStudentCheckpoint.html',
-							data : {
-								message: "",
-								userId : $(curr).attr("data-userId"),
-								id : $(curr).val(),
-								checked : checked
-							},
-							type : 'POST',
-							success : function(response) {
-								// console.log(response);
-								$("#successMessage").show();
-								setTimeout(function(){
-									$("#successMessage").hide();
-								},3000);
-							}
-						});
+				
+				$.ajax({
+					url : '/gefp/plan/saveStudentCheckpoint.html',
+					data : {
+						message: "",
+						userId : $(curr).attr("data-userId"),
+						id : $(curr).val(),
+						checked : checked
+					},
+					type : 'POST',
+					success : function(response) {
+						// console.log(response);
+						/*$("#successMessage").show();
+						setTimeout(function(){
+							$("#successMessage").hide();
+						},3000);*/
 					}
-				}, {
-					ok: "Yes",
-					cancel: "No",
-					classname: "custom-class",
-					reverseButtons: true,
-					value: ""
 				});
 			}
 			

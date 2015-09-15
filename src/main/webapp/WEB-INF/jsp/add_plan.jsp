@@ -50,9 +50,9 @@
 												<form:input path="name" class="form-control" placeholder="Plan title here" />
 											</div>
 											<div class="form-group">
-												<label>Select Season:</label>
+												<label>Select Term:</label>
 												<form:select path="seasonName" class="form-control">
-													<form:option value="">Select Season</form:option>
+													<form:option value="">Select Term</form:option>
 													<form:option value="Fall">Fall</form:option>
 													<form:option value="Winter">Winter</form:option>
 													<form:option value="Spring">Spring</form:option>

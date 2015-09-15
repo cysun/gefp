@@ -39,7 +39,7 @@ public class CheckpointDaoImpl implements CheckpointDao {
     {
         try
         {
-            return entityManager.createQuery( "from Checkpoint order by id",
+            return entityManager.createQuery( "from Checkpoint where deleted = 'f' order by id",
                 Checkpoint.class ).getResultList();
         }
         catch( NoResultException nre )
@@ -61,7 +61,7 @@ public class CheckpointDaoImpl implements CheckpointDao {
         try
         {
             return entityManager.createQuery(
-                "from Checkpoint where plan_id = " + plan_id, Checkpoint.class )
+                "from Checkpoint where deleted = 'f' and plan_id = " + plan_id, Checkpoint.class )
                 .getResultList();
         }
         catch( NoResultException nre )
@@ -80,13 +80,12 @@ public class CheckpointDaoImpl implements CheckpointDao {
             return entityManager.createQuery(
                 "from User where user_id = " + user_id, User.class )
                 .getSingleResult()
-                .getCheckpoints();
+                .getCheckpointsInfo();
         }
         catch( NoResultException nre )
         {
             return null;
         }
-
     }
 
 }
