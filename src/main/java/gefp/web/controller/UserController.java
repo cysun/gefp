@@ -1,5 +1,6 @@
 package gefp.web.controller;
 
+import gefp.model.Comment;
 import gefp.model.Department;
 import gefp.model.FlightPlan;
 import gefp.model.Role;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -121,7 +123,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/user/add.html", method = RequestMethod.POST)
-    public String add( HttpServletRequest request, HttpSession session, SessionStatus sessionStatus, Principal principal )
+    public String add( HttpServletRequest request, HttpSession session,
+        SessionStatus sessionStatus, Principal principal )
     {
 
         String firstName = request.getParameter( "firstName" );
@@ -160,7 +163,7 @@ public class UserController {
 
             logger.info( "User " + principal.getName() + " created "
                 + user2.getUsername() );
-            
+
             return "redirect:/admin/list-users.html";
         }
         else
@@ -205,8 +208,7 @@ public class UserController {
 
     /* Student Profile Page */
 
-    @RequestMapping(value = "/user/profile.html",
-        method = RequestMethod.POST)
+    @RequestMapping(value = "/user/profile.html", method = RequestMethod.POST)
     public String updateprofile( HttpSession session, HttpServletRequest request )
     {
 
@@ -225,9 +227,9 @@ public class UserController {
 
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
         User currUserObj = userDao.getUser( sessionUserObj.getId() );
-        
+
         boolean errorValues = false;
-        
+
         if( firstName == "" || firstName == null )
         {
             errorValues = true;
@@ -248,11 +250,9 @@ public class UserController {
             errorValues = true;
             session.setAttribute( "cinErr", "CIN cannot be empty" );
         }
-        
-        if(errorValues == true) {
-            return "redirect:/user/profile.html";
-        }
-        
+
+        if( errorValues == true ){ return "redirect:/user/profile.html"; }
+
         // else if( password != "" && password != null && password.length() < 4
         // )
         // {
@@ -270,11 +270,11 @@ public class UserController {
         // "Password should contain both letters and numbers." );
         // return "redirect:/user/profile/" + pid + ".html";
         // }
-//        else if( deptIdStr == "" )
-//        {
-//            session.setAttribute( "deptErr", "Please select a department." );
-//            return "redirect:/user/profile.html";
-//        }
+        // else if( deptIdStr == "" )
+        // {
+        // session.setAttribute( "deptErr", "Please select a department." );
+        // return "redirect:/user/profile.html";
+        // }
 
         // Integer deptID = Integer.parseInt( deptIdStr );
 
@@ -283,12 +283,12 @@ public class UserController {
         // currUserObj.setPassword( password );
         // }
 
-//        if( deptID != currUserObj.getDepartment().getId() )
-//        {
-//            Department newDept = deptDao.getDepartment( deptID );
-//            currUserObj.setDepartment( newDept );
-//            currUserObj.setFlightPlan( newDept.getDefaultPlan() );
-//        }
+        // if( deptID != currUserObj.getDepartment().getId() )
+        // {
+        // Department newDept = deptDao.getDepartment( deptID );
+        // currUserObj.setDepartment( newDept );
+        // currUserObj.setFlightPlan( newDept.getDefaultPlan() );
+        // }
 
         currUserObj.setFirstName( firstName );
         currUserObj.setMiddleName( middleName );
@@ -320,6 +320,7 @@ public class UserController {
 
         if( currUserObj != null )
         {
+            models.put( "comment", new Comment() );
             models.put( "currUserObj", currUserObj );
             models.put( "departments", deptDao.getDepartments() );
             FlightPlan plan = null;
@@ -424,24 +425,31 @@ public class UserController {
         String cin = request.getParameter( "cin" );
         String email = request.getParameter( "email" );
         String departmentId = request.getParameter( "departmentID" );
-        
-        if( firstName == "") {
-            session.setAttribute("fnameErr", "Firstname is required");
+
+        if( firstName == "" )
+        {
+            session.setAttribute( "fnameErr", "Firstname is required" );
         }
-        if( lastName == "" ) {
-            session.setAttribute("lnameErr", "Lastname is required");
+        if( lastName == "" )
+        {
+            session.setAttribute( "lnameErr", "Lastname is required" );
         }
-        if( email == "" ) {
-            session.setAttribute("emailErr", "Email is required");
+        if( email == "" )
+        {
+            session.setAttribute( "emailErr", "Email is required" );
         }
-        if( departmentId == "" ) {
-            session.setAttribute("deptErr", "Department is required");
+        if( departmentId == "" )
+        {
+            session.setAttribute( "deptErr", "Department is required" );
         }
-        
-        if( firstName == "" || lastName == "" || email == "" || departmentId == "" ) {
-            return "redirect:/update-profile.html";
+        if( cin == "" )
+        {
+            session.setAttribute( "cinErr", "CIN is required" );
         }
-        
+
+        if( firstName == "" || lastName == "" || email == ""
+            || departmentId == "" || cin == "" ){ return "redirect:/update-profile.html"; }
+
         User sessionUserObj = (User) session.getAttribute( "loggedInUser" );
         Integer deptId = Integer.parseInt( departmentId );
         Department d = deptDao.getDepartment( deptId );
@@ -458,8 +466,7 @@ public class UserController {
         return "redirect:/student/view-plan/" + sessionUserObj.getId()
             + ".html";
     }
-    
-    
+
     @RequestMapping("/advisor/print-student-plan/{id}.html")
     public String advisorPrintStudentPlan( @PathVariable Long id,
         ModelMap models, HttpSession session, Principal principal )
@@ -487,6 +494,23 @@ public class UserController {
         {
             return "redirect:/404";
         }
+    }
+
+    @RequestMapping(value = "/advisor/add-comment.html",
+        method = RequestMethod.POST)
+    public String advisorAddCommentOnPlan( @ModelAttribute Comment comment,
+        HttpServletRequest request, HttpSession session, Principal principal )
+    {
+        User loginUser = (User) session.getAttribute( "loggedInUser" );
+        String userId = request.getParameter( "userId" );
+        User user = userDao.getUser( Long.parseLong( userId ) );
+        comment.setCommentedBy( loginUser );
+        comment.setVisibleToStudent( true );
+        comment.setDatetime( new Date() );
+        user.getComments().add( comment );
+        userDao.saveUser( user );
+        return "redirect:/advisor/view-student-plan/" + userId + ".html";
+
     }
 
     /*

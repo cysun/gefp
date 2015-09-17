@@ -249,7 +249,7 @@
 								</div>
 
 
-								<div class="row">Comments:</div>
+												<div class="row">Comments:</div>
 
 								<div class="row">
 									<table id="sortable"
@@ -263,71 +263,27 @@
 										</thead>
 										<tbody>
 
+											
+											<c:forEach var="cmt" items="${currUserObj.comments}">
+											
 											<tr class="state-default">
-												<th>jdoe2</th>
-												<td>Lorem Ipsum is simply dummy text of the printing
-													and typesetting industry. Lorem Ipsum has been the
-													industry's standard dummy text ever since the 1500s, when
-													an unknown printer took a galley of type and scrambled it
-													to make a type specimen book. It has survived not only five
-													centuries</td>
+												<th>${cmt.commentedBy.username }</th>
+												<td>${cmt.comment}</td>
 												<td><span style="font-size: 12px; font-weight: normal;">Posted
-														On: 14:33 Sep 03, 2015 </span></td>
+														On: ${cmt.datetime} </span></td>
 											</tr>
-											<tr class="state-default">
-												<th>tfox</th>
-												<td>Lorem Ipsum is simply dummy text of the printing
-													and typesetting industry. Lorem Ipsum has been the
-													industry's standard dummy text ever since the 1500s, when
-													an unknown printer took a galley of type and scrambled it
-													to make a type specimen book. It has survived not only five
-													centuries</td>
-												<td><span style="font-size: 12px; font-weight: normal;">Posted
-														On: 14:33 Sep 03, 2015 </span></td>
-											</tr>
-											<tr class="state-default">
-												<th>jdoe2</th>
-												<td>Lorem Ipsum is simply dummy text of the printing
-													and typesetting industry. Lorem Ipsum has been the
-													industry's standard dummy text ever since the 1500s, when
-													an unknown printer took a galley of type and scrambled it
-													to make a type specimen book. It has survived not only five
-													centuries</td>
-												<td><span style="font-size: 12px; font-weight: normal;">Posted
-														On: 14:33 Sep 03, 2015 </span></td>
-											</tr>
-											<tr class="state-default">
-												<th>tfox</th>
-												<td>Lorem Ipsum is simply dummy text of the printing
-													and typesetting industry. Lorem Ipsum has been the
-													industry's standard dummy text ever since the 1500s, when
-													an unknown printer took a galley of type and scrambled it
-													to make a type specimen book. It has survived not only five
-													centuries</td>
-												<td><span style="font-size: 12px; font-weight: normal;">Posted
-														On: 14:33 Sep 03, 2015 </span></td>
-											</tr>
-											<tr class="state-default">
-												<th>jdoe2</th>
-												<td>Lorem Ipsum is simply dummy text of the printing
-													and typesetting industry. Lorem Ipsum has been the
-													industry's standard dummy text ever since the 1500s, when
-													an unknown printer took a galley of type and scrambled it
-													to make a type specimen book. It has survived not only five
-													centuries</td>
-												<td><span style="font-size: 12px; font-weight: normal;">Posted
-														On: 14:33 Sep 03, 2015 </span></td>
-											</tr>
-
-
+											</c:forEach>
+											
 											<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
-												<form:form modelAttribute="comment">
+												<form:form modelAttribute="comment" action="/gefp/advisor/add-comment.html" method="post">
 												<tr>
-													<td colspan="3"><textarea
-															class="ckeditor form-control" placeholder=""></textarea></td>
+													<td colspan="3"><form:textarea
+															path="comment" class="ckeditor form-control" placeholder=""></form:textarea></td>
 												</tr>
 												<tr>
-													<td colspan="3" align="right"><input type="submit"
+													<td colspan="3" align="right">
+													<input type="hidden" name="userId" value="${currUserObj.id}" />
+													<input type="submit"
 														class="btn btn-primary override" value="Add Comment" /></td>
 												</tr>
 												</form:form>

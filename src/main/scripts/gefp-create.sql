@@ -65,7 +65,7 @@ CREATE TABLE checkpoints (
 
 CREATE TABLE comments (
     id bigint NOT NULL,
-    comment varchar(255),
+    comment text,
     commentedBy_id bigint,
     datetime timestamp,
     visibleToStudent boolean DEFAULT TRUE,

@@ -6,6 +6,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 
 <!DOCTYPE html>
 <html ng-app="gefpApp" xmlns="http://www.w3.org/1999/xhtml">
@@ -294,13 +296,57 @@
 													</c:forEach>
 												</tbody>
 											</table>
-									</div>
-					
-					
+									</div>									
 					
 					</div>
 				</div>
 				<!-- /. ROW  -->
+				
+				
+				<div class="row">Comments:</div>
+
+								<div class="row">
+									<table id="sortable"
+										class="table table-striped table-bordered sar-table table-responsive">
+										<thead>
+											<tr>
+												<th>Author</th>
+												<th>Comment</th>
+												<th>Commented On</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											
+											<c:forEach var="cmt" items="${currUserObj.comments}">
+											
+											<tr class="state-default">
+												<th>${cmt.commentedBy.username }</th>
+												<td>${cmt.comment}</td>
+												<td><span style="font-size: 12px; font-weight: normal;">Posted
+														On: ${cmt.datetime} </span></td>
+											</tr>
+											</c:forEach>
+											
+											<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
+												<form:form modelAttribute="comment" action="/gefp/advisor/add-comment.html" method="post">
+												<tr>
+													<td colspan="3"><form:textarea
+															path="comment" class="ckeditor form-control" placeholder=""></form:textarea></td>
+												</tr>
+												<tr>
+													<td colspan="3" align="right">
+													<input type="hidden" name="userId" value="${currUserObj.id}" />
+													<input type="submit"
+														class="btn btn-primary override" value="Add Comment" /></td>
+												</tr>
+												</form:form>
+											</security:authorize>
+										</tbody>
+									</table>
+
+								</div>
+				
 
 			</div>
 			<!-- /. PAGE INNER  -->
