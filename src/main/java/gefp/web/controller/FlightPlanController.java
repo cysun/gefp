@@ -89,6 +89,7 @@ public class FlightPlanController {
 
         if( fp != null )
         {
+            models.put( "comment", new Comment() );
             models.put( "plan", fp );
             return "view_plan";
         }
