@@ -357,6 +357,11 @@ INSERT INTO users (id, cin, username, password, email, first_name, middle_name, 
 INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (2, '354120102', 'tfox', 'abcd', 'tfox@calstatela.edu', 'Teresa', NULL, 'Fox', 1, NULL, 1, true, false, false);
 INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (3, '310451230', 'jdoe1', 'abcd', 'jdoe1@email.com', 'Joe', 'D.', 'Doe', 2, 2, 1, true, false, false);
 
+-- Real Users
+INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (5, '', 'cmarsh', '', 'cmarsh@calstatela.edu', 'Candi', '', 'Marsh', 2, 2, 1, true, false, false);
+INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (6, '', 'rramir74', '', 'Rodolfo.Ramirez74@calstatela.edu', 'Rodolfo', '', '', 2, 2, 1, true, false, false);
+INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (7, '', 'dwon', '', 'dwon@calstatela.edu', 'Deborah', '', 'Won', 2, 2, 1, true, false, false);
+
 
 --
 -- Data for Name: user_roles; Type: TABLE DATA; Schema: public; Owner: gefp
@@ -366,6 +371,11 @@ INSERT INTO user_roles (user_id, role_id) VALUES (1, 1);
 INSERT INTO user_roles (user_id, role_id) VALUES (2, 2);
 INSERT INTO user_roles (user_id, role_id) VALUES (3, 3);
 INSERT INTO user_roles (user_id, role_id) VALUES (4, 3);
+
+--
+INSERT INTO user_roles (user_id, role_id) VALUES (5, 1);
+INSERT INTO user_roles (user_id, role_id) VALUES (6, 1);
+INSERT INTO user_roles (user_id, role_id) VALUES (7, 1);
 
 --
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: gefp
