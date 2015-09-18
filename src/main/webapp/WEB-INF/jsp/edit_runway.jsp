@@ -52,7 +52,7 @@
 												</c:if>
 											</div>
 											<input type="hidden" name="planId" value="${flightplan.id}" />
-											<input type="submit" class="btn override btn-primary" value="Save" />
+											<input type="submit" class="btn override btn-primary" value="Save" onClick="this.form.submit();this.disabled=true; this.value='Saving...';" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 										</form:form>
 									</div>

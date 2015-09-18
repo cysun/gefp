@@ -126,7 +126,7 @@
 												</th>
 												<c:forEach items="${plan.runways}" var="runway">
 
-													<c:if test="${not empty runway}">
+													<c:if test="${not empty runway && runway.id != NULL}">
 
 														<th class="accept editable" id="${runway.id}">${runway.name}
 															<security:authorize access="hasRole('ADMIN')">
@@ -150,7 +150,7 @@
 											<c:forEach items="${plan.stages}" var="stage"
 												varStatus="counter">
 
-												<c:if test="${not empty stage }">
+												<c:if test="${not empty stage && stage.id != NULL}">
 													<tr class="state-default" id="${stage.id}"
 														order="${counter.count}">
 														<th class="editable">${stage.name}<security:authorize
@@ -167,7 +167,7 @@
 														</th>
 														<c:forEach items="${plan.runways}" var="runway">
 
-															<c:if test="${not empty runway}">
+															<c:if test="${not empty runway && runway.id != NULL}">
 																<td><span class="add_milestone_btn"> <a
 																		title="Add Milestone"
 																		href="<c:url value="/admin/plan/add-checkpoint.html?planId=${plan.id}&r=${runway.id}&s=${stage.id}" />" /><i

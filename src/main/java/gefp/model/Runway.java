@@ -89,5 +89,10 @@ public class Runway implements Serializable {
     {
         this.deleted = deleted;
     }
+    
+    @Override
+    public String toString() {
+        return "Runway: ID="+id+", Name="+name;
+    }
 
 }

@@ -39,13 +39,19 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Add new Stage</div>
+							<div class="panel-heading">Add new Stage
+							
+							<div class="pull-right" style="padding: 0 15px 0 0;">
+										<span class="compulsary">*</span> Required
+									</div>
+							
+							</div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-6">
 										<form:form modelAttribute="stage">
 											<div class="form-group">
-												<label>Stage Name</label>
+												<label>Stage Name: <span class="compulsary">*</span></label>
 												<form:input path="name" class="form-control" />
 												<c:if test="${error == true }">
 												<span class="errMsg">Please enter Stage Name</span>
@@ -53,7 +59,7 @@
 											</div>
 
 											<input type="hidden" name="planId" value="${flightplan.id}" />
-											<input type="submit" class="btn override btn-primary" value="Save" />
+											<input type="submit" class="btn override btn-primary" value="Save" onClick="this.form.submit();this.disabled=true; this.value='Saving...';" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 										</form:form>
 									</div>

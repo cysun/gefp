@@ -108,7 +108,7 @@
 											</div>
 
 											<div class="form-group col-md-12">
-											<input type="submit" class="btn override btn-primary pull-right" value="Save" />
+											<input type="submit" class="btn override btn-primary pull-right" value="Save"  onClick="this.form.submit();this.disabled=true; this.value='Saving...';" />
 											<a href="<c:url value="/admin/list-plans.html"/>"
 														class="btn override btn-primary  pull-right mr10">Cancel</a>
 											</div>

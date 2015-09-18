@@ -39,7 +39,14 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Add new Runway</div>
+							<div class="panel-heading">Add new Runway
+							
+							<div class="pull-right" style="padding: 0 15px 0 0;">
+										<span class="compulsary">*</span> Required
+									</div>
+							
+							</div>
+							
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-6">
@@ -52,7 +59,7 @@
 												</c:if>
 											</div>
 											<input type="hidden" name="planId" value="${flightplan.id}" />
-											<input type="submit" class="btn override btn-primary" value="Save" />
+											<input type="submit" class="btn override btn-primary" value="Save" onClick="this.form.submit();this.disabled=true; this.value='Saving...';" />
 											<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 										</form:form>
 									</div>

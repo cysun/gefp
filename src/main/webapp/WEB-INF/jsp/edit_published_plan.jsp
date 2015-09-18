@@ -114,17 +114,26 @@
 													<input type="hidden" id="planId" value="${plan.id}" />
 												</th>
 												<c:forEach items="${plan.runways}" var="runway">
+													
+													<c:if test="${not empty runway}">
+													
 													<th class="accept" id="${runway.id}">${runway.name} 
 													<security:authorize access="hasRole('ADMIN')">
 														<a title="Edit Runway" href="<c:url value="/admin/plan/edit-runway.html?id=${runway.id}&planId=${plan.id}"/>"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </a>
 													</security:authorize>
 													</th>
+													
+													</c:if>
+													
 												</c:forEach>
 											</tr>
 										</thead>
 										<tbody>
 
 											<c:forEach items="${plan.stages}" var="stage" varStatus="counter">
+												
+												<c:if test="${not empty stage}">
+												
 												<tr class="state-default" id="${stage.id}" order="${counter.count}">
 													<th class="">${stage.name} 
 													<security:authorize access="hasRole('ADMIN')">
@@ -132,6 +141,9 @@
 													</security:authorize>
 													</th>
 													<c:forEach items="${plan.runways}" var="runway">
+														
+														<c:if test="${not empty runway}">
+														
 														<td>
 																<span class="add_milestone_btn">
 																<a title="Add Milestone" href="<c:url value="/admin/plan/add-checkpoint.html?planId=${plan.id}&r=${runway.id}&s=${stage.id}" />" /><i class="fa fa-plus"></i></a>
@@ -180,9 +192,12 @@
 																	</c:if>
 																</c:forEach>
 														</td>
+														
+														</c:if>
 													</c:forEach>
 
 												</tr>
+												</c:if>
 
 											</c:forEach>
 										</tbody>

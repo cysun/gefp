@@ -90,4 +90,8 @@ public class Stage implements Serializable {
         this.deleted = deleted;
     }
 
+    @Override
+    public String toString() {
+        return "Stage: ID="+id+", Name="+name;
+    }
 }

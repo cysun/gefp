@@ -76,6 +76,7 @@ public class User implements Serializable, UserDetails {
 
     @ManyToOne
     @JoinColumn(name = "plan_id")
+    @Where(clause = "deleted = 'f'")
     private FlightPlan flightPlan = new FlightPlan();
 
     @ManyToMany

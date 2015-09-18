@@ -137,7 +137,7 @@ public class FlightPlanController {
         FlightPlan fp = planDao.getFlightPlan( id );
 
         if( fp != null )
-        {
+        {            
             models.put( "plan", fp );
             return fp.isPublished() ? "edit_published_plan" : "edit_plan";
         }
@@ -672,9 +672,9 @@ public class FlightPlanController {
     {
         Checkpoint c = checkpointDao.getCheckPoint( id );
         FlightPlan plan = planDao.getFlightPlan( planId );
-        // Cell cell = cellDao.getCell( cellId );
-        // cell.getCheckpoints().remove( c );
-        // cellDao.saveCell( cell );
+        Cell cell = cellDao.getCell( cellId );
+        cell.getCheckpoints().remove( c );
+        cellDao.saveCell( cell );
         c.setDeleted( true );
         checkpointDao.saveCheckPoint( c );
         logger.info( "User " + principal.getName() + " deleted Milestone(ID: "

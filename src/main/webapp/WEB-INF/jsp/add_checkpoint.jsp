@@ -40,19 +40,27 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Add new Checkpoint</div>
+							<div class="panel-heading">Add new Milestone
+							
+							<div class="pull-right" style="padding: 0 15px 0 0;">
+										<span class="compulsary">*</span> Required
+									</div>
+							
+							</div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12">
 										<form:form modelAttribute="checkpoint" class="form-horizontal" method="post">
 
 											<div class="form-group">
-												<label class="col-sm-2 control-label">Runway Name:</label>
+												<label class="col-sm-2 control-label">Runway Name: <span class="compulsary">*</span></label>
 												<div class="col-sm-9">
 													
 													<select name="runwayId" class="form-control">
 														<option value="">--Select Runway--</option>
 														<c:forEach var="runway" items="${flightplan.runways}">
+															
+															<c:if test="${not empty runway && runway.id != NULL}">
 															<c:choose>
 															<c:when test="${runway.id == r}">
 																<option selected value="${runway.id}">${runway.name}</option>
@@ -61,18 +69,20 @@
 																<option value="${runway.id}">${runway.name}</option>
 															</c:otherwise>
 															</c:choose>
+															</c:if>
 														</c:forEach>
 													</select>										
 												</div>
 											</div>
 
 											<div class="form-group">
-												<label class="col-sm-2 control-label">Stage Name:</label>
+												<label class="col-sm-2 control-label">Stage Name: <span class="compulsary">*</span></label>
 												<div class="col-sm-9">
 													
 													<select name="stageId" class="form-control">
 														<option value="">--Select Stage--</option>
 														<c:forEach var="stage" items="${flightplan.stages}">
+															<c:if test="${not empty stage && stage.id != NULL}">
 															<c:choose>
 															<c:when test="${stage.id == s}">
 																<option selected value="${stage.id}">${stage.name}</option>
@@ -81,6 +91,7 @@
 																<option value="${stage.id}">${stage.name}</option>
 															</c:otherwise>
 															</c:choose>
+															</c:if>
 														</c:forEach>
 													</select>
 												</div>
@@ -89,7 +100,7 @@
 
 											<div class="form-group">
 												<label class="col-sm-2 control-label">Milestone
-													Info:</label>
+													Info: <span class="compulsary">*</span></label>
 												<div class="col-sm-9">
 													<form:textarea path="name" class="ckeditor form-control" placeholder="Checkpoint Name" ></form:textarea>
 												</div>
@@ -99,7 +110,7 @@
 												<div class="col-sm-11">
 												<input type="hidden" name="chkId" value="${checkpoint.id }" />
 												<input type="hidden" name="planId" value="${flightplan.id }" />
-												<input type="submit" class="btn override btn-primary pull-right ml10" value="Save" />
+												<input type="submit" class="btn override btn-primary pull-right ml10" value="Save" onClick="this.form.submit();this.disabled=true; this.value='Saving...';" />
 												<a class="btn override btn-primary pull-right" href="<c:url value="/plan/edit/${flightplan.id }.html"/>">Cancel</a>
 													<!-- <button type="reset" class="btn btn-primary">Reset Button</button> -->
 												</div>

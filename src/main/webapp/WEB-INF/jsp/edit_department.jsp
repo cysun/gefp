@@ -38,7 +38,12 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Edit Department</div>
+							<div class="panel-heading">Edit Department
+							
+							<div class="pull-right" style="padding: 0 15px 0 0;">
+										<span class="compulsary">*</span> Required
+									</div>
+							</div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12">
@@ -59,7 +64,7 @@
 											<div class="form-group">
 												<div class="col-sm-12">
 													<button type="submit"
-														class="btn pull-right override btn-primary ml10">Save</button>
+														class="btn pull-right override btn-primary ml10" onClick="this.form.submit();this.disabled=true; this.value='Saving...';">Save</button>
 													<a href="<c:url value="/admin/list-departments.html"/>"
 														class="btn pull-right override btn-primary">Cancel</a>
 												</div>
