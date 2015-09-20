@@ -12,7 +12,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | Edit Plan</title>
 <jsp:include page="includes/styles.jsp" />
 
 </head>
@@ -175,7 +175,7 @@
 																</span> <c:forEach items="${plan.cells}" var="cell">
 																		<c:if
 																			test="${cell.runway.id == runway.id && cell.stage.id == stage.id}">
-																			<ul id="${cell.id}" class="checkpoint_list list">
+																			<ul id="${cell.id}" attr-id="${cell.id}" class="checkpoint_list list">
 																				<c:forEach items="${cell.checkpoints}"
 																					var="checkpoint">
 
@@ -271,10 +271,11 @@ $( ".checkpoint_list" ).sortable({
 	update: function( event, ui ) {
 		var planId = $('#planId').val();
 		var cellId = $(this).attr("id");
+		alert(cellId);
 		var checkIds = $(this).sortable('toArray');
 		$.ajax({ url : '<c:url value="/admin/plan/reorder-checkpoints.html" />',
-			 method : 'post',
-			 data: {planId : planId, cellId : cellId, checkpointIds : checkIds},
+			 method : 'POST',
+			 data: {"planId" : planId, "cellId" : cellId, "checkpointIds" : checkIds},
 			 success : function(response){
 				 // customAlert(response, 'information');
 				 $("#successMessage").show();

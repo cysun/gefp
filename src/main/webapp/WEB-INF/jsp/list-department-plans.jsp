@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | List Department FLight Plans</title>
 <jsp:include page="includes/styles.jsp" />
 </head>
 <body>
@@ -39,53 +39,76 @@
 
 						<div class="panel panel-default">
 							<div class="panel-heading">
-							<div class="pull-left">
-								<h5>${department.name} : List of Flight Plans</h5>
+								<div class="pull-left">
+									<h5>Department Title: <b>${department.name}</b></h5>
+								</div>
+								<div class="pull-right">
+									<a
+										href="<c:url value="/admin/plan/add.html?departmentId=${department.id }"/>"
+										class="btn override btn-primary"><i class="fa fa-plus "></i>
+										Add Plan</a>
+								</div>
+								<div class="clearfix"></div>
 							</div>
-							<div class="pull-right">
-								<a href="<c:url value="/admin/plan/add.html?departmentId=${department.id }"/>" class="btn override btn-primary"><i class="fa fa-plus "></i> Add
-								Plan</a>
-							</div>
-							<div class="clearfix"></div>
-							</div>
-							
-							
-							
+
+
+
 							<div class="panel-body">
 								<div class="table-responsive">
 									<table class="table table-striped table-bordered">
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Plan Name</th>
+												<th>List of Flight Plans</th>
+												<th>Publish</th>
 												<th>Operations</th>
 											</tr>
 										</thead>
 										<tbody>
 
-											<c:forEach items="${department.plans}" var="plan" varStatus="index">
+											<c:forEach items="${department.plans}" var="plan"
+												varStatus="index">
 
 												<tr>
 													<td>${index.count}</td>
-													<td>
-														${plan.name} (${plan.seasonName} ${plan.seasonYear})
-														<c:choose>
+													<td><a title="View Flight Plan"
+														href="<c:url value="/plan/view/${plan.id}.html" />"
+														class=""> ${plan.name} (${plan.seasonName}
+															${plan.seasonYear}) </a> <c:choose>
 															<c:when test="${plan.id == department.defaultPlan.id}">
-																<span class="label override label-success">Official Plan</span>
+																<span class="label override label-success">Official
+																	Plan</span>
 															</c:when>
 															<c:otherwise>
 																| 
-																<a href="<c:url value="/admin/department/set-official-plan.html?dept_id=${department.id}&plan_id=${plan.id}"/>" class="btn override btn-link">Make Official Plan</a>
+																<a
+																	href="<c:url value="/admin/department/set-official-plan.html?dept_id=${department.id}&plan_id=${plan.id}"/>"
+																	class="btn override btn-link">Make Official Plan</a>
 															</c:otherwise>
-															
-														</c:choose>
-														
-													</td>
-													<td><a
+
+														</c:choose></td>
+
+													<td><c:choose>
+															<c:when test="${plan.published == false}">
+																<a class="label override handCursor label-primary"
+																	href="<c:url value="/admin/plan/publish.html?planId=${plan.id}"/>">
+																	Publish Now </a>
+															</c:when>
+															<c:otherwise>
+																<label class="label override label-success">Published</label>
+															</c:otherwise>
+
+														</c:choose></td>
+
+													<td><a title="View Flight Plan"
 														href="<c:url value="/plan/view/${plan.id}.html" />"
-														class="btn override btn-primary"><i class="fa fa-eye "></i>
-															View Plan</a> <%-- <a href="<c:url value="/plan/edit/${plan.id}.html" />" class="btn btn-primary"><i class="fa fa-edit "></i> Edit</a> --%>
-													</td>
+														class=""><i class="fa fa-expand "></i> </a> <a
+														title="Copy Flight Plan"
+														href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
+														class=""><i class="fa fa-copy "></i> </a> <a
+														title="Delete Flight Plan" href="javascript:void(0);"
+														onClick="deletePlan(${plan.id})" class=""><i
+															class="fa fa-trash-o "></i> </a></td>
 												</tr>
 
 											</c:forEach>
@@ -108,6 +131,24 @@
 
 
 	<jsp:include page="includes/footer.jsp" />
+	<script>
 
+function deletePlan(planID) {
+	
+	smoke.confirm("Are you sure you want to delete this plan?", function(e){
+		if (e){
+			top.location.href = '<c:url value="/admin/plan/delete.html?planId='+planID+'" />';
+		}else{
+			
+		}
+	}, {
+		ok: "Yes",
+		cancel: "No",
+		classname: "custom-class",
+		reverseButtons: true
+	});	
+}
+
+</script>
 </body>
 </html>

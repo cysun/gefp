@@ -7,6 +7,7 @@
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html ng-app="gefpApp" xmlns="http://www.w3.org/1999/xhtml">
@@ -53,12 +54,13 @@
 						<ol class="breadcrumb">
 							<security:authorize access="hasRole('ADMIN')">
 								<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
-								<li><a href="<c:url value="/admin/list-plans.html"/>">Flight
-										Plans</a></li>
+								<li><a href="<c:url value="/admin/list-departments.html"/>">Departments</a></li>
 							</security:authorize>
 
 							<security:authorize access="hasRole('ADVISOR')">
 								<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
+								<li><a
+									href="<c:url value="/advisor/list-departments.html"/>">Departments</a></li>
 							</security:authorize>
 
 							<li class="active">View Plan</li>
@@ -72,72 +74,94 @@
 
 
 				<hr />
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
 
-				<c:choose>
-
-					<c:when test="${not empty plan }">
-
-						<div class="row">
-							<div class="col-md-12 col-sm-12 col-xs-12">
-
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h5>
-												<span class="planTitle">${plan.name} <security:authorize
-														access="hasAnyRole('ADMIN','ADVISOR')">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pull-left">
+									<h5>
+										<span class="planTitle">${plan.name} <security:authorize
+												access="hasAnyRole('ADMIN','ADVISOR')">
 												(${plan.seasonName} ${plan.seasonYear})
 											</security:authorize>
-												</span>
-
-												<security:authorize access="hasRole('ADMIN')">
-													<c:if test="${student_mode != true}">
-														<c:if test="${plan.published == true }">
-															<label class="label override label-success">Published</label>
-														</c:if>
-														<c:if test="${plan.published == false }">
-															<a onClick="publishPlan(${plan.id})"
-																class="pull-right btn btn-warning"
-																href="javascript:void(0);">Publish Now</a>
-														</c:if>
-													</c:if>
-												</security:authorize>
-											</h5>
-										</div>
-
-										<div class="col-xs-offset-5 ">
-											<div id="successMessage" style="color: #090; display: none;">
-												<h5>Checkpoint saved successfully</h5>
-											</div>
-										</div>
+										</span>
 
 										<security:authorize access="hasRole('ADMIN')">
 
-											<c:if test="${student_mode != true}">
-												<div class="pull-right">
-													<a title="Edit Plan" class=""
-														href="<c:url value="/plan/edit/${plan.id}.html" />"><i
-														class="fa fa-edit "></i></a>
-												</div>
+											<c:if test="${showStats != true }">
+												<c:if test="${student_mode != true}">
+													<c:if test="${plan.published == true }">
+														<label class="label override label-success">Published</label>
+														<a title="Unpublish Plan"
+															href="<c:url value="/admin/plan/unpublish.html?planId=${plan.id}" />"><i
+															class="fa fa-undo "></i></a>
+													</c:if>
+													<c:if test="${plan.published == false }">
+														<a onClick="publishPlan(${plan.id})"
+															class="pull-right btn btn-warning"
+															href="javascript:void(0);">Publish Now</a>
+													</c:if>
+												</c:if>
 											</c:if>
 										</security:authorize>
-
-										<c:if test="${not empty StudentUser}">
-											<div class="pull-right">
-												<a style="text-decoration: underline;"
-													class="btn override btn-link"
-													href="<c:url value="/user/profile.html"/>">Edit Profile</a>
-											</div>
-
-										</c:if>
-
-										<div style="clear: both;"></div>
-									</div>
-
-
-									<div class="panel-body"></div>
+									</h5>
 								</div>
 
+								<div class="col-xs-offset-5 ">
+									<div id="successMessage" style="color: #090; display: none;">
+										<h5>Checkpoint saved successfully</h5>
+									</div>
+								</div>
+
+								<security:authorize access="hasRole('ADMIN')">
+
+									<c:if test="${student_mode != true}">
+										<div class="pull-right">
+
+											<c:if test="${showStats != true }">
+												<c:if test="${plan.published == true }">
+													<a title="View Plan Statistics" class=""
+														href="<c:url value="/plan/view/${plan.id}.html?showStats=true" />"><i
+														class="fa fa-bar-chart"></i></a>
+												</c:if>
+
+												<a title="Edit Plan" class=""
+													href="<c:url value="/plan/edit/${plan.id}.html" />"><i
+													class="fa fa-edit "></i></a>
+											</c:if>
+
+											<c:if test="${showStats == true }">
+												<a title="Back to Plan" class=""
+													href="<c:url value="/plan/view/${plan.id}.html" />"><i
+													class="fa fa-arrow-left "></i></a>
+											</c:if>
+										</div>
+									</c:if>
+								</security:authorize>
+
+								<c:if test="${not empty StudentUser}">
+									<div class="pull-right">
+										<a style="text-decoration: underline;"
+											class="btn override btn-link"
+											href="<c:url value="/user/profile.html"/>">Edit Profile</a>
+									</div>
+
+								</c:if>
+
+								<div style="clear: both;"></div>
+							</div>
+
+
+							<div class="panel-body">
+								Department: <b>${plan.department.name}</b>
+
+							</div>
+						</div>
+
+						<c:choose>
+
+							<c:when test="${not empty plan }">
 								<div class="">
 									<table id="sortable"
 										class="table table-striped table-bordered sar-table table-responsive">
@@ -210,25 +234,27 @@
 																							</c:choose> <span class="checkpoint_information pull-left">
 																								${checkpoint.name} <security:authorize
 																									access="hasAnyRole('ADMIN','ADVISOR')">
-																								&nbsp;<a
-																										href="<c:url value="/plan/statistics-details.html?planId=${plan.id}" />">
-																										(20)</a>
+																								&nbsp;
+																								
+																								
+																								<c:if test="${showStats == true }">
+																										<a
+																											href="<c:url value="/plan/statistics-details.html?checkpointId=${checkpoint.id}&planId=${plan.id}" />">
+																											(${checkpoint.total})</a>
+																									</c:if>
 																								</security:authorize>
 
-																						</span>
-																						
-																						<%-- <img
+																						</span> <%-- <img
 																									class="CommentIcon"
 																									src="<c:url value="/assets/img/comment-icon.png" />" /> --%>
-																						
-																						 <security:authorize access="hasRole('STUDENT')">
-																						 <span> <!-- <i class="fa fa-comments-o "></i> --> <a
-																								href="<c:url value="/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${StudentUser.id }"/>">
-																								<i class="fa fa-comments-o "></i>
-																								</a></span>
-																						 </security:authorize>
 
-																						</li>
+																							<security:authorize access="hasRole('STUDENT')">
+																								<span> <!-- <i class="fa fa-comments-o "></i> -->
+																									<a
+																									href="<c:url value="/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${StudentUser.id }"/>">
+																										<i class="fa fa-comments-o "></i>
+																								</a></span>
+																							</security:authorize></li>
 
 																					</c:if>
 																				</c:forEach>
@@ -247,65 +273,67 @@
 									</table>
 
 								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="">Plan not available</div>
+							</c:otherwise>
+
+						</c:choose>
 
 
-												<div class="row">Comments:</div>
+						<security:authorize access="hasRole('STUDENT')">
 
-								<div class="row">
-									<table id="sortable"
-										class="table table-striped table-bordered sar-table table-responsive">
-										<thead>
-											<tr>
-												<th>Author</th>
-												<th>Comment</th>
-												<th>Commented On</th>
-											</tr>
-										</thead>
-										<tbody>
+							<div class="row">Comments:</div>
 
-											
-											<c:forEach var="cmt" items="${currUserObj.comments}">
-											
+							<div class="row">
+								<table id="sortable"
+									class="table table-striped table-bordered sar-table table-responsive">
+									<thead>
+										<tr>
+											<th>Author</th>
+											<th>Comment</th>
+											<th>Commented On</th>
+										</tr>
+									</thead>
+									<tbody>
+
+
+										<c:forEach var="cmt" items="${currUserObj.comments}">
+
 											<tr class="state-default">
 												<th>${cmt.commentedBy.username }</th>
 												<td>${cmt.comment}</td>
-												<td><span style="font-size: 12px; font-weight: normal;">Posted
-														On: ${cmt.datetime} </span></td>
+												<td><span style="font-size: 12px; font-weight: normal;"><fmt:formatDate
+															dateStyle="medium" timeStyle="medium" type="BOTH"
+															value="${cmt.datetime}" /> </span></td>
 											</tr>
-											</c:forEach>
-											
-											<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
-												<form:form modelAttribute="comment" action="/gefp/advisor/add-comment.html" method="post">
-												<tr>
-													<td colspan="3"><form:textarea
-															path="comment" class="ckeditor form-control" placeholder=""></form:textarea></td>
-												</tr>
-												<tr>
-													<td colspan="3" align="right">
-													<input type="hidden" name="userId" value="${currUserObj.id}" />
-													<input type="submit"
-														class="btn btn-primary override" value="Add Comment" /></td>
-												</tr>
-												</form:form>
-											</security:authorize>
-										</tbody>
-									</table>
+										</c:forEach>
 
-								</div>
+										<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
+											<form:form modelAttribute="comment"
+												action="/gefp/advisor/add-comment.html" method="post">
+												<tr>
+													<td colspan="3"><form:textarea path="comment"
+															class="ckeditor form-control" placeholder=""></form:textarea></td>
+												</tr>
+												<tr>
+													<td colspan="3" align="right"><input type="hidden"
+														name="userId" value="${currUserObj.id}" /> <input
+														type="submit" class="btn btn-primary override"
+														value="Add Comment" /></td>
+												</tr>
+											</form:form>
+										</security:authorize>
+									</tbody>
+								</table>
 
 							</div>
-						</div>
-						<!-- /. ROW  -->
 
-					</c:when>
+						</security:authorize>
 
-					<c:otherwise>
-				Plan not available
-			
-			</c:otherwise>
-
-				</c:choose>
-
+					</div>
+				</div>
+				<!-- /. ROW  -->
 
 			</div>
 			<!-- /. PAGE INNER  -->

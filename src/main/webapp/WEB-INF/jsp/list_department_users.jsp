@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | List Department Users</title>
 <jsp:include page="includes/styles.jsp" />
 </head>
 <body>
@@ -83,7 +83,7 @@
 
 											<c:forEach items="${users}" var="user" varStatus="index">
 
-												<tr>
+												<tr class="handCursor" onClick="ShowStudentsPlan(${user.id})">
 													<td>${index.count}</td>
 													<td>${user.cin}</td>
 													<td>${user.username}</td>

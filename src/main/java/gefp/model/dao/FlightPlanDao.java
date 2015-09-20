@@ -1,6 +1,8 @@
 package gefp.model.dao;
 
+import gefp.model.Checkpoint;
 import gefp.model.FlightPlan;
+import gefp.model.User;
 
 import java.util.List;
 
@@ -11,4 +13,6 @@ public interface FlightPlanDao {
     List<FlightPlan> getFlightPlans();
 
     FlightPlan saveFlightPlan( FlightPlan flightplan );
+    
+    List<User> getUsersWhoCheckedCheckpoint(Checkpoint checkpoint);
 }

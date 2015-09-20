@@ -15,6 +15,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Golden Eagle Flight Plan</title>
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
 <jsp:include page="includes/styles.jsp" />
 
 </head>
@@ -176,6 +179,37 @@
 
 					</div>
 				</div>
+				
+				
+				<div class="row">Comments:</div>
+
+								<div class="row">
+									<table id="sortable"
+										class="table table-striped table-bordered sar-table table-responsive">
+										<thead>
+											<tr>
+												<th>Author</th>
+												<th>Comment</th>
+												<th>Commented On</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											
+											<c:forEach var="cmt" items="${currUserObj.comments}">
+											
+											<tr class="state-default">
+												<th>${cmt.commentedBy.username }</th>
+												<td>${cmt.comment}</td>
+												<td><span style="font-size: 12px; font-weight: normal;">Posted
+														On: ${cmt.datetime} </span></td>
+											</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+
+								</div>
+				
 				<!-- /. ROW  -->
 
 			</div>
@@ -185,8 +219,6 @@
 	</div>
 	<!-- /. WRAPPER  -->
 
-	<link rel="stylesheet"
-		href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 

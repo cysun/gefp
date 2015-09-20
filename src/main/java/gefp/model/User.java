@@ -372,5 +372,8 @@ public class User implements Serializable, UserDetails {
         return true;
     }
     
+    public String toString() {
+        return "User: Id="+id+", Username="+username;
+    }
     
 }

@@ -12,7 +12,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | Flight Plan Statistics</title>
 <jsp:include page="includes/styles.jsp" />
 
 </head>
@@ -83,60 +83,60 @@
 									<div class="panel-heading">
 										<div class="pull-left">
 											<h5>
-												<span class="planTitle">Plan Title: ${plan.name} <security:authorize
+												<span class="planTitle">Plan Title: <b>${plan.name} <security:authorize
 														access="hasAnyRole('ADMIN','ADVISOR')">
 												(${plan.seasonName} ${plan.seasonYear})
 											</security:authorize>
+											</b>
 												</span>
 											</h5>
 										</div>
 
 										<div class="pull-right">
-											<a class="btn override btn-primary"
+											<a class=""
 												href="<c:url value="/plan/view/${plan.id}.html" />"><i
-												class="fa fa-back "></i> Back</a>
+												class="fa fa-arrow-left "></i> Back</a>
 										</div>
-
-
-
 										<div style="clear: both;"></div>
 									</div>
 
 
-									<div class="panel-body">
-										Milestone Title: Go to office hours after 1st assignment in every class
-									
-									</div>
+									<div class="panel-body">Milestone: ${checkpoint.name}</div>
 								</div>
 								<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
 
 
-								<div class="">
+								<div class="mb20 col-md-12">
+									Total Number of Students who checked this Milestone: <b>${cp_users.size()}</b>
+								</div>
+								
+								<c:if test="${cp_users.size() > 0 }">
+								<div class="col-md-6">
 									<table id="sortable"
 										class="table table-striped table-bordered sar-table table-responsive">
 										<thead>
 											<tr>
-												<th>Student Name</th>
-												<th>Student CIN</th>
+												<th>#</th>
+												<th>CIN</th>
+												<th>Name</th>
 											</tr>
 										</thead>
 										<tbody>
 
-											<tr class="state-default">
-												<th>Jane Doe</th>
-												<td>304512555</td>
-											</tr>
-											
-											<tr class="state-default">
-												<th>Jane Doe</th>
-												<td>304512555</td>
-											</tr>
-											
-
+											<c:forEach items="${cp_users}" var="usr" varStatus="index">
+												<tr class="state-default">
+													<td>${index.count}
+													<td><a
+														href="<c:url value="/advisor/view-student-plan/${usr.id}.html" />">${usr.cin}</a></td>
+													<td><a
+														href="<c:url value="/advisor/view-student-plan/${usr.id}.html" />">${usr.firstName} ${usr.lastName}</a></td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 
 								</div>
+								</c:if>
 
 							</div>
 						</div>
@@ -163,24 +163,26 @@
 	<jsp:include page="includes/footer.jsp" />
 
 	<script type="text/javascript">
+		function publishPlan(planID) {
 
-function publishPlan(planID) {
-	
-	smoke.confirm("Are you sure you want to publish this plan?", function(e){
-		if (e){
-			top.location.href = '<c:url value="/admin/plan/publish.html?planId='+planID+'" />';
-		}else{
-			
+			smoke
+					.confirm(
+							"Are you sure you want to publish this plan?",
+							function(e) {
+								if (e) {
+									top.location.href = '<c:url value="/admin/plan/publish.html?planId='
+											+ planID + '" />';
+								} else {
+
+								}
+							}, {
+								ok : "Yes",
+								cancel : "No",
+								classname : "custom-class",
+								reverseButtons : true
+							});
 		}
-	}, {
-		ok: "Yes",
-		cancel: "No",
-		classname: "custom-class",
-		reverseButtons: true
-	});	
-}
-
-</script>
+	</script>
 
 </body>
 </html>

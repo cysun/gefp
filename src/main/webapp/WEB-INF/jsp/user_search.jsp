@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | Search Students</title>
 <jsp:include page="includes/styles.jsp" />
 </head>
 <body>
@@ -48,31 +48,49 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">List of Users</div>
 							<div class="panel-body">
-								<div class="table-responsive">
-									<table class="table table-striped table-bordered table-hover">
+								<div class="table-responsive__">
+									<table id="dataTablesNoFilter"
+										class="table-responsive table table-striped table-bordered dataTable table-hover">
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Username</th>
-												<th>Name</th>
 												<th>CIN</th>
+												<th>Username</th>
+												<th>First Name</th>
+												<th>Last Name</th>
+												<th>Role</th>
+												<!-- <th>Active Plan Name</th> -->
 												<th>Operations</th>
 											</tr>
 										</thead>
 										<tbody>
 
-											<c:forEach items="${users}" var="user">
+											<c:forEach items="${users}" var="user" varStatus="index">
 
-												<tr>
-													<td>${user.id}</td>
-													<td>${user.username}</td>
-													<td>${user.firstName} ${user.lastName}</td>
+												<tr class="handCursor" onClick="ShowStudentsPlan(${user.id})">
+													<td>${index.count}</td>
 													<td>${user.cin}</td>
+													<td>${user.username}</td>
+													<td>${user.firstName}</td>
+													<td>${user.lastName}</td>
+													<td><c:set var="roleName" value="" />
+													
+													<c:forEach var="role" items="${user.roles}">
+														${role.name} 
+													</c:forEach>
+															</td>
+
 													<td><a title="View Flight Plan"
 														href="<c:url value="/advisor/view-student-plan/${user.id}.html" />"
-														class="btn btn-info override"><i class="fa fa-eye"></i></a>		
-													</td>
+														class=""><i class="fa fa-external-link"></i> </a> <security:authorize
+															access="authenticated and hasRole('ADMINA')">
+															<a href="<c:url value="/user/edit/${user.id}.html" />"
+																class="btn override btn-primary"><i
+																class="fa fa-edit "></i> Edit</a>
+														</security:authorize></td>
+
 												</tr>
+
 											</c:forEach>
 										</tbody>
 									</table>

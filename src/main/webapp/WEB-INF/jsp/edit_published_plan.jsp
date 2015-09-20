@@ -66,6 +66,7 @@
 									</span>
 									
 									<label class="label override label-success">Published</label>
+									<a title="Unpublish Plan" href="<c:url value="/admin/plan/unpublish.html?planId=${plan.id}" />"><i class="fa fa-undo "></i></a>
 									</h5>
 									
 								</div>

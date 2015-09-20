@@ -13,8 +13,8 @@
 					Dashboard</a></li>
 			<li><a class="greyColor" href="<c:url value="/admin/list-departments.html" />"><i class="fa fa-book fa-3x"></i>
 					Departments</a></li>
-			<li><a class="greyColor" href="<c:url value="/admin/list-plans.html" />"><i class="fa fa-table fa-3x"></i>
-					Flight Plans</a></li>
+			<%-- <li><a class="greyColor" href="<c:url value="/admin/list-plans.html" />"><i class="fa fa-table fa-3x"></i>
+					Flight Plans</a></li> --%>
 			<li><a class="greyColor" href="<c:url value="/admin/list-users.html" />"><i class="fa fa-user fa-3x"></i>
 					Users</a></li>
 		</ul>

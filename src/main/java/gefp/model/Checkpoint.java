@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "checkpoints")
@@ -26,6 +27,9 @@ public class Checkpoint implements Serializable {
     private Checkpoint parent;
 
     private boolean deleted = false;
+
+    @Transient
+    private Integer total;
 
     public Checkpoint()
     {
@@ -93,6 +97,16 @@ public class Checkpoint implements Serializable {
     public void setDeleted( boolean deleted )
     {
         this.deleted = deleted;
+    }
+
+    public Integer getTotal()
+    {
+        return total;
+    }
+
+    public void setTotal( Integer total )
+    {
+        this.total = total;
     }
 
 }

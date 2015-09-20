@@ -8,9 +8,11 @@ import gefp.model.dao.FlightPlanDao;
 import gefp.model.dao.UserDao;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,15 +58,32 @@ public class DepartmentController {
 
     @RequestMapping(value = "/department/list-students.html",
         method = RequestMethod.GET)
-    public String listStudents( @RequestParam Integer id, ModelMap models )
+    public String listStudents( @RequestParam Integer id, ModelMap models,
+        HttpSession session )
     {
         Department department = deptDao.getDepartment( id );
+        User loginUser = (User) session.getAttribute( "loggedInUser" );
+        List<User> students = new ArrayList<User>();
 
         if( department != null )
         {
             List<User> users = userDao.getUsersInDepartment( id );
+
+            if( loginUser.isAdvisor() )
+            {
+                for( User u : users )
+                {
+                    if( u.isStudent() ) students.add( u );
+                }
+                models.put( "users", students );
+            }
+            else
+            {
+                models.put( "users", users );
+            }
+
             models.put( "department", department );
-            models.put( "users", users );
+
             return "list_department_users";
         }
         else
@@ -123,6 +142,19 @@ public class DepartmentController {
         department = deptDao.saveDepartment( department );
         logger.info( "User " + principal.getName()
             + " modified Department title (" + department.getName() + ")" );
+        return "redirect:/admin/list-departments.html";
+    }
+
+    @RequestMapping(value = "/admin/department/delete.html",
+        method = RequestMethod.GET)
+    public String deleteDepartment( @RequestParam Integer departmentId,
+        Principal principal )
+    {
+        Department dept = deptDao.getDepartment( departmentId );
+        dept.setDeleted( true );
+        deptDao.saveDepartment( dept );
+        logger.info( "User " + principal.getName() + " deleted Department: "
+            + dept.toString() );
         return "redirect:/admin/list-departments.html";
     }
 

@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | Add Department</title>
 <jsp:include page="includes/styles.jsp" />
 </head>
 <body>
@@ -66,8 +66,8 @@
 
 											<div class="form-group">
 												<div class="col-sm-12">
-													<button type="submit"
-														class="btn pull-right override btn-primary ml10" onClick="this.form.submit();this.disabled=true; this.value='Saving...';">Save</button>
+													<input type="submit"
+														class="btn pull-right override btn-primary ml10" onClick="this.form.submit();this.disabled=true; this.value='Saving...';" value="Save" />
 													<a href="<c:url value="/admin/list-departments.html"/>"
 														class="btn pull-right override btn-primary">Cancel</a>
 												</div>

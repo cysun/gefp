@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | List of Departments</title>
 <jsp:include page="includes/styles.jsp" />
 </head>
 <body>
@@ -55,8 +55,8 @@
 
 								<security:authorize access="authenticated and hasRole('ADMIN')">
 									<div class="pull-right">
-										<a href="<c:url value="/admin/department/add.html"/>"
-											class="btn override btn-primary"><i class="fa fa-plus "></i>Add Department</a>
+										<h5><a title="Add New Department" href="<c:url value="/admin/department/add.html"/>"
+											class=""><i class="fa fa-plus-square-o "></i> Add Department</a></h5>
 									</div>
 								</security:authorize>
 								<div class="clearfix"></div>
@@ -79,36 +79,56 @@
 
 												<tr>
 													<td>${index.count}</td>
-													<td>${dept.name}</td>
+													<td>
+													
+													<security:authorize access="hasRole('ADMIN')">
+													<a title="List Flight Plan(s)"
+																href="<c:url value="/admin/department/list-plans.html?id=${dept.id}" />"
+																class="">
+													${dept.name}
+													</a>
+													</security:authorize>
+													
+													<security:authorize access="hasRole('ADVISOR')">
+														<a title="View Students(s)"
+																href="<c:url value="/department/list-students.html?id=${dept.id}" />"
+																class="">${dept.name}</a>
+													</security:authorize>
+													
+													</td>
 													<!-- <td>Computer Science Plan</td> -->
 
 													<td><security:authorize
 															access="authenticated and hasRole('ADMIN')">
-															<a title="View Plan(s)"
+															<a title="List Flight Plan(s)"
 																href="<c:url value="/admin/department/list-plans.html?id=${dept.id}" />"
-																class=""><i class="fa fa-external-link"></i>
+																class=""><i class="fa fa-list"></i>
 																</a>
+																
+																|
 														</security:authorize> <a title="View Student(s)"
 														href="<c:url value="/department/list-students.html?id=${dept.id}" />"
 														class=""><i class="fa fa-user "></i>
-															</a> <security:authorize
+															</a>
+															|	
+															<security:authorize
 															access="authenticated and hasRole('ADMIN')">
-															<a title="Edit"
+															<a title="Edit Department"
 																href="<c:url value="/admin/department/edit.html?id=${dept.id}" />"
 																class=""><i class="fa fa-edit "></i>
 																</a>
+																
+																|
+																
+																<a href="javascript:void(0)" onClick="deleteDepartment(${dept.id})"><i class="fa fa-trash-o "></i></a>																
 														</security:authorize></td>
-
 												</tr>
-
 											</c:forEach>
 										</tbody>
 									</table>
 								</div>
 							</div>
-
 						</div>
-
 
 					</div>
 				</div>
@@ -122,6 +142,27 @@
 
 
 	<jsp:include page="includes/footer.jsp" />
+
+
+<script type="text/javascript">
+
+function deleteDepartment(departmentId) {
+	
+	smoke.confirm("Are you sure you want to delete this department?", function(e){
+		if (e){
+			top.location.href = '<c:url value="/admin/department/delete.html?departmentId='+departmentId+'" />';
+		}else{
+			
+		}
+	}, {
+		ok: "Yes",
+		cancel: "No",
+		classname: "custom-class",
+		reverseButtons: true
+	});	
+}
+
+</script>
 
 </body>
 </html>

@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | List Flight Plans</title>
 <jsp:include page="includes/styles.jsp" />
 </head>
 <body>
@@ -78,10 +78,10 @@
 													<td>${plan.department.name}</td>
 													<td><c:choose>
 															<c:when test="${plan.published == false}">
-																<a
+																<a class="label override handCursor label-primary"
 																	href="<c:url value="/admin/plan/publish.html?planId=${plan.id}"/>">
-																	<label class="label override handCursor label-primary">Publish
-																		Now</label>
+																	Publish
+																		Now
 																</a>
 															</c:when>
 															<c:otherwise>
@@ -91,7 +91,7 @@
 														</c:choose></td>
 													<td><a title="View Plan"
 														href="<c:url value="/plan/view/${plan.id}.html" />"
-														class=""><i class="fa fa-external-link "></i>
+														class=""><i class="fa fa-expand "></i>
 													</a> <a title="Clone Plan"
 														href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
 														class=""><i

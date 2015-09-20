@@ -343,11 +343,11 @@ public class UserController {
 
     @RequestMapping(value = "/advisor/update-student-profile.html",
         method = RequestMethod.POST)
-    public void updateProfile( HttpServletRequest request,
+    public void updateProfile( @RequestParam Long userId, HttpServletRequest request,
         HttpServletResponse response, PrintWriter out, Principal principal )
     {
 
-        long userId = Long.parseLong( request.getParameter( "userId" ) );
+        //long userId = Long.parseLong( request.getParameter( "userId" ) );
         String firstName = request.getParameter( "firstName" );
         String lastName = request.getParameter( "lastName" );
         String email = request.getParameter( "email" );

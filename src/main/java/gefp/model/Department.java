@@ -75,25 +75,21 @@ public class Department implements Serializable {
         this.name = name;
     }
 
-    
     public FlightPlan getDefaultPlan()
     {
         return defaultPlan;
     }
 
-    
     public void setDefaultPlan( FlightPlan defaultPlan )
     {
         this.defaultPlan = defaultPlan;
     }
 
-    
     public List<FlightPlan> getPlans()
     {
         return plans;
     }
 
-    
     public void setPlans( List<FlightPlan> plans )
     {
         this.plans = plans;
@@ -117,6 +113,12 @@ public class Department implements Serializable {
     public void setDeleted( boolean deleted )
     {
         this.deleted = deleted;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Id=" + id + ", Name=" + name;
     }
 
 }
