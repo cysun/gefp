@@ -328,8 +328,6 @@ INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (194, 20
 INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (194, 204, 9);
 INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (194, 205, 10);
 INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (194, 206, 11);
-INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (45, 612, 1);
-INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (125, 755, 12);
 
 
 --
@@ -365,4 +363,4 @@ INSERT INTO user_roles (user_id, role_id) VALUES (7, 1);
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: gefp
 --
 
-SELECT pg_catalog.setval('hibernate_sequence', 1075, true);
+SELECT pg_catalog.setval('hibernate_sequence', 5000, true);
