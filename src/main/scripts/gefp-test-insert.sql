@@ -17,7 +17,7 @@ INSERT INTO departments (id, name, plan_id, active, deleted) VALUES (2, 'Technol
 -- Data for Name: flightplans; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO flightplans (id, name, department_id, published, term_name, term_year, parent_id, deleted) VALUES (64, 'MyGoldenEagle Flight Plan 2.0', 1, true, 'Spring', '2015', NULL, false);
+INSERT INTO flightplans (id, name, department_id, published, term_name, term_year, parent_id, deleted) VALUES (64, 'MyGoldenEagle Flight Plan 2.0', 1, false, 'Spring', '2015', NULL, false);
 
 --
 -- Data for Name: runways; Type: TABLE DATA; Schema: public; Owner: gefp

@@ -239,6 +239,27 @@
 
 <script type="text/javascript">
 
+$( ".checkpoint_list" ).sortable({
+	cursor: "move",
+	update: function( event, ui ) {
+		var planId = $('#planId').val();
+		var cellId = $(this).attr("id");
+		alert(cellId);
+		var checkIds = $(this).sortable('toArray');
+		$.ajax({ url : '<c:url value="/admin/plan/reorder-checkpoints.html" />',
+			 method : 'POST',
+			 data: {"planId" : planId, "cellId" : cellId, "checkpointIds" : checkIds},
+			 success : function(response){
+				 // customAlert(response, 'information');
+				 $("#successMessage").show();
+         		setTimeout(function(){
+						$("#successMessage").hide();
+					},3000);
+			}
+		});
+	}
+});
+
 function publishPlan(planID) {
 	
 	smoke.confirm("Are you sure you want to publish this plan?", function(e){
