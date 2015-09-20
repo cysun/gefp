@@ -337,12 +337,12 @@ INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (194, 20
 INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (4, '38745120', 'jdoe2', 'abcd', 'jdoe2@calstatela.edu', 'John', '', 'Doe', 1, 64, 1, true, false, false);
 INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (1, '304367456', 'cysun', 'abcd', 'csun@calstatela.edu', 'Chengyu', NULL, 'Sun', 1, NULL, 1, true, false, false);
 INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (2, '354120102', 'tfox', 'abcd', 'tfox@calstatela.edu', 'T.', NULL, 'Fox', 1, NULL, 1, true, false, false);
-INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (3, '310451230', 'jdoe1', 'abcd', 'jdoe1@email.com', 'Joe', '', 'Doe', 2, 2, 1, true, false, false);
+INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (3, '310451230', 'jdoe1', 'abcd', 'jdoe1@email.com', 'Joe', '', 'Doe', 2, 64, 1, true, false, false);
 
 -- Real Users
-INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (5, '', 'cmarsh', '', 'cmarsh@calstatela.edu', 'Candi', '', 'Marsh', 2, 2, 1, true, false, false);
-INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (6, '', 'rramir74', '', 'Rodolfo.Ramirez74@calstatela.edu', 'Rodolfo', '', '', 2, 2, 1, true, false, false);
-INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (7, '', 'dwon', '', 'dwon@calstatela.edu', 'Deborah', '', 'Won', 2, 2, 1, true, false, false);
+INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (5, '', 'cmarsh', '', 'cmarsh@calstatela.edu', 'Candi', '', 'Marsh', 2, 64, 1, true, false, false);
+INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (6, '', 'rramir74', '', 'Rodolfo.Ramirez74@calstatela.edu', 'Rodolfo', '', '', 2, 64, 1, true, false, false);
+INSERT INTO users (id, cin, username, password, email, first_name, middle_name, last_name, department_id, plan_id, major_id, enabled, deleted, newaccount) VALUES (7, '', 'dwon', '', 'dwon@calstatela.edu', 'Deborah', '', 'Won', 2, 64, 1, true, false, false);
 
 
 --
