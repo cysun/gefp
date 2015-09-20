@@ -40,7 +40,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="pull-left">
-									<h5>Department Title: <b>${department.name}</b></h5>
+									<h5>Department: <b>${department.name}</b></h5>
 								</div>
 								<div class="pull-right">
 									<a

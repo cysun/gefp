@@ -17,16 +17,12 @@ INSERT INTO departments (id, name, plan_id, active, deleted) VALUES (2, 'Technol
 -- Data for Name: flightplans; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO flightplans (id, name, department_id, published, term_name, term_year, parent_id) VALUES (64, 'MyGoldenEagle Flight Plan 2.0', 1, true, 'Spring', '2015', NULL);
-INSERT INTO flightplans (id, name, department_id, published, term_name, term_year, parent_id) VALUES (2, 'Electrical Engineering Flight Plan', 2, true, 'Spring', '2015', NULL);
-
+INSERT INTO flightplans (id, name, department_id, published, term_name, term_year, parent_id, deleted) VALUES (64, 'MyGoldenEagle Flight Plan 2.0', 1, true, 'Spring', '2015', NULL, false);
 
 --
 -- Data for Name: runways; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO runways (id, name, parent_id) VALUES (42, 'Career Development', NULL);
-INSERT INTO runways (id, name, parent_id) VALUES (47, 'leadership', NULL);
 INSERT INTO runways (id, name, parent_id) VALUES (65, 'Academic Performance', NULL);
 INSERT INTO runways (id, name, parent_id) VALUES (66, 'Career Preparation', NULL);
 INSERT INTO runways (id, name, parent_id) VALUES (67, 'Leadership & Community Engagement', NULL);
@@ -36,8 +32,6 @@ INSERT INTO runways (id, name, parent_id) VALUES (67, 'Leadership & Community En
 -- Data for Name: stages; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO stages (id, name, parent_id) VALUES (43, 'Pre-frosh', NULL);
-INSERT INTO stages (id, name, parent_id) VALUES (44, 'Freshman', NULL);
 INSERT INTO stages (id, name, parent_id) VALUES (68, 'Pre-college (pre-flight checklist)', NULL);
 INSERT INTO stages (id, name, parent_id) VALUES (69, 'Freshman (take-off)', NULL);
 INSERT INTO stages (id, name, parent_id) VALUES (70, 'Sophomore (climbing altitude)', NULL);
@@ -49,7 +43,6 @@ INSERT INTO stages (id, name, parent_id) VALUES (73, 'Graduation  (Landing)', NU
 -- Data for Name: department_plans; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO department_plans (department_id, plan_id) VALUES (2, 2);
 INSERT INTO department_plans (department_id, plan_id) VALUES (1, 64);
 
 
@@ -57,8 +50,6 @@ INSERT INTO department_plans (department_id, plan_id) VALUES (1, 64);
 -- Data for Name: flightplan_runways; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO flightplan_runways (flightplan_id, runway_id, order_num) VALUES (2, 42, 0);
-INSERT INTO flightplan_runways (flightplan_id, runway_id, order_num) VALUES (2, 47, 1);
 INSERT INTO flightplan_runways (flightplan_id, runway_id, order_num) VALUES (64, 65, 0);
 INSERT INTO flightplan_runways (flightplan_id, runway_id, order_num) VALUES (64, 66, 1);
 INSERT INTO flightplan_runways (flightplan_id, runway_id, order_num) VALUES (64, 67, 2);
@@ -68,8 +59,6 @@ INSERT INTO flightplan_runways (flightplan_id, runway_id, order_num) VALUES (64,
 -- Data for Name: flightplan_stages; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO flightplan_stages (flightplan_id, stage_id, order_num) VALUES (2, 43, 0);
-INSERT INTO flightplan_stages (flightplan_id, stage_id, order_num) VALUES (2, 44, 1);
 INSERT INTO flightplan_stages (flightplan_id, stage_id, order_num) VALUES (64, 68, 0);
 INSERT INTO flightplan_stages (flightplan_id, stage_id, order_num) VALUES (64, 69, 1);
 INSERT INTO flightplan_stages (flightplan_id, stage_id, order_num) VALUES (64, 70, 2);
@@ -81,7 +70,6 @@ INSERT INTO flightplan_stages (flightplan_id, stage_id, order_num) VALUES (64, 7
 -- Data for Name: checkpoints; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO checkpoints (id, name, parent_id) VALUES (46, '<p>Attend career panel</p>', NULL);
 INSERT INTO checkpoints (id, name, parent_id) VALUES (76, '<p>Pre-calculus (before (Yr 1)</p>', NULL);
 INSERT INTO checkpoints (id, name, parent_id) VALUES (111, '<p>Share with someone in your community about what you are learning in school</p>', NULL);
 INSERT INTO checkpoints (id, name, parent_id) VALUES (84, '<p>Math 206 (Calc I)</p>', NULL);
@@ -129,7 +117,7 @@ INSERT INTO checkpoints (id, name, parent_id) VALUES (136, '<p><!--[if !supportL
 INSERT INTO checkpoints (id, name, parent_id) VALUES (75, '<p>Algebra (before Yr 1)</p>', NULL);
 INSERT INTO checkpoints (id, name, parent_id) VALUES (93, '<p>Attend Math Academic Excellence Workshops (AEW) (i.e. ENGR 154 workshops)</p>', NULL);
 INSERT INTO checkpoints (id, name, parent_id) VALUES (89, '<p>CS 101</p>', NULL);
-INSERT INTO checkpoints (id, name, parent_id) VALUES (88, '', NULL);
+INSERT INTO checkpoints (id, name, parent_id) VALUES (88, 'ENGR 150', NULL);
 INSERT INTO checkpoints (id, name, parent_id) VALUES (94, '<p>Attend Physics&nbsp; AEW (I.e. ENGR 154 workshops)</p>', NULL);
 INSERT INTO checkpoints (id, name, parent_id) VALUES (137, '<p>Academic &amp; Personal Advisement</p><ul><li><a target="_blank" href="http://www.calstatela.edu/ecst/success/advising">http://www.calstatela.edu/ecst/success/advising</a></li></ul>', NULL);
 INSERT INTO checkpoints (id, name, parent_id) VALUES (139, '<p>Visit career center and find out what services they offer</p><ul><li><a target="_blank" href="http://www.calstatela.edu/univ/cdc">http://www.calstatela.edu/univ/cdc</a></li></ul>', NULL);
@@ -196,15 +184,12 @@ INSERT INTO checkpoints (id, name, parent_id) VALUES (77, '<p>Attend STEP (<a ta
 INSERT INTO checkpoints (id, name, parent_id) VALUES (103, '<p>ENGR 150 &ndash; Identify up to 3 areas with in Engineering, Computer Science, and Technology that you might want to pursue a career in</p><ul><li>Civil Engineering (<a href="http://www.calstatela.edu/ecst/ce" target="_blank">http://www.calstatela.edu/ecst/ce</a>)</li><li>Electrical and Computer Engineering (<a href="http://www.calstatela.edu/ecst/tech">http://www.calstatela.edu/ecst/</a><a href="http://www.calstatela.edu/ecst/ece" target="_blank">ece</a>)</li><li>Mechanical Engineering (<a href="http://www.calstatela.edu/ecst/tech">http://www.calstatela.edu/ecst/m</a><a href="http://www.calstatela.edu/ecst/me" target="_blank">e</a>)</li><li>Computer Science Technology (<a href="http://www.calstatela.edu/ecst/tech" target="_blank">http://www.calstatela.edu/ecst/tech</a>)</li></ul>', NULL);
 INSERT INTO checkpoints (id, name, parent_id) VALUES (201, '<p>Investigate sites and apply for <em>Research Experience for Undergraduates (REU) programs</em></p><ul><li><a href="http://www.nsf.gov/crssprgm/reu/list_result.jsp?unitid=10006" target="_blank">http://www.nsf.gov/crssprgm/reu/list_result.jsp?unitid=10006</a></li></ul>', NULL);
 INSERT INTO checkpoints (id, name, parent_id) VALUES (100, '<p>Take online assessment test.</p><div class="clearfix">&nbsp;</div><div class="accordion"><p>Keirsey</p><div><p><a target="_blank" href="http://www.keirsey.com/">http://www.keirsey.com/</a></p></div><p>Rileyguide</p><div><p><a target="_blank" href="http://www.rileyguide.com/assess.html">http://www.rileyguide.com/assess.html</a></p></div></div><div class="clearfix">&nbsp;</div>', NULL);
-INSERT INTO checkpoints (id, name, parent_id) VALUES (612, '<p>Go to the Advisement centre</p>', NULL);
-INSERT INTO checkpoints (id, name, parent_id) VALUES (755, '<p>test te4st</p>', NULL);
 
 
 --
 -- Data for Name: cells; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO cells (id, flightplan_id, runway_id, stage_id, parent_id) VALUES (45, 2, 42, 44, NULL);
 INSERT INTO cells (id, flightplan_id, runway_id, stage_id, parent_id) VALUES (74, 64, 65, 68, NULL);
 INSERT INTO cells (id, flightplan_id, runway_id, stage_id, parent_id) VALUES (78, 64, 67, 68, NULL);
 INSERT INTO cells (id, flightplan_id, runway_id, stage_id, parent_id) VALUES (81, 64, 66, 68, NULL);
@@ -229,7 +214,6 @@ INSERT INTO cells (id, flightplan_id, runway_id, stage_id, parent_id) VALUES (19
 -- Data for Name: cell_checkpoints; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (45, 46, 0);
 INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (74, 75, 0);
 INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (74, 76, 1);
 INSERT INTO cell_checkpoints (cell_id, checkpoint_id, order_num) VALUES (74, 77, 2);
