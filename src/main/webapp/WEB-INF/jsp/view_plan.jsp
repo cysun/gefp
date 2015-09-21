@@ -124,6 +124,7 @@
 												<a title="Back to Listings" class=""
 														href="<c:url value="/admin/department/list-plans.html?id=${plan.department.id }" />"><i
 														class="fa fa-arrow-left"></i></a>
+														&nbsp;
 												<c:if test="${plan.published == true }">
 													<a title="View Plan Statistics" class=""
 														href="<c:url value="/plan/view/${plan.id}.html?showStats=true" />"><i
