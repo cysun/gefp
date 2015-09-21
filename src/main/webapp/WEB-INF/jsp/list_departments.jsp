@@ -120,7 +120,7 @@
 																
 																|
 																
-																<a href="javascript:void(0)" onClick="deleteDepartment(${dept.id})"><i class="fa fa-trash-o "></i></a>																
+																<a title="Delete Department" href="javascript:void(0)" onClick="deleteDepartment(${dept.id})"><i class="fa fa-trash-o "></i></a>																
 														</security:authorize></td>
 												</tr>
 											</c:forEach>

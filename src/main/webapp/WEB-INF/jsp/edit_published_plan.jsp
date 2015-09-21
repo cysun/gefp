@@ -244,7 +244,7 @@ $( ".checkpoint_list" ).sortable({
 	update: function( event, ui ) {
 		var planId = $('#planId').val();
 		var cellId = $(this).attr("id");
-		alert(cellId);
+		//alert(cellId);
 		var checkIds = $(this).sortable('toArray');
 		$.ajax({ url : '<c:url value="/admin/plan/reorder-checkpoints.html" />',
 			 method : 'POST',

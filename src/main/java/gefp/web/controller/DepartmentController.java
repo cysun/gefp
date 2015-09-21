@@ -185,6 +185,8 @@ public class DepartmentController {
 
         if( department != null && flightplan != null )
         {
+            
+            flightplan.setPublished( true );
             department.setDefaultPlan( flightplan );
             deptDao.saveDepartment( department );
             return "redirect:/admin/department/list-plans.html?id="

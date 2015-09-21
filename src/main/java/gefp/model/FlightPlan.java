@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -56,7 +57,7 @@ public class FlightPlan implements Serializable {
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "flightPlan")
     private List<Cell> cells;
 
-    @OneToOne
+    @ManyToOne
     @Where(clause = "deleted = 'f'")
     Department department;
 

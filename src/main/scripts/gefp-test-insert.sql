@@ -43,7 +43,7 @@ INSERT INTO stages (id, name, parent_id) VALUES (73, 'Graduation  (Landing)', NU
 -- Data for Name: department_plans; Type: TABLE DATA; Schema: public; Owner: gefp
 --
 
-INSERT INTO department_plans (department_id, plan_id) VALUES (1, 64);
+--INSERT INTO department_plans (department_id, plan_id) VALUES (1, 64);
 
 
 --

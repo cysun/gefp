@@ -118,8 +118,12 @@
 
 									<c:if test="${student_mode != true}">
 										<div class="pull-right">
-
+											
+											
 											<c:if test="${showStats != true }">
+												<a title="Back to Listings" class=""
+														href="<c:url value="/admin/list-departments.html" />"><i
+														class="fa fa-arrow-left"></i></a>
 												<c:if test="${plan.published == true }">
 													<a title="View Plan Statistics" class=""
 														href="<c:url value="/plan/view/${plan.id}.html?showStats=true" />"><i

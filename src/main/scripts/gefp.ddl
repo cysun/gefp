@@ -46,11 +46,6 @@
         primary key (id)
     );
 
-    create table department_plans (
-        department_id int4 not null,
-        plan_id int8 not null
-    );
-
     create table departments (
         id int4 not null,
         active boolean not null,
@@ -154,9 +149,6 @@
     alter table checkpoint_info_comments 
         add constraint UK_2umxy8nc75gwo3e226t49xwud unique (comment_id);
 
-    alter table department_plans 
-        add constraint UK_huvk9td7lxurmvpn2a3bji8a3 unique (plan_id);
-
     alter table flightplan_runways 
         add constraint UK_50kuq1dpt3aqxcs4fbq3g6rub unique (runway_id);
 
@@ -220,16 +212,6 @@
         add constraint FK_1wf9r8tt6uplitq11live2dk3 
         foreign key (commentedBy_id) 
         references users;
-
-    alter table department_plans 
-        add constraint FK_huvk9td7lxurmvpn2a3bji8a3 
-        foreign key (plan_id) 
-        references flightplans;
-
-    alter table department_plans 
-        add constraint FK_1ua4dr9e77minpmjjwcbhgsk6 
-        foreign key (department_id) 
-        references departments;
 
     alter table departments 
         add constraint FK_teos0btacmvhp1xyob6dx4m16 

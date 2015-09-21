@@ -78,10 +78,10 @@ CREATE TABLE comments (
 -- Name: department_plans; Type: TABLE; Schema: public; Owner: gefp; Tablespace: 
 --
 
-CREATE TABLE department_plans (
-    department_id integer NOT NULL,
-    plan_id bigint NOT NULL
-);
+--CREATE TABLE department_plans (
+--    department_id integer NOT NULL,
+--    plan_id bigint NOT NULL
+--);
 
 --
 -- Name: departments; Type: TABLE; Schema: public; Owner: gefp; Tablespace: 
@@ -284,8 +284,8 @@ ALTER TABLE ONLY cell_checkpoints
 -- Name: fk_1ua4dr9e77minpmjjwcbhgsk6; Type: FK CONSTRAINT; Schema: public; Owner: gefp
 --
 
-ALTER TABLE ONLY department_plans
-    ADD CONSTRAINT fk_1ua4dr9e77minpmjjwcbhgsk6 FOREIGN KEY (department_id) REFERENCES departments(id);
+--ALTER TABLE ONLY department_plans
+--    ADD CONSTRAINT fk_1ua4dr9e77minpmjjwcbhgsk6 FOREIGN KEY (department_id) REFERENCES departments(id);
 
 --
 -- Name: fk_3eqlt264c3rc8n84quloojtyk; Type: FK CONSTRAINT; Schema: public; Owner: gefp
@@ -368,8 +368,8 @@ ALTER TABLE ONLY flightplan_stages
 -- Name: fk_huvk9td7lxurmvpn2a3bji8a3; Type: FK CONSTRAINT; Schema: public; Owner: gefp
 --
 
-ALTER TABLE ONLY department_plans
-    ADD CONSTRAINT fk_huvk9td7lxurmvpn2a3bji8a3 FOREIGN KEY (plan_id) REFERENCES flightplans(id);
+--ALTER TABLE ONLY department_plans
+--    ADD CONSTRAINT fk_huvk9td7lxurmvpn2a3bji8a3 FOREIGN KEY (plan_id) REFERENCES flightplans(id);
 
 --
 -- Name: fk_km7rd8sgwa1qls24gkxoh2b2i; Type: FK CONSTRAINT; Schema: public; Owner: gefp
