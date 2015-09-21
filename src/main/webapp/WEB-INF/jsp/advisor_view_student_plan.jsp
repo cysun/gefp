@@ -85,7 +85,7 @@
 												id="StartEditMode" href="javascript:void(0)"><i
 													class="fa fa-edit "></i></a> <a class=""
 												href="<c:url value="/advisor/print-student-plan/${currUserObj.id}.html" />"><i
-													class="fa fa-print "></i></a></td>
+													class="fa fa-print"></i></a></td>
 										</tr>
 									</thead>
 									<tbody>
@@ -349,9 +349,7 @@
 							</security:authorize>
 						</tbody>
 					</table>
-
 				</div>
-
 
 			</div>
 			<!-- /. PAGE INNER  -->

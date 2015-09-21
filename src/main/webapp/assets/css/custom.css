@@ -834,3 +834,32 @@ a.override.label-primary:hover {
 		display: none;
 	}
 }
+
+.milestone_list_table {
+	margin:0px !important;
+	width:100%;
+	word-wrap:break-word;
+	table-layout: fixed;
+}
+
+.milestone_list_table tr {
+	margin:0px !important;
+}
+
+.milestone_list_table tr td {
+	margin:0px !important;
+	vertical-align: top;
+}
+
+.milestone_list_table tr td.first {
+	width:20px;
+}
+
+.milestone_list_table tr td p {
+	margin:0px !important;
+}
+
+.milestone_list_table tr td.plan_controls {
+	text-align: right;
+	width:20px !important;
+}

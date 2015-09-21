@@ -103,17 +103,13 @@
 																class="btn override btn-primary"><i
 																class="fa fa-edit "></i> Edit</a>
 														</security:authorize></td>
-
 												</tr>
-
 											</c:forEach>
 										</tbody>
 									</table>
 								</div>
 							</div>
-
 						</div>
-
 					</div>
 				</div>
 				<!-- /. ROW  -->

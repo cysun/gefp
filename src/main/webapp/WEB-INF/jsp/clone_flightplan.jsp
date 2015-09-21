@@ -81,7 +81,7 @@
 													<option value="Fall">Fall</option>
 													<option value="Winter">Winter</option>
 													<option value="Spring">Spring</option>
-													<option selected="selected" value="Summer">Summer</option>
+													<option selected="selected" value="Fall">Summer</option>
 												</select>
 											</div>
 											

@@ -368,7 +368,9 @@ public class UserController {
             Department newDept = deptDao.getDepartment( majorId );
             usr.setDepartment( newDept );
             usr.setMajor( newDept );
-            usr.setFlightPlan( newDept.getDefaultPlan() );
+            usr.getPlanHistory().add( usr.getFlightPlan() );
+            
+            usr.setFlightPlan( newDept.getDefaultPlan() );            
         }
         logger.info( "User " + principal.getName() + " updated "
             + usr.getUsername() + "'s profile information" );

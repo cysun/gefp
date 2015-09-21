@@ -163,11 +163,18 @@
 
 							</div>
 						</div>
+						
+						</div>
+						
+						</div>
+				<!-- /. ROW  -->
 
+						<div class="row">
+						<div class="col-md-12">
 						<c:choose>
 
 							<c:when test="${not empty plan }">
-								<div class="">
+								
 									<table id="sortable"
 										class="table table-striped table-bordered sar-table table-responsive">
 										<thead>
@@ -194,12 +201,13 @@
 																<td><c:forEach items="${plan.cells}" var="cell">
 																		<c:if
 																			test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
-																			<ul id="${cell.id}" class="checkpoint_list list">
+																			<table id="${cell.id}" class="checkpoint_list list milestone_list_table">
 																				<c:forEach items="${cell.checkpoints}"
 																					var="checkpoint">
 
 																					<c:if test="${not empty checkpoint}">
-																						<li id="${checkpoint.id}" class="list"><c:set
+																						<tr>
+																						<td id="${checkpoint.id}" class="list first"><c:set
 																								var="userCheckedPoint" value="0" /> <c:set
 																								var="checkMessage" value="" /> <c:forEach
 																								items="${currUserObj.checkpointsInfo}"
@@ -236,20 +244,28 @@
 																										value="${checkpoint.id}"
 																										class="flightplan_checkpoints pull-left" />
 																								</c:otherwise>
-																							</c:choose> <span class="checkpoint_information pull-left">
-																								${checkpoint.name} <security:authorize
+																							</c:choose>
+																							</td>
+																							<td>
+																							<span class="checkpoint_information pull-left">
+																								${checkpoint.name}
+																							</span>
+																							</td>
+																							
+																							<td class="plan_controls">	
+																							
+																							<security:authorize
 																									access="hasAnyRole('ADMIN','ADVISOR')">
-																								&nbsp;
-																								
-																								
 																								<c:if test="${showStats == true }">
+																										<span>
 																										<a
 																											href="<c:url value="/plan/statistics-details.html?checkpointId=${checkpoint.id}&planId=${plan.id}" />">
 																											(${checkpoint.total})</a>
+																											</span>
 																									</c:if>
-																								</security:authorize>
+																							</security:authorize>
 
-																						</span> <%-- <img
+																						 <%-- <img
 																									class="CommentIcon"
 																									src="<c:url value="/assets/img/comment-icon.png" />" /> --%>
 
@@ -259,11 +275,11 @@
 																									href="<c:url value="/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${StudentUser.id }"/>">
 																										<i class="fa fa-comments-o "></i>
 																								</a></span>
-																							</security:authorize></li>
-
+																							</security:authorize></td>
+																							</tr>
 																					</c:if>
 																				</c:forEach>
-																			</ul>
+																			</table>
 																		</c:if>
 																	</c:forEach></td>
 
@@ -277,20 +293,23 @@
 										</tbody>
 									</table>
 
-								</div>
 							</c:when>
 							<c:otherwise>
 								<div class="">Plan not available</div>
 							</c:otherwise>
 
 						</c:choose>
+						</div>
+						
+						</div>
 
-
+						<div class="row">
+						
 						<security:authorize access="hasRole('STUDENT')">
 
-							<div class="row">Comments:</div>
+							<div class="col-md-12">Comments:</div>
 
-							<div class="row">
+							<div class="col-md-12">
 								<table id="sortable"
 									class="table table-striped table-bordered sar-table table-responsive">
 									<thead>
@@ -336,7 +355,7 @@
 
 						</security:authorize>
 
-					</div>
+					
 				</div>
 				<!-- /. ROW  -->
 
