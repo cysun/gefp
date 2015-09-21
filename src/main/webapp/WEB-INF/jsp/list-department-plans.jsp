@@ -54,8 +54,8 @@
 
 
 							<div class="panel-body">
-								<div class="table-responsive">
-									<table class="table table-striped table-bordered">
+								<div class="table-responsive__">
+									<table id="dataTables" class="table table-striped table-bordered dataTable table-hover">
 										<thead>
 											<tr>
 												<th>#</th>
@@ -100,12 +100,13 @@
 
 														</c:choose></td>
 
-													<td><a title="View Flight Plan"
+													<td>
+													<a title="View Flight Plan"
 														href="<c:url value="/plan/view/${plan.id}.html" />"
-														class=""><i class="fa fa-expand "></i> </a> <a
+														class=""><i class="fa fa-expand "></i> </a> | <a
 														title="Copy Flight Plan"
 														href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
-														class=""><i class="fa fa-copy "></i> </a> <a
+														class=""><i class="fa fa-copy "></i> </a> | <a
 														title="Delete Flight Plan" href="javascript:void(0);"
 														onClick="deletePlan(${plan.id})" class=""><i
 															class="fa fa-trash-o "></i> </a></td>

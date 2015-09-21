@@ -67,25 +67,36 @@ public class Cell implements Serializable {
         cell.parent = this;
         cell.flightPlan = flightPlan;
 
-        for( Runway r : runways )
+        if( runway != null )
         {
-            if( r.getParent().getId().equals( runway.getId() ) )
+            for( Runway r : runways )
             {
-                cell.runway = r;
+                if( r.getParent() != null
+                    && r.getParent().getId().equals( runway.getId() ) )
+                {
+                    cell.runway = r;
+                }
             }
         }
 
-        for( Stage s : stages )
+        if( stage != null )
         {
-            if( s.getParent().getId().equals( stage.getId() ) )
+            for( Stage s : stages )
             {
-                cell.stage = s;
+                if( s.getParent() != null
+                    && s.getParent().getId().equals( stage.getId() ) )
+                {
+                    cell.stage = s;
+                }
             }
         }
 
         for( int i = 0; i < checkpoints.size(); i++ )
         {
-            cell.checkpoints.add( checkpoints.get( i ).clone() );
+            if( checkpoints.get( i ) != null )
+            {
+                cell.checkpoints.add( checkpoints.get( i ).clone() );
+            }
         }
         return cell;
     }

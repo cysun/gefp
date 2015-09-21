@@ -54,7 +54,8 @@ public class FlightPlan implements Serializable {
     @Where(clause = "deleted = 'f'")
     private List<Stage> stages;
 
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "flightPlan")
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+        mappedBy = "flightPlan")
     private List<Cell> cells;
 
     @ManyToOne
@@ -88,18 +89,27 @@ public class FlightPlan implements Serializable {
 
         for( int i = 0; i < stages.size(); i++ )
         {
-            flightplan.stages.add( stages.get( i ).clone() );
+            if( stages.get( i ) != null )
+            {
+                flightplan.stages.add( stages.get( i ).clone() );
+            }
         }
 
         for( int i = 0; i < runways.size(); i++ )
         {
-            flightplan.runways.add( runways.get( i ).clone() );
+            if( runways.get( i ) != null )
+            {
+                flightplan.runways.add( runways.get( i ).clone() );
+            }
         }
 
         for( int i = 0; i < cells.size(); i++ )
         {
-            flightplan.cells.add( cells.get( i ).clone( flightplan,
-                flightplan.runways, flightplan.stages ) );
+            if( cells.get( i ) != null )
+            {
+                flightplan.cells.add( cells.get( i ).clone( flightplan,
+                    flightplan.runways, flightplan.stages ) );
+            }
         }
 
         return flightplan;

@@ -90,14 +90,15 @@ public class FlightPlanController {
 
         if( fp != null )
         {
-            if(showStats != null && showStats.equals("true")) {
-            for( Cell cl : fp.getCells() )
-                for( Checkpoint cp : cl.getCheckpoints() )
-                    cp.setTotal( planDao.getUsersWhoCheckedCheckpoint( cp )
-                        .size() );
+            if( showStats != null && showStats.equals( "true" ) )
+            {
+                for( Cell cl : fp.getCells() )
+                    for( Checkpoint cp : cl.getCheckpoints() )
+                        cp.setTotal( planDao.getUsersWhoCheckedCheckpoint( cp )
+                            .size() );
             }
 
-            models.put("showStats", showStats);
+            models.put( "showStats", showStats );
             models.put( "comment", new Comment() );
             models.put( "plan", fp );
             return "view_plan";
@@ -485,12 +486,15 @@ public class FlightPlanController {
 
         for( Cell c : cells )
         {
-            if( c.getRunway().getId().equals( runwayId )
-                && c.getStage().getId().equals( stageId ) )
+            if( c.getRunway() != null && c.getStage() != null )
             {
-                cellExists = true;
-                c.getCheckpoints().add( checkpoint );
-                break;
+                if( c.getRunway().getId().equals( runwayId )
+                    && c.getStage().getId().equals( stageId ) )
+                {
+                    cellExists = true;
+                    c.getCheckpoints().add( checkpoint );
+                    break;
+                }
             }
         }
 
@@ -959,11 +963,11 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/plan/statistics-details.html",
         method = RequestMethod.GET)
-    public String planStats( @RequestParam Long planId, @RequestParam Long checkpointId, Principal principal,
-        ModelMap models )
+    public String planStats( @RequestParam Long planId,
+        @RequestParam Long checkpointId, Principal principal, ModelMap models )
     {
         FlightPlan fp = planDao.getFlightPlan( planId );
-        
+
         if( fp != null )
         {
             Checkpoint cp = checkpointDao.getCheckPoint( checkpointId );

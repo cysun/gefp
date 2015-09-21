@@ -92,13 +92,13 @@
 													<td><a title="View Plan"
 														href="<c:url value="/plan/view/${plan.id}.html" />"
 														class=""><i class="fa fa-expand "></i>
-													</a> <a title="Clone Plan"
+													</a> | <a title="Clone Plan"
 														href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
 														class=""><i
-															class="fa fa-copy "></i> </a> <a title="Delete Flight Plan"
+															class="fa fa-copy "></i> </a> | <a title="Delete Flight Plan"
 														href="javascript:void(0);" onClick="deletePlan(${plan.id})"
 														class=""><i
-															class="fa fa-remove "></i> </a></td>
+															class="fa fa-trash-o "></i> </a></td>
 												</tr>
 
 											</c:forEach>
