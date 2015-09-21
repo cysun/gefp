@@ -122,7 +122,7 @@
 											
 											<c:if test="${showStats != true }">
 												<a title="Back to Listings" class=""
-														href="<c:url value="/admin/list-departments.html" />"><i
+														href="<c:url value="/department/list-plans.html?id=${plan.department.id }" />"><i
 														class="fa fa-arrow-left"></i></a>
 												<c:if test="${plan.published == true }">
 													<a title="View Plan Statistics" class=""
