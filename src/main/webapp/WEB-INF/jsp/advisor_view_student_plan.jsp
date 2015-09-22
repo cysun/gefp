@@ -235,10 +235,11 @@
 														<td><c:forEach items="${plan.cells}" var="cell">
 																<c:if
 																	test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
-																	<ul id="${cell.id}" class="checkpoint_list list">
+																	<table id="${cell.id}" class="checkpoint_list list">
 																		<c:forEach items="${cell.checkpoints}"
 																			var="checkpoint">
-																			<li id="${checkpoint.id}" class="list"><c:set
+																			<tr>
+																			<td id="${checkpoint.id}" class="list"><c:set
 																					var="userCheckedPoint" value="0" /> <c:set
 																					var="checkMessage" value="" /> <c:forEach
 																					items="${currUserObj.checkpointsInfo}"
@@ -275,13 +276,21 @@
 
 
 																					</c:otherwise>
-																				</c:choose> <span class="checkpoint_information pull-left">
-																					${checkpoint.name} </span> <span> <a
+																				</c:choose>
+																				</td>
+																				
+																				<td>
+																				<span class="checkpoint_information pull-left">
+																					${checkpoint.name} </span>
+																				</td>
+																				<td class="plan_controls">
+																				<span> <a
 																					href="<c:url value="/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${currUserObj.id}"/>">
 																						<i class="fa fa-comments-o "></i>
-																				</a></span></li>
+																				</a></span></td>
+																				</tr>
 																		</c:forEach>
-																	</ul>
+																	</table>
 																</c:if>
 															</c:forEach></td>
 													</c:forEach>
