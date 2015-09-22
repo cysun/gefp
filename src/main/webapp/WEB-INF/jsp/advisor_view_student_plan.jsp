@@ -235,11 +235,11 @@
 														<td><c:forEach items="${plan.cells}" var="cell">
 																<c:if
 																	test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
-																	<table id="${cell.id}" class="checkpoint_list list">
+																	<table id="${cell.id}" class="checkpoint_list list milestone_list_table">
 																		<c:forEach items="${cell.checkpoints}"
 																			var="checkpoint">
 																			<tr>
-																			<td id="${checkpoint.id}" class="list"><c:set
+																			<td id="${checkpoint.id}" class="list first"><c:set
 																					var="userCheckedPoint" value="0" /> <c:set
 																					var="checkMessage" value="" /> <c:forEach
 																					items="${currUserObj.checkpointsInfo}"
