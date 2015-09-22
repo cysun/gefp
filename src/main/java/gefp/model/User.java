@@ -1,6 +1,7 @@
 package gefp.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -91,7 +92,7 @@ public class User implements Serializable, UserDetails {
         joinColumns = { @JoinColumn(name = "user_id") },
         inverseJoinColumns = { @JoinColumn(name = "comment_id") })
     @Where(clause = "deleted = 'f'")
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<Comment>();
     
     private boolean enabled;
 
@@ -101,12 +102,14 @@ public class User implements Serializable, UserDetails {
 
     public User()
     {
+        comments = new ArrayList<Comment>();
     }
 
     public User( String username, String password )
     {
         this.username = username;
         this.password = password;
+        comments = new ArrayList<Comment>();
     }
 
     public Long getId()
