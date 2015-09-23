@@ -116,9 +116,7 @@
 										</c:forEach>
 									</tr>
 								</thead>
-
 								<tbody>
-
 									<c:forEach items="${plan.stages}" var="stage"
 										varStatus="counter">
 										<tr class="state-default">
@@ -158,8 +156,6 @@
 																					data-userId="${currUserObj.id}"
 																					value="${checkpoint.id}"
 																					class="flightplan_checkpoints pull-left" />
-
-
 																			</c:otherwise>
 																		</c:choose>
 																		</td>

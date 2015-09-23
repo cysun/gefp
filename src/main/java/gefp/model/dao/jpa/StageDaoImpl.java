@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,6 +58,7 @@ public class StageDaoImpl implements StageDao {
 
     @Override
     @Transactional
+    @PreAuthorize("authenticated and hasRole('ADMIN')")
     public void removeStage( Stage stage )
     {
         // fetch all cells having this stage.

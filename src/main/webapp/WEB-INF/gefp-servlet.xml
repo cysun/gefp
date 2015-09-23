@@ -31,6 +31,16 @@
 
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
 	
+	<bean id="exceptionResolver" class="gefp.web.resolver.ExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="AccessDeniedException">exception/access</prop>
+                <prop key="MailException">exception/email</prop>
+            </props>
+        </property>
+        <property name="defaultErrorView" value="error_pages/default" />
+    </bean>
+	
 	<!-- Interceptors for all URLs -->
 <!-- 	<mvc:interceptors>
 		Default Interceptor for All URL

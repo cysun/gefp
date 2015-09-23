@@ -1,10 +1,14 @@
 package gefp.web.controller;
 
+import gefp.model.Cell;
+import gefp.model.Checkpoint;
+import gefp.model.CheckpointInfo;
 import gefp.model.Comment;
 import gefp.model.Department;
 import gefp.model.FlightPlan;
 import gefp.model.Role;
 import gefp.model.User;
+import gefp.model.dao.CheckpointDao;
 import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.FlightPlanDao;
 import gefp.model.dao.RoleDao;
@@ -56,6 +60,9 @@ public class UserController {
 
     @Autowired
     private FlightPlanDao planDao;
+
+    @Autowired
+    private CheckpointDao checkpointDao;
 
     @Autowired
     private RoleDao roleDao;
@@ -343,11 +350,12 @@ public class UserController {
 
     @RequestMapping(value = "/advisor/update-student-profile.html",
         method = RequestMethod.POST)
-    public void updateProfile( @RequestParam Long userId, HttpServletRequest request,
-        HttpServletResponse response, PrintWriter out, Principal principal )
+    public void updateProfile( @RequestParam Long userId,
+        HttpServletRequest request, HttpServletResponse response,
+        PrintWriter out, Principal principal )
     {
 
-        //long userId = Long.parseLong( request.getParameter( "userId" ) );
+        // long userId = Long.parseLong( request.getParameter( "userId" ) );
         String firstName = request.getParameter( "firstName" );
         String lastName = request.getParameter( "lastName" );
         String email = request.getParameter( "email" );
@@ -369,8 +377,56 @@ public class UserController {
             usr.setDepartment( newDept );
             usr.setMajor( newDept );
             usr.getPlanHistory().add( usr.getFlightPlan() );
-            
-            usr.setFlightPlan( newDept.getDefaultPlan() );            
+
+            // find parent plan
+            FlightPlan oldPlan = usr.getFlightPlan();
+            FlightPlan newPlan = newDept.getDefaultPlan();
+
+            FlightPlan parentPlan = planDao.findParent( oldPlan, newPlan );
+
+            // Both are not independent plans
+            if( parentPlan != null )
+            {
+
+                if( parentPlan.equals( oldPlan ) )
+                {
+
+                    List<Checkpoint> milestonesInNewPlan = new ArrayList<Checkpoint>();
+                    for( Cell c : newPlan.getCells() )
+                    {
+                        for( Checkpoint cp : c.getCheckpoints() )
+                        {
+                            milestonesInNewPlan.add( cp );
+                        }
+                    }
+
+                    Set<CheckpointInfo> userCheckedPoints = usr.getCheckpointsInfo();
+                    Set<CheckpointInfo> newPlanCheckedPoints = new HashSet<CheckpointInfo>();
+
+                    for( CheckpointInfo cp_info : userCheckedPoints )
+                    {
+                        for( Checkpoint cpk : milestonesInNewPlan )
+                        {
+                            if( checkpointDao.hasConnectionLink(
+                                cp_info.getCheckpoint(), cpk ) )
+                            {
+                                newPlanCheckedPoints.add( new CheckpointInfo(
+                                    cpk, "" ) );
+                            }
+                        }
+                    }
+
+                    usr.getCheckpointsInfo().addAll( newPlanCheckedPoints );
+
+                    System.out.println( "Checkpoints will be transferred to new plan" );
+                }
+                else
+                {
+                    // Fetching children logic goes here.
+                }
+            }
+
+            usr.setFlightPlan( newDept.getDefaultPlan() );
         }
         logger.info( "User " + principal.getName() + " updated "
             + usr.getUsername() + "'s profile information" );
@@ -463,10 +519,46 @@ public class UserController {
         sessionUserObj.setMajor( d );
         sessionUserObj.setDepartment( d );
         sessionUserObj.setFlightPlan( d.getDefaultPlan() );
+        sessionUserObj.getPlanHistory().add(d.getDefaultPlan());
         sessionUserObj.setNewAccount( false );
         userDao.saveUser( sessionUserObj );
         return "redirect:/student/view-plan/" + sessionUserObj.getId()
             + ".html";
+    }
+
+    @RequestMapping("/advisor/student-plan-history.html")
+    public String viewStudentHistory( @RequestParam Long userId,
+        ModelMap models, Principal principal )
+    {
+        User currUserObj = userDao.getUser( userId );
+
+        if( currUserObj != null )
+        {
+            models.put( "currUserObj", currUserObj );
+            return "student_plan_history";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+    }
+    
+    @RequestMapping("/advisor/change-student-default-plan.html")
+    public String changeDefaultStudentPlan(@RequestParam Long userId, @RequestParam Long planId,
+        ModelMap models, Principal principal) {
+        
+        User currUserObj = userDao.getUser( userId );
+        FlightPlan plan = planDao.getFlightPlan( planId );
+        
+        if(!currUserObj.getFlightPlan().getId().equals( planId )) {
+            // currUserObj.getPlanHistory().add( plan );
+            currUserObj.setFlightPlan( plan );
+            currUserObj.setMajor( plan.getDepartment() );
+            currUserObj.setDepartment( plan.getDepartment() );
+            userDao.saveUser( currUserObj );
+        }
+        
+        return "redirect:/advisor/student-plan-history.html?userId="+userId;
     }
 
     @RequestMapping("/advisor/print-student-plan/{id}.html")

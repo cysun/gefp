@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -147,6 +148,7 @@ public class DepartmentController {
 
     @RequestMapping(value = "/admin/department/delete.html",
         method = RequestMethod.GET)
+    @PreAuthorize("authenticated and hasRole('ADMIN')")
     public String deleteDepartment( @RequestParam Integer departmentId,
         Principal principal )
     {

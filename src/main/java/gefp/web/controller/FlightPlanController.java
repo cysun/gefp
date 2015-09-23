@@ -33,6 +33,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -591,6 +592,13 @@ public class FlightPlanController {
         HttpServletRequest request, ModelMap models,
         SessionStatus sessionStatus, Principal principal ) throws Exception
     {
+        Checkpoint original = checkpointDao.getCheckPoint( checkpoint.getId() );
+
+        if( !original.getName().equals( checkpoint.getName() ) )
+        {
+            checkpoint.setParent( null );
+        }
+
         Long chkId = Long.parseLong( request.getParameter( "chkId" ) );
         Long planId = Long.parseLong( request.getParameter( "planId" ) );
         Long cellId = Long.parseLong( request.getParameter( "cellId" ) );
@@ -604,11 +612,14 @@ public class FlightPlanController {
 
         for( Cell c : cells )
         {
-            if( c.getRunway().getId().equals( runwayId )
-                && c.getStage().getId().equals( stageId ) )
+            if( c.getRunway() != null && c.getStage() != null )
             {
-                cellExists = true;
-                newCellId = c.getId();
+                if( c.getRunway().getId().equals( runwayId )
+                    && c.getStage().getId().equals( stageId ) )
+                {
+                    cellExists = true;
+                    newCellId = c.getId();
+                }
             }
         }
 
@@ -649,29 +660,34 @@ public class FlightPlanController {
         {
             for( Cell c : cells )
             {
-                if( c.getRunway().getId().equals( runwayId )
-                    && c.getStage().getId().equals( stageId ) )
+                if( c.getRunway() != null && c.getStage() != null )
                 {
-                    int currentIndex = c.getCheckpoints().indexOf(
-                        checkpointDao.getCheckPoint( chkId ) );
+                    if( c.getRunway().getId().equals( runwayId )
+                        && c.getStage().getId().equals( stageId ) )
+                    {
+                        int currentIndex = c.getCheckpoints().indexOf(
+                            checkpointDao.getCheckPoint( chkId ) );
 
-                    if( currentIndex < 0 )
-                    { // Add the checkpoint to new cell
-                        c.getCheckpoints().add( checkpoint );
+                        if( currentIndex < 0 )
+                        { // Add the checkpoint to new cell
+                            c.getCheckpoints().add( checkpoint );
+                        }
+                        else
+                        {// Get index of the checkpoint and update it
+                            c.getCheckpoints().set( currentIndex, checkpoint );
+                            // throw new
+                            // Exception("Checkpoint updated in same cell." +
+                            // " index="+currentIndex + " ");
+                            // throw new
+                            // Exception("Error in updating the checkpoint. No checkpoint with id "
+                            // + chkId +
+                            // " is found in Cell. Using parameters newCellId="
+                            // +
+                            // newCellId + " cellId=" + cellId +
+                            // " index="+index);
+                        }
+                        break;
                     }
-                    else
-                    {// Get index of the checkpoint and update it
-                        c.getCheckpoints().set( currentIndex, checkpoint );
-                        // throw new
-                        // Exception("Checkpoint updated in same cell." +
-                        // " index="+currentIndex + " ");
-                        // throw new
-                        // Exception("Error in updating the checkpoint. No checkpoint with id "
-                        // + chkId +
-                        // " is found in Cell. Using parameters newCellId=" +
-                        // newCellId + " cellId=" + cellId + " index="+index);
-                    }
-                    break;
                 }
             }
         }
@@ -698,6 +714,7 @@ public class FlightPlanController {
 
     @RequestMapping(value = "/admin/plan/remove-checkpoint.html",
         method = RequestMethod.GET)
+    @PreAuthorize("authenticated hasRole('ADMIN')")
     public String removeCheckpoint( @RequestParam Long id,
         @RequestParam Long cellId, @RequestParam Long planId,
         Principal principal )

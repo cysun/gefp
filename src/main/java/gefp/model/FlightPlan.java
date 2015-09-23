@@ -224,5 +224,10 @@ public class FlightPlan implements Serializable {
     {
         this.deleted = deleted;
     }
+    
+    @Override
+    public String toString() {
+        return "Id="+id+", Name="+name;
+    }
 
 }

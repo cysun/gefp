@@ -82,16 +82,21 @@
 		 <security:form-login login-page="/login.html"
 			authentication-success-handler-ref="authenticationSuccessHandler"
 			authentication-failure-url="/login.html?error=true" />
-		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/admin/**" access="authenticated and hasRole('ADMIN')" />
+		<security:intercept-url pattern="/admin/department/set-official-plan.html**" access="authenticated and hasRole('ADMIN')" />
+		<security:intercept-url pattern="/plan/edit/**" access="authenticated and hasRole('ADMIN')" />
+		<security:intercept-url pattern="/plan/clone/**" access="authenticated and hasRole('ADMIN')" />
+		<security:intercept-url pattern="/plan/statistics-details.html**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
+		
+		
 		<security:intercept-url pattern="/advisor/**" access="hasAnyRole('ADMIN', 'ADVISOR')" />
 		<security:intercept-url pattern="/student/**" access="hasAnyRole('ADMIN', 'ADVISOR','STUDENT')" />
 		<security:intercept-url pattern="/user/profile/**" access="authenticated" />
 		<security:intercept-url pattern="/autocomplete/user**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
 		<security:intercept-url pattern="/search/users.html" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
 		<security:intercept-url pattern="/plan/view/**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
-		<security:intercept-url pattern="/plan/edit/**" access="authenticated and hasRole('ADMIN')" />
 		<security:intercept-url pattern="/department/list-students.html**" access="authenticated and hasAnyRole('ADMIN','ADVISOR')" />
-		<security:intercept-url pattern="/plan/clone/**" access="authenticated and hasRole('ADMIN')" />
+		<security:intercept-url pattern="/plan/milestone/add-comment.html**" access="authenticated" />
 		<security:access-denied-handler error-page="/403.jsp" />
 	</security:http>
 	

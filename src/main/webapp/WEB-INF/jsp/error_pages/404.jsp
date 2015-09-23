@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>404 Page not found</title>
+<title>Golden Eagle Flight Plan | 404 Page not found</title>
 <jsp:include page="/WEB-INF/jsp/includes/styles.jsp" />
 
 </head>

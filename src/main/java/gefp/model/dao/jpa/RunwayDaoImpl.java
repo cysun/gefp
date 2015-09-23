@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,6 +57,7 @@ public class RunwayDaoImpl implements RunwayDao {
 
     @Override
     @Transactional
+    @PreAuthorize("authenticated and hasRole('ADMIN')")
     public void deleteRunwayFromFlightPlan( Runway runway, FlightPlan plan )
     {
         String query = "delete from flightplan_runways where flightplan_id = :flightplan_id and runway_id = :runway_id";

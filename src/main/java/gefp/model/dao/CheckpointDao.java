@@ -18,4 +18,6 @@ public interface CheckpointDao {
 
     Set<CheckpointInfo> getCheckPointsForUser( Long user_id, Long plan_id );
 
+    boolean hasConnectionLink( Checkpoint c1, Checkpoint c2 );
+
 }

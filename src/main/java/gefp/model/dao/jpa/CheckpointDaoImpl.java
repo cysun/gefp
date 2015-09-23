@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +51,7 @@ public class CheckpointDaoImpl implements CheckpointDao {
 
     @Override
     @Transactional
+    @PreAuthorize("authenticated and hasRole('ADMIN')")
     public Checkpoint saveCheckPoint( Checkpoint checkpoint )
     {
         return entityManager.merge( checkpoint );
@@ -86,6 +88,38 @@ public class CheckpointDaoImpl implements CheckpointDao {
         {
             return null;
         }
+    }
+    
+    @Override
+    public boolean hasConnectionLink( Checkpoint c1, Checkpoint c2 )
+    {
+        Checkpoint cp1 = c1;
+        Checkpoint cp2 = c2;
+        
+        if(c1.getParent() == null && c2.getParent() == null) {
+            return false;
+        }
+        else {
+            
+            while(cp1.getParent() != null) {
+                if(cp1.getParent().getId().equals(c2.getId())) {
+                    //System.out.println("1--");
+                    //System.out.println(c2.getId() + " is parent of " + c1.getId());
+                    return true;
+                }
+                cp1 = cp1.getParent();
+            }
+            
+            while(cp2.getParent() != null) {
+                if(cp2.getParent().getId().equals(c1.getId())) {
+                    //System.out.println("2--");
+                    //System.out.println(c1.getId() + " is parent of " + c2.getId());
+                    return true;
+                }
+                cp2 = cp2.getParent();
+            }
+        }
+        return false;
     }
 
 }

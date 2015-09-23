@@ -46,8 +46,7 @@
 						<ol class="breadcrumb">
 							<security:authorize access="hasRole('ADMIN')">
 								<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
-								<li><a href="<c:url value="/admin/list-plans.html"/>">Flight
-										Plans</a></li>
+								<li><a href="<c:url value="/admin/list-users.html"/>">Users</a></li>
 							</security:authorize>
 
 							<security:authorize access="hasRole('ADVISOR')">
@@ -169,11 +168,8 @@
 													<i class="fa fa-save "></i>
 												</button></td>
 										</tr>
-
 									</tbody>
 								</table>
-
-
 
 								<div class="col-xs-offset-5 ">
 									<div id="successMessage" style="color: #090; display: none;">
@@ -193,7 +189,11 @@
 
 											<div class="pull-left">Student's Flight Plan -
 												${plan.name} (${plan.seasonName} ${plan.seasonYear})</div>
-											<div class="studentPlanTitle pull-right"></div>
+											<div class="studentPlanTitle pull-right">
+												<a title="View Flight Plan History"
+													href="<c:url value="/advisor/student-plan-history.html?userId=${currUserObj.id}"/>"><i
+													class="fa fa-history "></i></a>
+											</div>
 
 										</div>
 									</div>
@@ -235,34 +235,35 @@
 														<td><c:forEach items="${plan.cells}" var="cell">
 																<c:if
 																	test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
-																	<table id="${cell.id}" class="checkpoint_list list milestone_list_table">
+																	<table id="${cell.id}"
+																		class="checkpoint_list list milestone_list_table">
 																		<c:forEach items="${cell.checkpoints}"
 																			var="checkpoint">
 																			<tr>
-																			<td id="${checkpoint.id}" class="list first"><c:set
-																					var="userCheckedPoint" value="0" /> <c:set
-																					var="checkMessage" value="" /> <c:forEach
-																					items="${currUserObj.checkpointsInfo}"
-																					var="userChkInfo">
+																				<td id="${checkpoint.id}" class="list first"><c:set
+																						var="userCheckedPoint" value="0" /> <c:set
+																						var="checkMessage" value="" /> <c:forEach
+																						items="${currUserObj.checkpointsInfo}"
+																						var="userChkInfo">
 
-																					<c:if
-																						test="${userChkInfo.checkpoint.id == checkpoint.id }">
-																						<c:set var="userCheckedPoint" value="1" />
-																						<c:set var="checkMessage"
-																							value="${userChkInfo.message}" />
-																					</c:if>
+																						<c:if
+																							test="${userChkInfo.checkpoint.id == checkpoint.id }">
+																							<c:set var="userCheckedPoint" value="1" />
+																							<c:set var="checkMessage"
+																								value="${userChkInfo.message}" />
+																						</c:if>
 
-																				</c:forEach> <c:choose>
+																					</c:forEach> <c:choose>
 
-																					<c:when test="${userCheckedPoint == 1}">
+																						<c:when test="${userCheckedPoint == 1}">
 
-																						<input checked type="checkbox" name="checkpoints"
-																							data-userId="${currUserObj.id}"
-																							value="${checkpoint.id}"
-																							class="flightplan_checkpoints pull-left" />
+																							<input checked type="checkbox" name="checkpoints"
+																								data-userId="${currUserObj.id}"
+																								value="${checkpoint.id}"
+																								class="flightplan_checkpoints pull-left" />
 
-																						<c:if test="${not empty checkMessage }">
-																							<img data-comment="${checkMessage}"
+																							<c:if test="${not empty checkMessage }">
+																								<img data-comment="${checkMessage}"
 																								class="CommentIcon CommentIconClick"
 																								src="<c:url value="/assets/img/comment-icon.png" />" />
 																						</c:if>

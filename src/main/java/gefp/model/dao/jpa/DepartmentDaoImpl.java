@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +48,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     @Transactional
+    @PreAuthorize("authenticated and hasRole('ADMIN')")
     public Department saveDepartment( Department department )
     {
         return entityManager.merge( department );

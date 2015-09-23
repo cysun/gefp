@@ -15,4 +15,6 @@ public interface FlightPlanDao {
     FlightPlan saveFlightPlan( FlightPlan flightplan );
     
     List<User> getUsersWhoCheckedCheckpoint(Checkpoint checkpoint);
+
+    FlightPlan findParent( FlightPlan p1, FlightPlan p2 );
 }
