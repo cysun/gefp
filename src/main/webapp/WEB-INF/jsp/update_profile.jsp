@@ -37,7 +37,12 @@
 						<!-- Form Elements -->
 						<div class="panel panel-default">
 							
-							<div class="panel-heading">Update Profile</div>
+							<div class="panel-heading">Update Profile
+							
+							<div class="pull-right" style="padding: 0 15px 0 0;">
+										<span class="compulsary">*</span> Required
+									</div>
+							</div>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12">
@@ -77,7 +82,7 @@
 															<span style="color: #900">${cinErr}</span> <c:remove
 																var="cinErr" />
 															</td>
-														<th>Major: </th>
+														<th>Major: <span class="compulsary">*</span></th>
 														<td>
 														
 														 
