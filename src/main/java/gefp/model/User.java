@@ -84,7 +84,7 @@ public class User implements Serializable, UserDetails {
     @JoinTable(name = "user_plan_history",
     joinColumns = { @JoinColumn(name = "user_id") },
     inverseJoinColumns = { @JoinColumn(name = "plan_id") })
-    private List<FlightPlan> planHistory;
+    private List<FlightPlan> planHistory = new ArrayList<FlightPlan>();
     
     
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -103,6 +103,7 @@ public class User implements Serializable, UserDetails {
     public User()
     {
         comments = new ArrayList<Comment>();
+        planHistory = new ArrayList<FlightPlan>();
     }
 
     public User( String username, String password )
@@ -110,6 +111,7 @@ public class User implements Serializable, UserDetails {
         this.username = username;
         this.password = password;
         comments = new ArrayList<Comment>();
+        planHistory = new ArrayList<FlightPlan>();
     }
 
     public Long getId()
