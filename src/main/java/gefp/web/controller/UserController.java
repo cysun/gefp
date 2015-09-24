@@ -525,6 +525,33 @@ public class UserController {
         return "redirect:/student/view-plan/" + sessionUserObj.getId()
             + ".html";
     }
+    
+    
+    @RequestMapping("/student/print-flightplan.html")
+    public String studentPrintPlan(ModelMap models, HttpSession session, Principal principal) {
+        User currUserObj = (User) session.getAttribute( "loggedInUser" );
+
+        if( currUserObj != null )
+        {
+            models.put( "currUserObj", currUserObj );
+            FlightPlan plan = null;
+
+            if( currUserObj.getFlightPlan() != null )
+            {
+                plan = planDao.getFlightPlan( currUserObj.getFlightPlan()
+                    .getId() );
+            }
+            models.put( "plan", plan );
+            logger.info( "User " + principal.getName()
+                + " printed their flightPlan" );
+            return "print_plan";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+    }
+    
 
     @RequestMapping("/advisor/student-plan-history.html")
     public String viewStudentHistory( @RequestParam Long userId,
@@ -581,7 +608,7 @@ public class UserController {
             }
             models.put( "plan", plan );
             logger.info( "User " + principal.getName()
-                + " viewed flightPlan of " + currUserObj.getUsername() );
+                + " printed flightPlan of " + currUserObj.getUsername() );
             return "print_plan";
         }
         else

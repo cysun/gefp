@@ -150,6 +150,10 @@
 										<a style="text-decoration: underline;"
 											class="btn override btn-link"
 											href="<c:url value="/user/profile.html"/>">Edit Profile</a>
+											
+										<a class=""
+												href="<c:url value="/student/print-flightplan.html" />"><i
+													class="fa fa-print"></i></a>
 									</div>
 
 								</c:if>

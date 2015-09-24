@@ -14,7 +14,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | Print Flight Plan</title>
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
@@ -32,11 +32,10 @@
 
 				<c:choose>
 					<c:when test="${not empty StudentUser}">
-
-						<a class="btn override btn-primary"
-							href="<c:url value="/advisor/view-student-plan/${currUserObj.id}.html" />"><i
-							class="fa fa-print "></i></a>
-
+						<a class="noprint"
+							href="<c:url value="/student/view-plan/${currUserObj.id}.html" />">
+							<i class="fa fa-arrow-left noprint"></i>
+						</a>
 					</c:when>
 					<c:otherwise>
 
@@ -44,16 +43,14 @@
 							href="<c:url value="/advisor/view-student-plan/${currUserObj.id}.html" />">
 							<i class="fa fa-arrow-left noprint"></i>
 						</a>
-						
-						<span class="ml10">
-							${currUserObj.firstName} ${currUserObj.lastName}'s Flight Plan
-						</span>
-						
-						<a class="pull-right" href="javascript:window.print();"> <i class="fa fa-print noprint"></i>
-						</a>
-
 					</c:otherwise>
 				</c:choose>
+				<span class="ml10">
+							${currUserObj.firstName} ${currUserObj.lastName}'s Flight Plan
+						</span>
+				
+				<a title="Print Flight Plan" class="pull-right" href="javascript:window.print();"> <i class="fa fa-print noprint"></i>
+						</a>
 
 				<!-- /. ROW  -->
 
