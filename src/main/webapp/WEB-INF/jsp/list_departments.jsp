@@ -11,7 +11,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan | List of Departments</title>
+<title>Golden Eagle Flight Plan | List of Majors</title>
 <jsp:include page="includes/styles.jsp" />
 </head>
 <body>
@@ -29,14 +29,14 @@
 				<security:authorize access="authenticated and hasRole('ADMIN')">
 					<ol class="breadcrumb">
 						<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
-						<li class="active">Departments</li>
+						<li class="active">Majors</li>
 					</ol>
 				</security:authorize>
 
 				<security:authorize access="authenticated and hasRole('ADVISOR')">
 					<ol class="breadcrumb">
 						<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
-						<li class="active">Departments</li>
+						<li class="active">Majors</li>
 					</ol>
 				</security:authorize>
 
@@ -50,13 +50,13 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="pull-left">
-									<h5>List of Departments</h5>
+									<h5>List of Majors</h5>
 								</div>
 
 								<security:authorize access="authenticated and hasRole('ADMIN')">
 									<div class="pull-right">
-										<h5><a title="Add New Department" href="<c:url value="/admin/department/add.html"/>"
-											class=""><i class="fa fa-plus-square-o "></i> Add Department</a></h5>
+										<h5><a title="Create New Major" href="<c:url value="/admin/department/add.html"/>"
+											class=""><i class="fa fa-plus-square-o "></i> Create new Major</a></h5>
 									</div>
 								</security:authorize>
 								<div class="clearfix"></div>
@@ -68,8 +68,7 @@
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Department Name</th>
-												<!-- <th>Active Plan Name</th> -->
+												<th>Major</th>
 												<th>Operations</th>
 											</tr>
 										</thead>
@@ -113,14 +112,14 @@
 															|	
 															<security:authorize
 															access="authenticated and hasRole('ADMIN')">
-															<a title="Edit Department"
+															<a title="Edit Major"
 																href="<c:url value="/admin/department/edit.html?id=${dept.id}" />"
 																class=""><i class="fa fa-edit "></i>
 																</a>
 																
 																|
 																
-																<a title="Delete Department" href="javascript:void(0)" onClick="deleteDepartment(${dept.id})"><i class="fa fa-trash-o "></i></a>																
+																<a title="Delete Major" href="javascript:void(0)" onClick="deleteDepartment(${dept.id})"><i class="fa fa-trash-o "></i></a>																
 														</security:authorize></td>
 												</tr>
 											</c:forEach>

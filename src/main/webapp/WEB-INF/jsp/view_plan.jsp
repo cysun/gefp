@@ -14,7 +14,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | View Flight Plan</title>
 <jsp:include page="includes/styles.jsp" />
 
 </head>
@@ -54,13 +54,13 @@
 						<ol class="breadcrumb">
 							<security:authorize access="hasRole('ADMIN')">
 								<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
-								<li><a href="<c:url value="/admin/list-departments.html"/>">Departments</a></li>
+								<li><a href="<c:url value="/admin/list-departments.html"/>">Majors</a></li>
 							</security:authorize>
 
 							<security:authorize access="hasRole('ADVISOR')">
 								<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
 								<li><a
-									href="<c:url value="/advisor/list-departments.html"/>">Departments</a></li>
+									href="<c:url value="/advisor/list-departments.html"/>">Majors</a></li>
 							</security:authorize>
 
 							<li class="active">View Plan</li>
@@ -159,7 +159,7 @@
 
 
 							<div class="panel-body">
-								Department: <b>${plan.department.name}</b>
+								Major: <b>${plan.department.name}</b>
 
 							</div>
 						</div>

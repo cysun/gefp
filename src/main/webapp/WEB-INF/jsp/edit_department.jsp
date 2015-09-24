@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | Edit Major Title</title>
 <jsp:include page="includes/styles.jsp" />
 </head>
 <body>
@@ -26,8 +26,8 @@
 		
 			<ol class="breadcrumb">
 				<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
-				<li><a href="<c:url value="/admin/list-departments.html"/>">Departments</a></li>
-				<li class="active">Edit Department</li>
+				<li><a href="<c:url value="/admin/list-departments.html"/>">Majors</a></li>
+				<li class="active">Edit Major</li>
 			</ol>
 		
 			<div id="page-inner">
@@ -38,7 +38,7 @@
 					<div class="col-md-12">
 						<!-- Form Elements -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Edit Department
+							<div class="panel-heading">Edit Major
 							
 							<div class="pull-right" style="padding: 0 15px 0 0;">
 										<span class="compulsary">*</span> Required
@@ -50,13 +50,13 @@
 										<form:form class="form-horizontal" modelAttribute="department"
 											action="/gefp/admin/department/edit.html" method="post">
 											<div class="form-group">
-												<label class="col-sm-2 control-label">Department
-													Name <span class="compulsary">*</span></label>
+												<label class="col-sm-2 control-label">Major
+													Title <span class="compulsary">*</span></label>
 
 												<div class="col-sm-10">
 													<form:input class="form-control" path="name" />
 													<c:if test="${error == true }">
-														<span class="errMsg">Please enter Department Name</span>
+														<span class="errMsg">Please enter Major Title</span>
 													</c:if>
 												</div>
 											</div>

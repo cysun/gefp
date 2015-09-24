@@ -88,7 +88,7 @@
 														 
 														<select class="form-control" name="departmentID"
 															id="majorInp">
-																<option value="">--Select Department--</option>
+																<option value="">--Select Major--</option>
 
 																<c:forEach var="dept" items="${departments}">
 																	<c:if test="${dept.defaultPlan != null}">

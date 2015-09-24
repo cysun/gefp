@@ -26,7 +26,7 @@
 
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
-					<li><a href="<c:url value="/admin/list-departments.html"/>">Departments</a></li>
+					<li><a href="<c:url value="/admin/list-departments.html"/>">Majors</a></li>
 					<li class="active">${department.name}</li>
 				</ol>
 
@@ -40,13 +40,13 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<div class="pull-left">
-									<h5>Department: <b>${department.name}</b></h5>
+									<h5>Major: <b>${department.name}</b></h5>
 								</div>
 								<div class="pull-right">
 									<a
 										href="<c:url value="/admin/plan/add.html?departmentId=${department.id }"/>"
-										class="btn override btn-primary"><i class="fa fa-plus "></i>
-										Add Plan</a>
+										class=""><i class="fa fa-plus-square-o "></i>
+										Create Plan</a>
 								</div>
 								<div class="clearfix"></div>
 							</div>

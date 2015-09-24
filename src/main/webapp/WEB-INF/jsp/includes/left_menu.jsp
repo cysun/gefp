@@ -12,7 +12,7 @@
 			<li><a class="greyColor" href="<c:url value="/admin/dashboard.html" />" ><i class="fa fa-dashboard fa-3x"></i>
 					Dashboard</a></li>
 			<li><a class="greyColor" href="<c:url value="/admin/list-departments.html" />"><i class="fa fa-book fa-3x"></i>
-					Departments</a></li>
+					Majors</a></li>
 			<%-- <li><a class="greyColor" href="<c:url value="/admin/list-plans.html" />"><i class="fa fa-table fa-3x"></i>
 					Flight Plans</a></li> --%>
 			<li><a class="greyColor" href="<c:url value="/admin/list-users.html" />"><i class="fa fa-user fa-3x"></i>
@@ -33,7 +33,7 @@
 			<li><a class="greyColor" href="<c:url value="/advisor/dashboard.html" />" ><i class="fa fa-dashboard fa-3x"></i>
 					Dashboard</a></li>
 			<li><a class="greyColor" href="<c:url value="/advisor/list-departments.html" />"><i class="fa fa-book fa-3x"></i>
-					Departments</a></li>		
+					Majors</a></li>		
 			<li><a class="greyColor" href="<c:url value="/advisor/list-students.html" />"><i class="fa fa-user fa-3x"></i>
 					Students</a></li>
 		</ul>
