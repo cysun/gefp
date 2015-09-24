@@ -90,11 +90,12 @@
 											</b>
 												</span>
 											</h5>
+											Major: ${plan.department.name}
 										</div>
 
 										<div class="pull-right">
 											<a class=""
-												href="<c:url value="/plan/view/${plan.id}.html" />"><i
+												href="<c:url value="/plan/view/${plan.id}.html?showStats=true" />"><i
 												class="fa fa-arrow-left "></i> Back</a>
 										</div>
 										<div style="clear: both;"></div>
