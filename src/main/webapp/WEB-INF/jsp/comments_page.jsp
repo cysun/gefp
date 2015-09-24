@@ -13,7 +13,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golden Eagle Flight Plan</title>
+<title>Golden Eagle Flight Plan | View Comments on Milestone</title>
 <jsp:include page="includes/styles.jsp" />
 
 </head>
@@ -54,8 +54,7 @@
 						<ol class="breadcrumb">
 							<security:authorize access="hasRole('ADMIN')">
 								<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
-								<li><a href="<c:url value="/admin/list-plans.html"/>">Flight
-										Plans</a></li>
+								<li><a href="<c:url value="/admin/list-users.html"/>">Users</a></li>
 							</security:authorize>
 
 							<security:authorize access="hasRole('ADVISOR')">
@@ -91,6 +90,7 @@
 											</security:authorize>
 												</span>
 											</h5>
+											Major: ${plan.department.name}
 										</div>
 
 										
@@ -142,7 +142,7 @@
 
 											<c:forEach var="cmt" items="${comments}">
 												<tr class="state-default">
-													<th>${cmt.commentedBy.firstName }</th>
+													<th><span title="${cmt.commentedBy.firstName} ${cmt.commentedBy.lastName}">${cmt.commentedBy.username}</span></th>
 													<td>${cmt.comment }</td>
 													<td><span
 														style="font-size: 12px; font-weight: normal;">Posted
