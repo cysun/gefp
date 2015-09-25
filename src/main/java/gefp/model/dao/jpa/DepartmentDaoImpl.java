@@ -1,6 +1,7 @@
 package gefp.model.dao.jpa;
 
 import gefp.model.Department;
+import gefp.model.FlightPlan;
 import gefp.model.dao.DepartmentDao;
 
 import java.util.List;
@@ -52,6 +53,22 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public Department saveDepartment( Department department )
     {
         return entityManager.merge( department );
+    }
+
+    @Override
+    public List<FlightPlan> getDepartmentPublishedPlans( Department department )
+    {
+        try
+        {
+            return entityManager.createQuery( "from FlightPlan where department_id = :department_id AND deleted = 'f' order by id DESC",
+                FlightPlan.class )
+                .setParameter( "department_id", department.getId() )
+                .getResultList();
+        }
+        catch( NoResultException nre )
+        {
+            return null;
+        }
     }
 
 }

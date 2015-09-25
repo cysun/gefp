@@ -3,6 +3,8 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -24,11 +26,23 @@
 		<div id="page-wrapper">
 			<div id="page-inner">
 
+				<security:authorize access="hasRole('ADMIN')">
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
 					<li><a href="<c:url value="/admin/list-departments.html"/>">Majors</a></li>
 					<li class="active">${department.name}</li>
 				</ol>
+				</security:authorize>
+				
+				<security:authorize access="hasRole('ADVISOR')">
+				<ol class="breadcrumb">
+					<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
+					<li><a href="<c:url value="/advisor/list-departments.html"/>">Majors</a></li>
+					<li class="active">${department.name}</li>
+				</ol>
+				</security:authorize>
+				
+				
 
 				<jsp:include page="includes/dashboard_title.jsp" />
 				<!-- /. ROW  -->
@@ -43,10 +57,13 @@
 									<h5>Major: <b>${department.name}</b></h5>
 								</div>
 								<div class="pull-right">
+									
+									<security:authorize access="hasRole('ADMIN')">
 									<a
 										href="<c:url value="/admin/plan/add.html?departmentId=${department.id }"/>"
 										class=""><i class="fa fa-plus-square-o "></i>
 										Create Plan</a>
+									</security:authorize>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -66,7 +83,7 @@
 										</thead>
 										<tbody>
 
-											<c:forEach items="${department.plans}" var="plan"
+											<c:forEach items="${plans}" var="plan"
 												varStatus="index">
 
 												<tr>
@@ -80,19 +97,23 @@
 																	Plan</span>
 															</c:when>
 															<c:otherwise>
+																<security:authorize access="hasRole('ADMIN')">
 																| 
 																<a
 																	href="<c:url value="/admin/department/set-official-plan.html?dept_id=${department.id}&plan_id=${plan.id}"/>"
 																	class="btn override btn-link">Make Official Plan</a>
+																</security:authorize>
 															</c:otherwise>
 
 														</c:choose></td>
 
 													<td><c:choose>
 															<c:when test="${plan.published == false}">
+																<security:authorize access="hasRole('ADMIN')">
 																<a class="label override handCursor label-primary"
 																	href="<c:url value="/admin/plan/publish.html?planId=${plan.id}"/>">
 																	Publish Now </a>
+																</security:authorize>
 															</c:when>
 															<c:otherwise>
 																<label class="label override label-success">Published</label>
@@ -103,13 +124,19 @@
 													<td>
 													<a title="View Flight Plan"
 														href="<c:url value="/plan/view/${plan.id}.html" />"
-														class=""><i class="fa fa-expand "></i> </a> | <a
+														class=""><i class="fa fa-expand "></i> </a>
+														
+														<security:authorize access="hasRole('ADMIN')">
+														 | <a
 														title="Copy Flight Plan"
 														href="<c:url value="/plan/clone.html?planId=${plan.id}" />"
 														class=""><i class="fa fa-copy "></i> </a> | <a
 														title="Delete Flight Plan" href="javascript:void(0);"
 														onClick="deletePlan(${plan.id})" class=""><i
-															class="fa fa-trash-o "></i> </a></td>
+															class="fa fa-trash-o "></i> </a>
+														</security:authorize>
+															
+															</td>
 												</tr>
 
 											</c:forEach>

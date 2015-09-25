@@ -144,6 +144,34 @@
 										</div>
 									</c:if>
 								</security:authorize>
+								
+								
+								<security:authorize access="hasRole('ADVISOR')">
+
+									<c:if test="${student_mode != true}">
+										<div class="pull-right">
+											
+											
+											<c:if test="${showStats != true }">
+												<a title="Back to Listings" class=""
+														href="<c:url value="/advisor/department/list-plans.html?id=${plan.department.id }" />"><i
+														class="fa fa-arrow-left"></i></a>
+														&nbsp;
+												<c:if test="${plan.published == true }">
+													<a title="View Plan Statistics" class=""
+														href="<c:url value="/plan/view/${plan.id}.html?showStats=true" />"><i
+														class="fa fa-bar-chart"></i></a>
+												</c:if>
+											</c:if>
+
+											<c:if test="${showStats == true }">
+												<a title="Back to Plan" class=""
+													href="<c:url value="/plan/view/${plan.id}.html" />"><i
+													class="fa fa-arrow-left "></i></a>
+											</c:if>
+										</div>
+									</c:if>
+								</security:authorize>
 
 								<c:if test="${not empty StudentUser}">
 									<div class="pull-right">

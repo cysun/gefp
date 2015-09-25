@@ -169,6 +169,25 @@ public class DepartmentController {
         if( department != null )
         {
             models.put( "department", department );
+            models.put( "plans", department.getPlans() );
+            return "list-department-plans";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+    }
+    
+    @RequestMapping(value = "/advisor/department/list-plans.html",
+        method = RequestMethod.GET)
+    public String listplansAdvisor( @RequestParam Integer id, ModelMap models )
+    {
+        Department department = deptDao.getDepartment( id );
+
+        if( department != null )
+        {
+            models.put( "department", department );
+            models.put( "plans", deptDao.getDepartmentPublishedPlans( department ) );
             return "list-department-plans";
         }
         else
