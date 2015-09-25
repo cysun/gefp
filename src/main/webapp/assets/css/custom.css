@@ -833,6 +833,10 @@ a.override.label-primary:hover {
 	.noprint {
 		display: none;
 	}
+	
+	.noborder, .noborder tr, .noborder tr td {
+		border:none !important;
+	}
 }
 
 .milestone_list_table {
