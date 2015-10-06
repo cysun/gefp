@@ -8,7 +8,7 @@
 	<div class="col-md-6">
 		<h2>${LoginUserRole} Dashboard</h2>
 		<h5>Welcome ${loggedInUser.firstName} ${loggedInUser.lastName} ,
-			Love to see you back.</h5>
+			we are glad to see you back.</h5>
 	</div>
 	</security:authorize>
 	
