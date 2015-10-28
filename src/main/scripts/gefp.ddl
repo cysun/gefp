@@ -81,6 +81,17 @@
         primary key (id)
     );
 
+    create table request_log (
+        id int4 not null,
+        client_ip varchar(255),
+        request_method varchar(255),
+        request_uri varchar(255),
+        ad_user_role varchar(255),
+        timestamp timestamp,
+        ad_username varchar(255),
+        primary key (id)
+    );
+
     create table roles (
         id int4 not null,
         name varchar(255),

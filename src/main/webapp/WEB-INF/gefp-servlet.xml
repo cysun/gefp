@@ -42,17 +42,17 @@
     </bean>
 	
 	<!-- Interceptors for all URLs -->
-<!-- 	<mvc:interceptors>
-		Default Interceptor for All URL
-		<bean class="cs520.util.GefpInterceptor" />
+	<mvc:interceptors>
+		<!-- Default Interceptor for All URL -->
+		<bean class="gefp.util.GefpInterceptor" />
 		
-		URL Based Interceptors
+		<!-- URL Based Interceptors -->
 		<mvc:interceptor>
 			<mvc:mapping path="/URL-TO-INCLUDE" />
 			<mvc:exclude-mapping path="/URL-TO-EXCLUDE" />
-			<bean class="cs520.util.GefpInterceptor" />
+			<bean class="gefp.util.GefpInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/" />

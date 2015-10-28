@@ -236,6 +236,17 @@ CREATE TABLE user_comments (
     comment_id bigint not null
 );
 
+CREATE TABLE request_log (
+        id bigint not null,
+        client_ip varchar(255),
+        request_method varchar(255),
+        request_uri varchar(255),
+        ad_user_role varchar(255),
+        timestamp timestamp,
+        ad_username varchar(255),
+        PRIMARY KEY (id)
+);
+
 
 --
 -- Name: uk_1bq0aejed37fc3yhyfoca8qqu; Type: CONSTRAINT; Schema: public; Owner: gefp; Tablespace: 
