@@ -34,17 +34,26 @@ public class GefpInterceptor extends HandlerInterceptorAdapter {
 		log.setRequetsUri(request.getRequestURI());
 
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		log.setUserId(user.getUsername());
 
-		if (user.isAdmin()) {
-			log.setRole("ADMIN");
-		} else if (user.isAdvisor()) {
-			log.setRole("ADVISOR");
-		} else if (user.isStudent()) {
-			log.setRole("STUDENT");
-		} else {
+		if (user != null) {
+
+			log.setUserId(user.getUsername());
+
+			if (user.isAdmin()) {
+				log.setRole("ADMIN");
+			} else if (user.isAdvisor()) {
+				log.setRole("ADVISOR");
+			} else if (user.isStudent()) {
+				log.setRole("STUDENT");
+			} else {
+				log.setRole("ANONYMOUS");
+			}
+		}
+		else {
+			log.setUserId(null);
 			log.setRole("ANONYMOUS");
 		}
+
 		requestLogDao.saveRequestLog(log);
 
 		return true;
