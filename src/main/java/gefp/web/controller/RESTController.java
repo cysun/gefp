@@ -14,14 +14,16 @@ import gefp.model.dao.UserDao;
 @RequestMapping("/webapi")
 public class RESTController {
 
-	@Autowired
-	UserDao userDao;
+    @Autowired
+    UserDao userDao;
 
-	@RequestMapping(value = "/validate", method = RequestMethod.POST)
-	@ResponseBody
-	public User validateLogin(@RequestParam String username, @RequestParam String password) {
-		User user = new User(username, password);
-		return userDao.validateUser(user);
-	}
+    @RequestMapping(value = "/validate", method = RequestMethod.POST)
+    @ResponseBody
+    public User validateLogin( @RequestParam("username" ) String username,
+        @RequestParam("password") String password)
+    {
+        User user = new User( username, password );
+        return userDao.validateUser( user );
+    }
 
 }

@@ -15,9 +15,10 @@ public class RequestLogDaoImpl implements RequestLogDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-	@Override
-	@Transactional
-	public void saveRequestLog(RequestLog log) {
-		entityManager.merge(log);
-	}
+    @Override
+    @Transactional
+    public void saveRequestLog( RequestLog log )
+    {
+        entityManager.merge( log );
+    }
 }

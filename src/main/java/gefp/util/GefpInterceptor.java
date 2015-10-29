@@ -19,71 +19,85 @@ import gefp.model.dao.RequestLogDao;
 @Component
 public class GefpInterceptor extends HandlerInterceptorAdapter {
 
-	@Autowired
-	RequestLogDao requestLogDao;
+    @Autowired
+    RequestLogDao requestLogDao;
 
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
+    @Override
+    public boolean preHandle( HttpServletRequest request,
+        HttpServletResponse response, Object handler ) throws Exception
+    {
 
-		RequestLog log = new RequestLog();
-		log.setTimestamp(new Date());
-		log.setClientIp(request.getRemoteAddr());
-		log.setRequestMethod(request.getMethod());
-		log.setRequetsUri(request.getRequestURI());
+        RequestLog log = new RequestLog();
+        log.setTimestamp( new Date() );
+        log.setClientIp( request.getRemoteAddr() );
+        log.setRequestMethod( request.getMethod() );
+        log.setRequetsUri( request.getRequestURI() );
 
-		//User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User user = (User) request.getSession().getAttribute( "loggedInUser" );
-		
-		
-		if (user != null) {
+        // User user = (User)
+        // SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) request.getSession().getAttribute( "loggedInUser" );
 
-			log.setUserId(user.getUsername());
+        if( user != null )
+        {
 
-			if (user.isAdmin()) {
-				log.setRole("ADMIN");
-			} else if (user.isAdvisor()) {
-				log.setRole("ADVISOR");
-			} else if (user.isStudent()) {
-				log.setRole("STUDENT");
-			} else {
-				log.setRole("ANONYMOUS");
-			}
-		}
-		else {
-			log.setUserId(null);
-			log.setRole("ANONYMOUS");
-		}
+            log.setUserId( user.getUsername() );
 
-		requestLogDao.saveRequestLog(log);
+            if( user.isAdmin() )
+            {
+                log.setRole( "ADMIN" );
+            }
+            else if( user.isAdvisor() )
+            {
+                log.setRole( "ADVISOR" );
+            }
+            else if( user.isStudent() )
+            {
+                log.setRole( "STUDENT" );
+            }
+            else
+            {
+                log.setRole( "ANONYMOUS" );
+            }
+        }
+        else
+        {
+            log.setUserId( null );
+            log.setRole( "ANONYMOUS" );
+        }
 
-		return true;
+        requestLogDao.saveRequestLog( log );
 
-		// Security is being handled by Spring Security, so The interceptors are
-		// not required.
+        return true;
 
-		/*
-		 * String uri = request.getRequestURI();
-		 * 
-		 * if (!uri.endsWith("login.html") && !uri.endsWith("logout.html")) {
-		 * Users userData = (Users) request.getSession().getAttribute(
-		 * "loggedInUser"); if (userData == null) {
-		 * //response.sendRedirect("/gefp/user/login.html"); return false; } }
-		 * return true;
-		 */
-	}
+        // Security is being handled by Spring Security, so The interceptors are
+        // not required.
 
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
+        /*
+         * String uri = request.getRequestURI();
+         * 
+         * if (!uri.endsWith("login.html") && !uri.endsWith("logout.html")) {
+         * Users userData = (Users) request.getSession().getAttribute(
+         * "loggedInUser"); if (userData == null) {
+         * //response.sendRedirect("/gefp/user/login.html"); return false; } }
+         * return true;
+         */
+    }
 
-		// To do post handle
-	}
+    @Override
+    public void postHandle( HttpServletRequest request,
+        HttpServletResponse response, Object handler,
+        ModelAndView modelAndView ) throws Exception
+    {
 
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-			throws Exception {
+        // To do post handle
+    }
 
-		// To do post handle
-	}
+    @Override
+    public void afterCompletion( HttpServletRequest request,
+        HttpServletResponse response, Object handler, Exception ex )
+            throws Exception
+    {
+
+        // To do post handle
+    }
 }
