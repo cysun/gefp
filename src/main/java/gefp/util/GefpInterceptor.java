@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -33,8 +32,10 @@ public class GefpInterceptor extends HandlerInterceptorAdapter {
 		log.setRequestMethod(request.getMethod());
 		log.setRequetsUri(request.getRequestURI());
 
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+		//User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = (User) request.getSession().getAttribute( "loggedInUser" );
+		
+		
 		if (user != null) {
 
 			log.setUserId(user.getUsername());
