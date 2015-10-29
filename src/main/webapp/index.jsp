@@ -1,1 +1,1 @@
-<script>top.location.href="login.html"</script>
+<script>top.location.href="http://sun.calstatela.edu/gefp/login.html"</script>
