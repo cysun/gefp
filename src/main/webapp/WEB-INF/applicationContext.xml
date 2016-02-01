@@ -100,6 +100,9 @@
 		<security:access-denied-handler error-page="/403.jsp" />
 	</security:http>
 	
+	<!-- web service security uses access key  -->
+	<security:http pattern="/api/**" security="none" />
+	
 	<security:global-method-security pre-post-annotations="enabled" />
 	
 </beans>
