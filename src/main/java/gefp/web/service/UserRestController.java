@@ -21,7 +21,7 @@ public class UserRestController {
     {
         User user = userDao.validateUser( new User( username, password ) );
         models.put( "user", user );
-        return "jsonView";
+        return "403";
     }
 
 }
