@@ -29,7 +29,7 @@
     <mvc:view-controller path="/404" view-name="404" />
  -->	
 
-	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+	<!-- <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" /> -->
 	
 	<bean id="exceptionResolver" class="gefp.web.resolver.ExceptionResolver">
         <property name="exceptionMappings">
@@ -63,10 +63,10 @@
         <property name="basename" value="messages" />
     </bean>
 	
-	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"  />
 
-    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" /> -->
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
 	
 </beans>
