@@ -16,8 +16,8 @@ public class UserRestController {
     UserDao userDao;
 
     @RequestMapping("/api/login")
-    public String greeting( @RequestParam(value = "username") String username,
-        @RequestParam(value = "password") String password, ModelMap models )
+    public String login( @RequestParam String username,
+        @RequestParam String password, ModelMap models )
     {
         User user = userDao.validateUser( new User( username, password ) );
         models.put( "user", user );
