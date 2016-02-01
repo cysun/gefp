@@ -37,9 +37,9 @@
 
 	<tx:annotation-driven />
 
-	<context:component-scan base-package="gefp" />
-	<!-- <context:component-scan base-package="gefp.security" />
-	<context:component-scan base-package="gefp.web" /> -->
+	<context:component-scan base-package="gefp.model" />
+	<context:component-scan base-package="gefp.security" />
+	
 	
 	<security:authentication-manager>
 		<security:authentication-provider ref="ldapAuthenticationHandler" />
