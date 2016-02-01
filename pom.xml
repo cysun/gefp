@@ -87,11 +87,11 @@
 		</plugins>
 	</build>
 	
-	<parent>
+	<!-- <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.3.2.RELEASE</version>
-    </parent>
+    </parent> -->
 	
 	<dependencies>
 		<dependency>
@@ -201,10 +201,10 @@
 			<version>1.1</version>
 			<type>jar</type>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+        </dependency> -->
 	</dependencies>
 
 </project>
