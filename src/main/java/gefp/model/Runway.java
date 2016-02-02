@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "runways")
 public class Runway implements Serializable {
@@ -22,9 +24,11 @@ public class Runway implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @OneToOne
     private Runway parent;
 
+    @JsonIgnore
     private boolean deleted = false;
 
     public Runway()
