@@ -38,6 +38,7 @@ public class LoginController {
         if( errMsg != null && errMsg.equals( "true" ) )
             errMsg = "Invalid Username/Password";
         models.put( "errorLogin", errMsg );
+        logger.info( "Login page called " );
         return "login";
     }
 
