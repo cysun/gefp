@@ -16,15 +16,15 @@ public class UserRestService {
 
     @Autowired
     UserDao userDao;
-    
+
     private static final Logger logger = LoggerFactory.getLogger( UserRestService.class );
-    
+
     @RequestMapping("/api/login")
     public String login( @RequestParam String username,
         @RequestParam String password, ModelMap models )
     {
         logger.info( "Login API called.." );
-        
+
         User user = userDao.validateUser( new User( username, password ) );
         models.put( "user", user );
         return "jsonView";
