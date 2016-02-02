@@ -106,7 +106,7 @@
 			<artifactId>
       		spring-webmvc
       	</artifactId>
-			<version>3.2.3.RELEASE</version>
+			<version>3.2.8.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>
@@ -124,7 +124,7 @@
 			<artifactId>
       		spring-orm
       	</artifactId>
-			<version>3.2.3.RELEASE</version>
+			<version>3.2.8.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>
@@ -154,18 +154,18 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>3.2.3.RELEASE</version>
+			<version>3.2.8.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
-			<version>3.2.5.RELEASE</version>
+			<version>3.2.8.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>3.2.5.RELEASE</version>
+			<version>3.2.8.RELEASE</version>
 		</dependency>
 
 		<dependency>
