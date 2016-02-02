@@ -117,9 +117,6 @@ public class User implements Serializable, UserDetails {
     @Transient
     private boolean validLogin = false;
 
-    @Transient
-    private boolean firstTimeUser = false;
-
     public User()
     {
         comments = new ArrayList<Comment>();
