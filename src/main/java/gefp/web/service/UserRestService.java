@@ -19,7 +19,7 @@ public class UserRestService {
     
     private static final Logger logger = LoggerFactory.getLogger( UserRestService.class );
     
-    @RequestMapping("/api/validate.html")
+    @RequestMapping("/api/login")
     public String login( @RequestParam String username,
         @RequestParam String password, ModelMap models )
     {
