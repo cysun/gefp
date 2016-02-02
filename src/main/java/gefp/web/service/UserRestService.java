@@ -3,6 +3,8 @@ package gefp.web.service;
 import gefp.model.User;
 import gefp.model.dao.UserDao;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,11 @@ public class UserRestService {
         logger.info( "Login API called.." );
 
         User user = userDao.validateUser( new User( username, password ) );
-        models.put( "user", user );
+        
+        HashMap<String, User> usermap = new HashMap<String, User>();
+        usermap.put( "user", user );
+        
+        models.put( "user", usermap );
         return "jsonView";
     }
 
