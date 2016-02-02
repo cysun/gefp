@@ -25,6 +25,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "users")
 public class User implements Serializable, UserDetails {
@@ -57,8 +59,10 @@ public class User implements Serializable, UserDetails {
 
     private String email;
 
+    @JsonIgnore
     private String password;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_checkpoints_info",
         joinColumns = { @JoinColumn(name = "user_id") },
@@ -66,20 +70,24 @@ public class User implements Serializable, UserDetails {
     private Set<CheckpointInfo> checkpointsInfo = new HashSet<CheckpointInfo>();
 
     // For Administrators
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department = new Department();
 
     // For Students
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "major_id")
     private Department major = new Department();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "plan_id")
     @Where(clause = "deleted = 'f'")
     private FlightPlan flightPlan = new FlightPlan();
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "user_plan_history",
     joinColumns = { @JoinColumn(name = "user_id") },
@@ -87,6 +95,7 @@ public class User implements Serializable, UserDetails {
     private List<FlightPlan> planHistory = new ArrayList<FlightPlan>();
     
     
+    @JsonIgnore
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "user_comments",
         joinColumns = { @JoinColumn(name = "user_id") },
@@ -94,10 +103,13 @@ public class User implements Serializable, UserDetails {
     @Where(clause = "deleted = 'f'")
     private List<Comment> comments = new ArrayList<Comment>();
     
+    @JsonIgnore
     private boolean enabled;
 
+    @JsonIgnore
     private boolean newAccount = false;
 
+    @JsonIgnore
     private boolean deleted;
 
     public User()
