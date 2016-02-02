@@ -32,7 +32,13 @@
 
     <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
 	
-	<bean id="exceptionResolver" class="gefp.web.resolver.ExceptionResolver">
+	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+	
+	
+	<!-- <bean id="exceptionResolver" class="gefp.web.resolver.ExceptionResolver">
         <property name="exceptionMappings">
             <props>
                 <prop key="AccessDeniedException">exception/access</prop>
@@ -40,7 +46,7 @@
             </props>
         </property>
         <property name="defaultErrorView" value="error_pages/default" />
-    </bean>
+    </bean> -->
 	
 	<!-- Interceptors for all URLs -->
 	<mvc:interceptors>
@@ -54,11 +60,6 @@
 			<bean class="gefp.util.GefpInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
-
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/" />
-        <property name="suffix" value=".jsp" />
-    </bean>
     
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="messages" />
