@@ -333,6 +333,7 @@ public class User implements Serializable, UserDetails {
 
     }
 
+    @JsonIgnore
     public boolean isNewAccount()
     {
         return newAccount;
@@ -343,6 +344,7 @@ public class User implements Serializable, UserDetails {
         this.newAccount = newAccount;
     }
 
+    @JsonIgnore
     public boolean isAdmin()
     {
         for( Role role : roles )
@@ -350,6 +352,7 @@ public class User implements Serializable, UserDetails {
         return false;
     }
 
+    @JsonIgnore
     public boolean isAdvisor()
     {
         for( Role role : roles )
@@ -357,6 +360,7 @@ public class User implements Serializable, UserDetails {
         return false;
     }
 
+    @JsonIgnore
     public boolean isStudent()
     {
         for( Role role : roles )
