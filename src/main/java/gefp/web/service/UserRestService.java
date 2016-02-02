@@ -15,7 +15,7 @@ public class UserRestService {
     @Autowired
     UserDao userDao;
 
-    @RequestMapping("/service/user/login")
+    @RequestMapping("/api/login")
     public String login( @RequestParam String username,
         @RequestParam String password, ModelMap models )
     {
