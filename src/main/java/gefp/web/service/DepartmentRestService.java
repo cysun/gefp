@@ -53,10 +53,6 @@ public class DepartmentRestService {
         {
             user.setValidLogin( true );
         }
-        else
-        {
-            user = null;
-        }
         models.put( "user", user );
         return "jsonView";
     }
