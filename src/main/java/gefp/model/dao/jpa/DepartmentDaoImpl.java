@@ -71,4 +71,18 @@ public class DepartmentDaoImpl implements DepartmentDao {
         }
     }
 
+    @Override
+    public List<Department> getDepartmentsHavingDefaultPlan()
+    {
+        try
+        {
+            return entityManager.createQuery( "from Department where deleted = 'f' and plan_id != null order by name",
+                Department.class ).getResultList();
+        }
+        catch( NoResultException nre )
+        {
+            return null;
+        }
+    }
+
 }

@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "departments")
 public class Department implements Serializable {
@@ -27,11 +29,13 @@ public class Department implements Serializable {
     @Column(name = "name")
     String name;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "plan_id")
     @Where(clause = "deleted = 'f'")
     private FlightPlan defaultPlan;
 
+    @JsonIgnore
     @OneToMany(mappedBy="department")
 //    @JoinTable(name = "department_plans",
 //        joinColumns = { @JoinColumn(name = "department_id") },
@@ -39,8 +43,10 @@ public class Department implements Serializable {
     @Where(clause = "deleted = 'f'")
     private List<FlightPlan> plans;
 
+    @JsonIgnore
     private boolean active;
 
+    @JsonIgnore
     private boolean deleted;
 
     public Department()

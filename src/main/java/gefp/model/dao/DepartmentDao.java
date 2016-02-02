@@ -14,5 +14,8 @@ public interface DepartmentDao {
     Department saveDepartment( Department department );
 
     List<FlightPlan> getDepartmentPublishedPlans( Department department );
+    
+    
+    List<Department> getDepartmentsHavingDefaultPlan();
 
 }
