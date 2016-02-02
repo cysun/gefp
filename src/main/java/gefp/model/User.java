@@ -19,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.annotations.Where;
@@ -92,11 +93,10 @@ public class User implements Serializable, UserDetails {
     @JsonIgnore
     @ManyToMany
     @JoinTable(name = "user_plan_history",
-    joinColumns = { @JoinColumn(name = "user_id") },
-    inverseJoinColumns = { @JoinColumn(name = "plan_id") })
+        joinColumns = { @JoinColumn(name = "user_id") },
+        inverseJoinColumns = { @JoinColumn(name = "plan_id") })
     private List<FlightPlan> planHistory = new ArrayList<FlightPlan>();
-    
-    
+
     @JsonIgnore
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "user_comments",
@@ -104,7 +104,7 @@ public class User implements Serializable, UserDetails {
         inverseJoinColumns = { @JoinColumn(name = "comment_id") })
     @Where(clause = "deleted = 'f'")
     private List<Comment> comments = new ArrayList<Comment>();
-    
+
     @JsonIgnore
     private boolean enabled;
 
@@ -113,6 +113,12 @@ public class User implements Serializable, UserDetails {
 
     @JsonIgnore
     private boolean deleted;
+
+    @Transient
+    private boolean validLogin = false;
+
+    @Transient
+    private boolean firstTimeUser = false;
 
     public User()
     {
@@ -285,25 +291,22 @@ public class User implements Serializable, UserDetails {
     {
         this.email = email;
     }
-    
-    
+
     public List<FlightPlan> getPlanHistory()
     {
         return planHistory;
     }
 
-    
     public void setPlanHistory( List<FlightPlan> planHistory )
     {
         this.planHistory = planHistory;
     }
-    
+
     public List<Comment> getComments()
     {
         return comments;
     }
 
-    
     public void setComments( List<Comment> comments )
     {
         this.comments = comments;
@@ -333,7 +336,6 @@ public class User implements Serializable, UserDetails {
 
     }
 
-    @JsonIgnore
     public boolean isNewAccount()
     {
         return newAccount;
@@ -398,9 +400,30 @@ public class User implements Serializable, UserDetails {
     {
         return true;
     }
-    
-    public String toString() {
-        return "User: Id="+id+", Username="+username;
+
+    public boolean isValidLogin()
+    {
+        return validLogin;
     }
-    
+
+    public void setValidLogin( boolean validLogin )
+    {
+        this.validLogin = validLogin;
+    }
+
+    public boolean isFirstTimeUser()
+    {
+        return firstTimeUser;
+    }
+
+    public void setFirstTimeUser( boolean firstTimeUser )
+    {
+        this.firstTimeUser = firstTimeUser;
+    }
+
+    public String toString()
+    {
+        return "User: Id=" + id + ", Username=" + username;
+    }
+
 }
