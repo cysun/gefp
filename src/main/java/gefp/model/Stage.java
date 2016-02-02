@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "stages")
 public class Stage implements Serializable {
@@ -22,9 +24,11 @@ public class Stage implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @OneToOne
     private Stage parent;
 
+    @JsonIgnore
     private boolean deleted;
 
     public Stage()
