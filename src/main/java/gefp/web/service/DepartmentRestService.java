@@ -2,6 +2,8 @@ package gefp.web.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,14 +15,21 @@ import gefp.model.Department;
 import gefp.model.Runway;
 import gefp.model.Stage;
 import gefp.model.User;
+import gefp.model.dao.CellDao;
+import gefp.model.dao.CheckpointDao;
+import gefp.model.dao.CheckpointInfoDao;
 import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.FlightPlanDao;
+import gefp.model.dao.RunwayDao;
+import gefp.model.dao.StageDao;
 import gefp.model.dao.UserDao;
 
 @Controller
+@SuppressWarnings("unused")
 public class DepartmentRestService {
-    // private static final Logger logger = LoggerFactory
-    // .getLogger( UserRestService.class );
+
+    private static final Logger logger = LoggerFactory
+        .getLogger( DepartmentRestService.class );
 
     @Autowired
     private FlightPlanDao planDao;
@@ -28,17 +37,20 @@ public class DepartmentRestService {
     @Autowired
     private DepartmentDao deptDao;
 
-    /*
-     * @Autowired private RunwayDao runwayDao;
-     * 
-     * @Autowired private StageDao stageDao;
-     * 
-     * @Autowired private CellDao cellDao;
-     * 
-     * @Autowired private CheckpointDao checkpointDao;
-     * 
-     * @Autowired private CheckpointInfoDao checkpointInfoDao;
-     */
+    @Autowired
+    private RunwayDao runwayDao;
+
+    @Autowired
+    private StageDao stageDao;
+
+    @Autowired
+    private CellDao cellDao;
+
+    @Autowired
+    private CheckpointDao checkpointDao;
+
+    @Autowired
+    private CheckpointInfoDao checkpointInfoDao;
 
     @Autowired
     private UserDao userDao;
@@ -53,11 +65,17 @@ public class DepartmentRestService {
         {
             user.setValidLogin( true );
         }
+        else
+        {
+            user = new User();
+            user.setValidLogin( false );
+        }
         models.put( "user", user );
         return "jsonView";
     }
 
-    @RequestMapping(value = "/api/updateprofile.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/updateprofile.html",
+        method = RequestMethod.POST)
     public String updateprofile( @RequestParam Long user_id,
         @RequestParam String firstName,
         @RequestParam(required = false ) String middleName,
