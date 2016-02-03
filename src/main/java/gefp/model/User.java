@@ -79,7 +79,6 @@ public class User implements Serializable, UserDetails {
     private Department department = new Department();
 
     // For Students
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "major_id")
     private Department major = new Department();
