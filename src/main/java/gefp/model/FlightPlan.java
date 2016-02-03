@@ -61,7 +61,6 @@ public class FlightPlan implements Serializable {
         mappedBy = "flightPlan")
     private List<Cell> cells;
 
-    @JsonIgnore
     @ManyToOne
     @Where(clause = "deleted = 'f'")
     Department department;
