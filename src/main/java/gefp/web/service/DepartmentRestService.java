@@ -1,6 +1,8 @@
 package gefp.web.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gefp.model.Checkpoint;
+import gefp.model.CheckpointInfo;
 import gefp.model.Department;
+import gefp.model.FlightPlan;
 import gefp.model.Runway;
 import gefp.model.Stage;
 import gefp.model.User;
@@ -131,4 +136,54 @@ public class DepartmentRestService {
         return "jsonView";
     }
 
+    @RequestMapping(value = "/api/userplan.html", method = RequestMethod.GET)
+    public String showUserPlan( @RequestParam Long user_id, ModelMap models )
+    {
+        FlightPlan flightPlan = userDao.getUser( user_id ).getFlightPlan();
+        models.put( "flightplan", flightPlan );
+        return "jsonView";
+    }
+
+    @RequestMapping(value = "/api/changemilestone.html",
+        method = RequestMethod.POST)
+    public String saveStudentCheckpoint( @RequestParam Long user_id,
+        @RequestParam Long checkpoint_id, @RequestParam String checked,
+        @RequestParam String message, ModelMap models )
+    {
+
+        User currUserObj = userDao.getUser( user_id );
+
+        String repsonse = "{data:" + checkpoint_id + ", status:" + checked
+            + "}";
+
+        if( checkpoint_id != null && checked != "" )
+        {
+
+            Checkpoint c = checkpointDao.getCheckPoint( checkpoint_id );
+
+            if( checked.equals( "true" ) )
+            {
+                CheckpointInfo cinfo = new CheckpointInfo( c, message );
+                currUserObj.getCheckpointsInfo().add( cinfo );
+                logger.info( "User " + currUserObj.getUsername()
+                    + " checked a Milestone (ID: " + checkpoint_id + " ) " );
+            }
+            else
+            {
+                Set<CheckpointInfo> newCheckpoints = new HashSet<CheckpointInfo>();
+                for( CheckpointInfo cp : currUserObj.getCheckpointsInfo() )
+                {
+                    if( !cp.getCheckpoint().getId().equals( checkpoint_id ) )
+                    {
+                        newCheckpoints.add( cp );
+                    }
+                }
+                currUserObj.setCheckpointsInfo( newCheckpoints );
+                logger.info( "User " + currUserObj.getUsername()
+                    + " Unchecked a Milestone (ID: " + checkpoint_id + " ) " );
+            }
+            userDao.saveUser( currUserObj );
+        }
+        return "jsonView";
+    }
 }
