@@ -27,7 +27,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>gefp</servlet-name>
-    <url-pattern>/api/</url-pattern>
+    <url-pattern>/gefp/api/</url-pattern>
   </servlet-mapping>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
