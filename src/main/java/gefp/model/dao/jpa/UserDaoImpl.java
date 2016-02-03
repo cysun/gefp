@@ -30,6 +30,13 @@ public class UserDaoImpl implements UserDao {
         User u = entityManager.find( User.class, id );
         return u;
     }
+    
+    @Override
+    public User getUserApi( Long id )
+    {
+        User u = entityManager.find( User.class, id );
+        return u;
+    }
 
     @Override
     public List<User> getUsers()
