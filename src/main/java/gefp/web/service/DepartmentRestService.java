@@ -90,7 +90,6 @@ public class DepartmentRestService {
     {
 
         User user = userDao.getUserApi( user_id );
-        Department dept = deptDao.getDepartment( dept_id );
         user.setFirstName( firstName );
         user.setMiddleName( middleName );
         user.setLastName( lastName );
@@ -98,6 +97,7 @@ public class DepartmentRestService {
         user.setEmail( email );
         if( user.isNewAccount() )
         {
+            Department dept = deptDao.getDepartment( dept_id );
             user.setDepartment( dept );
             user.setMajor( dept );
             user.setFlightPlan( dept.getDefaultPlan() );
