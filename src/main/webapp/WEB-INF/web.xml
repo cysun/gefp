@@ -23,7 +23,8 @@
   </error-page>
   <servlet-mapping>
     <servlet-name>gefp</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>*.html</url-pattern>
+    <url-pattern>/api/</url-pattern>
   </servlet-mapping>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
