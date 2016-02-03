@@ -83,9 +83,9 @@ public class DepartmentRestService {
         method = RequestMethod.POST)
     public String updateprofile( @RequestParam Long user_id,
         @RequestParam String firstName,
-        @RequestParam(required = false ) String middleName,
+        @RequestParam(required = false) String middleName,
         @RequestParam String lastName, @RequestParam String email,
-        @RequestParam String cin, @RequestParam Integer dept_id,
+        @RequestParam String cin, @RequestParam(required = false) Integer dept_id,
         ModelMap models)
     {
 
