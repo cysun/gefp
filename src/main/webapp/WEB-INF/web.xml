@@ -7,11 +7,21 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<servlet-mapping>
+		<servlet-name>gefp</servlet-name>
+		<url-pattern>/api/**</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>gefp</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>gefp</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+	
 	<!-- <error-page> <error-code>400</error-code> <location>/400</location> 
 		</error-page> <error-page> <error-code>403</error-code> <location>/403</location> 
 		</error-page> -->
@@ -19,18 +29,7 @@
 		<error-code>404</error-code>
 		<location>/WEB-INF/jsp/error_pages/404.jsp</location>
 	</error-page>
-	<servlet-mapping>
-		<servlet-name>gefp</servlet-name>
-		<url-pattern>/api/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>gefp</servlet-name>
-		<url-pattern>/gefp/api/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>gefp</servlet-name>
-		<url-pattern>*.html</url-pattern>
-	</servlet-mapping>
+	
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
