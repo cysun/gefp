@@ -13,7 +13,9 @@ public interface UserDao {
     List<User> getUsers();
     
     User validateUser( User user );
-
+    
+    User getUserApi(Long id);
+    
     User saveUser( User user );
 
     User getUserByCin( String cin );
