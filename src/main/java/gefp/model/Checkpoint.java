@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "checkpoints")
 public class Checkpoint implements Serializable {
@@ -19,17 +21,23 @@ public class Checkpoint implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-
+    
     @Column(nullable = false)
     private String name;
 
+    @JsonIgnore
     @OneToOne
     private Checkpoint parent;
 
+    @JsonIgnore
     private boolean deleted = false;
 
+    @JsonIgnore
     @Transient
     private Integer total;
+
+    @Transient
+    private boolean checked;
 
     public Checkpoint()
     {
@@ -107,6 +115,16 @@ public class Checkpoint implements Serializable {
     public void setTotal( Integer total )
     {
         this.total = total;
+    }
+
+    public boolean isChecked()
+    {
+        return checked;
+    }
+
+    public void setChecked( boolean checked )
+    {
+        this.checked = checked;
     }
 
 }

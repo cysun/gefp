@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.IndexColumn;
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "flightplans")
 public class FlightPlan implements Serializable {
@@ -54,18 +56,24 @@ public class FlightPlan implements Serializable {
     @Where(clause = "deleted = 'f'")
     private List<Stage> stages;
 
+    @JsonIgnore
     @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE },
         mappedBy = "flightPlan")
     private List<Cell> cells;
 
+    @JsonIgnore
     @ManyToOne
     @Where(clause = "deleted = 'f'")
     Department department;
 
+    
+    @JsonIgnore
     private boolean published;
 
+    @JsonIgnore
     private boolean deleted = false;
 
+    @JsonIgnore
     @OneToOne
     private FlightPlan parent;
 

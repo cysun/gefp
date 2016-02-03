@@ -116,6 +116,10 @@ public class User implements Serializable, UserDetails {
     @Transient
     private boolean validLogin = false;
 
+    // This is used for GEFP Mobile API
+    @Transient
+    List<Checkpoint> planCheckpoints = new ArrayList<Checkpoint>();
+
     public User()
     {
         comments = new ArrayList<Comment>();
@@ -405,6 +409,16 @@ public class User implements Serializable, UserDetails {
     public void setValidLogin( boolean validLogin )
     {
         this.validLogin = validLogin;
+    }
+
+    public List<Checkpoint> getPlanCheckpoints()
+    {
+        return planCheckpoints;
+    }
+
+    public void setPlanCheckpoints( List<Checkpoint> planCheckpoints )
+    {
+        this.planCheckpoints = planCheckpoints;
     }
 
     public String toString()
