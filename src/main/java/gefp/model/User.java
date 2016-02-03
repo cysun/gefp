@@ -108,7 +108,6 @@ public class User implements Serializable, UserDetails {
     @JsonIgnore
     private boolean enabled;
 
-    @JsonIgnore
     private boolean newAccount = false;
 
     @JsonIgnore
@@ -406,16 +405,6 @@ public class User implements Serializable, UserDetails {
     public void setValidLogin( boolean validLogin )
     {
         this.validLogin = validLogin;
-    }
-
-    public boolean isFirstTimeUser()
-    {
-        return firstTimeUser;
-    }
-
-    public void setFirstTimeUser( boolean firstTimeUser )
-    {
-        this.firstTimeUser = firstTimeUser;
     }
 
     public String toString()
