@@ -43,7 +43,7 @@ public class DepartmentRestService {
     @Autowired
     private UserDao userDao;
 
-    @RequestMapping(value = "/api/login")
+    @RequestMapping(value = "/api/login.html")
     public String login( @RequestParam String username,
         @RequestParam String password, ModelMap models )
     {
@@ -57,7 +57,7 @@ public class DepartmentRestService {
         return "jsonView";
     }
 
-    @RequestMapping(value = "/api/updateprofile", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/updateprofile.html", method = RequestMethod.POST)
     public String updateprofile( @RequestParam Long user_id,
         @RequestParam String firstName,
         @RequestParam(required = false ) String middleName,
@@ -86,7 +86,7 @@ public class DepartmentRestService {
         return "jsonView";
     }
 
-    @RequestMapping(value = "/api/departments", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/departments.html", method = RequestMethod.GET)
     public String listDepartments( ModelMap models )
     {
         List<Department> departments = deptDao
@@ -95,7 +95,7 @@ public class DepartmentRestService {
         return "jsonView";
     }
 
-    @RequestMapping(value = "/api/runways", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/runways.html", method = RequestMethod.GET)
     public String listRunways( @RequestParam Long plan_id,
         @RequestParam Long user_id, ModelMap models )
     {
@@ -104,7 +104,7 @@ public class DepartmentRestService {
         return "jsonView";
     }
 
-    @RequestMapping(value = "/api/stages", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/stages.html", method = RequestMethod.GET)
     public String listStages( @RequestParam Long plan_id,
         @RequestParam Long user_id, ModelMap models )
     {
