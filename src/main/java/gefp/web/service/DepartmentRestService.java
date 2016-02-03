@@ -89,7 +89,7 @@ public class DepartmentRestService {
         ModelMap models)
     {
 
-        User user = userDao.getUser( user_id );
+        User user = userDao.getUserApi( user_id );
         Department dept = deptDao.getDepartment( dept_id );
         user.setFirstName( firstName );
         user.setMiddleName( middleName );
