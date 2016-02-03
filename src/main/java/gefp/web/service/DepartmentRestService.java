@@ -139,7 +139,7 @@ public class DepartmentRestService {
     @RequestMapping(value = "/api/userplan.html", method = RequestMethod.GET)
     public String showUserPlan( @RequestParam Long user_id, ModelMap models )
     {
-        FlightPlan flightPlan = userDao.getUser( user_id ).getFlightPlan();
+        FlightPlan flightPlan = userDao.getUserApi( user_id ).getFlightPlan();
         models.put( "flightplan", flightPlan );
         return "jsonView";
     }
