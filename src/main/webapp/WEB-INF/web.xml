@@ -6,6 +6,7 @@
 	<display-name>Golden Eagle Flight Plan</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>login.html</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>gefp</servlet-name>
