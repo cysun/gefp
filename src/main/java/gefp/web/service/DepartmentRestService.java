@@ -1,12 +1,23 @@
 package gefp.web.service;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.SearchResult;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +28,7 @@ import gefp.model.Checkpoint;
 import gefp.model.CheckpointInfo;
 import gefp.model.Department;
 import gefp.model.FlightPlan;
+import gefp.model.Role;
 import gefp.model.Runway;
 import gefp.model.Stage;
 import gefp.model.User;
@@ -25,9 +37,11 @@ import gefp.model.dao.CheckpointDao;
 import gefp.model.dao.CheckpointInfoDao;
 import gefp.model.dao.DepartmentDao;
 import gefp.model.dao.FlightPlanDao;
+import gefp.model.dao.RoleDao;
 import gefp.model.dao.RunwayDao;
 import gefp.model.dao.StageDao;
 import gefp.model.dao.UserDao;
+import gefp.security.ActiveDirectory;
 
 @Controller
 @SuppressWarnings("unused")
@@ -60,11 +74,106 @@ public class DepartmentRestService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private RoleDao roleDao;
+
     @RequestMapping(value = "/api/login.html")
     public String login( @RequestParam String username,
         @RequestParam String password, ModelMap models )
     {
-        User user = userDao.validateUser( new User( username, password ) );
+
+        User user = null;
+        String domain = "ad.calstatela.edu";
+        String choice = "username"; // username | email
+        Authentication auth = null;
+
+        try
+        {
+
+            if( isSystemAccount( username, password ) )
+            {
+                user = userDao.getUserByUsername( username );
+            }
+            else
+            {
+
+                ActiveDirectory activeDirectory = new ActiveDirectory();
+                activeDirectory.connect( domain, username, password );
+
+                NamingEnumeration<SearchResult> result = activeDirectory
+                    .searchUser( username, choice, null );
+
+                if( result.hasMore() )
+                {
+                    SearchResult rs = (SearchResult) result.next();
+                    Attributes attrs = rs.getAttributes();
+                    user = userDao.getUserByUsername( username );
+                    logger.info( "Username ( " + username
+                        + " ) is authenticated from AD" );
+
+                    if( user == null )
+                    {
+                        String temp = attrs.get( "givenName" ).toString();
+                        String firstName = temp
+                            .substring( temp.indexOf( ":" ) + 1 );
+                        temp = attrs.get( "mail" ).toString();
+                        String emailId = temp
+                            .substring( temp.indexOf( ":" ) + 1 );
+                        temp = attrs.get( "distinguishedName" ).toString();
+                        String distinguishedName = temp
+                            .substring( temp.indexOf( ":" ) + 1 );
+                        int facultyIndex = distinguishedName
+                            .indexOf( "OU=Employees" );
+
+                        user = new User();
+                        Set<Role> roles = new HashSet<Role>();
+
+                        if( facultyIndex > 0 )
+                        {
+                            roles.add( roleDao.getRole( "ADVISOR" ) );
+                        }
+                        else
+                        {
+                            roles.add( roleDao.getRole( "STUDENT" ) );
+                        }
+
+                        user.setUsername( username );
+                        user.setPassword( "" );
+                        user.setFirstName( firstName );
+                        user.setEmail( emailId );
+                        user.setRoles( roles );
+                        user.setEnabled( true );
+                        user.setDepartment( null );
+                        user.setMajor( null );
+                        user.setFlightPlan( null );
+                        user.setNewAccount( true );
+                        user.setDeleted( false );
+                        user = userDao.saveUser( user );
+                    }
+                }
+                else
+                {
+                    logger.info(
+                        "No match found in AD for username :" + username );
+                }
+                activeDirectory.closeLdapConnection();
+            }
+        }
+        catch( NamingException e )
+        {
+            logger.info( "Invalid Username/Password" + e.getMessage() );
+            e.printStackTrace();
+        }
+        catch( IOException e )
+        {
+            logger.debug( "Exception : " + e.getMessage() );
+            e.printStackTrace();
+        }
+        catch( Exception e )
+        {
+            logger.debug( "Exception : " + e.getMessage() );
+            e.printStackTrace();
+        }
 
         if( user != null )
         {
@@ -83,10 +192,10 @@ public class DepartmentRestService {
         method = RequestMethod.POST)
     public String updateprofile( @RequestParam Long user_id,
         @RequestParam String firstName,
-        @RequestParam(required = false) String middleName,
+        @RequestParam(required = false ) String middleName,
         @RequestParam String lastName, @RequestParam String email,
-        @RequestParam String cin, @RequestParam(required = false) Integer dept_id,
-        ModelMap models)
+        @RequestParam String cin,
+        @RequestParam(required = false) Integer dept_id, ModelMap models)
     {
 
         User user = userDao.getUserApi( user_id );
@@ -185,5 +294,12 @@ public class DepartmentRestService {
             userDao.saveUser( currUserObj );
         }
         return "jsonView";
+    }
+
+    public boolean isSystemAccount( String username, String password )
+    {
+        User u = new User( username, password );
+        if( userDao.validateUser( u ) != null ) return true;
+        return false;
     }
 }
