@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
     }
     
     @Override
-    public User getUserApi( Long id )
+    public User getApiUser( Long id )
     {
         User u = entityManager.find( User.class, id );
         return u;
