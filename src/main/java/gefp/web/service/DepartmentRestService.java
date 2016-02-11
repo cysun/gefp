@@ -14,16 +14,14 @@ import javax.naming.directory.SearchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gefp.model.Cell;
 import gefp.model.Checkpoint;
 import gefp.model.CheckpointInfo;
 import gefp.model.Department;
@@ -250,6 +248,25 @@ public class DepartmentRestService {
     {
         FlightPlan flightPlan = userDao.getUserApi( user_id ).getFlightPlan();
         models.put( "flightplan", flightPlan );
+        return "jsonView";
+    }
+
+    @RequestMapping(value = "/api/checkpoints.html", method = RequestMethod.GET)
+    public String showCheckpoints( @RequestParam Long user_id,
+        @RequestParam Long plan_id, @RequestParam Long runway_id,
+        @RequestParam Long stage_id, ModelMap models )
+    {
+        FlightPlan flightPlan = userDao.getUserApi( user_id ).getFlightPlan();
+        List<Cell> cells = flightPlan.getCells();
+        List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
+        
+        for(Cell cell : cells) {
+            if(cell.getRunway().getId().equals( runway_id ) && cell.getStage().getId().equals( stage_id )) {
+                checkpoints = cell.getCheckpoints();
+            }
+        }
+        
+        models.put( "checkpoints", checkpoints );
         return "jsonView";
     }
 
