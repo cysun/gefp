@@ -196,7 +196,7 @@ public class DepartmentRestService {
         @RequestParam(required = false) Integer dept_id, ModelMap models)
     {
 
-        User user = userDao.getUserApi( user_id );
+        User user = userDao.getApiUser( user_id );
         user.setFirstName( firstName );
         user.setMiddleName( middleName );
         user.setLastName( lastName );
@@ -246,7 +246,7 @@ public class DepartmentRestService {
     @RequestMapping(value = "/api/userplan.html", method = RequestMethod.GET)
     public String showUserPlan( @RequestParam Long user_id, ModelMap models )
     {
-        FlightPlan flightPlan = userDao.getUserApi( user_id ).getFlightPlan();
+        FlightPlan flightPlan = userDao.getApiUser( user_id ).getFlightPlan();
         models.put( "flightplan", flightPlan );
         return "jsonView";
     }
@@ -256,7 +256,7 @@ public class DepartmentRestService {
         @RequestParam Long plan_id, @RequestParam Long runway_id,
         @RequestParam Long stage_id, ModelMap models )
     {
-        User apiUser = userDao.getUserApi( user_id );
+        User apiUser = userDao.getApiUser( user_id );
         FlightPlan flightPlan = apiUser.getFlightPlan();
         List<Cell> cells = flightPlan.getCells();
         List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
@@ -291,10 +291,10 @@ public class DepartmentRestService {
         method = RequestMethod.POST)
     public String saveStudentCheckpoint( @RequestParam Long user_id,
         @RequestParam Long checkpoint_id, @RequestParam String checked,
-        @RequestParam String message, ModelMap models )
+        @RequestParam(required = false ) String message, ModelMap models)
     {
 
-        User currUserObj = userDao.getUser( user_id );
+        User currUserObj = userDao.getApiUser( user_id );
 
         String repsonse = "{data:" + checkpoint_id + ", status:" + checked
             + "}";
