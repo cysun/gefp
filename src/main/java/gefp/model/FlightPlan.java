@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -43,12 +44,12 @@ public class FlightPlan implements Serializable {
     @JoinTable(name = "flightplan_runways",
         joinColumns = { @JoinColumn(name = "flightplan_id") },
         inverseJoinColumns = { @JoinColumn(name = "runway_id") })
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
     @IndexColumn(name = "order_num")
     @Where(clause = "deleted = 'f'")
     private List<Runway> runways;
 
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
     @JoinTable(name = "flightplan_stages",
         joinColumns = { @JoinColumn(name = "flightplan_id") },
         inverseJoinColumns = { @JoinColumn(name = "stage_id") })
