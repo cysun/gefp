@@ -14,7 +14,7 @@ public interface UserDao {
     
     User validateUser( User user );
     
-    User getUserApi(Long id);
+    User getApiUser(Long id);
     
     User saveUser( User user );
 
