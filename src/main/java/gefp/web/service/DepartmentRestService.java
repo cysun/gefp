@@ -256,16 +256,33 @@ public class DepartmentRestService {
         @RequestParam Long plan_id, @RequestParam Long runway_id,
         @RequestParam Long stage_id, ModelMap models )
     {
-        FlightPlan flightPlan = userDao.getUserApi( user_id ).getFlightPlan();
+        User apiUser = userDao.getUserApi( user_id );
+        FlightPlan flightPlan = apiUser.getFlightPlan();
         List<Cell> cells = flightPlan.getCells();
         List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
-        
-        for(Cell cell : cells) {
-            if(cell.getRunway().getId().equals( runway_id ) && cell.getStage().getId().equals( stage_id )) {
+        Set<CheckpointInfo> checkpointInfos = apiUser.getCheckpointsInfo();
+
+        for( Cell cell : cells )
+        {
+            if( cell.getRunway().getId().equals( runway_id )
+                && cell.getStage().getId().equals( stage_id ) )
+            {
                 checkpoints = cell.getCheckpoints();
             }
         }
-        
+
+        for( Checkpoint checkpoint : checkpoints )
+        {
+            for( CheckpointInfo cinfo : checkpointInfos )
+            {
+
+                if( cinfo.getCheckpoint().equals( checkpoint ) )
+                {
+                    checkpoint.setChecked( true );
+                }
+            }
+        }
+
         models.put( "checkpoints", checkpoints );
         return "jsonView";
     }
