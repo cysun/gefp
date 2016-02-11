@@ -327,7 +327,7 @@ public class DepartmentRestService {
             }
             userDao.saveUser( currUserObj );
         }
-        return "jsonView";
+        return repsonse;
     }
 
     public boolean isSystemAccount( String username, String password )
