@@ -144,30 +144,18 @@
 																							</span>
 																							</td>
 																							
-																							<td class="plan_controls">	
-																							
-																							<security:authorize
-																									access="hasAnyRole('ADMIN','ADVISOR')">
-																								<c:if test="${showStats == true }">
-																										<span>
-																										<a
-																											href="<c:url value="/plan/statistics-details.html?checkpointId=${checkpoint.id}&planId=${plan.id}" />">
-																											(${checkpoint.total})</a>
-																											</span>
-																									</c:if>
-																							</security:authorize>
+																							<td class="plan_controls">
 
 																						 <%-- <img
 																									class="CommentIcon"
 																									src="<c:url value="/assets/img/comment-icon.png" />" /> --%>
 
-																							<security:authorize access="hasRole('STUDENT')">
 																								<span> <!-- <i class="fa fa-comments-o "></i> -->
 																									<a
 																									href="<c:url value="/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${StudentUser.id }"/>">
 																										<i class="fa fa-comments-o "></i>
 																								</a></span>
-																							</security:authorize></td>
+																							</td>
 																							</tr>
 																					</c:if>
 																				</c:forEach>
@@ -224,22 +212,6 @@
 															value="${cmt.datetime}" /> </span></td>
 											</tr>
 										</c:forEach>
-
-										<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
-											<form:form modelAttribute="comment"
-												action="/gefp/advisor/add-comment.html" method="post">
-												<tr>
-													<td colspan="3"><form:textarea path="comment"
-															class="ckeditor form-control" placeholder=""></form:textarea></td>
-												</tr>
-												<tr>
-													<td colspan="3" align="right"><input type="hidden"
-														name="userId" value="${currUserObj.id}" /> <input
-														type="submit" class="btn btn-primary override"
-														value="Add Comment" /></td>
-												</tr>
-											</form:form>
-										</security:authorize>
 									</tbody>
 								</table>
 
