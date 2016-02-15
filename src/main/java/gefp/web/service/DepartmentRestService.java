@@ -382,7 +382,7 @@ public class DepartmentRestService {
             }
             models.put( "student_mode", student_mode );
             models.put( "plan", plan );
-            return "view_plan";
+            return "view_mobile_plan";
         }
         else
         {
