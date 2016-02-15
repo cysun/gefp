@@ -119,6 +119,8 @@ public class User implements Serializable, UserDetails {
     @Transient
     List<Checkpoint> planCheckpoints = new ArrayList<Checkpoint>();
 
+    private String accessKey;
+
     public User()
     {
         comments = new ArrayList<Comment>();
@@ -423,6 +425,16 @@ public class User implements Serializable, UserDetails {
     public String toString()
     {
         return "User: Id=" + id + ", Username=" + username;
+    }
+
+    public String getAccessKey()
+    {
+        return accessKey;
+    }
+
+    public void setAccessKey( String accessKey )
+    {
+        this.accessKey = accessKey;
     }
 
 }
