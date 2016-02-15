@@ -1,8 +1,5 @@
 package gefp.model.dao.jpa;
 
-import gefp.model.User;
-import gefp.model.dao.UserDao;
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +11,9 @@ import org.springframework.security.access.prepost.PostAuthorize;
 // import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import gefp.model.User;
+import gefp.model.dao.UserDao;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -140,6 +140,18 @@ public class UserDaoImpl implements UserDao {
     public User saveUser( User user )
     {
         return entityManager.merge( user );
+    }
+
+    @Override
+    public boolean validateAccessKey( String accesskey, Long id )
+    {
+        String query = "from User where accessKey = :accesskey and id = :id";
+
+        List<User> users = entityManager.createQuery( query, User.class )
+            .setParameter( "accesskey", accesskey )
+            .setParameter( "id", id )
+            .getResultList();
+        return users.size() == 0 ? false : true;
     }
 
 }
