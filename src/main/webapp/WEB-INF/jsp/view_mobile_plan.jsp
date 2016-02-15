@@ -220,7 +220,14 @@
 	<!-- /. WRAPPER  -->
 
 
-	<jsp:include page="includes/footer.jsp" />
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="<c:url value="/assets/js/bootstrap.min.js" />"></script>
+<script src="<c:url value="/assets/js/custom.js" />"></script>
 
 </body>
 </html>
