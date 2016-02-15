@@ -179,20 +179,19 @@ public class DepartmentRestService {
         if( user != null )
         {
             user.setValidLogin( true );
+            if( user.getAccessKey() == null )
+            {
+                user.setAccessKey( UUID.randomUUID().toString() );
+                user = userDao.saveUser( user );
+                logger.info( "Access key generated for " + username );
+            }
         }
         else
         {
             user = new User();
             user.setValidLogin( false );
         }
-        
-        if( user.getAccessKey() == null )
-        {
-            user.setAccessKey( UUID.randomUUID().toString() );
-            user = userDao.saveUser( user );
-            logger.info( "Access key generated for " + username );
-        }
-        
+
         models.put( "user", user );
         return "jsonView";
     }
