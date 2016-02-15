@@ -54,7 +54,7 @@ function ShowStudentsPlan(studentid) {
 			smoke.alert($(this).attr("data-comment"));
 		});
 
-		$(".flightplan_checkpoints").click(function(e) {
+		$(".flightplan_checkpoints").on('touchstart click', function(e) {
 
 			var curr = this;
 			var checked = curr.checked;
