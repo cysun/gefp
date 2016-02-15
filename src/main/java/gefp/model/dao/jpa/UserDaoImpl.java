@@ -145,11 +145,13 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean validateAccessKey( String accesskey, Long id )
     {
-        String query = "from User where accessKey = :accesskey and id = :id";
-
+        
+        // For testing, using only the API access key.
+        // String query = "from User where accessKey = :accesskey and id = :id";
+        String query = "from User where accessKey = :accesskey";
         List<User> users = entityManager.createQuery( query, User.class )
             .setParameter( "accesskey", accesskey )
-            .setParameter( "id", id )
+            //.setParameter( "id", id )
             .getResultList();
         return users.size() == 0 ? false : true;
     }
