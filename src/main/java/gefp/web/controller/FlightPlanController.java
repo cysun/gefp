@@ -257,7 +257,7 @@ public class FlightPlanController {
     }
 
     @RequestMapping(value = "/plan/saveStudentCheckpoint.html",
-        method = RequestMethod.POST)
+        method = RequestMethod.GET)
     public void saveStudentCheckpoint( ModelMap models,
         HttpServletRequest request, HttpServletResponse response,
         PrintWriter out, HttpSession session, Principal principal )
