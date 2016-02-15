@@ -73,7 +73,7 @@
 											<tr>
 												<th><input type="hidden" id="planId" value="${plan.id}" /></th>
 												<c:forEach items="${plan.runways}" var="runway">
-													<c:if test="${not empty runway}">
+													<c:if test="${not empty runway && runway.id == runway_id}">
 														<th>${runway.name}</th>
 													</c:if>
 												</c:forEach>
@@ -92,7 +92,7 @@
 															<c:if test="${not empty runway}">
 																<td><c:forEach items="${plan.cells}" var="cell">
 																		<c:if
-																			test="${cell.runway.id == runway.id && cell.stage.id == stage.id }">
+																			test="${ (cell.runway.id == runway_id && cell.stage.id == stage_id) && (cell.runway.id == runway.id && cell.stage.id == stage.id) }">
 																			<table id="${cell.id}" class="checkpoint_list list milestone_list_table">
 																				<c:forEach items="${cell.checkpoints}"
 																					var="checkpoint">
