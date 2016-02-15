@@ -227,6 +227,7 @@ CREATE TABLE users (
     enabled boolean NOT NULL,
     deleted boolean DEFAULT FALSE,
     newaccount boolean DEFAULT FALSE,
+    accesskey character varying(255),
     PRIMARY KEY (id)
 );
 
