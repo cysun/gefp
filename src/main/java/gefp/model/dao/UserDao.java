@@ -28,5 +28,5 @@ public interface UserDao {
 
     List<User> searchUsersByPrefix( String term, int maxResults );
     
-    boolean validateAccessKey(String key, Long id);
+    boolean validateAccessKey(String accessKey, Long id);
 }
