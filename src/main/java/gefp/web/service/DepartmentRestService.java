@@ -199,30 +199,37 @@ public class DepartmentRestService {
     @RequestMapping(value = "/api/updateprofile.html",
         method = RequestMethod.POST)
     public String updateprofile( @RequestParam Long user_id,
-        @RequestParam String firstName,
+        @RequestParam String accessKey, @RequestParam String firstName,
         @RequestParam(required = false ) String middleName,
         @RequestParam String lastName, @RequestParam String email,
         @RequestParam String cin,
         @RequestParam(required = false) Integer dept_id, ModelMap models)
     {
 
-        User user = userDao.getApiUser( user_id );
-        user.setFirstName( firstName );
-        user.setMiddleName( middleName );
-        user.setLastName( lastName );
-        user.setCin( cin );
-        user.setEmail( email );
-        if( user.isNewAccount() )
+        if( userDao.validateAccessKey( accessKey, user_id ) )
         {
-            Department dept = deptDao.getDepartment( dept_id );
-            user.setDepartment( dept );
-            user.setMajor( dept );
-            user.setFlightPlan( dept.getDefaultPlan() );
-            user.setNewAccount( false );
-        }
+            User user = userDao.getApiUser( user_id );
+            user.setFirstName( firstName );
+            user.setMiddleName( middleName );
+            user.setLastName( lastName );
+            user.setCin( cin );
+            user.setEmail( email );
+            if( user.isNewAccount() )
+            {
+                Department dept = deptDao.getDepartment( dept_id );
+                user.setDepartment( dept );
+                user.setMajor( dept );
+                user.setFlightPlan( dept.getDefaultPlan() );
+                user.setNewAccount( false );
+            }
 
-        user = userDao.saveUser( user );
-        models.put( "user", user );
+            user = userDao.saveUser( user );
+            models.put( "user", user );
+        }
+        else
+        {
+            models.put( "user", null );
+        }
         return "jsonView";
     }
 
@@ -246,10 +253,19 @@ public class DepartmentRestService {
 
     @RequestMapping(value = "/api/stages.html", method = RequestMethod.GET)
     public String listStages( @RequestParam Long plan_id,
-        @RequestParam Long user_id, ModelMap models )
+        @RequestParam Long user_id, @RequestParam String accessKey,
+        ModelMap models )
     {
-        List<Stage> stages = planDao.getFlightPlan( plan_id ).getStages();
-        models.put( "stages", stages );
+
+        if( userDao.validateAccessKey( accessKey, user_id ) )
+        {
+            List<Stage> stages = planDao.getFlightPlan( plan_id ).getStages();
+            models.put( "stages", stages );
+        }
+        else
+        {
+            models.put( "stages", null );
+        }
         return "jsonView";
     }
 
