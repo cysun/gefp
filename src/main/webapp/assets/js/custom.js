@@ -58,7 +58,12 @@ function ShowStudentsPlan(studentid) {
 
 			var curr = this;
 			var checked = curr.checked;
-
+			
+			var _userId = $(curr).attr("data-userId");
+			var _id = $(curr).val()
+			
+			alert(_userId + " " + _id + " " + checked);
+			
 			if (checked != true) {
 				$.ajax({
 					url : '/gefp/plan/saveStudentCheckpoint.html',
