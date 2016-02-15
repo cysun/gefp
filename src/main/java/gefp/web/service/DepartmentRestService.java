@@ -10,6 +10,7 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchResult;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -362,4 +364,30 @@ public class DepartmentRestService {
         if( userDao.validateUser( u ) != null ) return true;
         return false;
     }
+
+    @RequestMapping("/api/mobile-plan/{id}.html")
+    public String viewPlanStudent( @PathVariable Long id, ModelMap models )
+    {
+        User currUserObj = userDao.getApiUser( id );
+
+        if( currUserObj != null )
+        {
+            models.put( "currUserObj", currUserObj );
+            FlightPlan plan = null;
+            boolean student_mode = true;
+            if( currUserObj.getFlightPlan() != null )
+            {
+                plan = planDao
+                    .getFlightPlan( currUserObj.getFlightPlan().getId() );
+            }
+            models.put( "student_mode", student_mode );
+            models.put( "plan", plan );
+            return "view_plan";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
+    }
+
 }
