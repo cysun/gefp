@@ -25,7 +25,7 @@
 		<div id="page-wrapper" class="fullscreen">
 			<div id="page-inner">
 
-				<div class="row">
+				<%-- <div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 
 						<div class="panel panel-default">
@@ -40,12 +40,6 @@
 									</h5>
 								</div>
 
-								<div class="col-xs-offset-5 ">
-									<div id="successMessage" style="color: #090; display: none;">
-										<h5>Checkpoint saved successfully</h5>
-									</div>
-								</div>
-
 								<div style="clear: both;"></div>
 							</div>
 
@@ -58,7 +52,7 @@
 						
 						</div>
 						
-						</div>
+						</div> --%>
 				<!-- /. ROW  -->
 
 						<div class="row">
@@ -69,7 +63,7 @@
 								
 									<table id="sortable"
 										class="table table-striped table-bordered sar-table table-responsive">
-										<thead>
+										<%-- <thead>
 											<tr>
 												<th><input type="hidden" id="planId" value="${plan.id}" /></th>
 												<c:forEach items="${plan.runways}" var="runway">
@@ -78,7 +72,7 @@
 													</c:if>
 												</c:forEach>
 											</tr>
-										</thead>
+										</thead> --%>
 										<tbody>
 
 											<c:forEach items="${plan.stages}" var="stage"
@@ -86,7 +80,7 @@
 
 												<c:if test="${not empty stage && stage.id == stage_id}">
 													<tr class="state-default">
-														<th>${stage.name}</th>
+														<%-- <th>${stage.name}</th> --%>
 														<c:forEach items="${plan.runways}" var="runway">
 
 															<c:if test="${not empty runway && runway.id == runway_id}">
@@ -183,7 +177,7 @@
 						
 						</div>
 
-						<div class="row">
+						<%-- <div class="row">
 						
 							<div class="col-md-12">Comments:</div>
 
@@ -215,7 +209,7 @@
 
 							</div>
 					
-				</div>
+				</div> --%>
 				<!-- /. ROW  -->
 
 			</div>
