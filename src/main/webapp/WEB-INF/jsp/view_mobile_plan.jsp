@@ -84,7 +84,7 @@
 											<c:forEach items="${plan.stages}" var="stage"
 												varStatus="counter">
 
-												<c:if test="${not empty stage}">
+												<c:if test="${not empty stage && stage.id == stage_id}">
 													<tr class="state-default">
 														<th>${stage.name}</th>
 														<c:forEach items="${plan.runways}" var="runway">
