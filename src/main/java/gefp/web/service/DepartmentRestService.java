@@ -148,6 +148,7 @@ public class DepartmentRestService {
                         user.setFlightPlan( null );
                         user.setNewAccount( true );
                         user.setDeleted( false );
+                        user.setAccessKey( UUID.randomUUID().toString() );
                         user = userDao.saveUser( user );
                     }
                 }
