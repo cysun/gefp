@@ -185,8 +185,6 @@
 
 						<div class="row">
 						
-						<security:authorize access="hasRole('STUDENT')">
-
 							<div class="col-md-12">Comments:</div>
 
 							<div class="col-md-12">
@@ -216,9 +214,6 @@
 								</table>
 
 							</div>
-
-						</security:authorize>
-
 					
 				</div>
 				<!-- /. ROW  -->
