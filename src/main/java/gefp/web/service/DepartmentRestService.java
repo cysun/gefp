@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchResult;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,8 +41,6 @@ import gefp.model.dao.RunwayDao;
 import gefp.model.dao.StageDao;
 import gefp.model.dao.UserDao;
 import gefp.security.ActiveDirectory;
-
-import java.util.UUID;
 
 @Controller
 @SuppressWarnings("unused")
@@ -365,10 +362,12 @@ public class DepartmentRestService {
         return false;
     }
 
-    @RequestMapping("/api/mobile-plan/{id}.html")
-    public String viewPlanStudent( @PathVariable Long id, ModelMap models )
+    @RequestMapping("/api/mobile-user-plan.html")
+    public String viewPlanStudent( @RequestParam Long user_id,
+        @RequestParam Long runway_id, @RequestParam Long stage_id,
+        ModelMap models )
     {
-        User currUserObj = userDao.getApiUser( id );
+        User currUserObj = userDao.getApiUser( user_id );
 
         if( currUserObj != null )
         {
@@ -382,6 +381,8 @@ public class DepartmentRestService {
             }
             models.put( "student_mode", student_mode );
             models.put( "plan", plan );
+            models.put( "runway_id", runway_id );
+            models.put( "stage_id", stage_id );
             return "view_mobile_plan";
         }
         else
