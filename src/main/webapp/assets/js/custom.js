@@ -68,6 +68,7 @@ function ShowStudentsPlan(studentid) {
 						id : $(curr).val(),
 						checked : checked
 					},
+					type : 'POST',
 					success : function(response) {
 						// console.log(response);
 						/*
@@ -87,6 +88,7 @@ function ShowStudentsPlan(studentid) {
 						id : $(curr).val(),
 						checked : checked
 					},
+					type : 'POST',
 					success : function(response) {
 						// console.log(response);
 						/*
