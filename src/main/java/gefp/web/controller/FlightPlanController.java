@@ -271,7 +271,7 @@ public class FlightPlanController {
         }
 
         Long userId = Long.parseLong( request.getParameter( "userId" ) );
-        User currUserObj = userDao.getUser( userId );
+        User currUserObj = userDao.getApiUser( userId );
 
         Long id = Long.parseLong( request.getParameter( "id" ) );
         String checked = request.getParameter( "checked" );
