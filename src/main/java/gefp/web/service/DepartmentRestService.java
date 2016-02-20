@@ -389,7 +389,7 @@ public class DepartmentRestService {
             models.put( "runway_id", runway_id );
             models.put( "stage_id", stage_id );
             models.put( "cell", cellDao.getCell( runway_id, stage_id ) );
-            return "view_mobile_plan";
+            return "mobile/view_plan_cell";
         }
         else
         {
