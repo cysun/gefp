@@ -1,10 +1,6 @@
 package gefp.model.dao.jpa;
 
-import gefp.model.Cell;
-import gefp.model.FlightPlan;
-import gefp.model.Runway;
-import gefp.model.Stage;
-import gefp.model.dao.CellDao;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -12,6 +8,12 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import gefp.model.Cell;
+import gefp.model.FlightPlan;
+import gefp.model.Runway;
+import gefp.model.Stage;
+import gefp.model.dao.CellDao;
 
 @Repository
 public class CellDaoImpl implements CellDao {
@@ -61,6 +63,17 @@ public class CellDaoImpl implements CellDao {
     {
         String query = "update cells set deleted = true where flightplan_id = " + plan.getId();
         entityManager.createNativeQuery( query );
+    }
+
+    @Override
+    public Cell getCell( Long runway_id, Long stage_id )
+    {
+        List<Cell> cells = entityManager.createQuery(
+            "from Cell where runway_id = :runway_id and stage_id = :stage_id", Cell.class )
+            .setParameter( "runway_id", runway_id )
+            .setParameter( "stage_id", stage_id )
+            .getResultList();
+        return cells.size() == 0 ? null : cells.get( 0 );
     }
 
 }
