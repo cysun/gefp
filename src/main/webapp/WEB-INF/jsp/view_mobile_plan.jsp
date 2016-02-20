@@ -109,7 +109,7 @@
 																										name="checkpoints"
 																										data-userId="${currUserObj.id}"
 																										value="${checkpoint.id}"
-																										class="flightplan_checkpoints pull-left" />
+																										class="flightplan_checkpoints_mobile pull-left" />
 
 																									<c:if test="${not empty checkMessage }">
 																										<!-- <i class="fa fa-comments-o "></i> -->
@@ -123,7 +123,7 @@
 																									<input type="checkbox" name="checkpoints"
 																										data-userId="${currUserObj.id}"
 																										value="${checkpoint.id}"
-																										class="flightplan_checkpoints pull-left" />
+																										class="flightplan_checkpoints_mobile pull-left" />
 																								</c:otherwise>
 																							</c:choose>
 																							</td>
