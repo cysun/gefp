@@ -1,6 +1,8 @@
 package gefp.web.service;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +13,9 @@ import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchResult;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -389,6 +394,56 @@ public class DepartmentRestService {
         {
             return "redirect:/404";
         }
+    }
+    
+    @RequestMapping(value = "/api/plan/saveStudentCheckpoint.html",
+        method = RequestMethod.POST)
+    public void saveStudentCheckpoint( ModelMap models,
+        HttpServletRequest request, HttpServletResponse response,
+        PrintWriter out, HttpSession session, Principal principal )
+    {
+
+        if( request.getParameter( "userId" ) == ""
+            || request.getParameter( "userId" ) == null )
+        {
+            System.out.println( "User ID is null" );
+            return;
+        }
+
+        Long userId = Long.parseLong( request.getParameter( "userId" ) );
+        User currUserObj = userDao.getUser( userId );
+
+        Long id = Long.parseLong( request.getParameter( "id" ) );
+        String checked = request.getParameter( "checked" );
+        String repsonse = "{data:" + id + ", status:" + checked + "}";
+        String message = request.getParameter( "message" );
+
+        if( id != null && checked != "" )
+        {
+
+            Checkpoint c = checkpointDao.getCheckPoint( id );
+
+            if( checked.equals( "true" ) )
+            {
+                CheckpointInfo cinfo = new CheckpointInfo( c, message );
+                currUserObj.getCheckpointsInfo().add( cinfo );
+            }
+            else
+            {
+                Set<CheckpointInfo> newCheckpoints = new HashSet<CheckpointInfo>();
+                for( CheckpointInfo cp : currUserObj.getCheckpointsInfo() )
+                {
+                    if( !cp.getCheckpoint().getId().equals( id ) )
+                    {
+                        newCheckpoints.add( cp );
+                    }
+                }
+                currUserObj.setCheckpointsInfo( newCheckpoints );
+            }
+            userDao.saveUser( currUserObj );
+        }
+        response.setContentType( "text/plain" );
+        out.print( repsonse );
     }
 
 }
