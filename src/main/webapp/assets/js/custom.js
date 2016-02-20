@@ -102,6 +102,55 @@ function ShowStudentsPlan(studentid) {
 			// console.log("Checkpoint ID is : " + $(this).val() + " state is "
 			// + this.checked );
 		});
+		
+		$(".flightplan_checkpoints_mobile").on('touchstart click', function(e) {
+
+			var curr = this;
+			var checked = curr.checked;
+			
+			if (checked != true) {
+				$.ajax({
+					url : '/gefp/api/plan/saveStudentCheckpoint.html',
+					data : {
+						message : "",
+						userId : $(curr).attr("data-userId"),
+						id : $(curr).val(),
+						checked : checked
+					},
+					type : 'POST',
+					success : function(response) {
+						// console.log(response);
+						/*
+						 * $("#successMessage").show(); setTimeout(function(){
+						 * $(curr).parent().find(".CommentIcon").remove();
+						 * $("#successMessage").hide(); },3000);
+						 */
+					}
+				});
+			} else {
+
+				$.ajax({
+					url : '/gefp/api/plan/saveStudentCheckpoint.html',
+					data : {
+						message : "",
+						userId : $(curr).attr("data-userId"),
+						id : $(curr).val(),
+						checked : checked
+					},
+					type : 'POST',
+					success : function(response) {
+						// console.log(response);
+						/*
+						 * $("#successMessage").show(); setTimeout(function(){
+						 * $("#successMessage").hide(); },3000);
+						 */
+					}
+				});
+			}
+
+			// console.log("Checkpoint ID is : " + $(this).val() + " state is "
+			// + this.checked );
+		});
 
 		/*
 		 * $("#search").autocomplete({ source: "autocomplete/user.html' />",
