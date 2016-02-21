@@ -21,78 +21,11 @@
 
 	<div id="wrapper">
 
-		<security:authorize access="hasRole('STUDENTAAA')">
-			<div id="loader-wrapper">
-				<div id="loader"></div>
-
-				<div class="loader-section section-left"></div>
-				<div class="loader-section section-right"></div>
-			</div>
-		</security:authorize>
-		<jsp:include page="../includes/header.jsp" />
-
-		<%--  
-		<jsp:include page="includes/left_menu.jsp" />
-		--%>
-
 		<!-- /. NAV SIDE  -->
 		<div id="page-wrapper" class="fullscreen">
 			<div id="page-inner">
 
-				<c:choose>
-
-					<c:when test="${not empty plan }">
-
-						<div class="row">
-							<div class="col-md-12 col-sm-12 col-xs-12">
-
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h5>
-												<span class="planTitle">Plan Title: ${plan.name} <security:authorize
-														access="hasAnyRole('ADMIN','ADVISOR')">
-												(${plan.seasonName} ${plan.seasonYear})
-											</security:authorize>
-												</span>
-											</h5>
-											Major: ${plan.department.name}
-										</div>
-
-										
-										<security:authorize access="hasRole('STUDENT')">
-										
-										<div class="pull-right">
-											<a class="btn override btn-primary"
-												href="<c:url value="/student/view-plan/${userId}.html" />"><i
-												class="fa fa-back "></i> Back</a>
-										</div>
-										
-										</security:authorize>
-										
-										<security:authorize access="hasAnyRole('ADMIN','ADVISOR')">
-										
-										<div class="pull-right">
-											<a class="btn override btn-primary"
-												href="<c:url value="/advisor/view-student-plan/${userId}.html" />"><i
-												class="fa fa-back "></i> Back</a>
-										</div>
-										
-										</security:authorize>
-
-
-
-										<div style="clear: both;"></div>
-									</div>
-
-
-									<div class="panel-body">									
-									Milestone: ${checkpoint.name}</div>
-								</div>
-								<%-- <a href="<c:url value="/#"/>" class="btn btn-danger">Delete</a> --%>
-
-
-								<div class="">
+				<div class="row">
 									
 									<form:form action="" modelAttribute="comment" method="post">
 									<table id="sortable"
@@ -123,6 +56,7 @@
 											<tr>
 												<td colspan="3" align="right">
 												<input type="hidden" name="checkpointId" value="${checkpointId}" />
+												<input type="hidden" name="checkpointId" value="${checkpointId}" />
 												<input type="submit" value="Save Comment" class="btn btn-primary override" />
 												</td>
 											</tr>
@@ -132,19 +66,6 @@
 									</form:form>
 
 								</div>
-
-							</div>
-						</div>
-						<!-- /. ROW  -->
-
-					</c:when>
-
-					<c:otherwise>
-				Plan not available
-			
-			</c:otherwise>
-
-				</c:choose>
 
 
 			</div>
