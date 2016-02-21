@@ -537,7 +537,7 @@ public class DepartmentRestService {
 
         if( loginUser.isAdmin() || loginUser.isAdvisor() )
         {
-            return "redirect:/plan/milestone/add-comment.html?userId=" + userId
+            return "redirect:/api/plan/milestone/add-comment.html?userId=" + userId
                 + "&checkpointId=" + checkpointId + "&planId=" + planId;
             // return "redirect:/advisor/view-student-plan/" + userId + ".html";
         }
