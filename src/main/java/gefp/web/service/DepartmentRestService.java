@@ -23,13 +23,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 
 import gefp.model.Cell;
 import gefp.model.Checkpoint;
 import gefp.model.CheckpointInfo;
+import gefp.model.Comment;
 import gefp.model.Department;
 import gefp.model.FlightPlan;
 import gefp.model.Role;
@@ -401,16 +404,18 @@ public class DepartmentRestService {
         method = RequestMethod.POST)
     public void saveStudentCheckpoint( ModelMap models,
         HttpServletRequest request, HttpServletResponse response,
-        PrintWriter out, HttpSession session, Principal principal )
+        PrintWriter out )
     {
 
         if( request.getParameter( "userId" ) == ""
             || request.getParameter( "userId" ) == null )
         {
-            System.out.println( "User ID is null" );
             return;
         }
-
+        
+        
+        
+        
         Long userId = Long.parseLong( request.getParameter( "userId" ) );
         User currUserObj = userDao.getApiUser( userId );
 
@@ -445,6 +450,103 @@ public class DepartmentRestService {
         }
         response.setContentType( "text/plain" );
         out.print( repsonse );
+    }
+    
+    @RequestMapping(value = "/api/plan/milestone/add-comment.html",
+        method = RequestMethod.GET)
+    public String addMilestoneComment( ModelMap models,
+        @RequestParam Long planId, @RequestParam Long checkpointId,
+        @RequestParam Long userId )
+    {
+        FlightPlan plan = planDao.getFlightPlan( planId );
+        Checkpoint checkpoint = checkpointDao.getCheckPoint( checkpointId );
+        CheckpointInfo cinfo = checkpointInfoDao.getCheckPointInfo( userId,
+            checkpointId );
+
+        if( cinfo == null )
+        {
+            cinfo = new CheckpointInfo();
+            cinfo.setCheckpoint( checkpoint );
+        }
+
+        models.put( "comment", new Comment() );
+        models.put( "plan", plan );
+        models.put( "checkpoint", checkpoint );
+        models.put( "userId", userId );
+        models.put( "comments", cinfo.getComments() );
+        // return "add_milestone_comment";
+        return "mobile/comments_page";
+    }
+
+    @RequestMapping(value = "/api/plan/milestone/add-comment.html",
+        method = RequestMethod.POST)
+    public String saveStudentCheckpointComment(
+        @ModelAttribute("comment") Comment comment, ModelMap models,
+        HttpServletRequest request, HttpServletResponse response,
+        PrintWriter out, HttpSession session, Principal principal,
+        SessionStatus status )
+    {
+
+        User loginUser = (User) session.getAttribute( "loggedInUser" );
+
+        if( request.getParameter( "userId" ) == ""
+            || request.getParameter( "userId" ) == null )
+        {
+            System.out.println( "User ID is null" );
+            return "redirect:/404";
+        }
+
+        Long planId = Long.parseLong( request.getParameter( "planId" ) );
+        Long userId = Long.parseLong( request.getParameter( "userId" ) );
+        User currUserObj = userDao.getUser( userId );
+
+        Long checkpointId = Long.parseLong( request.getParameter( "checkpointId" ) );
+        // String message = request.getParameter( "message" );
+
+        if( checkpointId != null )
+        {
+            comment.setCommentedBy( loginUser );
+            comment.setVisibleToStudent( true );
+
+            CheckpointInfo cinfo = null;
+            for( CheckpointInfo csx : currUserObj.getCheckpointsInfo() )
+            {
+                if( csx.getCheckpoint().getId().equals( checkpointId ) )
+                {
+                    cinfo = csx;
+                }
+            }
+
+            if( cinfo == null )
+            {
+                Checkpoint c = checkpointDao.getCheckPoint( checkpointId );
+                cinfo = new CheckpointInfo();
+                cinfo.setCheckpoint( c );
+            }
+            cinfo.getComments().add( comment );
+
+            currUserObj.getCheckpointsInfo().add( cinfo );
+            userDao.saveUser( currUserObj );
+            status.setComplete();
+            /*
+             * logger.info( "User " + principal.getName() +
+             * " checked a Milestone (ID: " + checkpointId + " ) for " +
+             * currUserObj.getUsername() );
+             */
+        }
+
+        if( loginUser.isAdmin() || loginUser.isAdvisor() )
+        {
+            return "redirect:/plan/milestone/add-comment.html?userId=" + userId
+                + "&checkpointId=" + checkpointId + "&planId=" + planId;
+            // return "redirect:/advisor/view-student-plan/" + userId + ".html";
+        }
+        else
+        {
+            return "redirect:/plan/milestone/add-comment.html?userId=" + userId
+                + "&checkpointId=" + checkpointId + "&planId=" + planId;
+            // return "redirect:/student/view-plan/" + userId + ".html";
+        }
     }
 
 }
