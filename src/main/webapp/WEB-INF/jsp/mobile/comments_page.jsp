@@ -39,40 +39,6 @@
 		<div id="page-wrapper" class="fullscreen">
 			<div id="page-inner">
 
-
-				<c:choose>
-					<c:when test="${not empty StudentUser}">
-
-						<ol class="breadcrumb">
-							<li><a href="<c:url value="#"/>">Home</a></li>
-							<li class="active">Flight Plan</li>
-							<li class="active">Add Comment</li>
-						</ol>
-
-					</c:when>
-					<c:otherwise>
-						<ol class="breadcrumb">
-							<security:authorize access="hasRole('ADMIN')">
-								<li><a href="<c:url value="/admin/dashboard.html"/>">Home</a></li>
-								<li><a href="<c:url value="/admin/list-users.html"/>">Users</a></li>
-							</security:authorize>
-
-							<security:authorize access="hasRole('ADVISOR')">
-								<li><a href="<c:url value="/advisor/dashboard.html"/>">Home</a></li>
-							</security:authorize>
-
-							<li class="active">Add Comment</li>
-						</ol>
-					</c:otherwise>
-				</c:choose>
-
-				<jsp:include page="../includes/dashboard_title.jsp" />
-				<!-- /. ROW  -->
-
-
-
-				<hr />
-
 				<c:choose>
 
 					<c:when test="${not empty plan }">
@@ -190,28 +156,6 @@
 
 
 	<jsp:include page="../includes/footer.jsp" />
-
-	<script type="text/javascript">
-		function publishPlan(planID) {
-
-			smoke
-					.confirm(
-							"Are you sure you want to publish this plan?",
-							function(e) {
-								if (e) {
-									top.location.href = '<c:url value="/admin/plan/publish.html?planId='
-											+ planID + '" />';
-								} else {
-
-								}
-							}, {
-								ok : "Yes",
-								cancel : "No",
-								classname : "custom-class",
-								reverseButtons : true
-							});
-		}
-	</script>
 
 </body>
 </html>
