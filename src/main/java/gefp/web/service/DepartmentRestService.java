@@ -527,7 +527,7 @@ public class DepartmentRestService {
             }
         }
         return "redirect:/api/plan/milestone/add-comment.html?userId=" + userId
-            + "&checkpointId=" + checkpointId + "&planId=" + planId;
+            + "&checkpointId=" + checkpointId + "&planId=" + planId+"&accessKey="+accessKey;
     }
 
 }
