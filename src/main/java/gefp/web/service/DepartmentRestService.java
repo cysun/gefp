@@ -2,7 +2,6 @@ package gefp.web.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +14,6 @@ import javax.naming.directory.Attributes;
 import javax.naming.directory.SearchResult;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +25,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
 
 import gefp.model.Cell;
 import gefp.model.Checkpoint;
@@ -399,7 +396,7 @@ public class DepartmentRestService {
             return "redirect:/404";
         }
     }
-    
+
     @RequestMapping(value = "/api/plan/saveStudentCheckpoint.html",
         method = RequestMethod.POST)
     public void saveStudentCheckpoint( ModelMap models,
@@ -408,14 +405,8 @@ public class DepartmentRestService {
     {
 
         if( request.getParameter( "userId" ) == ""
-            || request.getParameter( "userId" ) == null )
-        {
-            return;
-        }
-        
-        
-        
-        
+            || request.getParameter( "userId" ) == null ) { return; }
+
         Long userId = Long.parseLong( request.getParameter( "userId" ) );
         User currUserObj = userDao.getApiUser( userId );
 
@@ -451,7 +442,7 @@ public class DepartmentRestService {
         response.setContentType( "text/plain" );
         out.print( repsonse );
     }
-    
+
     @RequestMapping(value = "/api/plan/milestone/add-comment.html",
         method = RequestMethod.GET)
     public String addMilestoneComment( ModelMap models,
@@ -481,31 +472,17 @@ public class DepartmentRestService {
     @RequestMapping(value = "/api/plan/milestone/add-comment.html",
         method = RequestMethod.POST)
     public String saveStudentCheckpointComment(
-        @ModelAttribute("comment") Comment comment, ModelMap models,
+        @ModelAttribute("comment" ) Comment comment, ModelMap models,
         HttpServletRequest request, HttpServletResponse response,
-        PrintWriter out, HttpSession session, Principal principal,
-        SessionStatus status )
+        PrintWriter out, @RequestParam Long userId, @RequestParam Long planId,
+        @RequestParam Long checkpointId)
     {
-
-        User loginUser = (User) session.getAttribute( "loggedInUser" );
-
-        if( request.getParameter( "userId" ) == ""
-            || request.getParameter( "userId" ) == null )
-        {
-            System.out.println( "User ID is null" );
-            return "redirect:/404";
-        }
-
-        Long planId = Long.parseLong( request.getParameter( "planId" ) );
-        Long userId = Long.parseLong( request.getParameter( "userId" ) );
-        User currUserObj = userDao.getUser( userId );
-
-        Long checkpointId = Long.parseLong( request.getParameter( "checkpointId" ) );
-        // String message = request.getParameter( "message" );
+        User loginUser = userDao.getApiUser( userId );
+        User currUserObj = userDao.getApiUser( userId );
 
         if( checkpointId != null )
         {
-            comment.setCommentedBy( loginUser );
+            comment.setCommentedBy( currUserObj );
             comment.setVisibleToStudent( true );
 
             CheckpointInfo cinfo = null;
@@ -527,26 +504,9 @@ public class DepartmentRestService {
 
             currUserObj.getCheckpointsInfo().add( cinfo );
             userDao.saveUser( currUserObj );
-            status.setComplete();
-            /*
-             * logger.info( "User " + principal.getName() +
-             * " checked a Milestone (ID: " + checkpointId + " ) for " +
-             * currUserObj.getUsername() );
-             */
         }
-
-        if( loginUser.isAdmin() || loginUser.isAdvisor() )
-        {
-            return "redirect:/api/plan/milestone/add-comment.html?userId=" + userId
-                + "&checkpointId=" + checkpointId + "&planId=" + planId;
-            // return "redirect:/advisor/view-student-plan/" + userId + ".html";
-        }
-        else
-        {
-            return "redirect:/plan/milestone/add-comment.html?userId=" + userId
-                + "&checkpointId=" + checkpointId + "&planId=" + planId;
-            // return "redirect:/student/view-plan/" + userId + ".html";
-        }
+        return "redirect:/api/plan/milestone/add-comment.html?userId=" + userId
+            + "&checkpointId=" + checkpointId + "&planId=" + planId;
     }
 
 }
