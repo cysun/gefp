@@ -370,26 +370,35 @@ public class DepartmentRestService {
     @RequestMapping("/api/mobile-user-plan.html")
     public String viewPlanStudent( @RequestParam Long user_id,
         @RequestParam Long runway_id, @RequestParam Long stage_id,
-        ModelMap models )
+        @RequestParam String accessKey, ModelMap models )
     {
-        User currUserObj = userDao.getApiUser( user_id );
 
-        if( currUserObj != null )
+        if( userDao.validateAccessKey( accessKey, user_id ) )
         {
-            models.put( "currUserObj", currUserObj );
-            FlightPlan plan = null;
-            boolean student_mode = true;
-            if( currUserObj.getFlightPlan() != null )
+
+            User currUserObj = userDao.getApiUser( user_id );
+
+            if( currUserObj != null )
             {
-                plan = planDao
-                    .getFlightPlan( currUserObj.getFlightPlan().getId() );
+                models.put( "currUserObj", currUserObj );
+                FlightPlan plan = null;
+                boolean student_mode = true;
+                if( currUserObj.getFlightPlan() != null )
+                {
+                    plan = planDao
+                        .getFlightPlan( currUserObj.getFlightPlan().getId() );
+                }
+                models.put( "student_mode", student_mode );
+                models.put( "plan", plan );
+                models.put( "runway_id", runway_id );
+                models.put( "stage_id", stage_id );
+                models.put( "cell", cellDao.getCell( runway_id, stage_id ) );
+                return "mobile/view_plan_cell";
             }
-            models.put( "student_mode", student_mode );
-            models.put( "plan", plan );
-            models.put( "runway_id", runway_id );
-            models.put( "stage_id", stage_id );
-            models.put( "cell", cellDao.getCell( runway_id, stage_id ) );
-            return "mobile/view_plan_cell";
+            else
+            {
+                return "redirect:/404";
+            }
         }
         else
         {
@@ -399,111 +408,123 @@ public class DepartmentRestService {
 
     @RequestMapping(value = "/api/plan/saveStudentCheckpoint.html",
         method = RequestMethod.POST)
-    public void saveStudentCheckpoint( ModelMap models,
+    public void saveStudentCheckpoint( @RequestParam Long userId,
+        @RequestParam String accessKey, ModelMap models,
         HttpServletRequest request, HttpServletResponse response,
         PrintWriter out )
     {
 
-        if( request.getParameter( "userId" ) == ""
-            || request.getParameter( "userId" ) == null ) { return; }
-
-        Long userId = Long.parseLong( request.getParameter( "userId" ) );
-        User currUserObj = userDao.getApiUser( userId );
-
-        Long id = Long.parseLong( request.getParameter( "id" ) );
-        String checked = request.getParameter( "checked" );
-        String repsonse = "{data:" + id + ", status:" + checked + "}";
-        String message = request.getParameter( "message" );
-
-        if( id != null && checked != "" )
+        if( userDao.validateAccessKey( accessKey, userId ) )
         {
+            User currUserObj = userDao.getApiUser( userId );
 
-            Checkpoint c = checkpointDao.getCheckPoint( id );
+            Long id = Long.parseLong( request.getParameter( "id" ) );
+            String checked = request.getParameter( "checked" );
+            String repsonse = "{data:" + id + ", status:" + checked + "}";
+            String message = request.getParameter( "message" );
 
-            if( checked.equals( "true" ) )
+            if( id != null && checked != "" )
             {
-                CheckpointInfo cinfo = new CheckpointInfo( c, message );
-                currUserObj.getCheckpointsInfo().add( cinfo );
-            }
-            else
-            {
-                Set<CheckpointInfo> newCheckpoints = new HashSet<CheckpointInfo>();
-                for( CheckpointInfo cp : currUserObj.getCheckpointsInfo() )
+
+                Checkpoint c = checkpointDao.getCheckPoint( id );
+
+                if( checked.equals( "true" ) )
                 {
-                    if( !cp.getCheckpoint().getId().equals( id ) )
-                    {
-                        newCheckpoints.add( cp );
-                    }
+                    CheckpointInfo cinfo = new CheckpointInfo( c, message );
+                    currUserObj.getCheckpointsInfo().add( cinfo );
                 }
-                currUserObj.setCheckpointsInfo( newCheckpoints );
+                else
+                {
+                    Set<CheckpointInfo> newCheckpoints = new HashSet<CheckpointInfo>();
+                    for( CheckpointInfo cp : currUserObj.getCheckpointsInfo() )
+                    {
+                        if( !cp.getCheckpoint().getId().equals( id ) )
+                        {
+                            newCheckpoints.add( cp );
+                        }
+                    }
+                    currUserObj.setCheckpointsInfo( newCheckpoints );
+                }
+                userDao.saveUser( currUserObj );
             }
-            userDao.saveUser( currUserObj );
+            response.setContentType( "text/plain" );
+            out.print( repsonse );
         }
-        response.setContentType( "text/plain" );
-        out.print( repsonse );
     }
 
     @RequestMapping(value = "/api/plan/milestone/add-comment.html",
         method = RequestMethod.GET)
-    public String addMilestoneComment( ModelMap models,
+    public String addMilestoneComment( @RequestParam String accessKey,
         @RequestParam Long planId, @RequestParam Long checkpointId,
-        @RequestParam Long userId )
+        @RequestParam Long userId, ModelMap models )
     {
-        FlightPlan plan = planDao.getFlightPlan( planId );
-        Checkpoint checkpoint = checkpointDao.getCheckPoint( checkpointId );
-        CheckpointInfo cinfo = checkpointInfoDao.getCheckPointInfo( userId,
-            checkpointId );
-
-        if( cinfo == null )
+        if( userDao.validateAccessKey( accessKey, userId ) )
         {
-            cinfo = new CheckpointInfo();
-            cinfo.setCheckpoint( checkpoint );
-        }
 
-        models.put( "comment", new Comment() );
-        models.put( "plan", plan );
-        models.put( "checkpoint", checkpoint );
-        models.put( "userId", userId );
-        models.put( "comments", cinfo.getComments() );
-        // return "add_milestone_comment";
-        return "mobile/comments_page";
+            FlightPlan plan = planDao.getFlightPlan( planId );
+            Checkpoint checkpoint = checkpointDao.getCheckPoint( checkpointId );
+            CheckpointInfo cinfo = checkpointInfoDao.getCheckPointInfo( userId,
+                checkpointId );
+
+            if( cinfo == null )
+            {
+                cinfo = new CheckpointInfo();
+                cinfo.setCheckpoint( checkpoint );
+            }
+
+            models.put( "comment", new Comment() );
+            models.put( "plan", plan );
+            models.put( "checkpoint", checkpoint );
+            models.put( "userId", userId );
+            models.put( "comments", cinfo.getComments() );
+            // return "add_milestone_comment";
+            return "mobile/comments_page";
+        }
+        else
+        {
+            return "redirect:/404";
+        }
     }
 
     @RequestMapping(value = "/api/plan/milestone/add-comment.html",
         method = RequestMethod.POST)
     public String saveStudentCheckpointComment(
+        @RequestParam String accessKey,
         @ModelAttribute("comment" ) Comment comment, ModelMap models,
         HttpServletRequest request, HttpServletResponse response,
         PrintWriter out, @RequestParam Long userId, @RequestParam Long planId,
         @RequestParam Long checkpointId)
     {
-        User loginUser = userDao.getApiUser( userId );
-        User currUserObj = userDao.getApiUser( userId );
+        
+        if(userDao.validateAccessKey( accessKey, userId )) {
+            User loginUser = userDao.getApiUser( userId );
+            User currUserObj = userDao.getApiUser( userId );
 
-        if( checkpointId != null )
-        {
-            comment.setCommentedBy( currUserObj );
-            comment.setVisibleToStudent( true );
-
-            CheckpointInfo cinfo = null;
-            for( CheckpointInfo csx : currUserObj.getCheckpointsInfo() )
+            if( checkpointId != null )
             {
-                if( csx.getCheckpoint().getId().equals( checkpointId ) )
+                comment.setCommentedBy( currUserObj );
+                comment.setVisibleToStudent( true );
+
+                CheckpointInfo cinfo = null;
+                for( CheckpointInfo csx : currUserObj.getCheckpointsInfo() )
                 {
-                    cinfo = csx;
+                    if( csx.getCheckpoint().getId().equals( checkpointId ) )
+                    {
+                        cinfo = csx;
+                    }
                 }
-            }
 
-            if( cinfo == null )
-            {
-                Checkpoint c = checkpointDao.getCheckPoint( checkpointId );
-                cinfo = new CheckpointInfo();
-                cinfo.setCheckpoint( c );
-            }
-            cinfo.getComments().add( comment );
+                if( cinfo == null )
+                {
+                    Checkpoint c = checkpointDao.getCheckPoint( checkpointId );
+                    cinfo = new CheckpointInfo();
+                    cinfo.setCheckpoint( c );
+                }
+                cinfo.getComments().add( comment );
 
-            currUserObj.getCheckpointsInfo().add( cinfo );
-            userDao.saveUser( currUserObj );
+                currUserObj.getCheckpointsInfo().add( cinfo );
+                userDao.saveUser( currUserObj );
+            }
         }
         return "redirect:/api/plan/milestone/add-comment.html?userId=" + userId
             + "&checkpointId=" + checkpointId + "&planId=" + planId;
