@@ -55,7 +55,7 @@
 											</tr>
 											<tr>
 												<td colspan="3" align="right">
-												<input type="hidden" name="checkpointId" value="${checkpointId}" />
+												<input type="hidden" name="userId" value="${userId}" />
 												<input type="hidden" name="checkpointId" value="${checkpointId}" />
 												<input type="submit" value="Save Comment" class="btn btn-primary override" />
 												</td>
