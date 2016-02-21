@@ -65,7 +65,7 @@
 														${checkpoint.name} </span></td>
 												<td class="plan_controls"><span> <!-- <i class="fa fa-comments-o "></i> -->
 														<a
-														href="<c:url value="/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${currUserObj.id }"/>">
+														href="<c:url value="/api/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${currUserObj.id }"/>">
 															<i class="fa fa-comments-o "></i>
 													</a></span></td>
 											</tr>
