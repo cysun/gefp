@@ -451,7 +451,7 @@ public class DepartmentRestService {
             out.print( repsonse );
         }
         else {
-            String repsonse = "{error: true}";
+            String repsonse = "{\"errorcode\": true}";
             response.setContentType( "text/plain" );
             out.print( repsonse );
         }
