@@ -29,15 +29,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "users")
 public class User implements Serializable, UserDetails {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(unique = true, nullable = true)
+    private String username;
+    
+    @Column(name = "first_name", nullable = true)
+    private String firstName;
+    
+    @Column(name = "last_name", nullable = true)
+    private String lastName;
 
     @JsonIgnore
     @OneToMany
@@ -45,19 +53,10 @@ public class User implements Serializable, UserDetails {
         joinColumns = { @JoinColumn(name = "user_id") },
         inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<Role> roles;
-
-    @Column(name = "last_name", nullable = true)
-    private String lastName;
-
-    @Column(name = "first_name", nullable = true)
-    private String firstName;
-
+    
     @Column(name = "middle_name")
     private String middleName = "";
-
-    @Column(unique = true, nullable = true)
-    private String username;
-
+    
     private String cin;
 
     private String email;
