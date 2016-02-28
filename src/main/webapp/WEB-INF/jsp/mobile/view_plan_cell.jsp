@@ -21,7 +21,7 @@
 			<div id="page-inner">
 				<div class="row">
 					<div class="col-md-12">
-						<input type="hidden" id="accessKey" value="" />
+						<input type="hidden" id="accessKey" value="${currUserObj.accessKey}" />
 						<c:choose>
 							<c:when test="${not empty cell }">
 								<table id="${cell.id}"
