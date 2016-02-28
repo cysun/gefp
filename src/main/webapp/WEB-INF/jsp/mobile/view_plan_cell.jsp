@@ -21,6 +21,7 @@
 			<div id="page-inner">
 				<div class="row">
 					<div class="col-md-12">
+						<input type="hidden" id="accessKey" value="" />
 						<c:choose>
 							<c:when test="${not empty cell }">
 								<table id="${cell.id}"
