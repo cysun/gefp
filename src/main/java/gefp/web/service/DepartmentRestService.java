@@ -450,6 +450,11 @@ public class DepartmentRestService {
             response.setContentType( "text/plain" );
             out.print( repsonse );
         }
+        else {
+            String repsonse = "{error: true}";
+            response.setContentType( "text/plain" );
+            out.print( repsonse );
+        }
     }
 
     @RequestMapping(value = "/api/plan/milestone/add-comment.html",
