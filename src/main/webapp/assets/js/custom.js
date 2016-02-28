@@ -114,6 +114,7 @@ function ShowStudentsPlan(studentid) {
 					data : {
 						message : "",
 						userId : $(curr).attr("data-userId"),
+						accessKey : $("#accessKey").val(),
 						id : $(curr).val(),
 						checked : checked
 					},
