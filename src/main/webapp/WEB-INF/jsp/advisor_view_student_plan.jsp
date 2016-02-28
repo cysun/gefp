@@ -161,7 +161,16 @@
 										</tr>
 
 										<tr>
-											<td colspan="4" align="right"><input type="hidden"
+											<td colspan="2">
+												<select class="form-control" name="role"
+												id="roleInp">
+													<option value="">Select User Role</option>
+													<option value="ADMIN">ADMIN</option>
+													<option value="ADVISOR">ADVISOR</option>
+													<option value="STUDENT">STUDENT</option>
+												</select>
+											</td>
+											<td colspan="2" align="right"><input type="hidden"
 												name="" value="${currUserObj.id}" id="userId" />
 												<button id="SaveInformation" type="button"
 													class="btn override btn-info" value="">
