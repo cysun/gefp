@@ -27,11 +27,11 @@
 						<c:choose>
 							<c:when test="${not empty cell }">
 								<table id="${cell.id}"
-									class="checkpoint_list list table_responsive milestone_list_table mobile">
+									class="checkpoint_list list table_responsive">
 									<c:forEach items="${cell.checkpoints}" var="checkpoint">
 										<c:if test="${not empty checkpoint}">
 											<tr>
-												<td id="${checkpoint.id}" class="list first"><c:set
+												<td id="${checkpoint.id}" class="list first col-md-2"><c:set
 														var="userCheckedPoint" value="0" /> <c:set
 														var="checkMessage" value="" /> <c:forEach
 														items="${currUserObj.checkpointsInfo}" var="userChkInfo">
@@ -66,9 +66,9 @@
 															<label for="checkpoints"></label>
 														</c:otherwise>
 													</c:choose></td>
-												<td><span class="checkpoint_information pull-left">
+												<td class="col-md-8"><span class="checkpoint_information pull-left">
 														${checkpoint.name} </span></td>
-												<td class="plan_controls"><span> <!-- <i class="fa fa-comments-o "></i> -->
+												<td class="col-md-2 plan_controls"><span> <!-- <i class="fa fa-comments-o "></i> -->
 														<a
 														href="<c:url value="/api/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${currUserObj.id }&accessKey=${currUserObj.accessKey}"/>">
 															<i class="fa fa-comments-o" style="font-size: 30px;"></i>
