@@ -47,7 +47,7 @@
 															<input checked type="checkbox" name="checkpoints"
 																data-userId="${currUserObj.id}" value="${checkpoint.id}"
 																class="flightplan_checkpoints_mobile pull-left iphoneCheckbox" />
-																<!-- <label for="checkpoints"></label> -->
+																<label for="checkpoints"></label>
 
 															<c:if test="${not empty checkMessage }">
 																<!-- <i class="fa fa-comments-o "></i> -->
@@ -61,7 +61,7 @@
 															<input type="checkbox" name="checkpoints"
 																data-userId="${currUserObj.id}" value="${checkpoint.id}"
 																class="flightplan_checkpoints_mobile pull-left iphoneCheckbox" />
-																<!-- <label for="checkpoints"></label> -->
+																<label for="checkpoints"></label>
 														</c:otherwise>
 													</c:choose></td>
 												<td><span class="checkpoint_information pull-left">
