@@ -67,7 +67,7 @@
 												<td class="plan_controls"><span> <!-- <i class="fa fa-comments-o "></i> -->
 														<a
 														href="<c:url value="/api/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${currUserObj.id }&accessKey=${currUserObj.accessKey}"/>">
-															<i class="fa fa-comments-o "></i>
+															<i class="fa fa-comments-o" style="font-size:30px;"></i>
 													</a></span></td>
 											</tr>
 										</c:if>
