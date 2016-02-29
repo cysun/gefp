@@ -25,7 +25,7 @@
 						<c:choose>
 							<c:when test="${not empty cell }">
 								<table id="${cell.id}"
-									class="checkpoint_list list milestone_list_table">
+									class="checkpoint_list list milestone_list_table mobile">
 									<c:forEach items="${cell.checkpoints}" var="checkpoint">
 										<c:if test="${not empty checkpoint}">
 											<tr>
