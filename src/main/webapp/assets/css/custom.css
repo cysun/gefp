@@ -871,6 +871,10 @@ a.override.label-primary:hover {
 	margin:0px !important;
 }
 
+.milestone_list_table.mobile tr td p {
+	font-size:24px !important;
+}
+
 .milestone_list_table tr td.plan_controls {
 	text-align: right;
 	width:50px !important;
