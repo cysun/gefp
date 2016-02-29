@@ -860,7 +860,7 @@ a.override.label-primary:hover {
 	line-height: 36px;
 }
 
-.milestone_list_table tr td.first {
+.milestone_list_table.mobile tr td.first {
 	width:60px;
 }
 
