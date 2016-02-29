@@ -856,7 +856,7 @@ a.override.label-primary:hover {
 }
 
 .milestone_list_table.mobile tr td {
-	height: 40px;
+	height: 48px;
 }
 
 .milestone_list_table tr td.first {
@@ -864,7 +864,7 @@ a.override.label-primary:hover {
 }
 
 .milestone_list_table.mobile tr td.first {
-	width:50px;
+	width:70px;
 }
 
 .milestone_list_table tr td p {
