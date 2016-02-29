@@ -867,3 +867,11 @@ a.override.label-primary:hover {
 	text-align: right;
 	width:50px !important;
 }
+
+.milestone_mobile_box {
+	-ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+}
