@@ -872,7 +872,8 @@ a.override.label-primary:hover {
 }
 
 .milestone_list_table.mobile tr td p {
-	font-size:24px !important;
+	font-size:30px !important;
+	line-height:36px !important;
 }
 
 .milestone_list_table tr td.plan_controls {
