@@ -864,7 +864,7 @@ a.override.label-primary:hover {
 }
 
 .milestone_list_table.mobile tr td.first {
-	width:40px;
+	width:50px;
 }
 
 .milestone_list_table tr td p {
@@ -881,9 +881,9 @@ a.override.label-primary:hover {
 }
 
 .milestone_mobile_box {
-  -ms-transform: scale(2) !important; /* IE */
-  -moz-transform: scale(2) !important; /* FF */
-  -webkit-transform: scale(2) !important; /* Safari and Chrome */
-  -o-transform: scale(2)  !important; /* Opera */
+  -ms-transform: scale(3) !important; /* IE */
+  -moz-transform: scale(3) !important; /* FF */
+  -webkit-transform: scale(3) !important; /* Safari and Chrome */
+  -o-transform: scale(3) !important; /* Opera */
   padding: 30px !important;
 }
