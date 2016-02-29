@@ -13,7 +13,7 @@
 <jsp:include page="../includes/styles.jsp" />
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" href="<c:url value="/assets/js/switchery.css" />">
+<link rel="stylesheet" href="<c:url value="/assets/css/switchery.css" />">
 </head>
 <body>
 	<div id="wrapper">
