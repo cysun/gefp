@@ -46,7 +46,7 @@
 
 															<input checked type="checkbox" name="checkpoints"
 																data-userId="${currUserObj.id}" value="${checkpoint.id}"
-																class="flightplan_checkpoints_mobile pull-left iphoneCheckboxSwitch" />
+																class="flightplan_checkpoints_mobile pull-left iphoneCheckbox" />
 																<!-- <label for="checkpoints"></label> -->
 
 															<c:if test="${not empty checkMessage }">
@@ -60,7 +60,7 @@
 														<c:otherwise>
 															<input type="checkbox" name="checkpoints"
 																data-userId="${currUserObj.id}" value="${checkpoint.id}"
-																class="flightplan_checkpoints_mobile pull-left iphoneCheckboxSwitch" />
+																class="flightplan_checkpoints_mobile pull-left iphoneCheckbox" />
 																<!-- <label for="checkpoints"></label> -->
 														</c:otherwise>
 													</c:choose></td>
@@ -98,7 +98,8 @@
 	<script src="<c:url value="/assets/js/custom.js" />"></script>
 
 <script>
-$(".iphoneCheckboxSwitch").bootstrapSwitch({
+<%--
+/* $(".iphoneCheckboxSwitch").bootstrapSwitch({
     on: '', // default 'On'
     off: '', // default 'Off'
     onLabel: '', //default ''
@@ -107,7 +108,8 @@ $(".iphoneCheckboxSwitch").bootstrapSwitch({
     size: 'lg', // xs/sm/md/lg, default 'md'
     onClass: 'success', //success/primary/danger/warning/default, default 'primary'
     offClass: 'default', //success/primary/danger/warning/default default 'default'
-});
+}); */
+--%>
 </script>
 </body>
 </html>
