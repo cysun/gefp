@@ -105,7 +105,7 @@ $(".iphoneCheckboxSwitch").bootstrapSwitch({
     offLabel: '', //default ''
     same: false, // default false. same text for on/off and onLabel/offLabel
     size: 'lg', // xs/sm/md/lg, default 'md'
-    onClass: 'primary', //success/primary/danger/warning/default, default 'primary'
+    onClass: 'success', //success/primary/danger/warning/default, default 'primary'
     offClass: 'default', //success/primary/danger/warning/default default 'default'
 });
 </script>
