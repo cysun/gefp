@@ -46,8 +46,8 @@
 
 															<input checked type="checkbox" name="checkpoints"
 																data-userId="${currUserObj.id}" value="${checkpoint.id}"
-																class="flightplan_checkpoints_mobile pull-left iphoneCheckbox" />
-																<label for="checkpoints"></label>
+																class="flightplan_checkpoints_mobile pull-left iphoneCheckboxSwitch" />
+																<!-- <label for="checkpoints"></label> -->
 
 															<c:if test="${not empty checkMessage }">
 																<!-- <i class="fa fa-comments-o "></i> -->
@@ -60,8 +60,8 @@
 														<c:otherwise>
 															<input type="checkbox" name="checkpoints"
 																data-userId="${currUserObj.id}" value="${checkpoint.id}"
-																class="flightplan_checkpoints_mobile pull-left iphoneCheckbox" />
-																<label for="checkpoints"></label>
+																class="flightplan_checkpoints_mobile pull-left iphoneCheckboxSwitch" />
+																<!-- <label for="checkpoints"></label> -->
 														</c:otherwise>
 													</c:choose></td>
 												<td><span class="checkpoint_information pull-left">
@@ -94,7 +94,20 @@
 
 	<!-- BOOTSTRAP SCRIPTS -->
 	<script src="<c:url value="/assets/js/bootstrap.min.js" />"></script>
+	<script src="<c:url value="/assets/js/jquery.bootstrap-switch.js" />"></script>
 	<script src="<c:url value="/assets/js/custom.js" />"></script>
 
+<script>
+$(".iphoneCheckboxSwitch").bootstrapSwitch({
+    on: 'On', // default 'On'
+    off: 'Off', // default 'Off'
+    onLabel: 'closed', //default ''
+    offLabel: 'open', //default ''
+    same: false, // default false. same text for on/off and onLabel/offLabel
+    size: 'lg', // xs/sm/md/lg, default 'md'
+    onClass: 'primary', //success/primary/danger/warning/default, default 'primary'
+    offClass: 'default', //success/primary/danger/warning/default default 'default'
+});
+</script>
 </body>
 </html>
