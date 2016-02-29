@@ -855,8 +855,16 @@ a.override.label-primary:hover {
 	vertical-align: top;
 }
 
+.milestone_list_table.mobile tr td {
+	height: 40px;
+}
+
 .milestone_list_table tr td.first {
 	width:20px;
+}
+
+.milestone_list_table.mobile tr td.first {
+	width:40px;
 }
 
 .milestone_list_table tr td p {
