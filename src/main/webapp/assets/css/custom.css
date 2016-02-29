@@ -855,14 +855,14 @@ a.override.label-primary:hover {
 	vertical-align: top;
 }
 
-.milestone_list_table.mobile tr td {
+.milestone_list_table_mobile tr td {
 	padding:0 0 10px 0;
 }
 
-.milestone_list_table.mobile tr td.first {
+.milestone_list_table_mobile tr td.first {
 }
 
-.milestone_list_table.mobile tr td p {
+.milestone_list_table_mobile tr td p {
 	margin:0px !important;
 	line-height:36px;
 }
