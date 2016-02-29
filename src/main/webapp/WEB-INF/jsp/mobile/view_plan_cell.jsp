@@ -99,10 +99,10 @@
 
 <script>
 $(".iphoneCheckboxSwitch").bootstrapSwitch({
-    on: 'On', // default 'On'
-    off: 'Off', // default 'Off'
-    onLabel: 'closed', //default ''
-    offLabel: 'open', //default ''
+    on: '', // default 'On'
+    off: '', // default 'Off'
+    onLabel: '', //default ''
+    offLabel: '', //default ''
     same: false, // default false. same text for on/off and onLabel/offLabel
     size: 'lg', // xs/sm/md/lg, default 'md'
     onClass: 'primary', //success/primary/danger/warning/default, default 'primary'
