@@ -13,6 +13,7 @@
 <jsp:include page="../includes/styles.jsp" />
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="<c:url value="/assets/js/switchery.css" />">
 </head>
 <body>
 	<div id="wrapper">
@@ -21,7 +22,8 @@
 			<div id="page-inner">
 				<div class="row">
 					<div class="col-md-12">
-						<input type="hidden" id="accessKey" value="${currUserObj.accessKey}" />
+						<input type="hidden" id="accessKey"
+							value="${currUserObj.accessKey}" />
 						<c:choose>
 							<c:when test="${not empty cell }">
 								<table id="${cell.id}"
@@ -46,8 +48,8 @@
 
 															<input checked type="checkbox" name="checkpoints"
 																data-userId="${currUserObj.id}" value="${checkpoint.id}"
-																class="flightplan_checkpoints_mobile pull-left iphoneCheckbox" />
-																<label for="checkpoints"></label>
+																class="flightplan_checkpoints_mobile pull-left js-switch" />
+															<label for="checkpoints"></label>
 
 															<c:if test="${not empty checkMessage }">
 																<!-- <i class="fa fa-comments-o "></i> -->
@@ -60,8 +62,8 @@
 														<c:otherwise>
 															<input type="checkbox" name="checkpoints"
 																data-userId="${currUserObj.id}" value="${checkpoint.id}"
-																class="flightplan_checkpoints_mobile pull-left iphoneCheckbox" />
-																<label for="checkpoints"></label>
+																class="flightplan_checkpoints_mobile pull-left js-switch" />
+															<label for="checkpoints"></label>
 														</c:otherwise>
 													</c:choose></td>
 												<td><span class="checkpoint_information pull-left">
@@ -69,7 +71,7 @@
 												<td class="plan_controls"><span> <!-- <i class="fa fa-comments-o "></i> -->
 														<a
 														href="<c:url value="/api/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${currUserObj.id }&accessKey=${currUserObj.accessKey}"/>">
-															<i class="fa fa-comments-o" style="font-size:30px;"></i>
+															<i class="fa fa-comments-o" style="font-size: 30px;"></i>
 													</a></span></td>
 											</tr>
 										</c:if>
@@ -94,11 +96,18 @@
 
 	<!-- BOOTSTRAP SCRIPTS -->
 	<script src="<c:url value="/assets/js/bootstrap.min.js" />"></script>
-	<script src="<c:url value="/assets/js/jquery.bootstrap-switch.js" />"></script>
+	<script src="<c:url value="/assets/js/switchery.js" />"></script>
 	<script src="<c:url value="/assets/js/custom.js" />"></script>
 
-<script>
-<%--
+	<script>
+
+	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+	elems.forEach(function(html) {
+	  var switchery = new Switchery(html);
+	});
+		
+	<%--
 /* $(".iphoneCheckboxSwitch").bootstrapSwitch({
     on: '', // default 'On'
     off: '', // default 'Off'
@@ -110,6 +119,7 @@
     offClass: 'default', //success/primary/danger/warning/default default 'default'
 }); */
 --%>
-</script>
+		
+	</script>
 </body>
 </html>
