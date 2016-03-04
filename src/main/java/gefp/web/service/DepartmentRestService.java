@@ -206,7 +206,7 @@ public class DepartmentRestService {
         @RequestParam String accessKey, @RequestParam String firstName,
         @RequestParam(required = false ) String middleName,
         @RequestParam String lastName, @RequestParam String email,
-        @RequestParam String cin,
+        @RequestParam(required = false ) String cin,
         @RequestParam(required = false) Integer dept_id, ModelMap models)
     {
 
