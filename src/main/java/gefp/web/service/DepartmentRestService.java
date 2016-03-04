@@ -212,6 +212,8 @@ public class DepartmentRestService {
 
         if( userDao.validateAccessKey( accessKey, user_id ) )
         {
+            if(middleName == null)
+                middleName = "";
             User user = userDao.getApiUser( user_id );
             user.setFirstName( firstName );
             user.setMiddleName( middleName );
