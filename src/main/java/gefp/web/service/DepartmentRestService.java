@@ -144,6 +144,9 @@ public class DepartmentRestService {
                         user.setUsername( username );
                         user.setPassword( "" );
                         user.setFirstName( firstName );
+                        user.setMiddleName( "" );
+                        user.setLastName( "" );
+                        user.setCin( "" );
                         user.setEmail( emailId );
                         user.setRoles( roles );
                         user.setEnabled( true );
