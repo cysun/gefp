@@ -104,15 +104,8 @@ function ShowStudentsPlan(studentid) {
 		});
 		
 		
-		var changeCheckbox = document.querySelector('.flightplan_checkpoints_mobile');
-		
-		changeCheckbox.onchange = function() {
-			  console.log(changeCheckbox.checked);
-			};
-		
-		
 		$(".flightplan_checkpoints_mobile").on('change', function(e) {
-			console.log("Perfectly clicked", changeCheckbox.checked);
+			//console.log("Perfectly clicked", changeCheckbox.checked);
 			var curr = this;
 			var checked = curr.checked;
 			
