@@ -38,18 +38,21 @@ public class User implements Serializable, UserDetails {
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true, nullable = true)
-    private String username = "";
+    @Column(unique = true, nullable = false)
+    private String username;
     
     @Column(name = "first_name", nullable = true)
-    private String firstName = "";
+    private String firstName;
     
     @Column(name = "last_name", nullable = true)
-    private String lastName = "";
+    private String lastName;
 
     @Column(name = "middle_name", nullable = true)
-    private String middleName = "";
+    private String middleName;
 
+    private String cin;
+
+    private String email;
     
     @JsonIgnore
     @OneToMany
@@ -57,10 +60,6 @@ public class User implements Serializable, UserDetails {
         joinColumns = { @JoinColumn(name = "user_id") },
         inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<Role> roles;
-        
-    private String cin = "";
-
-    private String email = "";
 
     @JsonIgnore
     private String password;
