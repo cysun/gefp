@@ -209,14 +209,13 @@ public class DepartmentRestService {
         @RequestParam String accessKey, @RequestParam String firstName,
         @RequestParam(required = false ) String middleName,
         @RequestParam String lastName, @RequestParam String email,
-        @RequestParam(required = false ) String cin,
+        @RequestParam(required = false) String cin,
         @RequestParam(required = false) Integer dept_id, ModelMap models)
     {
 
         if( userDao.validateAccessKey( accessKey, user_id ) )
         {
-            if(middleName == null)
-                middleName = "";
+            if( middleName == null ) middleName = "";
             User user = userDao.getApiUser( user_id );
             user.setFirstName( firstName );
             user.setMiddleName( middleName );
@@ -322,48 +321,35 @@ public class DepartmentRestService {
         return "jsonView";
     }
 
-    @RequestMapping(value = "/api/changemilestone.html",
-        method = RequestMethod.POST)
-    public String saveStudentCheckpoint( @RequestParam Long user_id,
-        @RequestParam Long checkpoint_id, @RequestParam String checked,
-        @RequestParam(required = false ) String message, ModelMap models)
-    {
-
-        User currUserObj = userDao.getApiUser( user_id );
-
-        String repsonse = "{data:" + checkpoint_id + ", status:" + checked
-            + "}";
-
-        if( checkpoint_id != null && checked != "" )
-        {
-
-            Checkpoint c = checkpointDao.getCheckPoint( checkpoint_id );
-
-            if( checked.equals( "true" ) )
-            {
-                CheckpointInfo cinfo = new CheckpointInfo( c, message );
-                currUserObj.getCheckpointsInfo().add( cinfo );
-                logger.info( "User " + currUserObj.getUsername()
-                    + " checked a Milestone (ID: " + checkpoint_id + " ) " );
-            }
-            else
-            {
-                Set<CheckpointInfo> newCheckpoints = new HashSet<CheckpointInfo>();
-                for( CheckpointInfo cp : currUserObj.getCheckpointsInfo() )
-                {
-                    if( !cp.getCheckpoint().getId().equals( checkpoint_id ) )
-                    {
-                        newCheckpoints.add( cp );
-                    }
-                }
-                currUserObj.setCheckpointsInfo( newCheckpoints );
-                logger.info( "User " + currUserObj.getUsername()
-                    + " Unchecked a Milestone (ID: " + checkpoint_id + " ) " );
-            }
-            userDao.saveUser( currUserObj );
-        }
-        return repsonse;
-    }
+    /*
+     * @RequestMapping(value = "/api/changemilestone.html", method =
+     * RequestMethod.POST) public String saveStudentCheckpoint( @RequestParam
+     * Long user_id,
+     * 
+     * @RequestParam Long checkpoint_id, @RequestParam String checked,
+     * 
+     * @RequestParam(required = false ) String message, ModelMap models) {
+     * 
+     * User currUserObj = userDao.getApiUser( user_id );
+     * 
+     * String repsonse = "{data:" + checkpoint_id + ", status:" + checked + "}";
+     * 
+     * if( checkpoint_id != null && checked != "" ) {
+     * 
+     * Checkpoint c = checkpointDao.getCheckPoint( checkpoint_id );
+     * 
+     * if( checked.equals( "true" ) ) { CheckpointInfo cinfo = new
+     * CheckpointInfo( c, message ); currUserObj.getCheckpointsInfo().add( cinfo
+     * ); logger.info( "User " + currUserObj.getUsername() +
+     * " checked a Milestone (ID: " + checkpoint_id + " ) " ); } else {
+     * Set<CheckpointInfo> newCheckpoints = new HashSet<CheckpointInfo>(); for(
+     * CheckpointInfo cp : currUserObj.getCheckpointsInfo() ) { if(
+     * !cp.getCheckpoint().getId().equals( checkpoint_id ) ) {
+     * newCheckpoints.add( cp ); } } currUserObj.setCheckpointsInfo(
+     * newCheckpoints ); logger.info( "User " + currUserObj.getUsername() +
+     * " Unchecked a Milestone (ID: " + checkpoint_id + " ) " ); }
+     * userDao.saveUser( currUserObj ); } return repsonse; }
+     */
 
     public boolean isSystemAccount( String username, String password )
     {
@@ -419,8 +405,14 @@ public class DepartmentRestService {
         PrintWriter out )
     {
 
+        logger.info( "Mobile API request to update checkpoint: data {userId:" + userId
+            + ", accessKey:" + accessKey + "}" );
+
         if( userDao.validateAccessKey( accessKey, userId ) )
         {
+            
+            logger.info( "Access Key is validated for userId:"+userId );
+            
             User currUserObj = userDao.getApiUser( userId );
 
             Long id = Long.parseLong( request.getParameter( "id" ) );
@@ -452,10 +444,13 @@ public class DepartmentRestService {
                 }
                 userDao.saveUser( currUserObj );
             }
+            logger.info( "Checkpoint saved for userId:"+userId );
             response.setContentType( "text/plain" );
             out.print( repsonse );
         }
-        else {
+        else
+        {
+            logger.info( "Error for saving checkpoint for userId:"+userId );
             String repsonse = "{\"errorcode\": true}";
             response.setContentType( "text/plain" );
             out.print( repsonse );
@@ -498,15 +493,15 @@ public class DepartmentRestService {
 
     @RequestMapping(value = "/api/plan/milestone/add-comment.html",
         method = RequestMethod.POST)
-    public String saveStudentCheckpointComment(
-        @RequestParam String accessKey,
+    public String saveStudentCheckpointComment( @RequestParam String accessKey,
         @ModelAttribute("comment" ) Comment comment, ModelMap models,
         HttpServletRequest request, HttpServletResponse response,
         PrintWriter out, @RequestParam Long userId, @RequestParam Long planId,
         @RequestParam Long checkpointId)
     {
-        
-        if(userDao.validateAccessKey( accessKey, userId )) {
+
+        if( userDao.validateAccessKey( accessKey, userId ) )
+        {
             User loginUser = userDao.getApiUser( userId );
             User currUserObj = userDao.getApiUser( userId );
 
@@ -537,7 +532,8 @@ public class DepartmentRestService {
             }
         }
         return "redirect:/api/plan/milestone/add-comment.html?userId=" + userId
-            + "&checkpointId=" + checkpointId + "&planId=" + planId+"&accessKey="+accessKey;
+            + "&checkpointId=" + checkpointId + "&planId=" + planId
+            + "&accessKey=" + accessKey;
     }
 
 }
