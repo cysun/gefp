@@ -58,9 +58,9 @@ public class User implements Serializable, UserDetails {
         inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<Role> roles;
         
-    private String cin;
+    private String cin = "";
 
-    private String email;
+    private String email = "";
 
     @JsonIgnore
     private String password;
