@@ -54,7 +54,7 @@ function ShowStudentsPlan(studentid) {
 			smoke.alert($(this).attr("data-comment"));
 		});
 
-		$(".flightplan_checkpoints").on('touchstart click', function(e) {
+		$(".flightplan_checkpoints").on('click', function(e) {
 
 			var curr = this;
 			var checked = curr.checked;
@@ -103,8 +103,16 @@ function ShowStudentsPlan(studentid) {
 			// + this.checked );
 		});
 		
-		$(".flightplan_checkpoints_mobile").on('touchstart click', function(e) {
-
+		
+		var changeCheckbox = document.querySelector('.flightplan_checkpoints_mobile');
+		
+		changeCheckbox.onchange = function() {
+			  console.log(changeCheckbox.checked);
+			};
+		
+		
+		$(".flightplan_checkpoints_mobile").on('change', function(e) {
+			console.log("Perfectly clicked", changeCheckbox.checked);
 			var curr = this;
 			var checked = curr.checked;
 			
