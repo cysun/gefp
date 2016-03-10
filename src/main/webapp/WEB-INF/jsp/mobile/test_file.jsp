@@ -24,20 +24,7 @@
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="<c:url value="/assets/js/bootstrap.min.js" />"></script>
 <script src="<c:url value="/assets/js/switchery.js" />"></script>
-<%-- <script src="<c:url value="/assets/js/custom.js" />"></script> --%>
-
-<script>
-$(document).ready(function(){
-	$(".flightplan_checkpoints_mobile").on('change', function(e) {
-		//console.log("Perfectly clicked", changeCheckbox.checked);
-		var curr = this;
-		var checked = curr.checked;
-		
-		alert("Switch clicked" + checked);
-	});
-});
-
-</script>
+<script src="<c:url value="/assets/js/custom_mobile.js" />"></script>
 
 <script>
 
