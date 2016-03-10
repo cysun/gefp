@@ -19,10 +19,12 @@
 <input type="checkbox" class="js-switch flightplan_checkpoints_mobile" checked />
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 
 <!-- BOOTSTRAP SCRIPTS -->
 <script src="<c:url value="/assets/js/bootstrap.min.js" />"></script>
 <script src="<c:url value="/assets/js/switchery.js" />"></script>
+<%-- <script src="<c:url value="/assets/js/custom.js" />"></script> --%>
 
 <script>
 $(document).ready(function(){
