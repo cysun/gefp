@@ -26,6 +26,10 @@
 			<div id="page-inner">
 
 				<div class="row">
+					<a class="link" href="/gefp/api/mobile-user-plan.html?user_id=${userId}&stage_id=${stageId}&runway_id=${runwayId}&accessKey=${accessKey}">&laquo; Back</a>
+				</div>
+				
+				<div class="row">
 									
 									<form:form action="" modelAttribute="comment" method="post">
 									<table id="sortable"

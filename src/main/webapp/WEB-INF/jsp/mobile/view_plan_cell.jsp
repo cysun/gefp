@@ -70,7 +70,7 @@
 														${checkpoint.name} </span></td>
 												<td class="col-md-1 plan_controls"><span> <!-- <i class="fa fa-comments-o "></i> -->
 														<a
-														href="<c:url value="/api/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${currUserObj.id }&accessKey=${currUserObj.accessKey}"/>">
+														href="<c:url value="/api/plan/milestone/add-comment.html?planId=${plan.id}&checkpointId=${checkpoint.id}&userId=${currUserObj.id}&runwayId=${runway_id}&stageId=${stage_id}&accessKey=${currUserObj.accessKey}"/>">
 															<i class="fa fa-comments-o" style="font-size: 30px;"></i>
 													</a></span></td>
 											</tr>

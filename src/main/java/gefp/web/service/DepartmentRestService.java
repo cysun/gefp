@@ -460,6 +460,7 @@ public class DepartmentRestService {
     @RequestMapping(value = "/api/plan/milestone/add-comment.html",
         method = RequestMethod.GET)
     public String addMilestoneComment( @RequestParam String accessKey,
+        @RequestParam Long runwayId, @RequestParam Long stageId,
         @RequestParam Long planId, @RequestParam Long checkpointId,
         @RequestParam Long userId, ModelMap models )
     {
@@ -481,6 +482,9 @@ public class DepartmentRestService {
             models.put( "plan", plan );
             models.put( "checkpoint", checkpoint );
             models.put( "userId", userId );
+            models.put( "runwayId", runwayId );
+            models.put( "stageId", stageId );
+            models.put( "accessKey", accessKey );
             models.put( "comments", cinfo.getComments() );
             // return "add_milestone_comment";
             return "mobile/comments_page";
