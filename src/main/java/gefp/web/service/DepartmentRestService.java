@@ -499,6 +499,7 @@ public class DepartmentRestService {
         method = RequestMethod.POST)
     public String saveStudentCheckpointComment( @RequestParam String accessKey,
         @ModelAttribute("comment" ) Comment comment, ModelMap models,
+        @RequestParam Long runwayId, @RequestParam Long stageId,
         HttpServletRequest request, HttpServletResponse response,
         PrintWriter out, @RequestParam Long userId, @RequestParam Long planId,
         @RequestParam Long checkpointId)
@@ -537,6 +538,7 @@ public class DepartmentRestService {
         }
         return "redirect:/api/plan/milestone/add-comment.html?userId=" + userId
             + "&checkpointId=" + checkpointId + "&planId=" + planId
+            + "&runwayId=" + runwayId + "&stageId=" + stageId
             + "&accessKey=" + accessKey;
     }
 
