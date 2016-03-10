@@ -1,0 +1,46 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<input type="checkbox" class="js-switch flightplan_checkpoints_mobile" checked />
+
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="<c:url value="/assets/js/switchery.js" />"></script>
+
+<script>
+
+	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+	elems.forEach(function(html) {
+	  // var switchery = new Switchery(html, { size: 'small' });
+		var switchery = new Switchery(html);
+	});
+	
+	$(document).ready(function(){
+		
+		$(".flightplan_checkpoints_mobile").on('change', function(e) {
+			//console.log("Perfectly clicked", changeCheckbox.checked);
+			var curr = this;
+			var checked = curr.checked;
+			
+			alert("Switch clicked:" + checked);
+		});
+		
+	});
+	
+	
+	
+	</script>
+
+
+
+</body>
+</html>
