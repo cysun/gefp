@@ -97,30 +97,16 @@
 	<!-- BOOTSTRAP SCRIPTS -->
 	<script src="<c:url value="/assets/js/bootstrap.min.js" />"></script>
 	<script src="<c:url value="/assets/js/switchery.js" />"></script>
-	<script src="<c:url value="/assets/js/custom.js" />"></script>
 
 	<script>
-
 	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
 	elems.forEach(function(html) {
 	  // var switchery = new Switchery(html, { size: 'small' });
 		var switchery = new Switchery(html);
-	});
-		
-	<%--
-/* $(".iphoneCheckboxSwitch").bootstrapSwitch({
-    on: '', // default 'On'
-    off: '', // default 'Off'
-    onLabel: '', //default ''
-    offLabel: '', //default ''
-    same: false, // default false. same text for on/off and onLabel/offLabel
-    size: 'lg', // xs/sm/md/lg, default 'md'
-    onClass: 'success', //success/primary/danger/warning/default, default 'primary'
-    offClass: 'default', //success/primary/danger/warning/default default 'default'
-}); */
---%>
-		
+	});		
 	</script>
+	
+	<script src="<c:url value="/assets/js/custom.js" />"></script>
 </body>
 </html>
