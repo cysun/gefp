@@ -1,5 +1,27 @@
 package gefp.web.service;
 
+import gefp.model.Cell;
+import gefp.model.Checkpoint;
+import gefp.model.CheckpointInfo;
+import gefp.model.Comment;
+import gefp.model.Department;
+import gefp.model.FlightPlan;
+import gefp.model.Role;
+import gefp.model.Runway;
+import gefp.model.Stage;
+import gefp.model.User;
+import gefp.model.dao.CellDao;
+import gefp.model.dao.CheckpointDao;
+import gefp.model.dao.CheckpointInfoDao;
+import gefp.model.dao.DepartmentDao;
+import gefp.model.dao.FlightPlanDao;
+import gefp.model.dao.RoleDao;
+import gefp.model.dao.RunwayDao;
+import gefp.model.dao.StageDao;
+import gefp.model.dao.UserDao;
+import gefp.security.ActiveDirectory;
+import gefp.util.*;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -26,26 +48,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import gefp.model.Cell;
-import gefp.model.Checkpoint;
-import gefp.model.CheckpointInfo;
-import gefp.model.Comment;
-import gefp.model.Department;
-import gefp.model.FlightPlan;
-import gefp.model.Role;
-import gefp.model.Runway;
-import gefp.model.Stage;
-import gefp.model.User;
-import gefp.model.dao.CellDao;
-import gefp.model.dao.CheckpointDao;
-import gefp.model.dao.CheckpointInfoDao;
-import gefp.model.dao.DepartmentDao;
-import gefp.model.dao.FlightPlanDao;
-import gefp.model.dao.RoleDao;
-import gefp.model.dao.RunwayDao;
-import gefp.model.dao.StageDao;
-import gefp.model.dao.UserDao;
-import gefp.security.ActiveDirectory;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 @Controller
 @SuppressWarnings("unused")
@@ -83,9 +89,14 @@ public class DepartmentRestService {
 
     @RequestMapping(value = "/api/login.html")
     public String login( @RequestParam String username,
-        @RequestParam String password, ModelMap models )
+        @RequestParam String password, ModelMap models ) throws JsonProcessingException
     {
 
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+        mapper.setSerializationInclusion(Include.NON_NULL);
+        mapper.getSerializerProvider().setNullKeySerializer(new MyNullKeySerializer());
+        
         User user = null;
         String domain = "ad.calstatela.edu";
         String choice = "username"; // username | email
@@ -198,9 +209,14 @@ public class DepartmentRestService {
             user = new User();
             user.setValidLogin( false );
         }
-
+        
+        
+        return mapper.writeValueAsString(user);
+        
+        /*
         models.put( "user", user );
         return "jsonView";
+        */
     }
 
     @RequestMapping(value = "/api/updateprofile.html",
