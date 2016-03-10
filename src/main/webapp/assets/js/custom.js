@@ -109,6 +109,8 @@ function ShowStudentsPlan(studentid) {
 			var curr = this;
 			var checked = curr.checked;
 			
+			alert("Switch clicked");
+			
 			if (checked != true) {
 				$.ajax({
 					url : '/gefp/api/plan/saveStudentCheckpoint.html',
