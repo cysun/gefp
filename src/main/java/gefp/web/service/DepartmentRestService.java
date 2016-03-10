@@ -25,8 +25,10 @@ import gefp.util.MyNullKeySerializer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -210,8 +212,10 @@ public class DepartmentRestService {
             user.setValidLogin( false );
         }
         
+        Map<String, User> userJson = new HashMap<String, User>();
+        userJson.put( "user", user );
         
-        out.print(mapper.writeValueAsString(user));
+        out.print(mapper.writeValueAsString(userJson));
         
         /*
         models.put( "user", user );
