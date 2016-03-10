@@ -107,6 +107,6 @@
 	});		
 	</script>
 	
-	<script src="<c:url value="/assets/js/custom.js" />"></script>
+	<script src="<c:url value="/assets/js/custom_mobile.js" />"></script>
 </body>
 </html>
