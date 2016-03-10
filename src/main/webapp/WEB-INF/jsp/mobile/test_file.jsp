@@ -14,7 +14,9 @@
 
 
 <input type="checkbox" class="js-switch flightplan_checkpoints_mobile" checked />
-
+<input type="checkbox" class="js-switch flightplan_checkpoints_mobile" checked />
+<input type="checkbox" class="js-switch flightplan_checkpoints_mobile" checked />
+<input type="checkbox" class="js-switch flightplan_checkpoints_mobile" checked />
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="<c:url value="/assets/js/switchery.js" />"></script>
