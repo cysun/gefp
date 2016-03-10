@@ -20,7 +20,7 @@ import gefp.model.dao.RunwayDao;
 import gefp.model.dao.StageDao;
 import gefp.model.dao.UserDao;
 import gefp.security.ActiveDirectory;
-import gefp.util.*;
+import gefp.util.MyNullKeySerializer;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -88,8 +88,8 @@ public class DepartmentRestService {
     private RoleDao roleDao;
 
     @RequestMapping(value = "/api/login.html")
-    public String login( @RequestParam String username,
-        @RequestParam String password, ModelMap models ) throws JsonProcessingException
+    public void login( @RequestParam String username,
+        @RequestParam String password, ModelMap models, PrintWriter out ) throws JsonProcessingException
     {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -211,7 +211,7 @@ public class DepartmentRestService {
         }
         
         
-        return mapper.writeValueAsString(user);
+        out.print(mapper.writeValueAsString(user));
         
         /*
         models.put( "user", user );
