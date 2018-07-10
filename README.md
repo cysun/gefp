@@ -26,13 +26,10 @@ the supervision of Dr. Chengyu Sun.
 ## References
 
 1. Harsh Gadhia, Chengyu Sun, Emily Allen, and Deborah Won. Golden Eagle Flight
-Plan Online: [A Web-Based Advisement Tool to Facilitate Developmental Advising]
-(https://peer.asee.org/golden-eagle-flight-plan-online-a-web-based-advisement-tool-to-facilitate-developmental-advising.pdf).
+Plan Online: [A Web-Based Advisement Tool to Facilitate Developmental Advising](https://peer.asee.org/golden-eagle-flight-plan-online-a-web-based-advisement-tool-to-facilitate-developmental-advising.pdf).
 In *Proceedings of the 123rd Annual Conference and Exposition of The American
 Society for Engineering Education (ASEE)*, 2016.
-
-2. Deborah Won, Emily Allen, Chengyu Sun, and Harsh Gadhia. [My Golden Eagle
-Flight Plan: A Developmental Advisement Tool]
-(http://fyee.asee.org/FYEE2015/papers/5062.pdf). In *Proceedings of the
-7th Annual First Year Engineering Experience Conference (FYEE'15)*, August,
-2015.
+2. Deborah Won, Emily Allen, Chengyu Sun, and Harsh Gadhia.
+[My Golden Eagle Flight Plan: A Developmental Advisement Tool](http://fyee.asee.org/FYEE2015/papers/5062.pdf).
+In *Proceedings of the 7th Annual First Year Engineering Experience Conference (FYEE'15)*,
+August, 2015.
