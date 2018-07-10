@@ -19,7 +19,6 @@
 package gefp.security;
 
 import gefp.model.User;
-import gefp.model.dao.UserDao;
 
 import java.io.IOException;
 
@@ -37,16 +36,14 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthenticationSuccessHandler extends
-    SavedRequestAwareAuthenticationSuccessHandler {
-    
-    // private static final Logger logger = LoggerFactory.getLogger( LdapAuthenticationHandler.class );
-    
+public class AuthenticationSuccessHandler
+    extends SavedRequestAwareAuthenticationSuccessHandler {
+
+    // private static final Logger logger = LoggerFactory.getLogger(
+    // LdapAuthenticationHandler.class );
+
     @Autowired
     DefaultUrls defaultUrls;
-    
-    @Autowired
-    private UserDao userDao;
 
     @Override
     public void onAuthenticationSuccess( HttpServletRequest request,
@@ -55,32 +52,34 @@ public class AuthenticationSuccessHandler extends
     {
         HttpSession session = request.getSession();
         User user = (User) authentication.getPrincipal();
-        // User user = userDao.getUserByUsername( authentication.getPrincipal().toString() );
+        // User user = userDao.getUserByUsername(
+        // authentication.getPrincipal().toString() );
         // logger.info(user.getUsername() + " signed in.");
 
         logger.info( "Logged in Username is " + user.getUsername() );
 
         RequestCache requestCache = new HttpSessionRequestCache();
-        SavedRequest savedRequest = requestCache.getRequest( request, response );
+        SavedRequest savedRequest = requestCache.getRequest( request,
+            response );
         if( savedRequest != null )
         {
             super.onAuthenticationSuccess( request, response, authentication );
             return;
         }
-        
-        
+
         session.setAttribute( "loggedInUser", user );
         user.setUserTypesInSession( session );
-        
-        if(user.isNewAccount()) {
+
+        if( user.isNewAccount() )
+        {
             getRedirectStrategy().sendRedirect( request, response,
                 "/update-profile.html" );
         }
-        else {
+        else
+        {
             getRedirectStrategy().sendRedirect( request, response,
                 defaultUrls.userHomeUrl( request ) );
         }
-        
-        
+
     }
 }

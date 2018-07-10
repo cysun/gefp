@@ -170,7 +170,7 @@
 															<c:if test="${not empty runway && runway.id != NULL}">
 																<td><span class="add_milestone_btn"> <a
 																		title="Add Milestone"
-																		href="<c:url value="/admin/plan/add-checkpoint.html?planId=${plan.id}&r=${runway.id}&s=${stage.id}" />" /><i
+																		href="<c:url value="/admin/plan/add-checkpoint.html?planId=${plan.id}&r=${runway.id}&s=${stage.id}" />"><i
 																		class="fa fa-plus"></i></a>
 																</span> <c:forEach items="${plan.cells}" var="cell">
 																		<c:if
