@@ -10,3 +10,6 @@
 # build.properties
 build.properties
 
+# deploy script
+deploy.sh
+
